@@ -14,27 +14,147 @@ merchantfix-ai
 
 ## Product definition
 
-MerchantFix.ai helps Shopify merchants diagnose and fix Google Merchant Center product data issues, starting with product identifier problems such as GTIN, MPN, brand, and identifier_exists.
+MerchantFix.ai helps Shopify merchants diagnose and fix Google Merchant Center product data issues, starting with a no-install Shopify URL surface scan and a deeper Shopify CSV diagnostic for product identifier problems such as GTIN, MPN, brand, and identifier_exists.
 
-The first version is intentionally narrow.
+The first versions are intentionally narrow.
 
-The first MVP focuses only on Shopify CSV files and Google Merchant Center identifier issues.
+V0.5 focuses only on a no-install Shopify URL surface scan based on publicly available product data when accessible.
+
+V1 focuses only on Shopify CSV files and Google Merchant Center identifier issues.
 
 ## Initial product promise
 
-Paste your Merchant Center error or upload your Shopify product export. Get a clear diagnosis, exact fixes, and a corrected CSV when possible.
+Check your Shopify store for visible Google Merchant Center product data risks in 60 seconds. Then upload your Shopify product export for deeper identifier diagnosis. Get a clear diagnosis, exact fixes, and a corrected CSV when possible.
 
 ## Mandatory disclaimer
 
 MerchantFix.ai helps diagnose and fix product data issues. Some issues may require manual review. Google approval is not guaranteed.
 
-This disclaimer must appear on all relevant customer-facing pages, reports, payment pages, SEO pages, and Fix Pack outputs.
+MerchantFix.ai surface scan is based on publicly available product data when accessible. It is not a full Google Merchant Center diagnosis. Google approval is not guaranteed.
+
+This disclaimer must appear on all relevant customer-facing pages, URL scan results, reports, payment pages, SEO pages, and Fix Pack outputs.
 
 ## Current version
 
-Current phase: V0 / V1 preparation.
+Current phase: V0 / V0.5 / V1 preparation.
 
-Current build target: V1 diagnostic MVP.
+Current build target: V0.5 no-install Shopify URL surface scan first, then V1 diagnostic MVP.
+
+## V0.5 objective
+
+Build a no-auth, no-database, no-install Shopify URL surface scan that can:
+
+Accept a Shopify store URL.
+
+Normalize the Shopify store URL.
+
+Attempt to fetch publicly available Shopify product data when available.
+
+Handle unavailable, blocked, invalid, or unsupported public product data gracefully.
+
+Detect basic product count.
+
+Detect missing product images.
+
+Detect missing product prices.
+
+Detect weak or very short product titles.
+
+Detect empty or weak product descriptions.
+
+Show a simple surface risk score.
+
+Show a clear disclaimer that this is not a full Google Merchant Center diagnosis.
+
+Invite the user to upload a Shopify CSV for deeper V1 identifier diagnosis.
+
+## V0.5 allowed features
+
+Landing page.
+
+Shopify store URL input.
+
+URL normalization.
+
+Public Shopify product data fetch when available.
+
+Graceful error handling.
+
+Surface-level product scan.
+
+Basic product count.
+
+Missing image detection.
+
+Missing price detection.
+
+Weak or very short title detection.
+
+Empty or weak description detection.
+
+Basic surface risk score.
+
+CTA to upload Shopify CSV for deeper identifier diagnosis.
+
+Mandatory surface scan disclaimer.
+
+## V0.5 forbidden features
+
+Do not add Stripe.
+
+Do not add paid checkout.
+
+Do not add authentication.
+
+Do not add user accounts.
+
+Do not add database.
+
+Do not add Supabase.
+
+Do not add Shopify API.
+
+Do not add Google Merchant Center API.
+
+Do not add OpenAI API.
+
+Do not add AI calls.
+
+Do not add PDF generation.
+
+Do not add ZIP generation.
+
+Do not add subscriptions.
+
+Do not add agency dashboard.
+
+Do not add WooCommerce.
+
+Do not add Prestashop.
+
+Do not add Magento.
+
+Do not add XML parsing.
+
+Do not add Merchant Center monitoring.
+
+Do not add Shopify app.
+
+Do not add Amazon.
+
+Do not add Meta Catalog.
+
+Do not add TikTok Shop.
+
+Do not add automatic CSV correction.
+
+Do not add account suspension recovery.
+
+Do not guarantee Google approval.
+
+Do not claim that the URL scan is a full Merchant Center diagnosis.
+
+Do not claim that detected V0.5 issues are guaranteed Google disapproval causes.
 
 ## V1 objective
 
@@ -180,6 +300,8 @@ Never claim automatic misrepresentation recovery.
 
 Never store sensitive customer files unnecessarily.
 
+Never store submitted URLs unnecessarily.
+
 Never commit real customer files to GitHub.
 
 Never use AI as the source of truth for critical corrections.
@@ -194,7 +316,23 @@ Always explain corrections in merchantfix_notes.
 
 Always mark uncertain cases as manual review.
 
+Always explain that V0.5 is a surface scan only.
+
+Never claim that V0.5 reproduces Google Merchant Center diagnostics.
+
+Never let V0.5 replace the deeper V1 CSV diagnostic.
+
 ## Data handling rules
+
+V0.5 should avoid persistent storage.
+
+V0.5 should not require user accounts.
+
+V0.5 should not store submitted URLs permanently.
+
+V0.5 should not store scan results permanently.
+
+V0.5 should not send store data to external AI APIs.
 
 V1 should avoid persistent storage.
 
@@ -208,7 +346,31 @@ V1 should not commit customer data.
 
 Only fictional sample CSV files may be stored in the repository.
 
-## Initial supported issue rules
+## V0.5 supported surface issue rules
+
+If public Shopify product data is unavailable, blocked, empty, or unsupported, show a graceful message and invite the user to upload a Shopify CSV.
+
+Do not treat unavailable public product data as a Merchant Center issue.
+
+If product count is detected, show it as informational only.
+
+Do not claim Google Merchant Center sees the same product count.
+
+If a product has no main image in public product data, create a warning.
+
+If a product has no visible price in public product data, create a warning.
+
+If a product title is empty, extremely short, generic, or weak, create a warning or info issue.
+
+If a product description is empty or very weak, create a warning or info issue.
+
+Do not claim that any V0.5 issue guarantees product disapproval.
+
+Do not generate corrected CSV files in V0.5.
+
+Do not edit product data in V0.5.
+
+## Initial supported V1 issue rules
 
 If identifier_exists is true and both GTIN and MPN are missing, create a critical issue.
 
@@ -274,25 +436,41 @@ Tailwind CSS.
 
 PapaParse.
 
-No authentication in V1.
+No authentication in V0.5 or V1.
 
-No database in V1.
+No database in V0.5 or V1.
 
-No Stripe in V1.
+No Stripe in V0.5 or V1.
 
-No AI in V1.
+No AI in V0.5 or V1.
+
+No Shopify API in V0.5 or V1.
+
+No Google Merchant Center API in V0.5 or V1.
 
 ## Planned structure
 
 app/page.tsx
 
+app/scan/page.tsx
+
 app/result/[sessionId]/page.tsx
+
+app/api/surface-scan/route.ts
 
 app/api/analyze/route.ts
 
 components/
 
 lib/types.ts
+
+lib/normalizeStoreUrl.ts
+
+lib/fetchPublicShopifyProducts.ts
+
+lib/detectSurfaceRisks.ts
+
+lib/calculateSurfaceRiskScore.ts
 
 lib/normalizeColumns.ts
 
@@ -344,13 +522,21 @@ Business rules must live in lib files, not inside UI components.
 
 UI displays results.
 
-Parser reads CSV.
+V0.5 URL normalizer validates and normalizes store URLs.
 
-Normalizer maps columns.
+V0.5 public product fetcher reads publicly available product data when accessible.
 
-Rules engine detects issues.
+V0.5 surface rules detect visible risks only.
 
-CSV generator applies only safe corrections.
+V0.5 score calculator calculates a simple surface risk score.
+
+V1 parser reads CSV.
+
+V1 normalizer maps columns.
+
+V1 rules engine detects issues.
+
+V1 CSV generator applies only safe corrections.
 
 Summary generator creates user-friendly explanations.
 
@@ -363,6 +549,8 @@ Clear TypeScript types.
 Readable code.
 
 Testable functions.
+
+Keep V0.5 logic separate from V1 CSV logic.
 
 ## Codex task rules
 
@@ -390,11 +578,17 @@ If Codex adds secrets or real data, the output must be rejected.
 
 If Codex modifies unrelated files, review carefully before accepting.
 
+If Codex makes V0.5 sound like a full Merchant Center diagnosis, the output must be rejected.
+
+If Codex mixes V0.5 surface scan logic into V1 CSV correction logic, the output must be rejected.
+
 ## Current next technical goal
 
-After documentation, prompts, and sample files are ready, initialize the Next.js project and build the V1 diagnostic MVP.
+After documentation, prompts, and sample files are ready, initialize the Next.js project and build the V0.5 no-install Shopify URL surface scan first.
 
-The first actual implementation should not include payment, authentication, database, AI, APIs, or monitoring.
+The next implementation should not include payment, authentication, database, AI, APIs, PDF, ZIP, or monitoring.
+
+After V0.5 is validated or deliberately skipped after a documented decision, build the V1 CSV diagnostic MVP.
 
 ## Final instruction for Codex
 
@@ -407,5 +601,7 @@ Do not expand the product.
 Do not invent product identifiers.
 
 Do not guarantee Google approval.
+
+Keep V0.5 narrow, safe, and clearly limited.
 
 Keep V1 narrow, safe, and testable.
