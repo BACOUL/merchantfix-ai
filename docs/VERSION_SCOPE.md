@@ -18,6 +18,8 @@ MerchantFix.ai must be built in this order:
 
 V0: market validation.
 
+V0.5: no-install Shopify URL surface scan.
+
 V1: Shopify CSV identifier diagnostic MVP.
 
 V2: paid Fix Pack.
@@ -29,6 +31,8 @@ V4: agency product.
 V5: platform, integrations, and monitoring.
 
 The project must not skip versions.
+
+The project must not build V1 before V0.5 is either validated or deliberately skipped after a documented decision.
 
 The project must not build V2 before V1 is validated.
 
@@ -48,9 +52,9 @@ Validate that Shopify merchants, Google Ads freelancers, and agencies have real 
 
 Real users have Merchant Center errors.
 
-GTIN, MPN, brand, and identifier_exists issues appear repeatedly.
+GTIN, MPN, brand, identifier_exists, and visible product data issues appear repeatedly.
 
-Users are willing to paste errors, upload screenshots, or share CSV exports.
+Users are willing to paste errors, upload screenshots, share Shopify URLs, or share CSV exports.
 
 Some users are willing to pay for a useful Fix Pack.
 
@@ -66,6 +70,8 @@ Merchant Center error submission form.
 
 Textarea for pasted error.
 
+Optional Shopify store URL field.
+
 Optional email field.
 
 Optional screenshot upload.
@@ -79,6 +85,8 @@ Semi-manual diagnosis.
 First SEO page for missing GTIN.
 
 First SEO page for incorrect identifier_exists.
+
+First SEO page for Shopify Google Shopping audit.
 
 Community outreach.
 
@@ -134,7 +142,7 @@ Approval guarantee.
 
 Collect 10 real Merchant Center errors.
 
-Receive 3 real screenshots or CSV files.
+Receive 3 real screenshots, Shopify URLs, or CSV files.
 
 Get 5 users to accept a free diagnosis.
 
@@ -146,9 +154,201 @@ Identify at least 3 repeated error patterns.
 
 ### V0 decision
 
-If validation criteria are met, proceed to V1.
+If validation criteria are met, proceed to V0.5.
 
 If validation criteria are not met, revise positioning, acquisition, or target problem before building the engine.
+
+## V0.5 scope
+
+### V0.5 objective
+
+Validate whether a no-install Shopify store URL scan creates more engagement than asking users to upload a CSV immediately.
+
+V0.5 is an acquisition and validation layer, not the core diagnostic engine.
+
+### V0.5 must prove
+
+Users are willing to enter a Shopify store URL.
+
+Public Shopify product data can be accessed often enough to create a useful first scan.
+
+Surface-level risks can be explained clearly.
+
+Users understand that this is not a full Merchant Center diagnosis.
+
+Some users continue toward Shopify CSV upload for deeper analysis.
+
+### V0.5 allowed features
+
+Landing page.
+
+Shopify store URL input.
+
+URL normalization.
+
+Public Shopify product data fetch when available.
+
+Graceful failure when public product data is unavailable.
+
+Basic product count.
+
+Missing product image detection.
+
+Missing product price detection.
+
+Weak or very short product title detection.
+
+Empty or weak product description detection.
+
+Basic surface risk score.
+
+CTA to upload Shopify CSV for deeper identifier diagnosis.
+
+Clear disclaimer.
+
+### V0.5 forbidden features
+
+Stripe.
+
+Paid checkout.
+
+Payment.
+
+Authentication.
+
+User account.
+
+Database.
+
+Shopify API.
+
+Google Merchant Center API.
+
+OpenAI API.
+
+AI calls.
+
+PDF generation.
+
+ZIP generation.
+
+Subscription.
+
+Agency dashboard.
+
+Shopify app.
+
+WooCommerce.
+
+Prestashop.
+
+Magento.
+
+XML parsing.
+
+Merchant Center monitoring.
+
+Automatic CSV correction.
+
+Full Merchant Center diagnosis.
+
+Account recovery.
+
+Approval guarantee.
+
+### V0.5 technical files allowed
+
+app/page.tsx.
+
+app/scan/page.tsx.
+
+app/api/surface-scan/route.ts.
+
+components.
+
+lib/types.ts.
+
+lib/normalizeStoreUrl.ts.
+
+lib/fetchPublicShopifyProducts.ts.
+
+lib/detectSurfaceRisks.ts.
+
+lib/calculateSurfaceRiskScore.ts.
+
+tests if available.
+
+### V0.5 core rules
+
+The URL scan is a surface risk audit only.
+
+It must not claim to reproduce Google Merchant Center diagnostics.
+
+It must not claim that detected issues are guaranteed disapproval causes.
+
+It must not claim full feed accuracy.
+
+It must not store user URLs or scan results unnecessarily.
+
+It must not use private Shopify data.
+
+It must not require app installation.
+
+It must invite users to upload a Shopify CSV for deeper V1 analysis.
+
+V0.5 attracts users.
+
+V1 diagnoses deeply.
+
+V2 monetizes.
+
+### V0.5 surface checks
+
+Detect basic product count.
+
+Detect products with missing main image.
+
+Detect products with missing price.
+
+Detect products with weak or very short titles.
+
+Detect products with empty or weak descriptions.
+
+Handle unavailable public product data gracefully.
+
+Handle invalid URLs gracefully.
+
+Handle non-Shopify or unsupported stores gracefully.
+
+### V0.5 validation criteria
+
+20 Shopify URLs tested.
+
+10 successful scans.
+
+5 users click or continue toward CSV upload.
+
+3 real CSV uploads.
+
+1 agency or freelancer confirms interest.
+
+3 users show willingness to pay.
+
+Users understand that the scan is a surface audit only.
+
+Users do not expect guaranteed Google approval.
+
+The scan creates enough perceived value to continue.
+
+### V0.5 decision
+
+Proceed to V1 if the URL scan creates engagement and users understand the limitation.
+
+If the URL scan is too fragile or creates confusion, keep V0.5 as optional marketing only and continue with CSV-first V1.
+
+If users prefer CSV or agencies ask for CSV directly, continue with V1 as the main product.
+
+If V0.5 creates confusion, remove it from the core journey and keep the product CSV-first.
 
 ## V1 scope
 
@@ -852,17 +1052,17 @@ If the feature is not required for the current version, move it to the parking l
 
 ## Out-of-scope rejection examples
 
-Do not add Stripe in V1.
+Do not add Stripe in V0.5 or V1.
 
-Do not add login in V1.
+Do not add login in V0.5 or V1.
 
-Do not add Supabase in V1.
+Do not add Supabase in V0.5 or V1.
 
-Do not add AI in V1.
+Do not add AI in V0.5 or V1.
 
-Do not add Shopify API in V1.
+Do not add Shopify API in V0.5 or V1.
 
-Do not add Google API in V1.
+Do not add Google API in V0.5 or V1.
 
 Do not add monitoring before V5.
 
@@ -873,6 +1073,8 @@ Do not add WooCommerce before Shopify is validated.
 Do not add Amazon before Google Merchant Center is stable.
 
 Do not add automatic misrepresentation recovery at any stage without a separate validated product scope.
+
+Do not let the V0.5 URL scan replace the V1 CSV diagnostic.
 
 ## Mandatory safety rules across all versions
 
@@ -896,11 +1098,15 @@ Never let AI decide critical corrections alone.
 
 Never expand before validation.
 
+Never claim that V0.5 surface scan is a full Google Merchant Center diagnosis.
+
+Never position V0.5 detected issues as guaranteed Google disapproval causes.
+
 ## Current active scope
 
-Current phase: V0 / V1 preparation.
+Current phase: V0 / V0.5 / V1 preparation.
 
-Current priority: documentation, prompts, sample files, and V1 diagnostic engine.
+Current priority: documentation, prompts, sample files, V0.5 surface scan scope, and V1 diagnostic engine.
 
 Current allowed work:
 
@@ -927,6 +1133,8 @@ prompts/00_PROJECT_CONTEXT.md.
 sample CSV files.
 
 Next.js initialization after documentation and samples.
+
+V0.5 no-install Shopify URL surface scan.
 
 Current forbidden work:
 
