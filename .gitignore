@@ -1,0 +1,116 @@
+# MerchantFix.ai gitignore
+
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# Next.js
+.next/
+out/
+build/
+dist/
+
+# Production
+.vercel/
+.netlify/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Secrets and credentials
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+secrets/
+credentials/
+service-account.json
+google-credentials.json
+shopify-credentials.json
+stripe-credentials.json
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+logs/
+*.log
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Testing
+playwright-report/
+test-results/
+vitest-results/
+junit.xml
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+
+# Temporary files
+tmp/
+temp/
+.cache/
+
+# Uploaded customer files
+uploads/
+customer-files/
+private-uploads/
+merchant-center-screenshots/
+real-client-samples/
+
+# Generated files
+generated/
+exports/
+downloads/
+reports/
+fix-packs/
+corrected-files/
+
+# Local databases
+*.sqlite
+*.sqlite3
+*.db
+
+# Package manager
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Keep fictional sample CSV files in GitHub
+!samples/*.csv
+
+# Never commit real customer data
+*.customer.csv
+*.real.csv
+*.private.csv
+*.merchant-center.png
+*.merchant-center.jpg
