@@ -16,6 +16,8 @@ Every version must answer one clear question.
 
 V0 question: does the market have this problem and will users share real cases?
 
+V0.5 question: will users engage with a no-install Shopify URL surface scan before uploading a CSV?
+
 V1 question: can the tool reliably diagnose Shopify CSV identifier issues?
 
 V2 question: will users pay for the Fix Pack?
@@ -60,6 +62,8 @@ Stop if the product cannot explain what it does in one sentence.
 
 Stop if the project starts building V5 complexity before V1 or V2 proof.
 
+Stop if the no-install URL scan creates false expectations about Google Merchant Center approval.
+
 ## V0 GO / STOP
 
 ## V0 objective
@@ -68,11 +72,11 @@ Validate market demand before building the full product.
 
 ## V0 GO criteria
 
-Proceed to V1 only if most of the following are true:
+Proceed to V0.5 only if most of the following are true:
 
 10 real Google Merchant Center errors are collected.
 
-3 screenshots or CSV files are received voluntarily.
+3 screenshots, Shopify URLs, or CSV files are received voluntarily.
 
 5 users accept a free diagnosis.
 
@@ -82,7 +86,7 @@ Proceed to V1 only if most of the following are true:
 
 At least 3 repeated error patterns are identified.
 
-GTIN, MPN, brand, or identifier_exists issues appear repeatedly.
+GTIN, MPN, brand, identifier_exists, missing image, missing price, or visible product data issues appear repeatedly.
 
 Users understand the promise.
 
@@ -92,13 +96,13 @@ The problem appears urgent enough to justify a tool.
 
 ## V0 STOP criteria
 
-Do not proceed to V1 if most of the following are true:
+Do not proceed to V0.5 if most of the following are true:
 
 No real users share errors.
 
-Users do not want to upload files or paste errors.
+Users do not want to paste errors, share Shopify URLs, upload screenshots, or upload CSV files.
 
-GTIN, MPN, brand, and identifier_exists issues are rare.
+GTIN, MPN, brand, identifier_exists, and visible product data issues are rare.
 
 Most cases are account suspension or misrepresentation only.
 
@@ -116,15 +120,87 @@ The positioning does not create interest.
 
 ## V0 decision options
 
-If GO criteria are met, proceed to V1.
+If GO criteria are met, proceed to V0.5.
 
-If demand exists but the problem is broader than identifiers, keep V1 narrow and document future V3 issues.
+If demand exists but the problem is broader than identifiers, keep V0.5 and V1 narrow and document future V3 issues.
 
-If demand exists but users fear uploading CSV files, add clearer privacy messaging.
+If demand exists but users fear uploading CSV files, use V0.5 as a lower-friction URL scan entry point and add clearer privacy messaging.
 
 If demand exists but no one wants to pay, improve the Fix Pack value proposition before coding V2.
 
 If no demand appears, pause or pivot.
+
+## V0.5 GO / STOP
+
+## V0.5 objective
+
+Validate whether a no-install Shopify URL surface scan creates enough engagement to become the acquisition layer before the V1 CSV diagnostic.
+
+V0.5 must prove that users are more willing to start with a Shopify store URL than with an immediate CSV upload.
+
+## V0.5 GO criteria
+
+Proceed to V1 with V0.5 as the acquisition layer if most of the following are true:
+
+20 Shopify URLs are tested.
+
+10 public scans succeed.
+
+5 users continue toward CSV upload or clearly intend to.
+
+3 real Shopify CSV files are uploaded voluntarily.
+
+1 agency or freelancer confirms interest.
+
+3 users show willingness to pay for a deeper Fix Pack.
+
+Users understand that the scan is a surface audit only.
+
+Users do not expect guaranteed Google approval.
+
+The scan creates enough perceived value to continue.
+
+The result page makes users curious about deeper CSV diagnosis.
+
+The CTA to upload CSV is clear and used by some users.
+
+## V0.5 STOP criteria
+
+Do not rely on V0.5 as the main acquisition layer if most of the following are true:
+
+Public Shopify product data is unavailable too often.
+
+Users do not trust the URL scan.
+
+Users do not continue toward CSV upload.
+
+The scan creates confusion about Google approval.
+
+The scan produces too many false signals.
+
+The product feels like a toy instead of a serious diagnostic.
+
+Support questions increase before any revenue.
+
+Users expect the URL scan to be a full Merchant Center diagnosis.
+
+Users ask why the scan does not match their Google Merchant Center dashboard.
+
+The scan weakens the credibility of the product.
+
+## V0.5 decision options
+
+If GO criteria are met, keep V0.5 as the free acquisition layer before V1.
+
+If scans are technically fragile but users like the promise, keep V0.5 as a limited demo and push CSV-first.
+
+If users prefer CSV or agencies ask for CSV directly, continue with V1 as the main product.
+
+If V0.5 creates confusion, remove it from the core journey and keep the product CSV-first.
+
+If V0.5 works for acquisition but not diagnosis, position it only as a quick pre-check.
+
+If V0.5 does not produce enough engagement, skip it deliberately and document the decision before building V1.
 
 ## V1 GO / STOP
 
@@ -182,6 +258,10 @@ The disclaimer is visible.
 
 No forbidden V1 features were added.
 
+V1 remains separate from V0.5 surface scan logic.
+
+V1 does not claim guaranteed Google approval.
+
 ## V1 optional GO signals
 
 Proceed with more confidence if:
@@ -192,9 +272,13 @@ At least 5 real files or screenshots inform the rules.
 
 Agencies say the report would help explain issues to clients.
 
-Users ask how to download the complete fix package.
+Users ask how to download the complete Fix Pack.
 
 The free diagnosis creates perceived value.
+
+Users who start with V0.5 continue to CSV upload.
+
+Users understand that the CSV diagnosis is deeper than the URL surface scan.
 
 ## V1 STOP criteria
 
@@ -224,6 +308,10 @@ Forbidden V1 features were added.
 
 Tests fail.
 
+V1 becomes dependent on Shopify API, Google API, AI, database, or authentication.
+
+The CSV diagnosis feels less valuable than the URL surface scan.
+
 ## V1 decision options
 
 If technical engine works, proceed to V2.
@@ -235,6 +323,8 @@ If rules are too strict, reduce false positives before payment.
 If diagnosis is unclear, improve copy and result page before payment.
 
 If corrected CSV is risky, disable auto-correction and offer diagnosis only until fixed.
+
+If users prefer agency usage, document V4 signals but do not build V4 yet.
 
 ## V2 GO / STOP
 
@@ -290,6 +380,10 @@ SEO pages begin receiving impressions.
 
 Users share specific missing features that align with V3.
 
+V0.5 continues to bring users into the CSV diagnostic flow.
+
+Users understand the difference between the free scan, free diagnosis, and paid Fix Pack.
+
 ## V2 STOP criteria
 
 Do not proceed to V3 if most of the following are true:
@@ -316,6 +410,8 @@ The report is not perceived as useful.
 
 The corrected CSV creates confusion.
 
+Users think payment guarantees Google approval.
+
 ## V2 decision options
 
 If people pay and support is manageable, proceed to V3.
@@ -327,6 +423,8 @@ If people pay but expect manual help, tighten positioning and deliverables.
 If people pay but need more error types, add V3 carefully.
 
 If agencies show interest, prepare V4 notes but do not build V4 yet.
+
+If V0.5 brings traffic but no payment, improve the CSV diagnostic and Fix Pack bridge.
 
 ## V3 GO / STOP
 
@@ -570,6 +668,12 @@ If one-shot users dominate, delay platform features.
 
 ## Feature-specific GO / STOP
 
+## V0.5 URL scan
+
+GO if users are willing to enter Shopify URLs and some continue toward CSV upload.
+
+STOP if public product data is unavailable too often or the scan creates false approval expectations.
+
 ## Stripe
 
 GO if V1 diagnostic is reliable and users want the full Fix Pack.
@@ -662,6 +766,10 @@ The tool promises approval.
 
 The tool claims account recovery.
 
+The tool claims V0.5 is a full Google Merchant Center diagnosis.
+
+The tool treats V0.5 detected issues as guaranteed Google disapproval causes.
+
 The tool stores customer files unsafely.
 
 Real customer data is committed to GitHub.
@@ -694,14 +802,20 @@ Are we still avoiding false approval promises?
 
 Are we still protecting customer data?
 
+Is V0.5 still only a surface scan?
+
+Is V1 still the deeper CSV diagnostic?
+
 Should we continue, reduce scope, or stop?
 
 ## Current decision status
 
-Current phase: V0 / V1 preparation.
+Current phase: V0 / V0.5 / V1 preparation.
 
-Current GO target: create documentation, prompts, samples, and V1 diagnostic engine.
+Current GO target: create documentation, prompts, samples, V0.5 surface scan scope, and V1 diagnostic engine.
 
-Current STOP risk: building payment, AI, APIs, or platform features too early.
+Current STOP risk: building payment, AI, APIs, database, auth, or platform features too early.
 
-Current next decision: proceed to V1 build only after documentation, prompts, and sample files are ready.
+Current next decision: proceed to V0.5 build only after documentation, prompts, and sample files are ready.
+
+Then proceed to V1 build only after V0.5 is validated or deliberately skipped after a documented decision.
