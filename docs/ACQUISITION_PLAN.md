@@ -10,27 +10,31 @@ MerchantFix.ai must be found by people who already have the problem.
 
 The product should not rely on educating cold prospects from zero.
 
-The main acquisition strategy is to capture existing urgency around Google Merchant Center product disapprovals.
+The main acquisition strategy is to capture existing urgency around Google Merchant Center product disapprovals and product data issues.
 
 ## Acquisition positioning
 
 MerchantFix.ai is not sold as a generic feed optimization tool.
 
-MerchantFix.ai is sold as an urgent diagnostic and repair tool for Google Merchant Center product disapprovals.
+MerchantFix.ai is sold as an urgent diagnostic and repair tool for Google Merchant Center product data issues.
 
 The core message is:
 
 Fix rejected Google Merchant Center products before they cost you more sales.
 
-The more precise message is:
+The low-friction V0.5 message is:
 
-Paste your Merchant Center error or upload your Shopify product export. Get a clear diagnosis, exact fixes, and a corrected CSV when possible.
+Check your Shopify store for Google Merchant Center product issues in 60 seconds.
+
+The deeper V1 message is:
+
+Upload your Shopify product export for deeper identifier diagnosis. Get a clear diagnosis, exact fixes, and a corrected CSV when possible.
 
 ## Acquisition difference versus Certif-Scope
 
 Certif-Scope requires more education because many prospects do not know they need an indicative CO2e attestation.
 
-MerchantFix.ai targets users who already see an error in Google Merchant Center.
+MerchantFix.ai targets users who already see an error in Google Merchant Center or suspect their products are not showing correctly.
 
 The acquisition motion is different.
 
@@ -44,7 +48,9 @@ MerchantFix.ai must target users already searching for solutions or already disc
 
 V0 goal: collect real errors and validate demand.
 
-V1 goal: get users to test the diagnostic engine.
+V0.5 goal: reduce first-use friction with a no-install Shopify URL surface scan.
+
+V1 goal: get users to upload Shopify CSV files and test the deeper diagnostic engine.
 
 V2 goal: convert diagnostics into paid Fix Pack purchases.
 
@@ -59,6 +65,8 @@ V5 goal: scale through integrations, marketplace distribution, monitoring, and p
 The initial acquisition channels are:
 
 Long-tail SEO around exact Merchant Center errors.
+
+Long-tail SEO around Shopify Google Shopping audit and product issue checks.
 
 Shopify Community.
 
@@ -86,25 +94,49 @@ The SEO strategy must focus on high-intent problem searches, not broad generic k
 
 ## SEO intent categories
 
-Category 1: product identifier errors.
+Category 1: Shopify Google Merchant Center checkers and audits.
 
-Category 2: product disapprovals.
+Category 2: product identifier errors.
 
-Category 3: Shopify to Google Merchant Center issues.
+Category 3: product disapprovals.
 
-Category 4: product feed correction.
+Category 4: Shopify to Google Merchant Center issues.
 
-Category 5: price and availability mismatch.
+Category 5: product feed correction.
 
-Category 6: image and shipping issues.
+Category 6: price and availability mismatch.
 
-Category 7: misrepresentation checklist.
+Category 7: image and shipping issues.
 
-Category 8: agency and professional audit pages.
+Category 8: misrepresentation checklist.
 
-## V0 and V1 SEO pages
+Category 9: agency and professional audit pages.
+
+## V0 and V0.5 SEO pages
 
 The first SEO pages should be:
+
+/fix/shopify-google-merchant-center-checker
+
+/fix/shopify-google-shopping-audit
+
+/fix/shopify-google-shopping-image-issues
+
+/fix/shopify-products-missing-price-google-shopping
+
+/fix/shopify-products-disapproved-google-merchant-center
+
+These pages support the V0.5 no-install Shopify URL surface scan.
+
+They must clearly explain that the scan is a surface risk audit only.
+
+They must not claim full Merchant Center diagnosis.
+
+They must not claim guaranteed approval.
+
+## V1 SEO pages
+
+The V1 SEO pages should be:
 
 /fix/missing-gtin-google-merchant-center
 
@@ -112,11 +144,11 @@ The first SEO pages should be:
 
 /fix/incorrect-identifier-exists-shopify
 
-/fix/shopify-products-disapproved-google-merchant-center
-
 /fix/google-merchant-center-gtin-mpn-error
 
-These pages match the initial product scope.
+These pages support the deeper Shopify CSV identifier diagnostic.
+
+They should lead users from a quick explanation to the CSV upload flow.
 
 ## V2 and V3 SEO pages
 
@@ -172,9 +204,9 @@ H1: exact error or problem.
 
 Short intro: what the user is seeing.
 
-Symptom: what appears inside Google Merchant Center.
+Symptom: what appears inside Google Merchant Center or Shopify.
 
-Cause: why the error usually happens.
+Cause: why the issue usually happens.
 
 Business impact: why it matters.
 
@@ -182,11 +214,11 @@ Manual fix: how to fix it manually.
 
 Shopify-specific fix: how it applies to Shopify.
 
-MerchantFix.ai section: what the tool can diagnose or correct.
+MerchantFix.ai section: what the tool can diagnose or surface.
 
 Limitations: what cannot be guaranteed.
 
-CTA: paste your error or upload CSV.
+CTA: scan Shopify store URL or upload CSV.
 
 FAQ: common questions.
 
@@ -206,15 +238,21 @@ Do not claim automatic approval.
 
 Do not claim automatic recovery from misrepresentation.
 
+Do not claim that V0.5 reproduces Google Merchant Center diagnostics.
+
 ## SEO CTA
 
-Every SEO page should lead to the same action:
+V0.5 CTA:
 
-Paste your Merchant Center error or upload your Shopify CSV.
+Check your Shopify store for Google Merchant Center product issues in 60 seconds.
 
-Secondary CTA:
+V1 CTA:
 
-Get a free diagnosis.
+Upload your Shopify CSV for deeper identifier diagnosis.
+
+Fallback CTA:
+
+Paste your Merchant Center error.
 
 Paid CTA in V2:
 
@@ -222,7 +260,7 @@ Download the full Fix Pack.
 
 ## Channel 2: Shopify Community
 
-Shopify Community is important for V0 and V1.
+Shopify Community is important for V0, V0.5, and V1.
 
 The goal is not to spam.
 
@@ -248,6 +286,12 @@ Product identifiers not provided.
 
 Google Merchant Center Shopify feed errors.
 
+Shopify products missing image in Google Shopping.
+
+Shopify products missing price in Google Shopping.
+
+Shopify products not approved by Google.
+
 ## Shopify Community response style
 
 Responses must be helpful, specific, and non-aggressive.
@@ -262,13 +306,15 @@ Give a manual fix direction.
 
 Mention that the user should not invent GTIN.
 
-Offer a free diagnosis if relevant.
+Explain the difference between visible product data issues and deeper CSV identifier issues when relevant.
+
+Offer a free surface scan or free diagnosis if relevant.
 
 Avoid hard-selling.
 
 ## Example community response
 
-If Google is showing missing GTIN or MPN, the first thing to check is whether the products truly have manufacturer identifiers. If they are branded products, you usually need real GTIN or MPN data. If they are custom, handmade, personalized, or made to order, the identifier_exists field may need review. Do not generate fake GTINs. I am building a small diagnostic tool for Shopify CSV exports that identifies these rows and marks what can be corrected versus what needs manual review. If you want, you can paste the exact Merchant Center error and I can tell you what category it belongs to.
+If Google is showing missing GTIN or MPN, the first thing to check is whether the products truly have manufacturer identifiers. If they are branded products, you usually need real GTIN or MPN data. If they are custom, handmade, personalized, or made to order, the identifier_exists field may need review. Do not generate fake GTINs. I am building a small diagnostic tool for Shopify stores that starts with a quick no-install surface scan and then checks Shopify CSV exports for identifier issues. If you want, you can paste the exact Merchant Center error or share a test store URL, and I can tell you what category it belongs to.
 
 ## Community rules
 
@@ -306,11 +352,15 @@ Useful answer to an existing problem.
 
 Short educational post about missing GTIN and identifier_exists.
 
+Short educational post about why Shopify products may not show on Google Shopping.
+
 Case study from fictional sample.
 
 Checklist for Google Merchant Center product identifier issues.
 
 Post asking for beta testers with real Merchant Center errors.
+
+Post asking for Shopify merchants to test a no-install surface scan.
 
 ## Reddit rules
 
@@ -348,7 +398,7 @@ The goal is to get them to test MerchantFix.ai on one real or anonymized client 
 
 The first offer should be:
 
-I can run a free diagnostic on one Shopify CSV or Merchant Center error and show you the affected rows.
+I can run a free surface scan or a free diagnostic on one Shopify CSV or Merchant Center error and show you the affected rows.
 
 ## Freelancer outreach message
 
@@ -356,9 +406,13 @@ Subject: Quick Google Merchant Center diagnostic for Shopify stores
 
 Hi,
 
-I am building MerchantFix.ai, a small tool that helps Shopify merchants and Google Ads freelancers diagnose Google Merchant Center product identifier issues such as missing GTIN, missing MPN, missing brand, and incorrect identifier_exists.
+I am building MerchantFix.ai, a small tool that helps Shopify merchants and Google Ads freelancers diagnose Google Merchant Center product data issues.
 
-The goal is simple: paste the Merchant Center error or upload a Shopify CSV, then get a clear diagnosis, affected rows, and a corrected CSV when the fix is safe.
+The first step is a no-install Shopify store surface scan for visible product risks such as missing images, missing prices, weak titles, and weak descriptions.
+
+The deeper diagnostic checks Shopify CSV exports for identifier issues such as missing GTIN, missing MPN, missing brand, and incorrect identifier_exists.
+
+The goal is simple: understand what is wrong, identify affected products, and generate a corrected CSV when the fix is safe.
 
 I am looking for a few real cases to test the diagnostic engine.
 
@@ -390,7 +444,7 @@ The agency pain is not only fixing the data.
 
 The agency pain is explaining to the client why products are rejected and what needs to be done.
 
-MerchantFix.ai can generate a client-ready diagnostic report.
+MerchantFix.ai can start with a quick surface audit and later generate a client-ready diagnostic report.
 
 ## Agency outreach offer
 
@@ -408,11 +462,11 @@ Hi,
 
 I am building MerchantFix.ai, a diagnostic tool for Shopify stores facing Google Merchant Center product data issues.
 
-It focuses first on GTIN, MPN, brand, and identifier_exists problems that can cause products to be disapproved or limited.
+It starts with a quick no-install Shopify surface scan and then focuses deeper on GTIN, MPN, brand, and identifier_exists problems that can cause products to be disapproved or limited.
 
-For agencies, the goal is to quickly identify affected rows, separate automatic fixes from manual review cases, and generate a report that can be shared with the client.
+For agencies, the goal is to quickly identify affected products, separate automatic fixes from manual review cases, and generate a report that can be shared with the client.
 
-I am looking for a few agencies to test one free diagnostic on a real or anonymized Shopify CSV.
+I am looking for a few agencies to test one free diagnostic on a real or anonymized Shopify case.
 
 The tool does not guarantee Google approval, but it helps clarify what is wrong and what can safely be corrected in the product file.
 
@@ -448,6 +502,8 @@ Reports must include disclaimer.
 
 Reports must be useful enough that users share them with clients or teammates.
 
+Reports must not imply approval or account recovery.
+
 ## V0 acquisition plan
 
 V0 goal: collect real errors and validate pain.
@@ -472,13 +528,15 @@ Offer free diagnosis.
 
 Collect exact error language.
 
+Collect Shopify URLs when users willingly share them.
+
 Document recurring patterns.
 
 ## V0 acquisition success
 
 10 real Merchant Center errors collected.
 
-3 screenshots or CSV files received voluntarily.
+3 screenshots, Shopify URLs, or CSV files received voluntarily.
 
 5 users accept free diagnosis.
 
@@ -486,9 +544,55 @@ Document recurring patterns.
 
 1 to 3 users show willingness to pay.
 
+## V0.5 acquisition plan
+
+V0.5 goal: reduce first-use friction with a no-install Shopify URL surface scan.
+
+V0.5 actions:
+
+Create Shopify store URL scan CTA.
+
+Create V0.5 landing section.
+
+Create surface scan result page or result section.
+
+Create clear disclaimer explaining that the scan is not a full Merchant Center diagnosis.
+
+Create CTA from surface scan result to Shopify CSV upload.
+
+Create first Shopify Google Shopping audit SEO page.
+
+Create first Shopify Google Merchant Center checker SEO page.
+
+Invite V0 users to test URL scan.
+
+Invite freelancers to test one client store URL.
+
+Invite agencies to test one anonymized or public client store URL.
+
+Track scan success and CSV continuation.
+
+## V0.5 acquisition success
+
+20 Shopify URLs tested.
+
+10 public scans succeed.
+
+5 users continue toward CSV upload or clearly intend to.
+
+3 real Shopify CSV files received voluntarily.
+
+1 agency or freelancer confirms interest.
+
+3 users show willingness to pay for a deeper Fix Pack.
+
+Users understand that the scan is a surface audit only.
+
+Users do not expect guaranteed Google approval.
+
 ## V1 acquisition plan
 
-V1 goal: get real users to test the diagnostic.
+V1 goal: get real users to test the CSV diagnostic.
 
 V1 actions:
 
@@ -498,13 +602,15 @@ Create sample before and after.
 
 Create short page showing GTIN / MPN detection.
 
-Invite V0 users to test.
+Invite V0 and V0.5 users to test.
 
 Invite freelancers to test one CSV.
 
 Invite agencies to test one client file.
 
 Collect feedback on diagnostic clarity.
+
+Explain why CSV diagnosis is deeper than URL surface scan.
 
 ## V1 acquisition success
 
@@ -515,6 +621,8 @@ Collect feedback on diagnostic clarity.
 2 users ask for complete report or export.
 
 1 agency says the diagnostic would be useful for clients.
+
+Some users who start with V0.5 continue to V1 CSV upload.
 
 ## V2 acquisition plan
 
@@ -530,13 +638,15 @@ Create one page for Shopify stores.
 
 Create one page for agencies.
 
-Contact V0 and V1 testers.
+Contact V0, V0.5, and V1 testers.
 
 Contact 25 freelancers.
 
 Contact 25 agencies.
 
 Offer early price if needed.
+
+Track URL-scan-to-CSV conversion.
 
 Track upload-to-diagnostic conversion.
 
@@ -664,6 +774,10 @@ Who is it for?
 
 What error types are supported?
 
+What can the URL scan detect?
+
+What does the CSV diagnostic detect?
+
 What does the user upload?
 
 What does the user get?
@@ -678,11 +792,15 @@ What is the next action?
 
 ## Landing page CTA
 
-Primary CTA:
+Primary V0.5 CTA:
 
-Diagnose My Product Errors.
+Check My Shopify Store.
 
-Secondary CTA:
+Secondary V1 CTA:
+
+Upload Shopify CSV.
+
+Fallback CTA:
 
 Paste Merchant Center Error.
 
@@ -698,15 +816,19 @@ Fix rejected Google Merchant Center products.
 
 Subheadline:
 
-Paste your Merchant Center error or upload your Shopify product export. Get a clear diagnosis, exact fixes, and a corrected CSV when possible.
+Check your Shopify store for visible product data issues in 60 seconds. Then upload your Shopify CSV for deeper GTIN, MPN, brand, and identifier_exists diagnosis.
 
 CTA:
 
-Diagnose My Product Errors.
+Check My Shopify Store.
+
+Secondary CTA:
+
+Upload Shopify CSV.
 
 Disclaimer near CTA:
 
-Google approval is not guaranteed. Some issues require manual review.
+Google approval is not guaranteed. The URL scan is a surface audit only. Some issues require manual review.
 
 ## Metrics to track
 
@@ -716,11 +838,31 @@ Errors collected.
 
 Screenshots received.
 
+Shopify URLs received.
+
 CSV files received.
 
 Free diagnoses accepted.
 
 Agency confirmations.
+
+Willingness to pay signals.
+
+V0.5 metrics:
+
+Shopify URLs tested.
+
+Successful scans.
+
+Failed scans.
+
+Unsupported stores.
+
+Users clicking CSV upload CTA.
+
+CSV uploads after URL scan.
+
+Surface scan feedback.
 
 Willingness to pay signals.
 
@@ -740,7 +882,9 @@ Requests for export.
 
 V2 metrics:
 
-Uploads.
+URL scans.
+
+CSV uploads.
 
 Free diagnostics.
 
@@ -792,7 +936,7 @@ Expansion revenue.
 
 Risk 1: SEO competition is high.
 
-Mitigation: focus on long-tail exact errors and Shopify-specific pages.
+Mitigation: focus on long-tail exact errors, Shopify-specific pages, and problem-specific pages.
 
 Risk 2: communities reject promotional posts.
 
@@ -800,7 +944,7 @@ Mitigation: answer helpfully and avoid spam.
 
 Risk 3: users fear uploading CSV files.
 
-Mitigation: provide privacy messaging, explain no permanent storage, allow pasted error first.
+Mitigation: provide privacy messaging, explain no permanent storage, offer V0.5 URL scan first, and allow pasted error first.
 
 Risk 4: users expect guaranteed approval.
 
@@ -813,6 +957,14 @@ Mitigation: keep deliverables standardized.
 Risk 6: too many errors are account-level.
 
 Mitigation: classify account-level issues and provide checklist only.
+
+Risk 7: public Shopify product data is unavailable too often.
+
+Mitigation: handle failure gracefully and push users to CSV upload for deeper diagnosis.
+
+Risk 8: V0.5 creates confusion because users think it is a full Merchant Center diagnosis.
+
+Mitigation: label it as a surface audit only and explain that CSV diagnosis is deeper.
 
 ## Acquisition priority
 
@@ -828,17 +980,21 @@ Start with:
 
 SEO pages for exact errors.
 
+SEO pages for Shopify Google Shopping audit intent.
+
 Communities where users already ask for help.
 
 Targeted outreach to freelancers and agencies.
 
 Free diagnosis offer.
 
+No-install Shopify URL surface scan.
+
 Real case collection.
 
 ## Current acquisition status
 
-Current phase: V0 / V1 preparation.
+Current phase: V0 / V0.5 / V1 preparation.
 
 Current priority:
 
@@ -847,6 +1003,8 @@ Create documentation.
 Create first SEO page plan.
 
 Create V0 landing page.
+
+Create V0.5 Shopify URL scan acquisition layer.
 
 Collect real errors.
 
@@ -860,8 +1018,8 @@ Do not launch broad outreach before the landing page exists.
 
 MerchantFix.ai must not chase cold prospects who do not know the problem.
 
-MerchantFix.ai must place itself in front of users already experiencing Google Merchant Center errors.
+MerchantFix.ai must place itself in front of users already experiencing Google Merchant Center errors or Shopify Google Shopping product data issues.
 
 The best acquisition is not persuasion.
 
-The best acquisition is being visible at the exact moment of product disapproval.
+The best acquisition is being visible at the exact moment of product disapproval or product visibility problem.
