@@ -2,7 +2,7 @@
 
 This document defines the long-term platform expansion strategy for MerchantFix.ai.
 
-The goal is to preserve the focused V1 execution while keeping a clear path toward a larger international product.
+The goal is to preserve the focused V0.5 / V1 execution while keeping a clear path toward a larger international product.
 
 MerchantFix.ai must not become complex too early. Platform expansion is allowed only after the core Google Merchant Center diagnostic use case is validated.
 
@@ -12,7 +12,11 @@ Start narrow.
 
 Validate the urgent Google Merchant Center use case.
 
-Monetize the Fix Pack.
+Use V0.5 only to reduce first-use friction.
+
+Use V1 to prove the serious CSV diagnostic engine.
+
+Monetize the Fix Pack in V2 only after V1 validation.
 
 Expand only when paid users prove the need.
 
@@ -22,9 +26,39 @@ The final platform must not be built before the first product works.
 
 ## Current product focus
 
-Current phase: V0 / V1 preparation.
+Current phase: V0 / V0.5 / V1 preparation.
 
-Current product scope:
+Current product sequence:
+
+V0: market validation.
+
+V0.5: no-install Shopify URL surface scan.
+
+V1: Shopify CSV diagnostic.
+
+V2: paid Fix Pack after validation.
+
+Current V0.5 scope:
+
+Shopify store URL.
+
+Public product data when available.
+
+Missing image.
+
+Missing price.
+
+Weak title.
+
+Weak description.
+
+Basic product count.
+
+Surface risk score.
+
+CTA toward Shopify CSV upload.
+
+Current V1 scope:
 
 Shopify CSV.
 
@@ -44,15 +78,33 @@ Corrected CSV when safe.
 
 Manual review when uncertain.
 
-No Stripe in V1.
+Current V1 forbidden work:
 
-No PDF in V1.
+No Stripe.
 
-No API integrations in V1.
+No PDF.
 
-No monitoring in V1.
+No ZIP.
 
-No omni-channel expansion in V1.
+No authentication.
+
+No database.
+
+No Shopify API.
+
+No Google Merchant Center API.
+
+No AI.
+
+No monitoring.
+
+No omni-channel expansion.
+
+No Shopify app.
+
+No account recovery promise.
+
+No Google approval guarantee.
 
 ## Long-term platform vision
 
@@ -142,29 +194,33 @@ Omni-channel expansion must not happen before Google Merchant Center is validate
 
 Recommended timing:
 
-V1: Google Merchant Center identifiers only.
+V0: validate market demand.
 
-V2: Google Merchant Center Fix Pack.
+V0.5: validate no-install Shopify URL scan engagement.
 
-V3: more Google Merchant Center error families.
+V1: validate Google Merchant Center CSV identifier diagnosis.
 
-V4: agency workflows for Google Merchant Center.
+V2: validate paid Google Merchant Center Fix Pack.
 
-V5: monitoring and integrations for Google Merchant Center.
+V3: expand to more Google Merchant Center error families.
 
-V6: omni-channel expansion if demand exists.
+V4: validate agency workflows for Google Merchant Center.
+
+V5: validate monitoring and integrations for Google Merchant Center.
+
+V6: consider omni-channel expansion if demand exists.
 
 ## Forbidden in early versions
 
-Do not add Meta Catalog in V1.
+Do not add Meta Catalog in V0.5 or V1.
 
-Do not add TikTok Shop in V1.
+Do not add TikTok Shop in V0.5 or V1.
 
-Do not add Pinterest in V1.
+Do not add Pinterest in V0.5 or V1.
 
-Do not add Amazon in V1.
+Do not add Amazon in V0.5 or V1.
 
-Do not claim universal catalog compliance in V1.
+Do not claim universal catalog compliance in V0.5 or V1.
 
 Do not position MerchantFix.ai as a universal advertising compliance firewall before the Google use case is proven.
 
@@ -223,6 +279,8 @@ It can become the core of the V2 paid Fix Pack.
 ## Recommended timing
 
 The Resubmission Evidence Pack belongs to V2.
+
+V0.5 must not include PDF generation.
 
 V1 must not include PDF generation.
 
@@ -392,7 +450,11 @@ This belongs to V5 or later.
 
 Do not build proactive webhook features before:
 
+V0.5 is validated or deliberately skipped.
+
 V1 engine works.
+
+V1 tests pass.
 
 V2 payments are validated.
 
@@ -520,6 +582,8 @@ Agency reports can help MerchantFix.ai spread through client communication.
 
 Agency features belong to V4.
 
+Do not build agency dashboard in V0.5.
+
 Do not build agency dashboard in V1.
 
 Do not build white-label reports in V1.
@@ -576,6 +640,10 @@ No fake GTIN, MPN, or brand was generated.
 
 The correct expansion order is:
 
+V0: market validation.
+
+V0.5: no-install Shopify URL surface scan.
+
 V1: Shopify CSV identifier diagnostic.
 
 V2: paid Fix Pack and Resubmission Evidence Pack.
@@ -592,6 +660,78 @@ Do not skip this order.
 
 ## Version allocation
 
+## V0
+
+Allowed:
+
+Landing page.
+
+Error collection.
+
+Manual or semi-manual diagnosis.
+
+Community validation.
+
+Agency validation.
+
+Forbidden:
+
+Payment.
+
+Full product engine.
+
+Platform features.
+
+API integrations.
+
+Dashboard.
+
+## V0.5
+
+Allowed:
+
+Shopify URL surface scan.
+
+Public product data when available.
+
+Missing image risk.
+
+Missing price risk.
+
+Weak title risk.
+
+Weak description risk.
+
+Basic product count.
+
+Surface risk score.
+
+CTA to Shopify CSV upload.
+
+Forbidden:
+
+Payment.
+
+CSV correction.
+
+Full Merchant Center diagnosis.
+
+Shopify API.
+
+Google Merchant Center API.
+
+PDF.
+
+ZIP.
+
+Webhook.
+
+Agency dashboard.
+
+Omni-channel.
+
+Monitoring.
+
 ## V1
 
 Allowed:
@@ -604,9 +744,15 @@ Corrected CSV when safe.
 
 Manual review.
 
+merchantfix_notes.
+
 Forbidden:
 
+Stripe.
+
 PDF.
+
+ZIP.
 
 Appeal pack.
 
@@ -617,6 +763,12 @@ Agency dashboard.
 Omni-channel.
 
 API integrations.
+
+Authentication.
+
+Database.
+
+AI.
 
 ## V2
 
@@ -648,6 +800,10 @@ Agency dashboard.
 
 API integrations.
 
+Monitoring.
+
+Shopify app.
+
 ## V3
 
 Allowed:
@@ -675,6 +831,8 @@ Omni-channel.
 Webhook.
 
 Agency dashboard unless V4 criteria are met.
+
+Guaranteed recovery.
 
 ## V4
 
@@ -750,31 +908,35 @@ Universal approval guarantee.
 
 ## Strategic priority ranking
 
-Priority 1: V1 diagnostic engine.
+Priority 1: V0.5 surface scan only if it improves acquisition.
 
-Reason: nothing works without a reliable engine.
+Reason: it reduces first-use friction and may push users toward CSV upload.
 
-Priority 2: V2 Fix Pack.
+Priority 2: V1 diagnostic engine.
+
+Reason: nothing serious works without a reliable engine.
+
+Priority 3: V2 Fix Pack.
 
 Reason: validates payment and deliverable value.
 
-Priority 3: Resubmission Evidence Pack.
+Priority 4: Resubmission Evidence Pack.
 
 Reason: increases perceived value and supports premium pricing.
 
-Priority 4: V3 expanded Google errors.
+Priority 5: V3 expanded Google errors.
 
 Reason: increases market coverage.
 
-Priority 5: Agency dashboard.
+Priority 6: Agency dashboard.
 
 Reason: creates recurring revenue.
 
-Priority 6: Proactive monitoring.
+Priority 7: Proactive monitoring.
 
 Reason: creates retention and stronger subscriptions.
 
-Priority 7: Omni-channel expansion.
+Priority 8: Omni-channel expansion.
 
 Reason: increases market size only after core product is proven.
 
@@ -830,6 +992,8 @@ These prices are strategic hypotheses, not V1 commitments.
 
 Every expansion can increase support.
 
+V0.5 can increase confusion if users think it is a full Merchant Center diagnosis.
+
 Omni-channel increases support.
 
 Appeal packs increase expectation risk.
@@ -850,6 +1014,8 @@ Clear error messages.
 
 Clear manual review categories.
 
+Clear separation between surface scan, CSV diagnostic, paid Fix Pack, and platform monitoring.
+
 ## Trust risk
 
 MerchantFix.ai must remain trusted.
@@ -863,6 +1029,8 @@ Do not sound like an official Google partner unless it is true.
 Do not promise outcomes controlled by platforms.
 
 Do not hide limitations.
+
+Do not overstate V0.5.
 
 Trust is more important than hype.
 
@@ -885,6 +1053,8 @@ Guaranteed reinstatement service.
 The correct positioning is:
 
 Product data diagnostic and repair tool.
+
+Surface risk scanner.
 
 Resubmission support tool.
 
@@ -926,13 +1096,15 @@ Subscription.
 
 UsageLimit.
 
+These must not be added in V0.5.
+
 These must not be added in V1.
 
 They should be considered only when V4 or V5 is reached.
 
 ## Current architecture implication
 
-Even though V1 has no database, the code should be modular.
+Even though V0.5 and V1 have no database, the code should be modular.
 
 The V1 types should not prevent future expansion.
 
@@ -956,17 +1128,19 @@ productHandle.
 
 productTitle.
 
+The V0.5 types should remain clearly separate from V1 CSV diagnostic types.
+
 This helps future expansion without building V5 now.
 
 ## Current decision
 
-Current phase: V0 / V1 preparation.
+Current phase: V0 / V0.5 / V1 preparation.
 
-Current build target: V1 diagnostic MVP.
+Current build target: V0.5 no-install Shopify URL surface scan first, then V1 diagnostic MVP.
 
 Current platform expansion status: strategy only.
 
-Current next build step: start Codex prompt 01 after documentation and samples are complete.
+Current next build step: run Codex Prompt 01 after documentation and samples are complete.
 
 Do not implement platform expansion now.
 
@@ -980,7 +1154,13 @@ The right first build is not webhook monitoring.
 
 The right first build is not an agency dashboard.
 
-The right first build is a safe Shopify CSV diagnostic for Google Merchant Center identifier issues.
+The right first build is a safe progression:
+
+V0.5 to attract with a Shopify URL surface scan.
+
+V1 to diagnose Shopify CSV identifier issues.
+
+V2 to sell a focused Fix Pack.
 
 Build the narrow tool.
 
