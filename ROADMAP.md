@@ -12,26 +12,31 @@ Do not build the next version until the current version has been validated.
 
 ## Product vision
 
-MerchantFix.ai starts as a focused tool for Shopify merchants facing Google Merchant Center product disapprovals caused by product identifier issues.
+MerchantFix.ai starts as a focused tool for Shopify merchants facing Google Merchant Center product disapprovals and product data issues.
 
-The first product problem is narrow:
+The first product journey is narrow:
 
-Shopify merchants receive Google Merchant Center errors related to GTIN, MPN, brand, or identifier_exists.
-They paste the error or upload a Shopify CSV.
-MerchantFix.ai diagnoses the issue.
+Shopify merchants receive Google Merchant Center errors or suspect product data issues.
+They start with a no-install Shopify URL surface scan when public product data is available.
+MerchantFix.ai detects basic visible risks such as missing image, missing price, weak title, weak description, and product count.
+MerchantFix.ai clearly states that this is only a surface risk audit, not a full Google Merchant Center diagnosis.
+The merchant is invited to upload a Shopify CSV for deeper identifier diagnosis.
+MerchantFix.ai diagnoses GTIN, MPN, brand, and identifier_exists issues.
 MerchantFix.ai explains what is wrong.
 MerchantFix.ai generates a corrected CSV when the correction is safe.
 MerchantFix.ai clearly marks manual review cases when the correction cannot be automated.
 
 The long-term vision is broader:
 
-MerchantFix.ai can become a product data quality platform for shopping channels, but only after the first focused use case has been validated.
+MerchantFix.ai can become a product data quality platform for shopping channels, but only after the first focused use cases have been validated.
 
 ## Version overview
 
 V0 validates market demand.
 
-V1 validates the technical diagnostic engine.
+V0.5 validates no-install Shopify URL scan engagement.
+
+V1 validates the technical CSV diagnostic engine.
 
 V2 validates paid self-service purchase.
 
@@ -45,7 +50,7 @@ V5 validates platform-level integrations and monitoring.
 
 ## V0 objective
 
-Validate that Shopify merchants, Google Ads freelancers, and agencies have real recurring problems with Google Merchant Center product disapprovals, especially around GTIN, MPN, brand, and identifier_exists.
+Validate that Shopify merchants, Google Ads freelancers, and agencies have real recurring problems with Google Merchant Center product disapprovals, especially around product data quality, GTIN, MPN, brand, and identifier_exists.
 
 ## V0 assumption
 
@@ -85,7 +90,7 @@ No full CSV correction engine.
 No PDF generation.
 No subscription.
 No agency dashboard.
-No app Shopify.
+No Shopify app.
 No guarantee of Google approval.
 
 ## V0 pages
@@ -131,6 +136,157 @@ A validated list of real Merchant Center error messages.
 A list of recurring user pain points.
 A list of fixable and non-fixable cases.
 A first acquisition learning document.
+A decision to proceed or not proceed to V0.5.
+
+## V0.5 No-install Shopify surface scan
+
+## V0.5 objective
+
+Validate whether Shopify merchants engage more easily with a no-install Shopify store URL scan before being asked to upload a CSV.
+
+V0.5 is an acquisition and validation layer, not the core diagnostic engine.
+
+## V0.5 assumption
+
+Users are more likely to start with a simple Shopify store URL than with a Shopify CSV export.
+
+A surface scan can create enough perceived value to push users toward the deeper V1 CSV diagnostic.
+
+## V0.5 target users
+
+Shopify merchants using Google Merchant Center.
+Shopify merchants running Google Shopping.
+Shopify merchants running Performance Max.
+E-commerce operators seeing product disapprovals or limited visibility.
+Google Ads freelancers managing Shopify stores.
+Shopify agencies.
+SEA agencies.
+
+## V0.5 allowed features
+
+Landing page.
+Shopify store URL input.
+URL normalization.
+Public Shopify product data fetch when available.
+Graceful failure when public product data is unavailable.
+Surface-level product scan.
+Basic product count.
+Missing image detection.
+Missing price detection.
+Weak or very short product title detection.
+Empty or weak product description detection.
+Basic surface risk score.
+Clear disclaimer.
+CTA to upload Shopify CSV for deeper identifier diagnosis.
+
+## V0.5 forbidden features
+
+No Stripe.
+No payment.
+No paid checkout.
+No authentication.
+No user account.
+No database.
+No Shopify API.
+No Google Merchant Center API.
+No OpenAI or AI calls.
+No PDF generation.
+No ZIP generation.
+No subscription.
+No agency dashboard.
+No WooCommerce.
+No XML feed parsing.
+No Merchant Center monitoring.
+No Shopify app.
+No automatic CSV correction.
+No full Merchant Center diagnosis.
+No account recovery.
+No guarantee of Google approval.
+
+## V0.5 pages
+
+Homepage or scan entry section.
+Shopify URL scan page if needed.
+Surface scan result section.
+CTA section to upload Shopify CSV.
+Disclaimer section.
+
+## V0.5 core rules
+
+The URL scan is a surface risk audit only.
+
+It must not claim to reproduce Google Merchant Center diagnostics.
+
+It must not claim that detected issues are guaranteed disapproval causes.
+
+It must not claim full feed accuracy.
+
+It must not store user URLs or scan results unnecessarily.
+
+It must not use private Shopify data.
+
+It must not require app installation.
+
+It must invite users to upload a Shopify CSV for deeper V1 analysis.
+
+V0.5 attracts users. V1 diagnoses deeply. V2 monetizes.
+
+## V0.5 surface checks
+
+Detect basic product count.
+
+Detect products with missing main image.
+
+Detect products with missing price.
+
+Detect products with weak or very short titles.
+
+Detect products with empty or weak descriptions.
+
+Handle unavailable public product data gracefully.
+
+Handle invalid URLs gracefully.
+
+Handle non-Shopify or unsupported stores gracefully.
+
+## V0.5 validation criteria
+
+Test 20 Shopify URLs.
+Achieve 10 successful public scans.
+Get 5 users to continue toward CSV upload or clearly show intent to do so.
+Receive 3 real Shopify CSV files.
+Get 1 agency or freelancer to confirm interest.
+Get 3 users to show willingness to pay for a deeper Fix Pack.
+Users understand that the scan is a surface audit only.
+Users do not expect guaranteed Google approval.
+The scan creates enough perceived value to continue.
+
+## V0.5 stop criteria
+
+Stop or pivot if public Shopify product data is unavailable too often.
+Stop or pivot if users do not trust the URL scan.
+Stop or pivot if users do not continue toward CSV upload.
+Stop or pivot if the surface scan creates confusion about Google approval.
+Stop or pivot if the scan produces too many false signals.
+Stop or pivot if the product feels like a toy instead of a serious diagnostic.
+Stop or pivot if support questions increase before any revenue.
+
+## V0.5 decision options
+
+If GO criteria are met, keep V0.5 as the free acquisition layer before V1.
+
+If scans are technically fragile but users like the promise, keep V0.5 as a limited demo and push CSV-first.
+
+If users prefer CSV or agencies ask for CSV directly, continue with V1 as the main product.
+
+If V0.5 creates confusion, remove it from the core journey and keep the product CSV-first.
+
+## V0.5 output
+
+A simple no-install URL scan entry point.
+A surface risk score.
+A clear CTA toward V1 CSV diagnosis.
+Evidence that users engage with the product before building deeper features.
 A decision to proceed or not proceed to V1.
 
 ## V1 Identifier diagnostic MVP
@@ -359,7 +515,7 @@ resubmission-checklist.pdf.
 ## V2 payment tunnel
 
 Homepage.
-Upload CSV or paste error.
+Shopify URL surface scan or upload CSV.
 Free diagnosis.
 Payment.
 Success page.
@@ -622,13 +778,17 @@ Never commit customer data to GitHub.
 Never build the next version before validating the current one.
 Never add features outside the current version scope.
 Never let AI decide critical corrections alone.
-Never become a manual service business by accident.
+Never claim that V0.5 surface scan is a full Merchant Center diagnosis.
+Never position V0.5 detected issues as guaranteed Google disapproval causes.
+Never let the URL scan replace the deeper CSV diagnostic.
 
 ## Global acquisition roadmap
 
 V0 acquisition focuses on collecting real errors from communities and agencies.
 
-V1 acquisition focuses on getting real users to test the diagnostic.
+V0.5 acquisition focuses on reducing first-use friction with a no-install Shopify URL surface scan.
+
+V1 acquisition focuses on getting real users to upload Shopify CSV files and test the diagnostic.
 
 V2 acquisition focuses on converting SEO and outreach traffic into Fix Pack purchases.
 
@@ -640,12 +800,19 @@ V5 acquisition may include Shopify app marketplace, integrations, partnerships, 
 
 ## SEO roadmap
 
-V0 and V1 SEO pages:
+V0 and V0.5 SEO pages:
+
+/fix/shopify-google-merchant-center-checker
+/fix/shopify-google-shopping-audit
+/fix/shopify-google-shopping-image-issues
+/fix/shopify-products-missing-price-google-shopping
+/fix/shopify-products-disapproved-google-merchant-center
+
+V1 SEO pages:
 
 /fix/missing-gtin-google-merchant-center
 /fix/missing-mpn-google-merchant-center
 /fix/incorrect-identifier-exists-shopify
-/fix/shopify-products-disapproved-google-merchant-center
 /fix/google-merchant-center-gtin-mpn-error
 
 V2 and V3 SEO pages:
@@ -677,19 +844,21 @@ Step 2: create sample CSV files.
 Step 3: create Codex prompts.
 Step 4: initialize Next.js.
 Step 5: create landing page.
-Step 6: implement CSV parser.
-Step 7: implement column normalization.
-Step 8: implement identifier issue detection.
-Step 9: implement analysis result object.
-Step 10: implement result page.
-Step 11: implement corrected CSV generation.
-Step 12: test V1 with all sample files.
-Step 13: validate V1.
-Step 14: add Stripe in V2.
-Step 15: add ZIP and PDF in V2.
-Step 16: add SEO pages.
-Step 17: test paid purchase.
-Step 18: expand to V3 only after V2 validation.
+Step 6: implement V0.5 no-install Shopify URL surface scan.
+Step 7: validate URL scan engagement.
+Step 8: implement CSV parser.
+Step 9: implement column normalization.
+Step 10: implement identifier issue detection.
+Step 11: implement analysis result object.
+Step 12: implement result page.
+Step 13: implement corrected CSV generation.
+Step 14: test V1 with all sample files.
+Step 15: validate V1.
+Step 16: add Stripe in V2.
+Step 17: add ZIP and PDF in V2.
+Step 18: add SEO pages.
+Step 19: test paid purchase.
+Step 20: expand to V3 only after V2 validation.
 
 ## Current next action
 
