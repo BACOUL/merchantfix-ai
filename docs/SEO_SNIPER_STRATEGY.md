@@ -4,7 +4,7 @@ This document defines the SEO strategy for MerchantFix.ai.
 
 The goal is not to compete on broad ecommerce keywords.
 
-The goal is to capture urgent, high-intent searches from Shopify merchants and ecommerce professionals who are already facing Google Merchant Center errors.
+The goal is to capture urgent, high-intent searches from Shopify merchants and ecommerce professionals who are already facing Google Merchant Center errors, Google Shopping product visibility issues, or Shopify product data problems.
 
 ## Core SEO principle
 
@@ -12,7 +12,7 @@ MerchantFix.ai must target the exact moment of panic.
 
 The best SEO opportunity is not broad education.
 
-The best SEO opportunity is being visible when a merchant copies a Google Merchant Center error message into Google.
+The best SEO opportunity is being visible when a merchant copies a Google Merchant Center error message, a Shopify Google Shopping issue, or a product data warning into Google.
 
 ## Positioning
 
@@ -46,11 +46,59 @@ Google Shopping products not showing Shopify.
 
 Google Merchant Center GTIN MPN error.
 
+Shopify Google Merchant Center checker.
+
+Shopify Google Shopping audit.
+
+Shopify product image issues Google Shopping.
+
 Google Merchant Center price mismatch.
 
 Google Merchant Center availability mismatch.
 
 These searches come from users who already have a problem.
+
+## Relationship with V0.5, V1, and V2
+
+The SEO strategy must follow the product sequence:
+
+V0: market validation.
+
+V0.5: no-install Shopify URL surface scan.
+
+V1: deeper Shopify CSV diagnostic.
+
+V2: paid Fix Pack after V1 validation.
+
+SEO must not make MerchantFix.ai look more advanced than the product actually is.
+
+V0.5 pages can promote:
+
+Check My Shopify Store.
+
+Run Surface Scan.
+
+Upload Shopify CSV for deeper diagnosis.
+
+V1 pages can promote:
+
+Scan My Shopify CSV.
+
+Paste Merchant Center Error.
+
+Find Affected Products.
+
+V2 pages can promote:
+
+Download Full Fix Pack.
+
+Get Corrected CSV.
+
+Get Resubmission Checklist.
+
+Do not use V2 payment CTAs before V2 is active.
+
+Do not use V3 feature claims before V3 exists.
 
 ## SEO category
 
@@ -60,7 +108,7 @@ This means the pages must answer immediate, specific, technical problems.
 
 The target user is not casually learning.
 
-The target user is trying to fix a blocked or limited product feed.
+The target user is trying to fix a blocked, limited, rejected, or suspicious product feed.
 
 The page must solve the problem quickly, clearly, and safely.
 
@@ -96,33 +144,63 @@ This fits MerchantFix.ai better than generic ecommerce SEO.
 
 ## SEO objective by version
 
-V0 SEO objective:
+## V0 SEO objective
 
 Create the first strategic error pages and validate which errors users search for or submit.
 
-V1 SEO objective:
+## V0.5 SEO objective
 
-Drive users to the free diagnostic for GTIN, MPN, brand, and identifier_exists problems.
+Capture users earlier with no-install Shopify URL surface scan pages.
 
-V2 SEO objective:
+V0.5 SEO should reduce first-use friction.
+
+V0.5 pages should target Shopify merchants who suspect Google Shopping product data issues but are not ready to upload a CSV yet.
+
+V0.5 must clearly say that the URL scan is a surface audit only.
+
+## V1 SEO objective
+
+Drive users to the free CSV diagnostic for GTIN, MPN, brand, and identifier_exists problems.
+
+## V2 SEO objective
 
 Convert high-intent diagnostic users into Fix Pack buyers.
 
-V3 SEO objective:
+## V3 SEO objective
 
 Expand to more Merchant Center error families.
 
-V4 SEO objective:
+## V4 SEO objective
 
 Create agency-focused pages and recurring-use acquisition.
 
-V5 SEO objective:
+## V5 SEO objective
 
 Support platform, monitoring, and integration searches if validated.
 
 ## Initial SEO focus
 
-The first SEO focus must match the V1 product scope.
+The first SEO focus must match the V0.5 and V1 product scope.
+
+V0.5 product scope:
+
+Shopify URL.
+
+Public product data when available.
+
+Missing image.
+
+Missing price.
+
+Weak title.
+
+Weak description.
+
+Basic product count.
+
+Surface risk score.
+
+CSV upload CTA.
 
 V1 product scope:
 
@@ -140,11 +218,33 @@ identifier_exists.
 
 Product disapprovals.
 
-Therefore, the first SEO pages must focus on these errors.
+Therefore, the first SEO pages must focus on these two levels.
 
-## First SEO pages
+## V0.5 SEO pages
 
-The first SEO pages should be created in this order:
+The first V0.5 SEO pages can include:
+
+/fix/shopify-google-merchant-center-checker
+
+/fix/shopify-google-shopping-audit
+
+/fix/shopify-google-shopping-image-issues
+
+/fix/shopify-products-missing-price-google-shopping
+
+These pages must be careful.
+
+They can say MerchantFix.ai can check visible Shopify product data when available.
+
+They must not say MerchantFix.ai sees what Google sees.
+
+They must not say surface issues are guaranteed Google disapproval causes.
+
+They must always push deeper GTIN, MPN, brand, and identifier_exists analysis toward CSV upload.
+
+## V1 SEO pages
+
+The first V1 SEO pages should be created in this order:
 
 /fix/missing-gtin-google-merchant-center
 
@@ -158,9 +258,25 @@ The first SEO pages should be created in this order:
 
 These pages are aligned with the V1 diagnostic engine.
 
-## First page priority
+## First V0.5 page priority
 
-The first page to create should be:
+The first V0.5 acquisition page can be:
+
+/fix/shopify-google-merchant-center-checker
+
+Recommended H1:
+
+Shopify Google Merchant Center Checker: Find Visible Product Data Risks Before Uploading Your CSV
+
+This page is useful because it creates a low-friction entry point.
+
+It must explain that the scan is based on public Shopify product data when accessible.
+
+It must explain that a CSV upload is needed for deeper GTIN, MPN, brand, and identifier_exists diagnosis.
+
+## First V1 page priority
+
+The first V1 page to create should be:
 
 /fix/missing-gtin-google-merchant-center
 
@@ -168,11 +284,11 @@ Recommended H1:
 
 Missing GTIN in Google Merchant Center: How to Fix It for Shopify Products
 
-This page is the best first SEO target because missing GTIN is specific, common, understandable, strongly connected to Shopify exports, and aligned with the V1 diagnostic engine.
+This page is the best first V1 SEO target because missing GTIN is specific, common, understandable, strongly connected to Shopify exports, and aligned with the V1 diagnostic engine.
 
-## Second page priority
+## Second V1 page priority
 
-The second page should be:
+The second V1 page should be:
 
 /fix/incorrect-identifier-exists-shopify
 
@@ -184,9 +300,9 @@ This page is valuable because identifier_exists is confusing, technical, and oft
 
 It also fits MerchantFix.ai perfectly because the tool can detect conflicts between identifier_exists and missing GTIN or MPN.
 
-## Third page priority
+## Third V1 page priority
 
-The third page should be:
+The third V1 page should be:
 
 /fix/missing-mpn-google-merchant-center
 
@@ -196,9 +312,9 @@ Missing MPN in Google Merchant Center: What Shopify Merchants Should Check
 
 This page supports the GTIN and identifier_exists cluster.
 
-## Fourth page priority
+## Fourth V1 page priority
 
-The fourth page should be:
+The fourth V1 page should be:
 
 /fix/google-merchant-center-gtin-mpn-error
 
@@ -208,9 +324,9 @@ Google Merchant Center GTIN and MPN Errors: How to Diagnose Product Identifier I
 
 This page acts as a hub for identifier problems.
 
-## Fifth page priority
+## Fifth V1 page priority
 
-The fifth page should be:
+The fifth V1 page should be:
 
 /fix/shopify-products-disapproved-google-merchant-center
 
@@ -228,9 +344,9 @@ Section 1: H1 with exact error phrase.
 
 Section 2: short urgent explanation.
 
-Section 3: what the error means.
+Section 3: what the error or issue means.
 
-Section 4: why Google Merchant Center shows this error.
+Section 4: why Google Merchant Center may show this error.
 
 Section 5: why this matters for Google Shopping or Performance Max.
 
@@ -244,11 +360,13 @@ Section 9: how MerchantFix.ai can help.
 
 Section 10: what MerchantFix.ai cannot guarantee.
 
-Section 11: CTA to paste the error or upload Shopify CSV.
+Section 11: CTA to paste the error, scan the store URL, or upload Shopify CSV depending on the page support status.
 
 Section 12: FAQ.
 
 Section 13: mandatory disclaimer.
+
+For V0.5 pages, add a visible surface scan limitation section.
 
 ## SEO page tone
 
@@ -284,9 +402,11 @@ Manual fix guidance.
 
 Shopify-specific checks.
 
-CSV diagnostic.
+CSV diagnostic when supported.
 
-Affected row detection.
+Surface scan when supported.
+
+Affected row detection when supported.
 
 Safe corrections when possible.
 
@@ -310,11 +430,23 @@ Guaranteed sales recovery.
 
 Guaranteed Google Shopping visibility.
 
+Surface scan equivalent to Google Merchant Center diagnosis.
+
 ## CTA strategy
 
-The CTA must match the user’s panic moment.
+The CTA must match the user’s panic moment and the actual product stage.
 
-Good CTA examples:
+Good V0.5 CTA examples:
+
+Check My Shopify Store.
+
+Run Surface Scan.
+
+Find Visible Product Risks.
+
+Upload Shopify CSV for Deeper Diagnosis.
+
+Good V1 CTA examples:
 
 Diagnose My Product Errors.
 
@@ -328,7 +460,7 @@ Paste My Merchant Center Error.
 
 Get a Free Diagnosis.
 
-V2 paid CTA examples:
+Good V2 paid CTA examples:
 
 Download Full Fix Pack.
 
@@ -392,13 +524,41 @@ If the product has no manufacturer identifier, review identifier_exists logic.
 
 Use MerchantFix.ai to identify affected rows and separate safe fixes from manual review.
 
+## Manual fix example for V0.5 Shopify surface scan pages
+
+A Shopify Google Shopping audit page should explain:
+
+Check whether product pages have visible images.
+
+Check whether products show clear prices.
+
+Check whether product titles are specific enough.
+
+Check whether descriptions are empty or too weak.
+
+Check whether public product data is accessible.
+
+Upload a Shopify CSV for deeper identifier checks.
+
+Do not assume visible public data equals Google Merchant Center feed data.
+
 ## MerchantFix.ai section
 
 Each page should include a section called:
 
 How MerchantFix.ai can help
 
-This section should say:
+For V0.5 pages, this section should say:
+
+MerchantFix.ai can run a no-install Shopify URL surface scan when public product data is accessible.
+
+MerchantFix.ai can detect visible risks such as missing images, missing prices, weak titles, and weak descriptions.
+
+MerchantFix.ai can guide the user toward deeper Shopify CSV diagnosis.
+
+MerchantFix.ai surface scan is not a full Google Merchant Center diagnosis.
+
+For V1 pages, this section should say:
 
 MerchantFix.ai can scan your Shopify CSV.
 
@@ -430,17 +590,51 @@ Misrepresentation and account suspensions often require website or account revie
 
 Manual review may be required.
 
+For V0.5 pages, it must also say:
+
+The Shopify URL scan is based on publicly available product data when accessible.
+
+It is not a full Google Merchant Center diagnosis.
+
+It may not reflect the exact data Google receives in Merchant Center.
+
+For deeper identifier checks, upload a Shopify CSV.
+
 ## Mandatory disclaimer
 
 Every SEO page must include this exact disclaimer:
 
 MerchantFix.ai helps diagnose and fix product data issues. Some issues may require manual review. Google approval is not guaranteed.
 
+## V0.5 surface scan disclaimer
+
+Every V0.5 page must also include this exact disclaimer:
+
+MerchantFix.ai surface scan is based on publicly available product data when accessible. It is not a full Google Merchant Center diagnosis. Google approval is not guaranteed.
+
 ## Error categories to target
 
-## Category 1: identifier errors
+## Category 1: V0.5 Shopify surface audit pages
 
-Priority: highest.
+Priority: early acquisition.
+
+Pages:
+
+/fix/shopify-google-merchant-center-checker
+
+/fix/shopify-google-shopping-audit
+
+/fix/shopify-google-shopping-image-issues
+
+/fix/shopify-products-missing-price-google-shopping
+
+/fix/shopify-products-disapproved-google-merchant-center
+
+These pages attract users earlier and route them toward CSV upload.
+
+## Category 2: identifier errors
+
+Priority: highest for V1.
 
 Relevant to V1.
 
@@ -460,11 +654,11 @@ Pages:
 
 /fix/invalid-gtin-google-merchant-center
 
-## Category 2: Shopify product disapproval pages
+## Category 3: Shopify product disapproval pages
 
 Priority: high.
 
-Relevant to V1 and V2.
+Relevant to V0.5, V1, and V2.
 
 Pages:
 
@@ -476,7 +670,7 @@ Pages:
 
 /fix/shopify-google-shopping-feed-errors
 
-## Category 3: price and availability
+## Category 4: price and availability
 
 Priority: V3.
 
@@ -492,9 +686,9 @@ Pages:
 
 /fix/google-shopping-availability-not-matching-website
 
-## Category 4: image and link issues
+## Category 5: image and link issues
 
-Priority: V3.
+Priority: V0.5 for basic surface risk, V3 for deeper Merchant Center diagnosis.
 
 Pages:
 
@@ -506,7 +700,11 @@ Pages:
 
 /fix/google-shopping-image-not-approved
 
-## Category 5: shipping, tax, and category
+V0.5 may detect missing visible product images only.
+
+V0.5 must not claim full image policy validation.
+
+## Category 6: shipping, tax, and category
 
 Priority: V3.
 
@@ -520,7 +718,7 @@ Pages:
 
 /fix/google-shopping-product-category-error
 
-## Category 6: misrepresentation and account issues
+## Category 7: misrepresentation and account issues
 
 Priority: later and cautious.
 
@@ -540,7 +738,7 @@ Pages:
 
 These pages must clearly say that MerchantFix.ai cannot guarantee recovery and that misrepresentation is not usually solved by CSV changes alone.
 
-## Category 7: agency pages
+## Category 8: agency pages
 
 Priority: V2 to V4 depending on traction.
 
@@ -554,7 +752,7 @@ Pages:
 
 /google-merchant-center-report-for-clients
 
-## Category 8: tool pages
+## Category 9: tool pages
 
 Priority: after V1.
 
@@ -680,6 +878,18 @@ Every page must link to the diagnostic CTA.
 
 Pages should link logically.
 
+V0.5 Shopify audit page links to:
+
+Shopify Google Merchant Center checker page.
+
+Shopify products disapproved page.
+
+Missing GTIN page.
+
+Incorrect identifier_exists page.
+
+CSV diagnostic CTA.
+
 Missing GTIN page links to:
 
 Missing MPN page.
@@ -710,7 +920,27 @@ Agency pages link to tool pages and sample reports.
 
 ## First SEO cluster
 
-The first cluster is product identifier errors.
+The first acquisition cluster is the V0.5 Shopify surface audit cluster.
+
+Cluster hub:
+
+/fix/shopify-google-merchant-center-checker
+
+Spoke pages:
+
+/fix/shopify-google-shopping-audit
+
+/fix/shopify-google-shopping-image-issues
+
+/fix/shopify-products-missing-price-google-shopping
+
+/fix/shopify-products-disapproved-google-merchant-center
+
+This cluster should attract users who want a quick check before uploading a CSV.
+
+## Second SEO cluster
+
+The second cluster is product identifier errors.
 
 Cluster hub:
 
@@ -732,9 +962,9 @@ Spoke pages:
 
 This cluster should be built before price mismatch, availability, or misrepresentation pages.
 
-## Second SEO cluster
+## Third SEO cluster
 
-The second cluster is Shopify product disapprovals.
+The third cluster is Shopify product disapprovals.
 
 Cluster hub:
 
@@ -750,15 +980,15 @@ Spoke pages:
 
 This cluster should route users toward the identifier cluster if the issue is GTIN, MPN, brand, or identifier_exists.
 
-## Third SEO cluster
+## Fourth SEO cluster
 
-The third cluster is price, availability, image, and shipping errors.
+The fourth cluster is price, availability, image, and shipping errors.
 
 This belongs to V3.
 
-## Fourth SEO cluster
+## Fifth SEO cluster
 
-The fourth cluster is misrepresentation and account-level checklist.
+The fifth cluster is misrepresentation and account-level checklist.
 
 This must be cautious and checklist-only.
 
@@ -768,25 +998,27 @@ This belongs to V3 or later.
 
 Publish order:
 
-1. Missing GTIN page.
+1. Shopify Google Merchant Center checker page.
 
-2. Incorrect identifier_exists page.
+2. Missing GTIN page.
 
-3. Missing MPN page.
+3. Incorrect identifier_exists page.
 
-4. GTIN / MPN hub page.
+4. Missing MPN page.
 
-5. Shopify products disapproved page.
+5. GTIN / MPN hub page.
 
-6. Missing brand page.
+6. Shopify products disapproved page.
 
-7. Invalid GTIN page.
+7. Missing brand page.
 
-8. Duplicate GTIN page.
+8. Invalid GTIN page.
 
-9. Google Merchant Center diagnostic tool page.
+9. Duplicate GTIN page.
 
-10. Agency audit page.
+10. Google Merchant Center diagnostic tool page.
+
+11. Agency audit page.
 
 Do not publish too many pages before the diagnostic CTA exists.
 
@@ -797,6 +1029,12 @@ SEO pages must not promise features that the product does not support.
 If a page discusses an error not supported by V1, it must be framed as manual guidance or future checklist.
 
 The CTA must be honest.
+
+For V0.5 pages:
+
+The CTA can say:
+
+Check visible Shopify product data from your store URL.
 
 For V1 pages:
 
@@ -812,7 +1050,7 @@ The CTA can expand only after the engine supports those categories.
 
 The ideal path:
 
-User searches exact error.
+User searches exact error or Shopify Google Shopping issue.
 
 User lands on specific error page.
 
@@ -822,7 +1060,7 @@ User sees manual fix.
 
 User sees risk of doing it wrong.
 
-User clicks diagnostic CTA.
+User runs a V0.5 surface scan or uploads CSV directly.
 
 User pastes error or uploads CSV.
 
@@ -842,7 +1080,9 @@ Page indexing.
 
 CTA clicks.
 
-Upload starts.
+Surface scans started.
+
+CSV upload starts.
 
 Completed diagnostics.
 
@@ -856,6 +1096,8 @@ Community referral traffic.
 
 Agency page traffic.
 
+V0.5 scan-to-CSV-upload conversion.
+
 ## SEO risks
 
 Risk: pages become too generic.
@@ -865,6 +1107,10 @@ Mitigation: each page must target one exact error.
 Risk: pages overpromise automatic fixing.
 
 Mitigation: use limitations and disclaimer.
+
+Risk: V0.5 pages imply full Merchant Center diagnosis.
+
+Mitigation: show surface scan disclaimer.
 
 Risk: competition dominates broad terms.
 
@@ -882,7 +1128,69 @@ Risk: content gets outdated.
 
 Mitigation: update pages when Google error wording changes.
 
-## First page content brief
+## First V0.5 page content brief
+
+Page:
+
+/fix/shopify-google-merchant-center-checker
+
+H1:
+
+Shopify Google Merchant Center Checker: Find Visible Product Data Risks Before Uploading Your CSV
+
+Target user:
+
+Shopify merchant who suspects Google Shopping or Merchant Center product data issues and wants a quick first check.
+
+Primary keyword:
+
+Shopify Google Merchant Center checker
+
+Secondary keywords:
+
+Shopify Google Shopping audit
+
+Shopify product data checker
+
+Google Merchant Center Shopify errors
+
+Shopify products disapproved Google Merchant Center
+
+Page intent:
+
+Help the user run a low-friction visible product data check, then guide them toward deeper Shopify CSV diagnosis.
+
+CTA:
+
+Check My Shopify Store.
+
+Secondary CTA:
+
+Upload Shopify CSV for Deeper Diagnosis.
+
+Manual fix sections:
+
+Check product images.
+
+Check product prices.
+
+Check product titles.
+
+Check product descriptions.
+
+Check whether public product data is accessible.
+
+Export Shopify CSV for deeper GTIN, MPN, brand, and identifier_exists checks.
+
+Limitations:
+
+Surface scan is not a full Google Merchant Center diagnosis.
+
+Public product data may not match Google Merchant Center feed data.
+
+Google approval is not guaranteed.
+
+## First V1 page content brief
 
 Page:
 
@@ -956,7 +1264,7 @@ Target the exact error.
 
 Give the manual fix.
 
-Offer the diagnostic.
+Offer the correct diagnostic path.
 
 Mark limitations clearly.
 
