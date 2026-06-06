@@ -38,13 +38,13 @@ Date: 2026-06-06
 
 Decision: MerchantFix.ai will start with Shopify merchants only.
 
-Version concerned: V0 and V1
+Version concerned: V0, V0.5, and V1
 
 Reason: Shopify is standardized, international, widely used by ecommerce merchants, and strongly connected to Google Merchant Center and Google Shopping use cases. Starting with Shopify reduces technical complexity and improves acquisition focus.
 
-Impact: The first MVP will not support WooCommerce, Prestashop, Magento, Amazon, Meta Catalog, TikTok Shop, or generic product feed platforms.
+Impact: The first MVP sequence will not support WooCommerce, Prestashop, Magento, Amazon, Meta Catalog, TikTok Shop, or generic product feed platforms.
 
-Allowed: Shopify CSV upload, Shopify column normalization, Shopify-specific examples, Shopify-specific SEO pages.
+Allowed: Shopify store URL surface scan in V0.5, Shopify CSV upload in V1, Shopify column normalization, Shopify-specific examples, Shopify-specific SEO pages.
 
 Forbidden: WooCommerce support, Prestashop support, Magento support, marketplace expansion, generic feed manager positioning.
 
@@ -58,7 +58,7 @@ Decision: MerchantFix.ai V1 will focus only on GTIN, MPN, brand, and identifier_
 
 Version concerned: V1
 
-Reason: Product identifier problems are frequent, specific, understandable, and strongly linked to Google Merchant Center product disapprovals. A narrow first scope reduces risk and makes the MVP easier to test.
+Reason: Product identifier problems are frequent, specific, understandable, and strongly linked to Google Merchant Center product disapprovals. A narrow first CSV diagnostic scope reduces risk and makes the MVP easier to test.
 
 Impact: The V1 diagnostic engine will not attempt to solve every Merchant Center issue.
 
@@ -80,7 +80,7 @@ Reason: Google Merchant Center approval depends on many factors outside the prod
 
 Impact: Every important page and report must include a disclaimer.
 
-Allowed: Diagnose product data issues, suggest safe corrections, generate corrected CSV when possible, provide manual review checklist, provide resubmission checklist.
+Allowed: Diagnose product data issues, suggest safe corrections, generate corrected CSV when possible, provide manual review checklist, provide resubmission checklist, provide surface risk scan with clear limits.
 
 Forbidden: Approval guaranteed, account recovery guaranteed, products will be approved, this will fix all Merchant Center issues, this will restore Google Shopping visibility.
 
@@ -108,7 +108,7 @@ Review condition: This decision is permanent.
 
 Date: 2026-06-06
 
-Decision: V1 will use a rule-based engine, not AI.
+Decision: MerchantFix.ai V1 will use a rule-based engine, not AI.
 
 Version concerned: V1
 
@@ -126,7 +126,7 @@ Review condition: AI may be introduced in V3 only as an explanatory layer after 
 
 Date: 2026-06-06
 
-Decision: V1 will not include Stripe.
+Decision: MerchantFix.ai V1 will not include Stripe.
 
 Version concerned: V1
 
@@ -144,17 +144,17 @@ Review condition: Stripe can be added in V2 after V1 passes validation criteria.
 
 Date: 2026-06-06
 
-Decision: V1 will not include authentication or a database.
+Decision: MerchantFix.ai V0.5 and V1 will not include authentication or a database.
 
-Version concerned: V1
+Version concerned: V0.5 and V1
 
-Reason: The fastest and safest V1 is a no-auth, no-database diagnostic flow. Accounts and databases create complexity, privacy risks, and development overhead before they are necessary.
+Reason: The fastest and safest early product is a no-auth, no-database diagnostic flow. Accounts and databases create complexity, privacy risks, and development overhead before they are necessary.
 
-Impact: V1 should process uploads temporarily and avoid persistent storage.
+Impact: V0.5 should avoid storing submitted URLs or scan results. V1 should process uploads temporarily and avoid persistent storage.
 
-Allowed: Local session flow, temporary in-memory or short-lived processing, no permanent user account.
+Allowed: Local session flow, temporary in-memory or short-lived processing, no permanent user account, no persistent customer file storage.
 
-Forbidden: Login, registration, Supabase, user dashboard, saved history, persistent customer file storage.
+Forbidden: Login, registration, Supabase, user dashboard, saved history, persistent customer file storage, persistent URL scan history.
 
 Review condition: Authentication and database can be considered in V4 for agency features or only if V2/V3 proves repeated usage.
 
@@ -182,7 +182,7 @@ Date: 2026-06-06
 
 Decision: MerchantFix.ai will use English first.
 
-Version concerned: V0, V1, V2
+Version concerned: V0, V0.5, V1, and V2
 
 Reason: The initial market is international, Shopify is global, and most high-intent searches around Google Merchant Center errors are likely to be in English.
 
@@ -202,11 +202,11 @@ Decision: MerchantFix.ai acquisition will be intent-led, not cold mass prospecti
 
 Version concerned: All versions
 
-Reason: The product should target users who already have Google Merchant Center errors. The strongest acquisition path is long-tail SEO, communities, freelancers, and agencies already facing the problem.
+Reason: The product should target users who already have Google Merchant Center errors or Shopify Google Shopping product visibility problems. The strongest acquisition path is long-tail SEO, communities, freelancers, and agencies already facing the problem.
 
 Impact: The project must build SEO pages and a diagnostic CTA from the beginning.
 
-Allowed: SEO pages around exact errors, Shopify Community answers, Reddit answers, targeted freelancer outreach, targeted agency outreach, free diagnosis offer.
+Allowed: SEO pages around exact errors, Shopify Google Shopping audit pages, Shopify Community answers, Reddit answers, targeted freelancer outreach, targeted agency outreach, free diagnosis offer, no-install Shopify URL scan.
 
 Forbidden: Mass cold calling, broad cold email campaigns, generic ecommerce prospecting, paid ads before validation.
 
@@ -258,9 +258,9 @@ Version concerned: V5
 
 Reason: API integrations add technical complexity, security concerns, token management, maintenance cost, and support. They should be built only if paying users request them.
 
-Impact: CSV upload remains the first input method.
+Impact: Public Shopify URL scan and CSV upload remain the first input methods.
 
-Allowed before V5: CSV upload, pasted error, manual export, manual analysis.
+Allowed before V5: no-install Shopify URL scan, CSV upload, pasted error, manual export, manual analysis.
 
 Forbidden before V5: Shopify OAuth, Google OAuth, Merchant Center API connection, automated monitoring, scheduled scans.
 
@@ -296,7 +296,7 @@ Reason: Users must clearly understand what the tool corrected, what they need to
 
 Impact: Reports and result pages must have clear categories.
 
-Allowed: Automatically fixable, manual review required, not fixable from product file.
+Allowed: Automatically fixable, manual review required, not fixable from product file, surface risk only.
 
 Forbidden: Blending all issues together, implying manual issues are fixed, hiding uncertainty.
 
@@ -392,6 +392,78 @@ Forbidden: Proceeding to Stripe before samples pass.
 
 Review condition: This decision is permanent for V1.
 
+## Decision 021
+
+Date: 2026-06-06
+
+Decision: Add V0.5 no-install Shopify URL surface scan before V1.
+
+Version concerned: V0.5 and V1
+
+Reason: Asking for a Shopify CSV immediately creates friction. A no-install Shopify URL scan can reduce the first action required from the user, create an immediate result, and improve acquisition before asking for deeper CSV analysis.
+
+Impact: The product sequence becomes V0 market validation, V0.5 no-install Shopify URL surface scan, V1 Shopify CSV identifier diagnostic, V2 paid Fix Pack.
+
+Allowed: Shopify store URL input, URL normalization, public product data fetch when available, graceful failure, product count, missing image detection, missing price detection, weak title detection, weak description detection, basic surface risk score, CTA to upload Shopify CSV.
+
+Forbidden: Stripe, payment, authentication, database, Shopify API, Google Merchant Center API, AI calls, PDF, ZIP, Shopify app, automatic CSV correction, full Merchant Center diagnosis, approval guarantee.
+
+Review condition: V0.5 can be kept as the main acquisition layer if it drives CSV upload. It can be reduced to an optional demo or skipped if it proves fragile, confusing, or low-converting.
+
+## Decision 022
+
+Date: 2026-06-06
+
+Decision: V0.5 is a surface risk audit only and must not be positioned as a full Merchant Center diagnostic.
+
+Version concerned: V0.5
+
+Reason: Public Shopify product data may be incomplete, blocked, unavailable, or different from what Google Merchant Center sees. Overstating the URL scan would create trust risk and false expectations.
+
+Impact: Every V0.5 result must include a clear limitation disclaimer and a CTA toward deeper CSV diagnosis.
+
+Allowed: Surface risk scan, visible product data checks, product count, missing image, missing price, weak title, weak description.
+
+Forbidden: Claiming Google sees the same data, claiming Google will reject a product, claiming detected issues are guaranteed disapproval causes, claiming full Merchant Center diagnosis.
+
+Review condition: Permanent unless V5 connected API diagnostics are built and validated.
+
+## Decision 023
+
+Date: 2026-06-06
+
+Decision: V0.5 attracts, V1 diagnoses deeply, V2 monetizes.
+
+Version concerned: V0.5, V1, and V2
+
+Reason: Each phase must have one clear role. Mixing acquisition, deep diagnosis, and monetization too early creates scope creep and user confusion.
+
+Impact: V0.5 should optimize first-use engagement. V1 should optimize diagnostic reliability. V2 should optimize paid delivery.
+
+Allowed: V0.5 free scan, V1 free diagnostic, V2 paid Fix Pack.
+
+Forbidden: Charging in V0.5, using V0.5 as the correction engine, adding Stripe in V1, building V2 before V1 is reliable.
+
+Review condition: This decision can be reviewed after V2 conversion data exists.
+
+## Decision 024
+
+Date: 2026-06-06
+
+Decision: V0.5 and V1 must remain technically separate.
+
+Version concerned: V0.5 and V1
+
+Reason: The surface URL scan and the CSV identifier diagnostic are different products technically and commercially. Mixing them too early would make the code harder to test and the promise harder to explain.
+
+Impact: V0.5 should have separate route/module logic from V1 CSV parsing and identifier rules.
+
+Allowed: app/scan/page.tsx, app/api/surface-scan/route.ts, lib/normalizeStoreUrl.ts, lib/fetchPublicShopifyProducts.ts, lib/detectSurfaceRisks.ts, lib/calculateSurfaceRiskScore.ts.
+
+Forbidden: Embedding surface scan rules inside CSV identifier detection, making CSV correction depend on URL scan, making V0.5 output corrected CSV files.
+
+Review condition: This separation can be revisited only after V1 is stable and user flow data shows a better architecture is needed.
+
 ## Decision log template
 
 Date:
@@ -424,12 +496,16 @@ Repository name: merchantfix-ai.
 
 Initial market: English-speaking Shopify merchants using Google Merchant Center.
 
-Initial product scope: Shopify CSV identifier diagnostic.
+Initial product sequence: V0 market validation, V0.5 Shopify URL surface scan, V1 Shopify CSV identifier diagnostic, V2 paid Fix Pack.
 
-Initial errors: GTIN, MPN, brand, identifier_exists.
+Initial V0.5 scope: no-install Shopify URL surface scan for visible product risks.
 
-Initial business model: free diagnosis, then V2 paid Fix Pack.
+Initial V1 scope: Shopify CSV identifier diagnostic.
 
-Initial acquisition: long-tail SEO, communities, freelancers, agencies.
+Initial errors: missing image, missing price, weak title, weak description, GTIN, MPN, brand, identifier_exists.
 
-Current phase: documentation and V1 preparation.
+Initial business model: free URL scan, free CSV diagnosis, then V2 paid Fix Pack.
+
+Initial acquisition: long-tail SEO, Shopify Google Shopping audit pages, communities, freelancers, agencies.
+
+Current phase: documentation and V0 / V0.5 / V1 preparation.
