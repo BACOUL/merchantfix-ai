@@ -20,13 +20,15 @@ No false promises.
 
 No unsupported product claims.
 
+No confusion between V0.5 surface scan, V1 CSV diagnosis, and V2 paid Fix Pack.
+
 ## Strategic purpose
 
 MerchantFix.ai should not manually create hundreds of SEO pages one by one.
 
 Instead, the project should eventually use a structured dataset of Google Merchant Center errors and generate pages dynamically through a reusable Next.js template.
 
-The objective is to capture long-tail searches from users who are already facing Google Merchant Center errors.
+The objective is to capture long-tail searches from users who are already facing Google Merchant Center errors or Shopify Google Shopping product data issues.
 
 ## Relationship with SEO Sniper Strategy
 
@@ -42,6 +44,26 @@ PROGRAMMATIC_SEO_STRATEGY.md answers:
 
 How should MerchantFix.ai generate and manage those pages efficiently?
 
+## Relationship with V0.5, V1, and V2
+
+Programmatic SEO must respect the product sequence:
+
+V0: market validation.
+
+V0.5: no-install Shopify URL surface scan.
+
+V1: deeper Shopify CSV diagnostic.
+
+V2: paid Fix Pack after V1 validation.
+
+SEO pages must not make the product look more advanced than it is.
+
+V0.5 pages can promote a quick Shopify URL surface scan.
+
+V1 pages can promote Shopify CSV upload and identifier diagnosis.
+
+V2 pages can promote the paid Fix Pack only after payment and delivery are active.
+
 ## Important timing rule
 
 Programmatic SEO must be planned now, but not fully implemented before V1 is stable.
@@ -49,6 +71,12 @@ Programmatic SEO must be planned now, but not fully implemented before V1 is sta
 V1 should create one manual SEO page first:
 
 /fix/missing-gtin-google-merchant-center
+
+V0.5 can support one or two hand-built acquisition pages, such as:
+
+/fix/shopify-google-merchant-center-checker
+
+/fix/shopify-google-shopping-audit
 
 After V1 validation, MerchantFix.ai can introduce a small programmatic SEO system with 5 to 10 error pages.
 
@@ -82,6 +110,10 @@ It must not publish low-value pages.
 
 It must not target account recovery claims irresponsibly.
 
+It must not imply that V0.5 is a full Google Merchant Center diagnostic.
+
+It must not imply that a surface scan can replace the deeper V1 CSV diagnostic.
+
 ## Recommended future architecture
 
 The future structure may be:
@@ -114,7 +146,11 @@ searchIntent
 
 supportedVersion
 
+isSupportedInV05
+
 isSupportedInV1
+
+isSupportedInV2
 
 isChecklistOnly
 
@@ -168,7 +204,9 @@ Example only. Do not implement until the technical project is ready.
   ],
   searchIntent: "User needs to understand and fix missing GTIN warnings or disapprovals for Shopify products.",
   supportedVersion: "V1",
+  isSupportedInV05: false,
   isSupportedInV1: true,
+  isSupportedInV2: true,
   isChecklistOnly: false,
   riskLevel: "medium",
   issueCategory: "identifier",
@@ -178,11 +216,43 @@ Example only. Do not implement until the technical project is ready.
   ctaLabel: "Scan My Shopify CSV"
 }
 
-## First programmatic SEO dataset
+## V0.5 SEO dataset
 
-The first dataset should include only V1-aligned pages.
+The V0.5 dataset should include only pages that match the no-install Shopify URL surface scan.
 
-Initial entries:
+Initial V0.5 entries:
+
+shopify-google-merchant-center-checker
+
+shopify-google-shopping-audit
+
+shopify-google-shopping-image-issues
+
+shopify-products-missing-price-google-shopping
+
+shopify-products-disapproved-google-merchant-center
+
+These pages must explain that V0.5 is a surface audit only.
+
+They may lead users to:
+
+Check Shopify store URL.
+
+Upload Shopify CSV for deeper diagnosis.
+
+Paste Merchant Center error.
+
+They must not claim that MerchantFix.ai sees the same data as Google Merchant Center.
+
+They must not claim that detected V0.5 issues are guaranteed disapproval causes.
+
+They must not claim full feed diagnosis.
+
+## First V1 programmatic SEO dataset
+
+The first V1 dataset should include only V1-aligned pages.
+
+Initial V1 entries:
 
 missing-gtin-google-merchant-center
 
@@ -266,7 +336,11 @@ missing image
 
 products not showing
 
-These require careful wording because the issue may depend on website data, sync status, or Google review.
+Shopify Google Shopping audit
+
+Shopify products disapproved
+
+These require careful wording because the issue may depend on website data, sync status, public product data, Merchant Center processing, or Google review.
 
 ## High-risk pages
 
@@ -294,6 +368,8 @@ Every page must define its support status.
 
 Recommended values:
 
+supported_by_v05
+
 supported_by_v1
 
 supported_by_v2
@@ -316,15 +392,27 @@ Example:
 
 MerchantFix.ai can help identify product data issues, but this specific problem may require website or account-level review.
 
+## V0.5 page support rule
+
+If a page is supported by V0.5 only, it must say clearly:
+
+The Shopify URL scan is based on publicly available product data when accessible.
+
+It is not a full Google Merchant Center diagnosis.
+
+It does not guarantee that Google sees the same data.
+
+For deeper GTIN, MPN, brand, and identifier_exists checks, upload a Shopify CSV.
+
 ## Template structure
 
 Every programmatic SEO page must include:
 
 Hero.
 
-What this error means.
+What this error or issue means.
 
-Why Google Merchant Center shows it.
+Why Google Merchant Center may show it.
 
 Why it happens on Shopify.
 
@@ -364,6 +452,10 @@ FAQ
 
 MerchantFix limitation notes
 
+CTA logic
+
+Support status
+
 ## Manual fix first rule
 
 Every page must give the manual fix first.
@@ -378,6 +470,14 @@ Then MerchantFix.ai becomes the faster and safer diagnostic option.
 
 The CTA must match what the product actually supports.
 
+For V0.5-supported surface scan pages:
+
+Check My Shopify Store
+
+Run Surface Scan
+
+Upload Shopify CSV for Deeper Diagnosis
+
 For V1-supported identifier pages:
 
 Scan My Shopify CSV
@@ -385,6 +485,14 @@ Scan My Shopify CSV
 Paste Merchant Center Error
 
 Find Affected Products
+
+For V2 paid Fix Pack pages:
+
+Download Full Fix Pack
+
+Get Corrected CSV
+
+Get Resubmission Checklist
 
 For checklist-only pages:
 
@@ -408,6 +516,12 @@ Every programmatic page must include this exact disclaimer:
 
 MerchantFix.ai helps diagnose and fix product data issues. Some issues may require manual review. Google approval is not guaranteed.
 
+## V0.5 surface scan disclaimer
+
+Every V0.5 page must also include this exact disclaimer:
+
+MerchantFix.ai surface scan is based on publicly available product data when accessible. It is not a full Google Merchant Center diagnosis. Google approval is not guaranteed.
+
 ## Forbidden claims
 
 Programmatic pages must never claim:
@@ -429,6 +543,10 @@ MerchantFix.ai generates MPN.
 MerchantFix.ai can replace manufacturer data.
 
 MerchantFix.ai can guarantee Google Shopping visibility.
+
+MerchantFix.ai surface scan is equivalent to Google Merchant Center diagnostics.
+
+MerchantFix.ai URL scan can replace Shopify CSV analysis.
 
 ## Metadata strategy
 
@@ -472,9 +590,29 @@ Broad hub pages must link to specific error pages.
 
 Specific error pages must link back to relevant hubs.
 
+V0.5 surface scan pages must link toward V1 CSV diagnostic pages.
+
+V1 CSV diagnostic pages may link to V0.5 surface scan pages as a quick first check, but the deeper diagnostic CTA must remain CSV-focused.
+
 ## Hub and spoke structure
 
 MerchantFix.ai should use hub and spoke SEO clusters.
+
+## V0.5 Shopify audit cluster
+
+Hub:
+
+/fix/shopify-google-merchant-center-checker
+
+Spokes:
+
+/fix/shopify-google-shopping-audit
+
+/fix/shopify-google-shopping-image-issues
+
+/fix/shopify-products-missing-price-google-shopping
+
+/fix/shopify-products-disapproved-google-merchant-center
 
 ## Identifier cluster
 
@@ -576,6 +714,18 @@ Static pages allow one template to scale across many error pages.
 
 ## Version timing
 
+## V0.5
+
+Create only limited hand-built acquisition pages if needed:
+
+/fix/shopify-google-merchant-center-checker
+
+/fix/shopify-google-shopping-audit
+
+Do not build the full programmatic system yet.
+
+Do not claim full Merchant Center diagnosis.
+
 ## V1
 
 Create only one hand-built SEO page first:
@@ -620,6 +770,8 @@ Does the page match the product’s actual support status?
 
 Does the page include the mandatory disclaimer?
 
+Does the page include the V0.5 surface scan disclaimer when relevant?
+
 Does the page include unique metadata?
 
 Does the page link to relevant pages?
@@ -627,6 +779,8 @@ Does the page link to relevant pages?
 Does the page avoid duplicate generic content?
 
 Does the CTA match what MerchantFix.ai can actually do?
+
+Does the page separate V0.5 surface scan from V1 CSV diagnosis?
 
 ## Thin content prevention
 
@@ -668,7 +822,7 @@ Add it to backlog.
 
 Classify it by category.
 
-Decide if it is V1, V3, checklist-only, or future.
+Decide if it is V0.5, V1, V3, checklist-only, or future.
 
 Create a page only if useful.
 
@@ -685,6 +839,10 @@ If many users ask the same question, add FAQ content.
 If an error causes confusion, add a limitation section.
 
 If an error is unsupported, make that clear.
+
+If many V0.5 users continue to CSV upload, expand V0.5 acquisition pages carefully.
+
+If V0.5 traffic does not convert to CSV upload, reduce V0.5 SEO priority.
 
 ## Future file structure
 
@@ -752,6 +910,12 @@ invalid-gtin-google-merchant-center
 
 duplicate-gtin-google-merchant-center
 
+Optional V0.5 pages may be added only if V0.5 proves useful:
+
+shopify-google-merchant-center-checker
+
+shopify-google-shopping-audit
+
 ## Important warning
 
 Do not generate programmatic pages for errors that the product cannot support unless they are clearly marked as manual guidance or checklist-only.
@@ -760,17 +924,29 @@ Do not build programmatic SEO before the V1 product is technically stable.
 
 Do not allow SEO ambition to create product overpromising.
 
+Do not let V0.5 SEO pages imply full Google Merchant Center diagnosis.
+
+Do not let V0.5 pages replace the deeper CSV diagnostic path.
+
 ## Current decision
 
-Current phase: V0 / V1 preparation.
+Current phase: V0 / V0.5 / V1 preparation.
 
-Current product build target: V1 diagnostic MVP.
+Current product build target: V0.5 no-install Shopify URL surface scan first, then V1 diagnostic MVP.
 
-Current SEO implementation target: one hand-built Missing GTIN page first.
+Current SEO implementation target:
 
-Current future SEO target: programmatic SEO system after V1 validation.
+One or two V0.5 hand-built acquisition pages if needed.
 
-Current rule: plan programmatic SEO now, implement it later.
+One hand-built Missing GTIN page for V1.
+
+Current future SEO target:
+
+Programmatic SEO system after V1 validation.
+
+Current rule:
+
+Plan programmatic SEO now, implement it later.
 
 ## Final rule
 
@@ -778,6 +954,8 @@ Programmatic SEO is powerful only if the pages are useful, specific, fast, and h
 
 MerchantFix.ai should generate pages at scale only after the first page proves the format and the product can support the promise.
 
-Start with one excellent page.
+Start with one excellent V1 page.
 
-Then scale the template.
+Use V0.5 pages only as careful acquisition pages.
+
+Then scale the template after validation.
