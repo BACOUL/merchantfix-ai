@@ -24,17 +24,29 @@ generateCorrectedCsv
 
 The goal is to verify that MerchantFix.ai detects Shopify CSV identifier issues safely and never invents product identifiers.
 
+This task concerns only the V1 Shopify CSV diagnostic engine.
+
+Do not implement the V0.5 Shopify URL surface scan in this task.
+
 Do not implement new product features.
 
-Do not add payment, authentication, database, AI, Shopify API, Google Merchant Center API, PDF, ZIP, subscriptions, or monitoring.
+Do not add payment, authentication, database, AI, Shopify API, Google Merchant Center API, PDF, ZIP, subscriptions, agency dashboard, Shopify app, or monitoring.
 
 ## Product context
 
-MerchantFix.ai helps Shopify merchants diagnose Google Merchant Center product data issues, starting with GTIN, MPN, brand, and identifier_exists problems.
+MerchantFix.ai helps Shopify merchants diagnose Google Merchant Center product data issues.
+
+The product sequence is:
+
+V0.5: no-install Shopify URL surface scan for visible product data risks.
+
+V1: deeper Shopify CSV diagnostic for GTIN, MPN, brand, and identifier_exists issues.
+
+This prompt concerns only V1 automated tests.
 
 V1 must be safe, deterministic, and testable.
 
-The tests must protect against unsafe corrections and scope creep.
+The tests must protect against unsafe corrections, false approval promises, and scope creep.
 
 ## Files allowed to modify
 
@@ -46,21 +58,47 @@ vitest.config.ts only if needed
 
 lib/types.ts only if a small type compatibility adjustment is strictly required
 
-Existing lib files only if a test reveals a real bug and the fix is necessary
+Existing V1 lib files only if a test reveals a real bug and the fix is necessary:
+
+lib/normalizeColumns.ts
+
+lib/detectIdentifierIssues.ts
+
+lib/analyzeShopifyCsv.ts
+
+lib/generateCorrectedCsv.ts
+
+lib/generateSummary.ts
+
+lib/validationRules.ts
 
 ## Files forbidden to modify
 
 app/page.tsx
 
+app/scan/page.tsx
+
 app/result/[sessionId]/page.tsx
 
+app/api/surface-scan/route.ts
+
 app/api/analyze/route.ts unless strictly necessary to fix a test setup issue
+
+lib/normalizeStoreUrl.ts
+
+lib/fetchPublicShopifyProducts.ts
+
+lib/detectSurfaceRisks.ts
+
+lib/calculateSurfaceRiskScore.ts
 
 Any documentation files
 
 Any prompt files
 
 Any production feature outside test-driven fixes
+
+Any V0.5 URL scan feature
 
 ## Recommended test framework
 
@@ -97,6 +135,10 @@ Do not use real Shopify store data.
 Do not use real Merchant Center screenshots.
 
 Do not add private files.
+
+Do not use real store URLs.
+
+Do not test V0.5 public Shopify product fetching in this prompt.
 
 ## Required tests for normalizeColumns
 
@@ -540,6 +582,12 @@ No account recovery promise appears in generated notes.
 
 No misrepresentation recovery promise appears in generated notes.
 
+No corrected CSV output says Google approval is guaranteed.
+
+No corrected CSV output says account recovery is guaranteed.
+
+No V0.5 surface scan logic is required for V1 tests.
+
 ## Forbidden features check
 
 Tests should not require:
@@ -554,6 +602,8 @@ Supabase.
 
 OpenAI.
 
+AI calls.
+
 Shopify API.
 
 Google API.
@@ -563,6 +613,10 @@ PDF generation.
 ZIP generation.
 
 Monitoring.
+
+Shopify app.
+
+Public Shopify URL fetching.
 
 ## Package scripts
 
@@ -580,13 +634,37 @@ test:watch: vitest
 
 Do not add unnecessary scripts.
 
+## Bug fix rule
+
+If a test reveals a real bug in an existing V1 lib file, fix only the minimum required code.
+
+Allowed bug-fix files:
+
+lib/normalizeColumns.ts
+
+lib/detectIdentifierIssues.ts
+
+lib/analyzeShopifyCsv.ts
+
+lib/generateCorrectedCsv.ts
+
+lib/generateSummary.ts
+
+lib/validationRules.ts
+
+Do not refactor unrelated logic.
+
+Do not change UI files.
+
+Do not add new product behavior beyond making the tested V1 behavior correct.
+
 ## Definition of Done
 
 Vitest or chosen lightweight test framework is configured.
 
 All required test files are created.
 
-Core modules are tested.
+Core V1 modules are tested.
 
 Safety rules are tested.
 
@@ -596,9 +674,11 @@ No real customer data is used.
 
 No forbidden features are added.
 
+No V0.5 URL scan logic is added.
+
 Tests can run locally.
 
-No payment, auth, database, AI, API integration, PDF, or ZIP is added.
+No payment, auth, database, AI, API integration, PDF, ZIP, Shopify app, or monitoring is added.
 
 ## Output expectation
 
@@ -613,3 +693,5 @@ Return any lib file only if a real bug fix was necessary.
 Do not modify documentation or prompt files.
 
 Do not add product features beyond test-driven fixes.
+
+Do not implement V0.5 URL scan logic.
