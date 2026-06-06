@@ -18,11 +18,23 @@ The first SEO page must target:
 
 Missing GTIN in Google Merchant Center for Shopify products.
 
+This task concerns content and page creation only.
+
+Do not implement the V0.5 Shopify URL surface scan in this task.
+
 Do not implement payment, authentication, database, AI, Shopify API, Google Merchant Center API, PDF, ZIP, subscriptions, monitoring, or Shopify app.
 
 ## Product context
 
-MerchantFix.ai helps Shopify merchants diagnose Google Merchant Center product data issues, starting with GTIN, MPN, brand, and identifier_exists problems.
+MerchantFix.ai helps Shopify merchants diagnose Google Merchant Center product data issues.
+
+The product sequence is:
+
+V0.5: no-install Shopify URL surface scan for visible product data risks.
+
+V1: deeper Shopify CSV diagnostic for GTIN, MPN, brand, and identifier_exists issues.
+
+This SEO page supports the V1 CSV diagnostic product scope.
 
 The SEO strategy is Sniper SEO: target exact error phrases and panic searches instead of broad ecommerce keywords.
 
@@ -59,6 +71,8 @@ product identifiers not provided Google Merchant Center
 identifier_exists Google Merchant Center
 
 Google Shopping missing GTIN
+
+Shopify Variant Barcode GTIN
 
 ## Recommended H1
 
@@ -260,6 +274,14 @@ It marks uncertain rows for manual review.
 
 It does not invent product identifiers.
 
+Important:
+
+Do not mention V0.5 as the primary flow on this page unless a short secondary line is useful.
+
+If V0.5 is mentioned, keep it clearly separate:
+
+MerchantFix.ai may also offer a quick Shopify URL surface scan, but the deeper GTIN diagnosis uses the Shopify CSV export.
+
 ## What MerchantFix.ai cannot guarantee
 
 Explain:
@@ -372,6 +394,8 @@ Avoid heavy animations.
 
 Avoid aggressive marketing language.
 
+Use English only for this page.
+
 ## Forbidden claims
 
 Do not say:
@@ -390,11 +414,15 @@ MerchantFix.ai will restore Google Shopping.
 
 MerchantFix.ai fixes misrepresentation automatically.
 
+MerchantFix.ai guarantees product approval.
+
+MerchantFix.ai guarantees account recovery.
+
 ## V1 limitations
 
 The page may mention that MerchantFix.ai V1 focuses on Shopify CSV identifier checks.
 
-Do not claim support for price mismatch, availability mismatch, misrepresentation recovery, Google API, Shopify API, or monitoring unless clearly marked as not part of V1.
+Do not claim support for price mismatch, availability mismatch, misrepresentation recovery, Google API, Shopify API, monitoring, PDF reports, ZIP files, payment, or subscriptions unless clearly marked as not part of V1.
 
 ## Safety rules
 
@@ -411,6 +439,8 @@ Never promise account recovery.
 Never claim automatic misrepresentation recovery.
 
 Manual review must be mentioned for uncertain cases.
+
+Do not make the page sound like legal, policy, or compliance advice.
 
 ## Definition of Done
 
@@ -432,6 +462,8 @@ The page includes limitations.
 
 The page includes the mandatory disclaimer.
 
+The page includes metadata.
+
 The page does not add payment.
 
 The page does not add authentication.
@@ -446,6 +478,8 @@ The page does not add Google API.
 
 The page does not add PDF or ZIP.
 
+The page does not add V0.5 URL scan logic.
+
 The page does not make forbidden claims.
 
 ## Output expectation
@@ -457,5 +491,7 @@ Return any metadata changes if necessary.
 Do not create additional SEO pages.
 
 Do not implement product features.
+
+Do not implement V0.5 URL scan logic.
 
 Do not implement payment, authentication, database, AI, APIs, PDF, ZIP, or monitoring.
