@@ -12,15 +12,27 @@ V1 diagnostic MVP
 
 Implement the corrected CSV generation module for MerchantFix.ai.
 
-This task must create a safe corrected CSV output based on the original Shopify CSV rows and detected issues.
+This task must create a safe corrected CSV output based on the original Shopify CSV rows and detected V1 issues.
 
 The corrected CSV must preserve original data, add MerchantFix.ai notes, apply only safe corrections, and mark uncertain cases for manual review.
+
+This task concerns only the V1 Shopify CSV diagnostic engine.
+
+Do not implement the V0.5 Shopify URL surface scan in this task.
 
 Do not implement payment, authentication, database, AI, Shopify API, Google Merchant Center API, PDF, ZIP, or monitoring.
 
 ## Product context
 
-MerchantFix.ai helps Shopify merchants diagnose Google Merchant Center product data issues, starting with GTIN, MPN, brand, and identifier_exists problems.
+MerchantFix.ai helps Shopify merchants diagnose Google Merchant Center product data issues.
+
+The product sequence is:
+
+V0.5: no-install Shopify URL surface scan for visible product data risks.
+
+V1: deeper Shopify CSV diagnostic for GTIN, MPN, brand, and identifier_exists issues.
+
+This prompt concerns only V1 corrected CSV generation.
 
 The V1 MVP can generate a corrected CSV only when corrections are safe.
 
@@ -38,9 +50,21 @@ tests/generateCorrectedCsv.test.ts if tests are already set up
 
 app/page.tsx
 
+app/scan/page.tsx
+
 app/result/[sessionId]/page.tsx
 
+app/api/surface-scan/route.ts
+
 app/api/analyze/route.ts
+
+lib/normalizeStoreUrl.ts
+
+lib/fetchPublicShopifyProducts.ts
+
+lib/detectSurfaceRisks.ts
+
+lib/calculateSurfaceRiskScore.ts
 
 lib/normalizeColumns.ts
 
@@ -93,6 +117,12 @@ Do not add monitoring.
 Do not add Shopify app.
 
 Do not add approval guarantee.
+
+Do not add V0.5 URL scan logic.
+
+Do not claim that corrected CSV generation guarantees Google approval.
+
+Do not claim that MerchantFix.ai reproduces Google Merchant Center diagnostics.
 
 ## Required function
 
@@ -168,6 +198,10 @@ Create notes explaining duplicate GTIN requires review.
 
 Create notes explaining invalid-looking GTIN requires review.
 
+Create notes explaining missing image requires review.
+
+Create notes explaining missing price requires review.
+
 ## Forbidden actions
 
 The function must not:
@@ -206,6 +240,8 @@ Claim account recovery.
 
 Claim misrepresentation is fixed.
 
+Apply V0.5 surface scan results.
+
 ## identifier_exists correction rule
 
 The function may only change identifier_exists to no when all of the following are true:
@@ -216,7 +252,7 @@ The product has no GTIN.
 
 The product has no MPN.
 
-The product has no brand and no vendor, or the product clearly appears custom / handmade / personalized / made to order.
+The product has no brand and no vendor, or the product clearly appears custom, handmade, personalized, or made to order.
 
 The product title or handle contains a clear custom product keyword.
 
@@ -229,6 +265,16 @@ Review required: this product appears custom or handmade. identifier_exists was 
 If these conditions are not all met, do not change identifier_exists.
 
 Instead, add a manual review note.
+
+Important:
+
+Do not create an identifier_exists column if the original CSV did not contain one.
+
+Do not set identifier_exists=no only because GTIN is missing.
+
+Do not set identifier_exists=no for branded products without clear custom product signals.
+
+Do not set identifier_exists=no if brand or vendor data suggests the product may have manufacturer identifiers.
 
 ## Manual review rules
 
@@ -276,6 +322,10 @@ SKU matches MPN. Confirm SKU is truly the manufacturer part number.
 
 Missing brand or vendor. Add real brand or confirm vendor mapping.
 
+Missing image. Add a valid product image in Shopify before resubmitting.
+
+Missing price. Add a valid product price in Shopify before resubmitting.
+
 ## merchantfix_action values
 
 Use simple action values such as:
@@ -293,6 +343,10 @@ review_duplicate_gtin
 review_invalid_gtin
 
 review_sku_mpn
+
+review_image
+
+review_price
 
 manual_review
 
@@ -356,6 +410,10 @@ Use the normalized product or issue data available in the existing types.
 
 The result should allow later UI or export to show which products require human verification.
 
+If the current CorrectedCsvResult type expects RawCsvRow[] or a compatible structure, include the original row data plus merchantfix_notes and merchantfix_action where possible.
+
+Do not mutate the original rows.
+
 ## notes output
 
 The result-level notes should include:
@@ -363,6 +421,8 @@ The result-level notes should include:
 Corrected CSV preserves original product data.
 
 MerchantFix.ai does not generate GTIN or MPN.
+
+MerchantFix.ai does not invent brand.
 
 Rows marked manual review require human verification.
 
@@ -389,6 +449,20 @@ Never remove products.
 Never remove columns.
 
 Never mutate original rows.
+
+Never apply V0.5 surface scan logic in this module.
+
+## Input handling
+
+If products is empty, return a valid CorrectedCsvResult with the original rows serialized if possible, merchantfix_notes column added, notes explaining no products were available for correction, and the mandatory disclaimer.
+
+If originalRows is empty, return a valid CorrectedCsvResult with an empty correctedCsv or header-only CSV if appropriate, notes explaining no original rows were available, and the mandatory disclaimer.
+
+If issues is empty, still generate a CSV with merchantfix_notes and merchantfix_action columns.
+
+For rows with no issues, set merchantfix_action to no_action and merchantfix_notes to a short safe note such as:
+
+No supported V1 correction needed based on current MerchantFix.ai checks.
 
 ## Definition of Done
 
@@ -424,6 +498,10 @@ No AI is added.
 
 No payment, database, PDF, ZIP, Shopify API, or Google API is added.
 
+No V0.5 URL scan logic is added.
+
+The module is deterministic and testable.
+
 ## Output expectation
 
 Return the full updated lib/generateCorrectedCsv.ts file.
@@ -433,3 +511,5 @@ Return lib/types.ts only if a small type adjustment was strictly required.
 Do not modify UI files.
 
 Do not implement payment, authentication, database, API integrations, AI, PDF, or ZIP.
+
+Do not implement V0.5 URL scan logic.
