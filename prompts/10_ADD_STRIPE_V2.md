@@ -34,6 +34,8 @@ Clear disclaimer.
 
 No unsafe identifier generation.
 
+If V0.5 is active, it must already be clearly separated from V1 and must not be treated as the paid diagnostic engine.
+
 ## Objective
 
 Add a simple Stripe one-time payment flow for the MerchantFix.ai Fix Pack.
@@ -46,9 +48,19 @@ This task must not add subscriptions, agency dashboard, authentication, database
 
 MerchantFix.ai helps Shopify merchants diagnose and fix Google Merchant Center product data issues.
 
-V1 gives a free diagnostic.
+The product sequence is:
 
-V2 adds a paid Fix Pack.
+V0.5: no-install Shopify URL surface scan for visible product data risks.
+
+V1: deeper Shopify CSV diagnostic for GTIN, MPN, brand, and identifier_exists issues.
+
+V2: paid Fix Pack after the free CSV diagnostic.
+
+V0.5 is an acquisition layer.
+
+V1 is the serious diagnostic engine.
+
+V2 monetizes the validated diagnostic.
 
 The Fix Pack should include:
 
@@ -102,6 +114,18 @@ package.json if Stripe package is added
 
 ## Files forbidden to modify
 
+app/scan/page.tsx unless adding a small V2 CTA reference is strictly necessary
+
+app/api/surface-scan/route.ts
+
+lib/normalizeStoreUrl.ts
+
+lib/fetchPublicShopifyProducts.ts
+
+lib/detectSurfaceRisks.ts
+
+lib/calculateSurfaceRiskScore.ts
+
 lib/normalizeColumns.ts unless strictly necessary
 
 lib/detectIdentifierIssues.ts unless strictly necessary
@@ -147,6 +171,10 @@ Do not add automatic misrepresentation fix.
 Do not add approval guarantee.
 
 Do not add account recovery guarantee.
+
+Do not make the V0.5 URL surface scan paid.
+
+Do not make the V0.5 URL surface scan look like a full Merchant Center diagnosis.
 
 ## Stripe requirements
 
@@ -198,6 +226,10 @@ Do not add a complex database unless explicitly requested.
 
 Do not over-engineer file storage.
 
+Do not store uploaded files permanently.
+
+Do not store unnecessary customer data.
+
 ## Fix Pack contents
 
 The paid Fix Pack should include or prepare for:
@@ -213,6 +245,8 @@ resubmission-checklist.pdf
 If PDF or ZIP generation is not implemented yet, create clear TODOs and deliver available CSV output first.
 
 Do not pretend files exist if they are not generated.
+
+If only corrected CSV is available at this stage, label the paid deliverable honestly.
 
 ## Checkout page copy
 
@@ -240,6 +274,10 @@ Display this exact disclaimer near the payment CTA and on the success page:
 
 MerchantFix.ai helps diagnose and fix product data issues. Some issues may require manual review. Google approval is not guaranteed.
 
+If V0.5 is mentioned near the payment flow, also display this disclaimer:
+
+MerchantFix.ai surface scan is based on publicly available product data when accessible. It is not a full Google Merchant Center diagnosis. Google approval is not guaranteed.
+
 ## Payment safety rules
 
 Do not imply approval is guaranteed.
@@ -253,6 +291,8 @@ Do not imply MerchantFix.ai fixes all Merchant Center problems.
 Clearly state that some issues require manual review.
 
 Clearly state that GTIN, MPN, and brand are never invented.
+
+Clearly separate the free surface scan, free CSV diagnosis, and paid Fix Pack.
 
 ## API route requirements
 
@@ -280,6 +320,10 @@ Do not expose secret keys.
 
 Do not store sensitive customer files.
 
+Do not create subscriptions.
+
+Do not create agency plans.
+
 ## Stripe webhook
 
 Webhook is optional in early V2.
@@ -295,6 +339,8 @@ Handle checkout.session.completed.
 Do not add complex fulfillment unless storage is implemented.
 
 Do not store unnecessary personal data.
+
+Do not store uploaded product CSV files permanently.
 
 If not implemented:
 
@@ -314,6 +360,8 @@ Show mandatory disclaimer.
 
 Avoid guaranteeing approval.
 
+Avoid implying account recovery.
+
 If download is not fully implemented, clearly state what is currently available.
 
 ## Cancel page
@@ -327,6 +375,8 @@ Explain payment was canceled.
 Offer return to diagnostic.
 
 Avoid aggressive language.
+
+Avoid false urgency.
 
 ## Package requirements
 
@@ -370,6 +420,8 @@ Mandatory disclaimer appears near payment.
 
 No approval guarantee is made.
 
+No account recovery guarantee is made.
+
 No subscriptions are added.
 
 No agency plans are added.
@@ -388,11 +440,19 @@ No monitoring is added.
 
 No fake GTIN, MPN, or brand generation is added.
 
+V0.5 remains separate from V1 and V2.
+
+The V0.5 surface scan is not made paid.
+
+The V2 payment CTA is tied to the Fix Pack after CSV diagnostic, not to a public URL scan alone.
+
 ## Output expectation
 
 Return the full created or modified files.
 
 Do not modify V1 diagnostic logic unless strictly necessary.
+
+Do not modify V0.5 surface scan logic unless strictly necessary.
 
 Do not add subscriptions.
 
@@ -401,3 +461,5 @@ Do not add agency dashboard.
 Do not add authentication or database unless explicitly required.
 
 Keep the V2 payment flow simple and one-time only.
+
+Keep the paid offer honest, limited, and clearly scoped.
