@@ -12,9 +12,13 @@ MerchantFix.ai is not a full feed management platform, not an agency service, an
 
 Current stage: V0 / V0.5 / V1 preparation
 
-The project is currently being structured before development.
+The project is currently ready to move from documentation and samples into initial application development.
 
-No production code should be added before the product scope, rules, test files, and implementation prompts are documented.
+Documentation, product scope, rules, prompts, and sample files are prepared.
+
+The next technical step is to initialize the Next.js project structure and placeholder pages with Codex Prompt 01.
+
+No production feature should be added outside the documented version scope.
 
 ## Core positioning
 
@@ -23,13 +27,21 @@ MerchantFix.ai is the urgent-care tool for Google Merchant Center product disapp
 The first user journey is simple:
 
 Shopify merchant receives a Google Merchant Center product disapproval or suspects product data issues.
+
 The merchant enters a Shopify store URL for a quick no-install surface scan when public product data is available.
+
 MerchantFix.ai detects basic visible risks such as missing images, missing prices, weak titles, weak descriptions, and product count.
+
 MerchantFix.ai clearly explains that the URL scan is only a surface risk audit, not a full Google Merchant Center diagnosis.
+
 The merchant is invited to upload a Shopify CSV for deeper identifier diagnosis.
+
 The issue is analyzed for GTIN, MPN, brand, or identifier_exists problems.
+
 MerchantFix.ai shows a clear diagnosis.
+
 MerchantFix.ai generates a corrected CSV when the correction is safe.
+
 MerchantFix.ai provides a manual review checklist when required.
 
 ## Initial target customer
@@ -55,13 +67,21 @@ V1 focuses only on identifier-related issues inside Shopify CSV files.
 The first MVP sequence must do only this:
 
 Run a no-install Shopify URL surface scan when public product data is available.
+
 Detect basic visible risks.
+
 Show a simple surface risk score.
+
 Invite the user to upload a Shopify CSV for deeper diagnosis.
+
 Upload Shopify CSV.
+
 Normalize product columns.
+
 Detect GTIN, MPN, brand, and identifier_exists issues.
+
 Show a clear diagnostic.
+
 Generate a corrected CSV when the correction is safe.
 
 ## V0.5 No-install Shopify surface scan
@@ -73,11 +93,12 @@ V0.5 is an acquisition and validation layer, not the core diagnostic engine.
 The user enters a Shopify store URL. MerchantFix.ai attempts to read publicly available Shopify product data when possible. MerchantFix.ai runs a surface-level risk scan only.
 
 V0.5 may detect:
-- basic product count
-- missing product image
-- missing product price
-- weak or very short product title
-- empty or weak product description
+
+- Basic product count.
+- Missing product image.
+- Missing product price.
+- Weak or very short product title.
+- Empty or weak product description.
 
 V0.5 must show a simple surface risk score and invite the user to upload a Shopify CSV for deeper identifier diagnosis.
 
@@ -105,7 +126,7 @@ The V1 is allowed to include a landing page, a textarea to paste a Google Mercha
 
 ## V1 forbidden features
 
-The V1 must not include Stripe, authentication, user accounts, database, Shopify API, Google Merchant Center API, OpenAI or AI calls, PDF generation, subscription plans, agency dashboard, WooCommerce, XML feed parsing, Merchant Center monitoring, Shopify app, or any guarantee of Google approval.
+The V1 must not include Stripe, authentication, user accounts, database, Shopify API, Google Merchant Center API, OpenAI or AI calls, PDF generation, ZIP generation, subscription plans, agency dashboard, WooCommerce, XML feed parsing, Merchant Center monitoring, Shopify app, or any guarantee of Google approval.
 
 These features are reserved for later versions if the previous version is validated.
 
@@ -113,7 +134,7 @@ These features are reserved for later versions if the previous version is valida
 
 MerchantFix.ai must follow strict safety rules.
 
-Rule 1: never invent GTIN.
+## Rule 1: never invent GTIN
 
 A GTIN is a real product identifier. If the file does not contain a valid GTIN, the tool must never create one.
 
@@ -121,7 +142,7 @@ Allowed behavior: GTIN missing, manual review required.
 
 Forbidden behavior: generated fake GTIN.
 
-Rule 2: never invent MPN.
+## Rule 2: never invent MPN
 
 A SKU is not automatically a manufacturer part number.
 
@@ -129,29 +150,39 @@ Allowed behavior: SKU may not be a real MPN, manual review required.
 
 Forbidden behavior: copy SKU into MPN without verification.
 
-Rule 3: never guarantee Google approval.
+## Rule 3: never invent brand
+
+Brand must not be fabricated from the product title, store name, category, or description.
+
+Allowed behavior: brand missing, manual review required.
+
+Forbidden behavior: generated brand.
+
+## Rule 4: never guarantee Google approval
 
 MerchantFix.ai can diagnose and correct product data issues. It cannot guarantee Google Merchant Center approval.
 
-Mandatory disclaimer: MerchantFix.ai helps diagnose and fix product data issues. Some issues may require manual review. Google approval is not guaranteed.
+Mandatory disclaimer:
 
-Rule 4: separate automatic fixes from manual review.
+MerchantFix.ai helps diagnose and fix product data issues. Some issues may require manual review. Google approval is not guaranteed.
+
+## Rule 5: separate automatic fixes from manual review
 
 Each issue must be classified as automatically fixable, manual review required, or not fixable from the product file.
 
-Rule 5: preserve original client data.
+## Rule 6: preserve original client data
 
 Corrected CSV files must preserve the original columns and values unless a safe correction is explicitly applied.
 
 Every correction must be explained in merchantfix_notes.
 
-Rule 6: separate surface scan from deep diagnosis.
+## Rule 7: separate surface scan from deep diagnosis
 
 V0.5 surface scan must remain separate from V1 CSV diagnosis.
 
 V0.5 can identify visible surface risks only. V1 performs the deeper Shopify CSV identifier diagnosis.
 
-Rule 7: do not overstate URL scan accuracy.
+## Rule 8: do not overstate URL scan accuracy
 
 The no-install URL scan must always be positioned as a surface risk audit based on publicly available product data when accessible.
 
@@ -193,10 +224,10 @@ V0 includes landing page, error submission form, manual or semi-manual diagnosis
 
 Validation criteria for V0:
 
-Collect 10 real Merchant Center errors.
-Receive 3 screenshots or CSV files.
-Get 1 agency to confirm recurring need.
-Get 1 to 3 users to show willingness to pay.
+- Collect 10 real Merchant Center errors.
+- Receive 3 screenshots or CSV files.
+- Get 1 agency to confirm recurring need.
+- Get 1 to 3 users to show willingness to pay.
 
 ## V0.5 No-install Shopify surface scan
 
@@ -208,12 +239,12 @@ V0.5 excludes Stripe, payment, authentication, user accounts, database, Shopify 
 
 Validation criteria for V0.5:
 
-Test 20 Shopify URLs.
-Achieve 10 successful public scans.
-Get 5 users to continue toward CSV upload or show intent to do so.
-Receive 3 real Shopify CSV files.
-Get 1 agency or freelancer to confirm interest.
-Get 3 users to show willingness to pay for a deeper Fix Pack.
+- Test 20 Shopify URLs.
+- Achieve 10 successful public scans.
+- Get 5 users to continue toward CSV upload or show intent to do so.
+- Receive 3 real Shopify CSV files.
+- Get 1 agency or freelancer to confirm interest.
+- Get 3 users to show willingness to pay for a deeper Fix Pack.
 
 ## V1 Identifier diagnostic MVP
 
@@ -221,7 +252,7 @@ Goal: build the first technical engine for Shopify CSV identifier issues.
 
 V1 includes CSV upload, Shopify column normalization, GTIN detection, MPN detection, brand detection, identifier_exists detection, diagnostic result page, corrected CSV when safe, and test samples.
 
-V1 excludes Stripe, authentication, database, PDF, AI, Shopify API, and Google API.
+V1 excludes Stripe, authentication, database, PDF, ZIP, AI, Shopify API, and Google API.
 
 ## V2 Paid Fix Pack
 
@@ -253,82 +284,145 @@ V5 may include Shopify API, Google Merchant Center API, monitoring, alerts, Shop
 
 Planned initial stack:
 
-Next.js 14.
-TypeScript.
-Tailwind CSS.
-PapaParse.
-No authentication in V0.5 or V1.
-No database in V0.5 or V1.
-No Stripe in V0.5 or V1.
-No AI in V0.5 or V1.
-No Shopify API in V0.5 or V1.
-No Google Merchant Center API in V0.5 or V1.
+- Next.js 14.
+- TypeScript.
+- Tailwind CSS.
+- PapaParse.
+- No authentication in V0.5 or V1.
+- No database in V0.5 or V1.
+- No Stripe in V0.5 or V1.
+- No AI in V0.5 or V1.
+- No Shopify API in V0.5 or V1.
+- No Google Merchant Center API in V0.5 or V1.
 
 Potential later stack:
 
-Stripe for V2.
-Supabase for V4.
-OpenAI API for explanatory reports in V3 or later.
-Shopify API for V5.
-Google Merchant Center API for V5.
+- Stripe for V2.
+- Supabase for V4.
+- OpenAI API for explanatory reports in V3 or later.
+- Shopify API for V5.
+- Google Merchant Center API for V5.
 
 ## Planned repository structure
 
 merchantfix-ai/
+
 app/
+
 app/page.tsx
+
 app/scan/page.tsx
-app/result/sessionId/page.tsx
+
+app/result/[sessionId]/page.tsx
+
 app/api/surface-scan/route.ts
+
 app/api/analyze/route.ts
+
 components/
+
 lib/
+
 lib/types.ts
+
 lib/normalizeStoreUrl.ts
+
 lib/fetchPublicShopifyProducts.ts
+
 lib/detectSurfaceRisks.ts
+
 lib/calculateSurfaceRiskScore.ts
+
 lib/normalizeColumns.ts
+
 lib/analyzeShopifyCsv.ts
+
 lib/detectIdentifierIssues.ts
+
 lib/generateCorrectedCsv.ts
+
 lib/generateSummary.ts
+
 lib/validationRules.ts
+
 docs/
+
 docs/MERCHANTFIX_MASTER_PLAN.md
+
 docs/VERSION_SCOPE.md
+
 docs/PRODUCT_RULES.md
+
 docs/QA_CHECKLIST.md
+
 docs/GO_STOP_CRITERIA.md
+
 docs/ACQUISITION_PLAN.md
+
 docs/DECISIONS.md
+
+docs/PLATFORM_EXPANSION_STRATEGY.md
+
+docs/PROGRAMMATIC_SEO_STRATEGY.md
+
+docs/SCALE_STRATEGY.md
+
+docs/SEO_SNIPER_STRATEGY.md
+
 prompts/
+
 prompts/00_PROJECT_CONTEXT.md
+
 prompts/01_CREATE_PROJECT_STRUCTURE.md
+
 prompts/02_CREATE_TYPES.md
+
 prompts/03_NORMALIZE_COLUMNS.md
+
 prompts/04_DETECT_IDENTIFIER_ISSUES.md
+
 prompts/05_ANALYZE_SHOPIFY_CSV.md
+
 prompts/06_GENERATE_CORRECTED_CSV.md
+
 prompts/07_BUILD_RESULT_PAGE.md
+
 prompts/08_CREATE_TESTS.md
+
 prompts/09_CREATE_SEO_PAGE.md
+
 prompts/10_ADD_STRIPE_V2.md
+
 samples/
+
 samples/clean-shopify.csv
+
 samples/missing-gtin.csv
+
 samples/custom-products.csv
+
 samples/duplicate-gtin.csv
+
 samples/dirty-file.csv
+
 samples/invalid-gtin.csv
+
 samples/sku-as-mpn.csv
+
 samples/missing-brand.csv
+
 qa/
+
 public/
+
 README.md
+
 ROADMAP.md
+
 CHANGELOG.md
+
 .env.example
+
 .gitignore
 
 ## Sample files
@@ -369,16 +463,31 @@ Upload your Shopify CSV for deeper identifier diagnosis.
 
 Key SEO pages:
 
+/fix/shopify-google-merchant-center-checker
+
+/fix/shopify-google-shopping-audit
+
 /fix/missing-gtin-google-merchant-center
+
 /fix/missing-mpn-google-merchant-center
+
 /fix/incorrect-identifier-exists-shopify
+
 /fix/shopify-products-disapproved-google-merchant-center
+
 /fix/google-merchant-center-gtin-mpn-error
-/fix/google-merchant-center-price-mismatch
-/fix/google-merchant-center-availability-mismatch
-/fix/google-shopping-products-not-showing
+
 /fix/shopify-google-shopping-image-issues
+
 /fix/shopify-products-missing-price-google-shopping
+
+Future SEO pages:
+
+/fix/google-merchant-center-price-mismatch
+
+/fix/google-merchant-center-availability-mismatch
+
+/fix/google-shopping-products-not-showing
 
 ## Development method
 
@@ -395,43 +504,134 @@ Do not build the next version before the current one is validated.
 Recommended branches:
 
 main
+
 develop
+
 feature/v0-landing
+
 feature/v0-5-url-scan
+
 feature/v1-csv-parser
+
 feature/v1-identifier-rules
+
 feature/v1-result-page
+
 feature/v1-corrected-csv
+
 feature/v2-stripe
 
 Rules:
 
 main must remain stable.
+
 Work should happen on develop or feature branches.
+
 One feature branch should correspond to one clear task.
+
 Do not merge if tests fail.
+
 Do not merge if the change adds out-of-scope features.
 
 ## Definition of Done
 
-A feature is done only if it matches the current version scope, does not add forbidden features, passes relevant tests, does not invent GTIN or MPN, preserves original CSV data, explains every correction, displays clear manual review cases, includes the Google approval disclaimer where needed, does not claim full Merchant Center diagnosis from a surface scan, and does not store sensitive data unnecessarily.
+A feature is done only if it matches the current version scope, does not add forbidden features, passes relevant tests, does not invent GTIN or MPN, does not invent brand, preserves original CSV data, explains every correction, displays clear manual review cases, includes the Google approval disclaimer where needed, does not claim full Merchant Center diagnosis from a surface scan, and does not store sensitive data unnecessarily.
+
+## Current completed preparation items
+
+README.md.
+
+ROADMAP.md.
+
+docs/MERCHANTFIX_MASTER_PLAN.md.
+
+docs/VERSION_SCOPE.md.
+
+docs/PRODUCT_RULES.md.
+
+docs/QA_CHECKLIST.md.
+
+docs/GO_STOP_CRITERIA.md.
+
+docs/ACQUISITION_PLAN.md.
+
+docs/DECISIONS.md.
+
+docs/PLATFORM_EXPANSION_STRATEGY.md.
+
+docs/PROGRAMMATIC_SEO_STRATEGY.md.
+
+docs/SCALE_STRATEGY.md.
+
+docs/SEO_SNIPER_STRATEGY.md.
+
+prompts/00_PROJECT_CONTEXT.md.
+
+prompts/01_CREATE_PROJECT_STRUCTURE.md.
+
+prompts/02_CREATE_TYPES.md.
+
+prompts/03_NORMALIZE_COLUMNS.md.
+
+prompts/04_DETECT_IDENTIFIER_ISSUES.md.
+
+prompts/05_ANALYZE_SHOPIFY_CSV.md.
+
+prompts/06_GENERATE_CORRECTED_CSV.md.
+
+prompts/07_BUILD_RESULT_PAGE.md.
+
+prompts/08_CREATE_TESTS.md.
+
+prompts/09_CREATE_SEO_PAGE.md.
+
+prompts/10_ADD_STRIPE_V2.md.
+
+samples/clean-shopify.csv.
+
+samples/missing-gtin.csv.
+
+samples/custom-products.csv.
+
+samples/duplicate-gtin.csv.
+
+samples/dirty-file.csv.
+
+samples/invalid-gtin.csv.
+
+samples/sku-as-mpn.csv.
+
+samples/missing-brand.csv.
 
 ## Current next steps
 
-Create GitHub repository.
-Add this README.md.
-Add ROADMAP.md.
-Add docs/MERCHANTFIX_MASTER_PLAN.md.
-Add docs/VERSION_SCOPE.md.
-Add docs/PRODUCT_RULES.md.
-Add docs/QA_CHECKLIST.md.
-Add docs/ACQUISITION_PLAN.md.
-Add Codex prompts.
-Add sample CSV files.
 Initialize the Next.js project.
+
 Build V0.5 no-install Shopify surface scan first.
+
 Validate V0.5 engagement.
+
 Build V1 CSV identifier diagnostic after V0.5 scope is implemented or deliberately skipped based on validation.
+
+Do not add Stripe.
+
+Do not add authentication.
+
+Do not add database.
+
+Do not add AI.
+
+Do not add Shopify API.
+
+Do not add Google Merchant Center API.
+
+Do not add PDF.
+
+Do not add ZIP.
+
+Do not add monitoring.
+
+Do not build V2 before V1 validation.
 
 ## Mandatory disclaimer
 
