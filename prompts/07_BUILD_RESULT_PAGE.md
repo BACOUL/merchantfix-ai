@@ -10,17 +10,29 @@ V1 diagnostic MVP
 
 ## Objective
 
-Build the V1 diagnostic result page and connect it to the analysis API output.
+Build the V1 diagnostic result flow and connect it to the analysis API output.
 
-This task must display the MerchantFix.ai diagnostic result clearly for a Shopify merchant.
+This task must display the MerchantFix.ai CSV diagnostic result clearly for a Shopify merchant.
 
-The result page must show issue counts, affected products, recommended actions, manual review cases, and the mandatory disclaimer.
+The result flow must show issue counts, affected products, recommended actions, manual review cases, corrected CSV availability, and the mandatory disclaimer.
 
-Do not implement payment, authentication, database, AI, Shopify API, Google Merchant Center API, PDF, ZIP, subscriptions, or monitoring.
+This task concerns only the V1 Shopify CSV diagnostic flow.
+
+Do not implement the V0.5 Shopify URL surface scan in this task unless a simple navigation link already exists.
+
+Do not implement payment, authentication, database, AI, Shopify API, Google Merchant Center API, PDF, ZIP, subscriptions, agency dashboard, Shopify app, or monitoring.
 
 ## Product context
 
-MerchantFix.ai helps Shopify merchants diagnose Google Merchant Center product data issues, starting with GTIN, MPN, brand, and identifier_exists problems.
+MerchantFix.ai helps Shopify merchants diagnose Google Merchant Center product data issues.
+
+The product sequence is:
+
+V0.5: no-install Shopify URL surface scan for visible product data risks.
+
+V1: deeper Shopify CSV diagnostic for GTIN, MPN, brand, and identifier_exists issues.
+
+This prompt concerns only the V1 CSV diagnostic user flow.
 
 The V1 MVP gives users a free diagnostic and may generate a corrected CSV when safe.
 
@@ -43,6 +55,18 @@ lib/analyzeShopifyCsv.ts only if needed for API compatibility
 lib/generateCorrectedCsv.ts only if needed for corrected CSV download compatibility
 
 ## Files forbidden to modify
+
+app/scan/page.tsx unless only adding a simple navigation link back to homepage is strictly necessary
+
+app/api/surface-scan/route.ts
+
+lib/normalizeStoreUrl.ts
+
+lib/fetchPublicShopifyProducts.ts
+
+lib/detectSurfaceRisks.ts
+
+lib/calculateSurfaceRiskScore.ts
 
 lib/normalizeColumns.ts unless strictly required for compatibility
 
@@ -96,6 +120,12 @@ Do not add Shopify app.
 
 Do not add approval guarantee.
 
+Do not add V0.5 URL scan logic.
+
+Do not claim that the CSV diagnostic is a full Google Merchant Center diagnosis.
+
+Do not claim that detected issues guarantee Google disapproval.
+
 ## Required user flow
 
 The V1 user flow should be:
@@ -112,15 +142,33 @@ The app sends data to app/api/analyze/route.ts.
 
 The API returns an AnalysisResult.
 
-The result page displays the diagnostic.
+The result is displayed clearly.
 
 If corrected CSV is available, the page provides a V1 download button for the corrected CSV.
 
 No payment should be required in V1.
 
+## Result handling approach
+
+Because this is V1 without database, use the simplest reliable approach.
+
+Preferred approach:
+
+Submit the form from the homepage to the API route and display the result on the same page using client-side state.
+
+Keep app/result/[sessionId]/page.tsx as a safe placeholder or static result shell unless temporary in-memory handling already exists.
+
+Do not add database.
+
+Do not add persistent storage.
+
+Do not add authentication.
+
+If using result/[sessionId] would require storage, do not implement it fully in V1.
+
 ## Homepage requirements
 
-Update app/page.tsx if needed to include a functional V1 form.
+Update app/page.tsx if needed to include a functional V1 diagnostic form.
 
 The form should include:
 
@@ -130,17 +178,21 @@ CSV file input.
 
 Submit button:
 
-Diagnose My Product Errors.
+Diagnose My Product Errors
 
-Clear disclaimer.
+Clear mandatory disclaimer.
 
 Supported error list.
 
 Privacy note:
 
-V1 does not require an account and does not store files permanently.
+V1 does not require an account. Files are processed for diagnosis and should not be stored permanently.
 
 The homepage must stay clean and professional.
+
+If the homepage already contains V0.5 messaging, keep it but do not implement V0.5 scan logic in this task.
+
+The V1 CSV form must be clearly presented as the deeper diagnostic step.
 
 ## API route requirements
 
@@ -150,7 +202,7 @@ The API route should:
 
 Accept form data.
 
-Read csv file text.
+Read CSV file text.
 
 Read optional Merchant Center error text.
 
@@ -172,11 +224,21 @@ No database should be used.
 
 No authentication should be required.
 
-## Result page requirements
+The API should return clear error JSON if:
 
-Build or update app/result/[sessionId]/page.tsx.
+No CSV file is provided.
 
-The result page must display:
+The uploaded file cannot be read.
+
+The CSV is empty.
+
+The analysis function returns an error status.
+
+## Result display requirements
+
+Build or update the result display in app/page.tsx or app/result/[sessionId]/page.tsx depending on the chosen no-database approach.
+
+The result display must show:
 
 Page title:
 
@@ -262,6 +324,8 @@ Do not use alarming language beyond the issue itself.
 
 Do not promise approval.
 
+Do not say that detected issues guarantee Google disapproval.
+
 ## Manual review display
 
 Manual review cases must be obvious.
@@ -292,6 +356,8 @@ Do not generate ZIP.
 
 Do not generate PDF.
 
+The download may be implemented client-side using a Blob.
+
 ## Empty or error state
 
 If analysis status is error, display:
@@ -306,29 +372,7 @@ Mandatory disclaimer.
 
 Do not show fake issue data.
 
-## Result state handling
-
-Because this is V1 without database, use one of these safe approaches:
-
-Approach A:
-
-Submit form and render result on the same page if simpler.
-
-Approach B:
-
-Use client-side state and show result after API call.
-
-Approach C:
-
-Use sessionId route only if temporary in-memory handling exists.
-
-Do not add database.
-
-Do not add persistent storage.
-
-If a true result/[sessionId] page is too complex without a database, keep the route as a placeholder and implement same-page result display for V1.
-
-Prefer simplicity and reliability.
+Do not show placeholder issue counts as if they are real.
 
 ## Components
 
@@ -344,9 +388,13 @@ components/DisclaimerBox.tsx
 
 components/CsvUploadForm.tsx
 
+components/DiagnosticResultView.tsx
+
 Keep components simple.
 
 Do not over-engineer.
+
+Do not add a component library unless it already exists.
 
 ## Copy requirements
 
@@ -365,6 +413,8 @@ Avoid vague wording.
 Avoid saying products will be approved.
 
 Avoid saying the account will recover.
+
+Avoid saying MerchantFix.ai can fix all Merchant Center issues.
 
 ## Mandatory disclaimer
 
@@ -402,9 +452,11 @@ Never call external APIs.
 
 Never add payment in V1.
 
+Never add V0.5 URL scan logic in this task.
+
 ## Definition of Done
 
-Homepage includes functional diagnostic form.
+Homepage includes a functional V1 diagnostic form.
 
 User can paste optional Merchant Center error.
 
@@ -424,6 +476,8 @@ Corrected CSV can be downloaded if available.
 
 Mandatory disclaimer is visible.
 
+Privacy note is visible.
+
 No Stripe is added.
 
 No authentication is added.
@@ -439,6 +493,8 @@ No Shopify API is added.
 No Google API is added.
 
 No PDF or ZIP is added.
+
+No V0.5 scan logic is added.
 
 The interface is responsive and readable.
 
@@ -459,5 +515,7 @@ Do not implement external APIs.
 Do not implement AI.
 
 Do not implement PDF or ZIP.
+
+Do not implement V0.5 URL scan logic.
 
 Keep the result page and flow simple, safe, and V1-scoped.
