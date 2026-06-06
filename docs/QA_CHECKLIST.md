@@ -28,6 +28,8 @@ Never position misrepresentation as automatically fixable.
 
 Never store sensitive customer files unnecessarily.
 
+Never store submitted URLs unnecessarily.
+
 Never commit real customer files to GitHub.
 
 Never let AI decide critical corrections alone.
@@ -35,6 +37,12 @@ Never let AI decide critical corrections alone.
 Never build outside the current version scope.
 
 Never move to the next version before validation.
+
+Never claim that V0.5 surface scan is a full Merchant Center diagnosis.
+
+Never position V0.5 detected issues as guaranteed Google disapproval causes.
+
+Never let V0.5 replace the deeper V1 CSV diagnostic.
 
 ## QA workflow
 
@@ -44,7 +52,7 @@ Define the expected behavior.
 
 Implement the feature.
 
-Test with sample files.
+Test with sample files or controlled test URLs.
 
 Check product safety rules.
 
@@ -99,6 +107,10 @@ GO / STOP criteria.
 Acquisition path.
 
 Current next action.
+
+V0.5 URL scan limitations.
+
+V1 CSV diagnostic scope.
 
 ## Repository QA
 
@@ -168,6 +180,22 @@ Do not merge if product safety rules are broken.
 
 Do not merge if the disclaimer is removed from relevant pages.
 
+Recommended feature branches:
+
+feature/v0-landing.
+
+feature/v0-5-url-scan.
+
+feature/v1-csv-parser.
+
+feature/v1-identifier-rules.
+
+feature/v1-result-page.
+
+feature/v1-corrected-csv.
+
+feature/v2-stripe.
+
 ## Codex QA
 
 Every Codex task must define:
@@ -208,6 +236,10 @@ Did Codex invent product identifiers?
 
 Did Codex create vague or unsafe copy?
 
+Did Codex make V0.5 sound like a full Merchant Center diagnosis?
+
+Did Codex allow V0.5 to replace the V1 CSV diagnostic?
+
 If yes, reject or correct the output.
 
 ## V0 QA checklist
@@ -225,6 +257,8 @@ Product positioning.
 Error submission form.
 
 Textarea for Merchant Center error.
+
+Optional Shopify store URL field.
 
 Optional email field.
 
@@ -280,6 +314,8 @@ The target user is clearly Shopify merchants.
 
 Google Merchant Center is clearly mentioned.
 
+Product data issues are clearly mentioned.
+
 GTIN, MPN, brand, and identifier_exists are clearly mentioned.
 
 The page does not promise Google approval.
@@ -287,6 +323,8 @@ The page does not promise Google approval.
 The error submission form works.
 
 The user can paste a Merchant Center error.
+
+The user can optionally provide a Shopify store URL.
 
 The user can optionally provide contact information.
 
@@ -304,7 +342,7 @@ Agency outreach messages are specific, not generic.
 
 10 real Merchant Center errors collected.
 
-3 screenshots or CSV files received voluntarily.
+3 screenshots, Shopify URLs, or CSV files received voluntarily.
 
 5 users accept a free diagnosis.
 
@@ -313,6 +351,238 @@ Agency outreach messages are specific, not generic.
 1 to 3 users show willingness to pay.
 
 At least 3 repeated error patterns identified.
+
+## V0.5 QA checklist
+
+V0.5 goal: validate the no-install Shopify URL surface scan as an acquisition layer before deeper CSV diagnosis.
+
+V0.5 is valid only if the URL scan reduces first-use friction, creates useful perceived value, and pushes users toward the V1 CSV diagnostic without creating false expectations.
+
+### V0.5 allowed
+
+Landing page.
+
+Shopify store URL input.
+
+URL normalization.
+
+Public Shopify product data fetch when available.
+
+Graceful failure when public product data is unavailable.
+
+Surface-level product scan.
+
+Basic product count.
+
+Missing image detection.
+
+Missing price detection.
+
+Weak or very short title detection.
+
+Empty or weak description detection.
+
+Basic surface risk score.
+
+CTA to upload Shopify CSV for deeper identifier diagnosis.
+
+Mandatory surface scan disclaimer.
+
+### V0.5 forbidden
+
+Stripe.
+
+Paid checkout.
+
+Authentication.
+
+User account.
+
+Database.
+
+Shopify API.
+
+Google Merchant Center API.
+
+OpenAI API.
+
+AI calls.
+
+PDF generation.
+
+ZIP generation.
+
+Subscription.
+
+Agency dashboard.
+
+WooCommerce.
+
+XML parsing.
+
+Monitoring.
+
+Shopify app.
+
+Automatic CSV correction.
+
+Full Merchant Center diagnosis.
+
+Account recovery promise.
+
+Approval guarantee.
+
+### V0.5 URL input QA
+
+The URL input accepts a valid Shopify store URL.
+
+The URL input handles URLs with https.
+
+The URL input handles URLs without https.
+
+The URL input handles trailing slashes.
+
+The URL input rejects empty values with a clear error.
+
+The URL input rejects invalid URLs with a clear error.
+
+The URL input handles non-Shopify or unsupported stores gracefully.
+
+The URL input does not expose technical errors to the user.
+
+The URL input does not store submitted URLs unnecessarily.
+
+### V0.5 public fetch QA
+
+The scan attempts to fetch public Shopify product data when available.
+
+The scan handles unavailable public product data gracefully.
+
+The scan handles blocked product data gracefully.
+
+The scan handles empty product lists gracefully.
+
+The scan handles network errors gracefully.
+
+The scan handles malformed responses gracefully.
+
+Unavailable public product data is not treated as a Merchant Center issue.
+
+The user is invited to upload a Shopify CSV if the public scan cannot run.
+
+### V0.5 surface diagnostic QA
+
+The scan detects basic product count.
+
+The scan detects missing main image.
+
+The scan detects missing price.
+
+The scan detects weak or very short product titles.
+
+The scan detects empty or weak product descriptions.
+
+The scan does not claim to detect every Merchant Center issue.
+
+The scan does not claim to reproduce Google Merchant Center diagnostics.
+
+The scan does not say that detected issues guarantee disapproval.
+
+The scan does not generate corrected CSV files.
+
+The scan does not edit product data.
+
+The scan does not call Shopify API.
+
+The scan does not call Google Merchant Center API.
+
+The scan does not call OpenAI or any AI API.
+
+### V0.5 result page QA
+
+The result page shows detected public product count.
+
+The result page shows a simple surface risk score.
+
+The result page shows missing image count.
+
+The result page shows missing price count.
+
+The result page shows weak title count.
+
+The result page shows weak description count.
+
+The result page shows a few affected product examples when available.
+
+The result page explains that this is a surface scan only.
+
+The result page includes the mandatory surface scan disclaimer.
+
+The result page includes a clear CTA to upload Shopify CSV for deeper identifier diagnosis.
+
+The result page is understandable to a non-technical Shopify merchant.
+
+The result page does not mention forbidden V1, V2, or V3 features as active.
+
+### V0.5 privacy QA
+
+No submitted URL is stored permanently unless explicitly required and disclosed.
+
+No scan result is stored permanently unless explicitly required and disclosed.
+
+No private Shopify data is accessed.
+
+No app installation is required.
+
+No customer data appears in logs unnecessarily.
+
+No external paid API receives store data.
+
+No AI receives store data.
+
+No database stores scan results in V0.5.
+
+### V0.5 validation requirements
+
+20 Shopify URLs tested.
+
+10 successful public scans.
+
+5 users continue toward CSV upload or clearly show intent to do so.
+
+3 real Shopify CSV files received voluntarily.
+
+1 agency or freelancer confirms interest.
+
+3 users show willingness to pay for a deeper Fix Pack.
+
+Users understand that the scan is a surface audit only.
+
+Users do not expect guaranteed Google approval.
+
+The scan creates enough perceived value to continue.
+
+### V0.5 completion criteria
+
+URL input works.
+
+Public fetch works when available.
+
+Failure handling is clean.
+
+Surface checks work.
+
+Surface risk score works.
+
+Disclaimer is visible.
+
+CTA to CSV upload is clear.
+
+No forbidden V0.5 feature is present.
+
+The scan does not create false approval expectations.
+
+The scan does not replace V1.
 
 ## V1 QA checklist
 
@@ -575,6 +845,8 @@ The result page includes the mandatory disclaimer.
 The result page is understandable to a non-technical Shopify merchant.
 
 The result page does not mention forbidden V2 or V3 features as active.
+
+The result page explains that Google approval is not guaranteed.
 
 ### V1 privacy QA
 
@@ -1042,15 +1314,21 @@ Before any public launch:
 
 Landing page is clear.
 
-Upload flow works.
+URL scan flow works if V0.5 is active.
+
+Upload flow works if V1 is active.
 
 Result flow works.
 
 Disclaimer appears.
 
+Surface scan disclaimer appears if V0.5 is active.
+
 No forbidden features are active.
 
 No fake approval promises exist.
+
+No full Merchant Center diagnosis is claimed from a public URL scan.
 
 No real customer data is in GitHub.
 
@@ -1086,6 +1364,8 @@ Did I break product safety rules?
 
 Did I remove disclaimers?
 
+Did I make V0.5 sound like a full Merchant Center diagnosis?
+
 Did I run relevant tests?
 
 Did I update documentation if needed?
@@ -1101,6 +1381,8 @@ If a correction is not safe, explain it.
 If a case is uncertain, mark it manual review.
 
 If an issue is outside the CSV, say it clearly.
+
+If an issue comes from a surface scan, call it a surface risk only.
 
 If approval cannot be guaranteed, never imply that it can.
 
