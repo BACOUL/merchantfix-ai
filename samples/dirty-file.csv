@@ -1,0 +1,6 @@
+title,product_handle,shopify_vendor,variant_sku,price,image_link,Identifier Exists,random_column,notes
+Minimal Desk Organizer,minimal-desk-organizer,DeskLab,DL-ORG-001,19.90,https://example.com/images/minimal-desk-organizer.jpg,TRUE,unused value,"Missing barcode and MPN columns completely"
+Reusable Lunch Box,reusable-lunch-box,MealBox,MB-LUNCH-002,,https://example.com/images/reusable-lunch-box.jpg,TRUE,unused value,"Missing price and no GTIN column"
+Travel Notebook,travel-notebook,PaperTrail,PT-NOTE-003,12.90,,TRUE,unused value,"Missing image and no identifier columns"
+Simple Phone Stand,simple-phone-stand,,PS-STAND-004,9.90,https://example.com/images/simple-phone-stand.jpg,,unused value,"Missing vendor and identifier_exists value"
+Unknown Export Row,,UnknownVendor,,15.90,not-a-url,MAYBE,unused value,"Bad identifier_exists value and incomplete product data"
