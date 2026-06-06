@@ -4,7 +4,7 @@ This document defines the long-term scale strategy for MerchantFix.ai.
 
 The goal is to make sure the project can grow internationally without building unnecessary complexity too early.
 
-MerchantFix.ai must be built in a way that supports future scale, but the product must not become complex before V1 and V2 are validated.
+MerchantFix.ai must be built in a way that supports future scale, but the product must not become complex before V0.5, V1, and V2 are validated.
 
 ## Core scale principle
 
@@ -16,15 +16,19 @@ Do not build enterprise infrastructure before the market proves demand.
 
 The correct approach is:
 
-V1: simple, safe, testable diagnostic.
+V0: validate market demand.
 
-V2: paid one-shot Fix Pack.
+V0.5: reduce first-use friction with a no-install Shopify URL surface scan.
 
-V3: more Merchant Center error families.
+V1: build a simple, safe, testable Shopify CSV diagnostic.
 
-V4: agency recurring revenue.
+V2: validate paid one-shot Fix Pack.
 
-V5: monitoring, integrations, and scalable platform.
+V3: expand to more Merchant Center error families.
+
+V4: validate agency recurring revenue.
+
+V5: add monitoring, integrations, and scalable platform features only if demand is proven.
 
 ## Long-term ambition
 
@@ -32,13 +36,61 @@ MerchantFix.ai can become an international product data quality platform for eco
 
 The long-term opportunity is larger than a one-shot CSV repair tool.
 
-However, the first version must remain narrow.
+However, the first versions must remain narrow.
 
 The project must validate demand before building the platform.
 
 ## Short-term product
 
-The short-term product is:
+The short-term product sequence is:
+
+V0: collect real Merchant Center errors and validate demand.
+
+V0.5: allow a no-install Shopify URL surface scan using publicly available product data when accessible.
+
+V1: allow Shopify CSV upload for deeper Google Merchant Center identifier diagnosis.
+
+V2: sell one paid Fix Pack after the diagnostic is validated.
+
+## V0.5 product
+
+The V0.5 product is:
+
+Shopify store URL input.
+
+No installation.
+
+No account.
+
+No database.
+
+No Shopify API.
+
+No Google Merchant Center API.
+
+Public product data fetch when available.
+
+Basic product count.
+
+Missing image detection.
+
+Missing price detection.
+
+Weak or very short title detection.
+
+Empty or weak description detection.
+
+Surface risk score.
+
+CTA toward Shopify CSV upload.
+
+Clear disclaimer that this is not a full Google Merchant Center diagnosis.
+
+V0.5 must attract users, not replace the V1 CSV diagnostic.
+
+## V1 product
+
+The V1 product is:
 
 Shopify CSV upload.
 
@@ -46,13 +98,51 @@ Google Merchant Center identifier diagnosis.
 
 GTIN, MPN, brand, and identifier_exists issues.
 
+Missing image and missing price warnings.
+
 Corrected CSV when safe.
 
 Manual review when uncertain.
 
 No payment in V1.
 
-One paid Fix Pack in V2.
+No account in V1.
+
+No database in V1.
+
+No AI in V1.
+
+No API integrations in V1.
+
+No PDF in V1.
+
+No ZIP in V1.
+
+## V2 product
+
+The V2 product is:
+
+One paid Fix Pack.
+
+One-time payment.
+
+Corrected CSV when safe.
+
+Manual review CSV.
+
+PDF report if technically ready.
+
+Resubmission checklist.
+
+Support message template if useful.
+
+Mandatory disclaimer.
+
+No subscription in V2.
+
+No agency dashboard in V2.
+
+No monitoring in V2.
 
 ## Long-term product
 
@@ -72,7 +162,7 @@ Multi-store product data quality platform.
 
 Shopping channel readiness checker.
 
-This long-term vision belongs to V4 and V5, not V1.
+This long-term vision belongs to V4 and V5, not V0.5 or V1.
 
 ## Market vision
 
@@ -196,7 +286,7 @@ Agency: multiple stores, 399 to 699 euros per month.
 
 Enterprise or high-volume: custom pricing only if support is manageable.
 
-These are future targets, not V1 or V2 pricing.
+These are future targets, not V0.5, V1, or V2 pricing.
 
 ## Pricing rule
 
@@ -242,9 +332,35 @@ Very large catalog: 5001 to 20000 products.
 
 Enterprise catalog: more than 20000 products.
 
+V0.5 does not need enterprise-grade processing.
+
 V1 does not need enterprise-grade processing.
 
 However, V1 code should not block future scale.
+
+## V0.5 performance target
+
+V0.5 should be lightweight.
+
+Target:
+
+Fast Shopify URL normalization.
+
+Fast public product data fetch when available.
+
+Graceful failure when public product data is unavailable.
+
+No persistent storage.
+
+No background job.
+
+No monitoring.
+
+No API authentication.
+
+V0.5 should never promise full catalog coverage.
+
+V0.5 should never promise that public product data matches Google Merchant Center data.
 
 ## V1 performance target
 
@@ -338,6 +454,10 @@ The V1 code must not hide business logic in UI components.
 
 The V1 code must separate parsing, normalization, detection, summary, and CSV generation.
 
+The V0.5 code must remain separate from the V1 CSV diagnostic logic.
+
+The V0.5 code must separate URL normalization, public product fetching, surface risk detection, and surface risk scoring.
+
 The V1 code must avoid unnecessary external dependencies.
 
 The V1 code must avoid persistent storage.
@@ -379,6 +499,28 @@ Usage-based billing.
 This must not be built before demand is proven.
 
 ## Processing strategy
+
+## V0.5 processing
+
+Simple synchronous processing is acceptable.
+
+The user enters a Shopify store URL.
+
+The app attempts to fetch public product data when available.
+
+The app returns a surface scan result or a graceful failure.
+
+No persistent storage.
+
+No queue.
+
+No worker.
+
+No database.
+
+No Shopify API.
+
+No Google Merchant Center API.
 
 ## V1 processing
 
@@ -478,6 +620,10 @@ What cannot be fixed from the file.
 
 What Google approval depends on.
 
+What the V0.5 surface scan can and cannot see.
+
+Why the V1 CSV diagnostic is deeper than the V0.5 URL scan.
+
 The product must avoid vague errors.
 
 The product must avoid false confidence.
@@ -510,7 +656,11 @@ Billing questions.
 
 Upload failures.
 
+URL scan failures.
+
 Large file failures.
+
+Misunderstanding surface scan results.
 
 Misunderstanding manual review.
 
@@ -531,6 +681,8 @@ Do not promise approval.
 Do not promise recovery.
 
 Do not imply account-level issues can be fixed by CSV.
+
+Do not imply V0.5 can reproduce Google Merchant Center diagnostics.
 
 Do not hide manual review.
 
@@ -566,6 +718,8 @@ MPN guide.
 
 Brand guide.
 
+Shopify URL surface scan explanation.
+
 Large catalog guide.
 
 Billing FAQ in V2.
@@ -584,6 +738,8 @@ Trust elements:
 
 Clear disclaimer.
 
+Surface scan disclaimer.
+
 Privacy-first messaging.
 
 No fake identifiers.
@@ -600,11 +756,21 @@ Sample reports.
 
 Clear data handling.
 
+No unnecessary account requirement in V0.5.
+
 No unnecessary account requirement in V1.
+
+No permanent storage in V0.5.
 
 No permanent storage in V1.
 
 ## Privacy-first strategy
+
+V0.5 should avoid storing submitted URLs.
+
+V0.5 should not require account creation.
+
+V0.5 should not store scan results permanently.
 
 V1 should avoid storing files.
 
@@ -672,6 +838,12 @@ Expansion order must be strict:
 
 Shopify + Google Merchant Center.
 
+V0.5 Shopify URL surface scan.
+
+V1 Shopify CSV identifier diagnostic.
+
+V2 paid Fix Pack.
+
 More Google Merchant Center errors.
 
 Agencies.
@@ -714,11 +886,17 @@ If not, do not build it.
 
 ## High-revenue path
 
-The path to 50k+ euros per month is not V1.
+The path to 50k+ euros per month is not V0.5.
+
+The path to 50k+ euros per month is not V1 alone.
 
 The path to 50k+ euros per month is:
 
 SEO captures urgent demand.
+
+V0.5 reduces first-use friction.
+
+V1 proves the diagnostic engine.
 
 V2 proves paid Fix Pack.
 
@@ -758,7 +936,7 @@ Multi-store management.
 
 Agency workflows.
 
-But none of this belongs to V1.
+But none of this belongs to V0.5 or V1.
 
 ## Retention strategy
 
@@ -826,6 +1004,10 @@ Do not create long-running serverless functions without checking platform limits
 
 Do not promise large catalog support before testing.
 
+Do not make V0.5 depend on fragile scraping.
+
+Do not treat public Shopify product data as equivalent to Google Merchant Center feed data.
+
 ## Solo-founder operations
 
 MerchantFix.ai must remain manageable by one person.
@@ -872,55 +1054,65 @@ But the project should be designed to work solo for as long as possible.
 
 ## Milestone 1
 
+V0.5 working surface scan.
+
+No revenue required.
+
+Goal: prove users engage with a no-install first step.
+
+## Milestone 2
+
 V1 working diagnostic.
 
 No revenue required.
 
 Goal: prove engine works.
 
-## Milestone 2
+## Milestone 3
 
 First 3 paid Fix Packs.
 
 Goal: prove payment intent.
 
-## Milestone 3
+## Milestone 4
 
 10 paid purchases.
 
 Goal: prove repeated demand.
 
-## Milestone 4
+## Milestone 5
 
 First agency repeated use.
 
 Goal: prove professional workflow value.
 
-## Milestone 5
+## Milestone 6
 
 500 to 1500 euros MRR.
 
 Goal: prove agency subscriptions.
 
-## Milestone 6
+## Milestone 7
 
 5000 euros MRR.
 
 Goal: prove stable early SaaS potential.
 
-## Milestone 7
+## Milestone 8
 
 10000 euros MRR.
 
 Goal: prove product can become serious business.
 
-## Milestone 8
+## Milestone 9
 
 50000 euros MRR.
 
 Goal: requires SEO engine, agency retention, monitoring, volume pricing, and support automation.
 
 ## What must be added to future planning
+
+When V0.5 is tested, revisit whether URL scan should remain central or become secondary.
 
 When V2 is validated, revisit pricing.
 
@@ -934,13 +1126,17 @@ Do not make these decisions before validation.
 
 ## Current scale decision
 
-Current phase: V0 / V1 preparation.
+Current phase: V0 / V0.5 / V1 preparation.
 
-Current build target: V1 diagnostic MVP.
+Current build target: V0.5 no-install Shopify URL surface scan first, then V1 diagnostic MVP.
 
 Current scale strategy:
 
+Keep V0.5 simple.
+
 Keep V1 simple.
+
+Keep V0.5 and V1 separated.
 
 Keep code modular.
 
@@ -960,6 +1156,12 @@ MerchantFix.ai should be built like a product that can scale, but launched like 
 
 The first goal is not 50k euros per month.
 
-The first goal is a safe, useful, trusted diagnostic.
+The first goal is a safe, useful, trusted diagnostic path:
+
+V0.5 attracts with a no-install Shopify URL surface scan.
+
+V1 proves the Shopify CSV diagnostic engine.
+
+V2 proves people pay for a focused Fix Pack.
 
 The scale comes after the proof.
