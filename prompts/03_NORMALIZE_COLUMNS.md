@@ -12,7 +12,9 @@ V1 diagnostic MVP
 
 Implement the Shopify CSV column normalization module.
 
-This task must create the logic that maps raw Shopify CSV rows into normalized product objects used by the diagnostic engine.
+This task must create the logic that maps raw Shopify CSV rows into normalized product objects used by the V1 diagnostic engine.
+
+Do not implement the V0.5 URL surface scan in this task.
 
 Do not implement the full analysis engine yet.
 
@@ -20,11 +22,19 @@ Do not implement issue detection yet.
 
 Do not implement corrected CSV generation yet.
 
+Do not implement UI changes unless strictly required for TypeScript compatibility.
+
 ## Product context
 
-MerchantFix.ai helps Shopify merchants diagnose Google Merchant Center product identifier issues.
+MerchantFix.ai helps Shopify merchants diagnose Google Merchant Center product data issues.
 
-The V1 MVP starts with Shopify CSV files and detects GTIN, MPN, brand, and identifier_exists issues.
+The product sequence is:
+
+V0.5: no-install Shopify URL surface scan for visible product data risks.
+
+V1: deeper Shopify CSV diagnostic for GTIN, MPN, brand, and identifier_exists issues.
+
+This prompt concerns only the V1 CSV normalization layer.
 
 Before detecting issues, the system must normalize different possible CSV column names into a stable internal structure.
 
@@ -40,9 +50,21 @@ tests/normalizeColumns.test.ts if tests are already set up
 
 app/page.tsx
 
+app/scan/page.tsx
+
 app/result/[sessionId]/page.tsx
 
+app/api/surface-scan/route.ts
+
 app/api/analyze/route.ts
+
+lib/normalizeStoreUrl.ts
+
+lib/fetchPublicShopifyProducts.ts
+
+lib/detectSurfaceRisks.ts
+
+lib/calculateSurfaceRiskScore.ts
 
 lib/analyzeShopifyCsv.ts
 
@@ -95,6 +117,10 @@ Do not add monitoring.
 Do not add Shopify app.
 
 Do not add approval guarantee.
+
+Do not claim that CSV normalization guarantees Google approval.
+
+Do not add V0.5 URL scan logic in this task.
 
 ## Required function
 
@@ -176,7 +202,9 @@ Shopify Vendor
 
 shopify_vendor
 
-If brand is missing but vendor exists, keep vendor in vendor and optionally use vendor as brand only if clearly intended by existing mapping rules.
+If brand is missing but vendor exists, keep vendor in vendor.
+
+Do not automatically copy vendor into brand unless the column mapping clearly identifies vendor as a brand source.
 
 Do not invent brand.
 
@@ -290,6 +318,10 @@ google_identifier_exists
 
 Identifier exists
 
+Google Shopping / Identifier Exists
+
+Google Shopping / Custom Product
+
 ## Google product category columns
 
 Recognize category from:
@@ -354,11 +386,13 @@ Trim whitespace.
 
 Convert empty strings to null or undefined consistently.
 
+Use null for normalized empty values unless the existing type requires undefined.
+
 Do not throw errors for missing optional fields.
 
 ## identifierExists normalization
 
-Normalize common values:
+Normalize common values to boolean true:
 
 true
 
@@ -372,9 +406,11 @@ YES
 
 1
 
-to boolean true.
+y
 
-Normalize:
+Y
+
+Normalize common values to boolean false:
 
 false
 
@@ -388,9 +424,21 @@ NO
 
 0
 
-to boolean false.
+n
 
-If missing or unknown, set to null.
+N
+
+If missing, empty, or unknown, set to null.
+
+Important Shopify-specific note:
+
+If a column such as “Google Shopping / Custom Product” is mapped, treat TRUE as meaning the product is custom.
+
+That does not automatically mean identifierExists is false unless the project type explicitly supports that mapping.
+
+If unsure, preserve the raw signal in originalRow and keep identifierExists as null.
+
+Do not over-infer.
 
 ## Custom product detection
 
@@ -398,9 +446,13 @@ Set isPossibleCustomProduct to true if title or handle contains one of CUSTOM_PR
 
 Add matched keywords to customProductSignals.
 
+Detection must be case-insensitive.
+
 Do not treat this as proof.
 
 It is only a signal.
+
+Do not automatically change identifierExists based only on custom product signals.
 
 ## ColumnMappingResult
 
@@ -424,11 +476,37 @@ Example:
   sku: "Variant SKU"
 }
 
-missingImportantColumns should include important fields that were not found, such as title, gtin, mpn, brand, identifierExists, price, image.
+missingImportantColumns should include important fields that were not found, such as:
+
+title
+
+gtin
+
+mpn
+
+brand
+
+identifierExists
+
+price
+
+image
 
 unrecognizedColumns should include original columns that were not mapped.
 
 warnings should include non-blocking mapping warnings.
+
+Examples:
+
+No GTIN column found.
+
+No MPN column found.
+
+No brand column found.
+
+No identifier_exists column found.
+
+No recognizable product identifier columns found.
 
 ## Important safety rule
 
@@ -444,6 +522,10 @@ Do not convert SKU into MPN.
 
 Do not change original row data.
 
+Do not decide Google approval.
+
+Do not decide account recovery.
+
 ## Error handling
 
 If rawRows is empty, return empty products and a warning.
@@ -451,6 +533,8 @@ If rawRows is empty, return empty products and a warning.
 If no recognizable product columns are found, return empty products and warnings explaining that the file does not appear to contain recognizable Shopify product columns.
 
 Do not throw unless the input is structurally invalid.
+
+If rawRows is not an array, throw a clear TypeScript-safe error.
 
 ## Tests to support later
 
@@ -482,7 +566,9 @@ The function returns column mapping details.
 
 Common Shopify column names are recognized.
 
-Identifier_exists values are normalized.
+Google-style column variations are recognized.
+
+identifier_exists values are normalized cautiously.
 
 Custom product signals are detected cautiously.
 
@@ -492,9 +578,13 @@ Input rows are not mutated.
 
 Missing columns do not crash the function.
 
+Empty values are normalized consistently.
+
 No forbidden features are added.
 
 No external API calls are added.
+
+No V0.5 URL scan logic is added.
 
 No issue detection rules are implemented yet.
 
@@ -511,5 +601,9 @@ Do not modify UI files.
 Do not implement the full analysis engine.
 
 Do not implement issue detection.
+
+Do not implement corrected CSV generation.
+
+Do not implement URL scan logic.
 
 Do not implement payment, database, API integrations, AI, PDF, or ZIP.
