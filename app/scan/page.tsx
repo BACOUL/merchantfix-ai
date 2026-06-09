@@ -3,12 +3,12 @@ import { Disclaimer, PrimaryLink, SecondaryLink, SurfaceScanForm, TextBadge } fr
 
 export default function ScanPage() {
   return (
-    <main>
+    <main className="overflow-x-hidden">
       <section className="border-b border-slate-200 bg-white">
-        <div className="mx-auto grid max-w-7xl gap-8 px-5 py-12 md:grid-cols-[1fr_0.7fr] md:px-8 md:py-16">
-          <div>
+        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-5 md:grid-cols-[1fr_0.7fr] md:px-8 md:py-16">
+          <div className="min-w-0">
             <TextBadge tone="green">Public Shopify scan</TextBadge>
-            <h1 className="mt-5 max-w-3xl text-4xl font-black tracking-tight text-slate-950 md:text-6xl">
+            <h1 className="mt-5 max-w-3xl break-words text-3xl font-black tracking-tight text-slate-950 sm:text-4xl md:text-6xl">
               Choose the right product data check for your Shopify store.
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
@@ -16,7 +16,7 @@ export default function ScanPage() {
               MerchantFix.ai keeps both paths focused, safe, and easy to review.
             </p>
           </div>
-          <div className="rounded-lg border border-slate-200 bg-slate-50 p-5">
+          <div className="min-w-0 rounded-lg border border-slate-200 bg-slate-50 p-5">
             <p className="text-xs font-black uppercase tracking-[0.22em] text-slate-500">Workflow</p>
             <ul className="mt-4 grid gap-3 text-sm font-semibold text-slate-700">
               <li className="rounded-lg bg-white p-3">Start with a public Shopify URL.</li>
@@ -27,11 +27,11 @@ export default function ScanPage() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-14">
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-5 md:px-8 md:py-14">
         <section className="mb-8 grid gap-4 md:grid-cols-2">
-          <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+          <div className="min-w-0 rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
             <TextBadge tone="green">Option 1</TextBadge>
-            <h2 className="mt-4 text-2xl font-black text-slate-950">Scan public Shopify URL</h2>
+            <h2 className="mt-4 break-words text-2xl font-black text-slate-950">Scan public Shopify URL</h2>
             <p className="mt-3 leading-7 text-slate-600">
               Best for a quick surface scan when `/products.json` is publicly available. MerchantFix.ai checks visible
               issues like missing images, missing prices, weak titles, and weak descriptions.
@@ -41,9 +41,9 @@ export default function ScanPage() {
             </div>
           </div>
 
-          <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+          <div className="min-w-0 rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
             <TextBadge tone="blue">Option 2</TextBadge>
-            <h2 className="mt-4 text-2xl font-black text-slate-950">Upload Shopify CSV</h2>
+            <h2 className="mt-4 break-words text-2xl font-black text-slate-950">Upload Shopify CSV</h2>
             <p className="mt-3 leading-7 text-slate-600">
               Best for deeper product data diagnosis when Merchant Center warnings mention GTIN, MPN, brand, or
               identifier_exists issues.
@@ -59,8 +59,8 @@ export default function ScanPage() {
         </div>
 
         <section className="mt-8 grid gap-5 rounded-lg border border-blue-200 bg-blue-50 p-5 md:grid-cols-[1fr_auto] md:items-center">
-          <div>
-            <h2 className="text-2xl font-black text-slate-950">Need row-level product diagnosis?</h2>
+          <div className="min-w-0">
+            <h2 className="break-words text-2xl font-black text-slate-950">Need row-level product diagnosis?</h2>
             <p className="mt-2 leading-7 text-slate-700">
               Some Shopify stores do not expose public product data, and identifier issues usually require CSV context.
               Uploading a Shopify CSV gives MerchantFix.ai the row-level data needed for GTIN, MPN, brand, and
