@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Disclaimer, Section } from "@/components";
+import { CsvUploadForm, Disclaimer, Section } from "@/components";
 
 const surfaceChecks = [
   "Missing image",
@@ -42,6 +42,18 @@ const cannotGuarantee = [
   "No claim that the URL scan reproduces Google Merchant Center diagnostics."
 ];
 
+const supportedErrors = [
+  "Missing GTIN",
+  "Missing MPN",
+  "Missing brand",
+  "identifier_exists conflicts",
+  "Invalid-looking GTIN",
+  "Duplicate GTIN",
+  "SKU used as MPN",
+  "Missing image",
+  "Missing price"
+];
+
 export default function HomePage() {
   return (
     <main className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-6 py-10 md:py-16">
@@ -64,7 +76,7 @@ export default function HomePage() {
                 Check My Shopify Store
               </Link>
               <Link
-                href="/result/demo-session"
+                href="#csv-diagnostic"
                 className="rounded-full border border-white/30 px-6 py-3 text-center font-bold text-white transition hover:bg-white/10"
               >
                 Upload Shopify CSV
@@ -82,6 +94,18 @@ export default function HomePage() {
         MerchantFix.ai surface scan is based on publicly available product data when accessible. It is not a full Google
         Merchant Center diagnosis. Google approval is not guaranteed.
       </Disclaimer>
+
+      <CsvUploadForm />
+
+      <Section title="Supported Merchant Center error checks" eyebrow="V1 CSV diagnostic">
+        <div className="grid gap-3 md:grid-cols-3">
+          {supportedErrors.map((error) => (
+            <div key={error} className="rounded-lg border border-slate-200 bg-slate-50 p-4 font-semibold text-slate-900">
+              {error}
+            </div>
+          ))}
+        </div>
+      </Section>
 
       <Section title="Supported checks" eyebrow="Two levels">
         <div className="grid gap-6 md:grid-cols-2">

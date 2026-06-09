@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --environment node tests",
+    "test:watch": "vitest --environment node tests"
   },
   "dependencies": {
     "@types/node": "^20.14.12",
@@ -24,5 +26,8 @@
     "tailwindcss": "^3.4.6",
     "typescript": "^5.5.4"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/papaparse": "^5.3.15",
+    "vitest": "^2.1.9"
+  }
 }
