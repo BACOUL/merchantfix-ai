@@ -28,7 +28,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
             href="/scan"
             className="rounded-full bg-slate-950 px-4 py-2 text-sm font-bold text-white transition hover:bg-slate-800"
           >
-            Start free scan
+            Scan my Shopify store
           </Link>
         </nav>
       </header>
@@ -46,7 +46,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
           </div>
           <div className="grid gap-2 font-semibold">
             <Link href="/scan" className="hover:text-slate-950">
-              Start free Shopify scan
+              Scan my Shopify store
             </Link>
             <Link href="/#csv-diagnostic" className="hover:text-slate-950">
               Upload Shopify CSV
