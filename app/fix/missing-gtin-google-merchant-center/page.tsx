@@ -42,6 +42,34 @@ const merchantFixChecks = [
   "Avoid inventing product identifiers."
 ];
 
+const relatedIdentifierGuides = [
+  {
+    href: "/fix/google-merchant-center-missing-mpn",
+    label: "Missing MPN guide",
+    description: "Review manufacturer part number gaps when GTIN data is unavailable or incomplete."
+  },
+  {
+    href: "/fix/google-merchant-center-missing-brand",
+    label: "Missing brand guide",
+    description: "Check Shopify brand and vendor fields before editing product feed rows."
+  },
+  {
+    href: "/fix/google-merchant-center-identifier-exists",
+    label: "identifier_exists guide",
+    description: "Understand when identifier_exists should be true or false in Shopify feeds."
+  },
+  {
+    href: "/fix/shopify-missing-product-identifiers",
+    label: "Shopify missing product identifiers",
+    description: "Compare GTIN, MPN, brand, and identifier_exists issues in one place."
+  },
+  {
+    href: "/fix/shopify-product-feed-errors",
+    label: "Shopify product feed errors",
+    description: "See the broader cluster of visible and CSV-level product data errors."
+  }
+];
+
 const faqs = [
   {
     question: "Where is GTIN stored in Shopify?",
@@ -161,6 +189,30 @@ export default function MissingGtinPage() {
               </li>
             ))}
           </ul>
+        </section>
+
+        <section className="grid gap-8 border-t border-slate-200 py-12 lg:grid-cols-[0.75fr_1.25fr]">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Related identifier guides</p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">
+              Missing GTIN is often connected to other product identifier issues.
+            </h2>
+            <p className="mt-4 leading-7 text-slate-600">
+              If Variant Barcode is blank, also review MPN, brand, and identifier_exists before changing the feed.
+            </p>
+          </div>
+          <div className="grid gap-3 md:grid-cols-2">
+            {relatedIdentifierGuides.map((guide) => (
+              <Link
+                key={guide.href}
+                href={guide.href}
+                className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm transition hover:border-blue-200 hover:bg-blue-50"
+              >
+                <span className="block font-black text-slate-950">{guide.label}</span>
+                <span className="mt-2 block text-sm font-semibold leading-6 text-slate-600">{guide.description}</span>
+              </Link>
+            ))}
+          </div>
         </section>
 
         <section className="grid gap-8 border-t border-slate-200 py-12 lg:grid-cols-[0.75fr_1.25fr]">
