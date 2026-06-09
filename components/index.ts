@@ -6,3 +6,4 @@ export { CsvUploadForm } from "./CsvUploadForm";
 export { DiagnosticResultView } from "./DiagnosticResultView";
 export { DiagnosticSummaryCards } from "./DiagnosticSummaryCards";
 export { RecommendedActions } from "./RecommendedActions";
+export { SurfaceScanForm } from "./SurfaceScanForm";
