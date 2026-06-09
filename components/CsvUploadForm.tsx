@@ -40,9 +40,9 @@ export function CsvUploadForm() {
   }
 
   return (
-    <section id="csv-diagnostic" className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm md:p-8">
-      <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-        <div>
+    <section id="csv-diagnostic" className="min-w-0 rounded-lg border border-slate-200 bg-white p-5 shadow-sm md:p-8">
+      <div className="grid min-w-0 gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+        <div className="min-w-0">
           <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">CSV diagnostic</p>
           <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">Find the rows Google is complaining about</h2>
           <p className="mt-4 leading-7 text-slate-700">
@@ -58,14 +58,14 @@ export function CsvUploadForm() {
           </div>
         </div>
 
-        <form className="grid gap-4 rounded-lg border border-slate-200 bg-slate-50 p-4" onSubmit={handleSubmit}>
+        <form className="grid min-w-0 gap-4 rounded-lg border border-slate-200 bg-slate-50 p-4" onSubmit={handleSubmit}>
           <label className="grid gap-2">
             <span className="font-bold text-slate-900">Merchant Center error text</span>
             <textarea
               name="merchantCenterErrorText"
               rows={5}
               placeholder="Paste the Merchant Center warning or disapproval text here."
-              className="rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none ring-blue-500 transition focus:ring-2"
+              className="w-full min-w-0 rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none ring-blue-500 transition focus:ring-2"
             />
           </label>
 
@@ -75,7 +75,7 @@ export function CsvUploadForm() {
               name="csvFile"
               type="file"
               accept=".csv,text/csv"
-              className="rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none ring-blue-500 transition focus:ring-2"
+              className="w-full min-w-0 rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none ring-blue-500 transition focus:ring-2"
               required
             />
           </label>
