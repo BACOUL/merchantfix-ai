@@ -66,7 +66,7 @@ function CtaRow() {
   return (
     <div className="flex flex-col gap-3 sm:flex-row">
       <PrimaryLink href="/#csv-diagnostic">Scan my Shopify CSV</PrimaryLink>
-      <SecondaryLink href="/scan">Start free Shopify scan</SecondaryLink>
+      <SecondaryLink href="/scan">Scan my Shopify store</SecondaryLink>
     </div>
   );
 }
