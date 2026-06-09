@@ -117,7 +117,7 @@ export default function MissingGtinPage() {
               A GTIN is not a value to guess. Use product packaging, manufacturer data, or verified catalog information.
             </p>
           </div>
-          <ol className="grid gap-3">
+          <ol className="m-0 grid list-none gap-3 p-0">
             {manualChecklist.map((item, index) => (
               <li key={item} className="grid gap-3 rounded-lg border border-slate-200 bg-white p-4 shadow-sm md:grid-cols-[auto_1fr]">
                 <span className="grid h-8 w-8 place-items-center rounded-full bg-slate-950 text-sm font-black text-white">{index + 1}</span>
