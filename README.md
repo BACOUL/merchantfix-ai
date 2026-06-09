@@ -44,6 +44,16 @@ MerchantFix.ai generates a corrected CSV when the correction is safe.
 
 MerchantFix.ai provides a manual review checklist when required.
 
+## Long-term vision
+
+MerchantFix.ai starts as a focused Google Merchant Center diagnostic tool for Shopify merchants.
+
+The long-term opportunity is broader: product data readiness for Google Shopping, marketplaces, comparison engines, and future AI-assisted shopping surfaces.
+
+That means helping merchants keep product titles, descriptions, images, prices, brands, GTINs, MPNs, and identifier signals clear enough for the channels that increasingly decide how products are discovered, matched, and trusted.
+
+This broader vision does not expand the current MVP scope. The current MVP remains limited to Shopify URL surface scan and Shopify CSV diagnostic for Google Merchant Center product data issues.
+
 ## Initial target customer
 
 The first target customer is Shopify merchants using Google Merchant Center.
@@ -53,6 +63,8 @@ MerchantFix.ai is also relevant for Shopify merchants running Google Shopping or
 The first versions are not designed for WooCommerce, Prestashop, Magento, Amazon listings, Meta Catalog, TikTok Shop, general feed management, or full Merchant Center account recovery.
 
 Those use cases may be considered in later versions only after validation.
+
+After the Shopify and Google Merchant Center wedge is validated, MerchantFix.ai may later expand carefully toward other commerce channels where product data readiness creates repeatable value.
 
 ## Initial problem
 
