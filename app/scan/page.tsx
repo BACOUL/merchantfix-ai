@@ -73,7 +73,10 @@ export default function ScanPage() {
         <div className="mt-8">
           <Disclaimer>
             MerchantFix.ai surface scan is based on publicly available product data when accessible. It is not a full
-            Google Merchant Center diagnosis. Google approval is not guaranteed.
+            Google Merchant Center diagnosis. Google approval is not guaranteed.{" "}
+            <Link href="/terms" className="font-bold text-amber-950 underline underline-offset-2">
+              See Terms.
+            </Link>
           </Disclaimer>
         </div>
 

@@ -38,15 +38,16 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
       {children}
 
       <footer className="border-t border-slate-200 bg-white">
-        <div className="mx-auto grid max-w-7xl gap-8 px-5 py-10 text-sm text-slate-600 md:grid-cols-[1.2fr_0.8fr] md:px-8">
-          <div>
+        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 text-sm text-slate-600 sm:px-5 md:grid-cols-[1fr_auto_auto] md:px-8">
+          <div className="min-w-0">
             <p className="font-black text-slate-950">MerchantFix.ai</p>
             <p className="mt-3 max-w-xl leading-6">
               Focused Shopify product data diagnosis for surface risks, GTIN, MPN, brand, and identifier_exists issues.
               Google approval is not guaranteed.
             </p>
           </div>
-          <div className="grid gap-2 font-semibold">
+          <div className="grid min-w-0 gap-2 font-semibold">
+            <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-500">Product</p>
             <Link href="/scan" className="hover:text-slate-950">
               Scan my Shopify store
             </Link>
@@ -55,6 +56,18 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
             </Link>
             <Link href="/fix/missing-gtin-google-merchant-center" className="hover:text-slate-950">
               Missing GTIN guide
+            </Link>
+          </div>
+          <div className="grid min-w-0 gap-2 font-semibold">
+            <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-500">Legal</p>
+            <Link href="/legal-notice" className="hover:text-slate-950">
+              Legal Notice
+            </Link>
+            <Link href="/privacy" className="hover:text-slate-950">
+              Privacy
+            </Link>
+            <Link href="/terms" className="hover:text-slate-950">
+              Terms
             </Link>
           </div>
         </div>
