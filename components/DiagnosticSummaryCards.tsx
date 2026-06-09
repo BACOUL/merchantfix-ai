@@ -18,9 +18,9 @@ export function DiagnosticSummaryCards({ analysis }: DiagnosticSummaryCardsProps
   return (
     <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
       {cards.map((card) => (
-        <div key={card.label} className="rounded-lg border border-slate-200 bg-white p-4">
-          <p className="text-sm font-medium text-slate-500">{card.label}</p>
-          <p className="mt-2 text-2xl font-bold text-slate-950">{card.value}</p>
+        <div key={card.label} className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+          <p className="text-xs font-bold uppercase tracking-[0.14em] text-slate-500">{card.label}</p>
+          <p className="mt-2 text-2xl font-black text-slate-950">{card.value}</p>
         </div>
       ))}
     </section>

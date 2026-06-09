@@ -1,16 +1,19 @@
 import type { Metadata } from "next";
+import { SiteChrome } from "@/components/SiteChrome";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "MerchantFix.ai",
+  title: "MerchantFix.ai | Shopify product data diagnostics",
   description:
-    "Diagnose visible Shopify product data risks and prepare for deeper Google Merchant Center identifier checks."
+    "Run a public Shopify surface scan and diagnose GTIN, MPN, brand, and identifier_exists issues from a Shopify CSV."
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <SiteChrome>{children}</SiteChrome>
+      </body>
     </html>
   );
 }

@@ -1,207 +1,197 @@
-import Link from "next/link";
-import { CsvUploadForm, Disclaimer, Section } from "@/components";
+import { CsvUploadForm, PrimaryLink, SecondaryLink, Section, TextBadge } from "@/components";
 
-const surfaceChecks = [
-  "Missing image",
-  "Missing price",
-  "Weak or very short title",
-  "Empty or weak description",
-  "Basic product count"
-];
+const surfaceChecks = ["Missing image", "Missing price", "Weak title", "Weak description", "Product count"];
 
 const csvChecks = [
   "Missing GTIN",
   "Missing MPN",
   "Missing brand",
-  "Incorrect identifier_exists",
-  "Invalid-looking GTIN",
-  "Duplicate GTIN",
-  "SKU used as MPN warning",
-  "Missing image",
-  "Missing price"
-];
-
-const howItWorks = [
-  "Enter your Shopify store URL.",
-  "MerchantFix.ai runs a no-install surface scan when public product data is available.",
-  "Review visible product data risks.",
-  "Upload your Shopify CSV for deeper identifier diagnosis.",
-  "MerchantFix.ai scans product identifier issues.",
-  "You receive a clear diagnosis.",
-  "Safe corrections can be exported in a corrected CSV.",
-  "Uncertain cases are marked for manual review."
-];
-
-const cannotGuarantee = [
-  "No Google approval guarantee.",
-  "No fake GTIN generation.",
-  "No fake MPN generation.",
-  "No account suspension recovery.",
-  "No automatic misrepresentation fix.",
-  "No full Merchant Center account recovery.",
-  "No claim that the URL scan reproduces Google Merchant Center diagnostics."
-];
-
-const supportedErrors = [
-  "Missing GTIN",
-  "Missing MPN",
-  "Missing brand",
   "identifier_exists conflicts",
-  "Invalid-looking GTIN",
+  "Invalid GTIN",
   "Duplicate GTIN",
-  "SKU used as MPN",
-  "Missing image",
-  "Missing price"
+  "SKU as MPN warning",
+  "Manual review flags"
 ];
+
+const proofPoints = [
+  "No account required",
+  "Public Shopify data first",
+  "No fake identifiers",
+  "CSV fixes only when safe"
+];
+
+function ProductPreview() {
+  return (
+    <div className="pointer-events-none absolute inset-y-8 right-4 hidden w-[46%] max-w-xl opacity-95 lg:block" aria-hidden="true">
+      <div className="rounded-lg border border-white/15 bg-white/10 p-4 shadow-2xl backdrop-blur">
+        <div className="flex items-center justify-between border-b border-white/10 pb-3">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-blue-100">Surface score</p>
+            <p className="mt-1 text-4xl font-black text-white">82</p>
+          </div>
+          <span className="rounded-full border border-emerald-300/40 bg-emerald-300/15 px-3 py-1 text-xs font-black text-emerald-100">
+            Public scan
+          </span>
+        </div>
+        <div className="mt-4 grid gap-3">
+          {[
+            { label: "Missing image", value: "4 products", tone: "bg-amber-300/20 text-amber-100" },
+            { label: "Weak title", value: "7 products", tone: "bg-blue-300/20 text-blue-100" },
+            { label: "Manual review", value: "Required", tone: "bg-rose-300/20 text-rose-100" }
+          ].map((item) => (
+            <div key={item.label} className="grid grid-cols-[1fr_auto] gap-3 rounded-lg border border-white/10 bg-white/10 p-3">
+              <span className="font-semibold text-white">{item.label}</span>
+              <span className={`rounded-full px-3 py-1 text-xs font-black ${item.tone}`}>{item.value}</span>
+            </div>
+          ))}
+        </div>
+        <div className="mt-4 rounded-lg border border-white/10 bg-slate-950/40 p-3">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-300">CSV diagnostic</p>
+          <div className="mt-3 h-2 rounded-full bg-white/10">
+            <div className="h-2 w-2/3 rounded-full bg-blue-300" />
+          </div>
+          <p className="mt-3 text-sm text-slate-200">GTIN, MPN, brand, identifier_exists</p>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function HomePage() {
   return (
-    <main className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-6 py-10 md:py-16">
-      <section className="overflow-hidden rounded-[2rem] bg-slate-950 px-6 py-12 text-white shadow-xl md:px-12 md:py-16">
-        <p className="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-cyan-200">MerchantFix.ai</p>
-        <div className="grid gap-8 md:grid-cols-[1.4fr_0.8fr] md:items-end">
-          <div>
-            <h1 className="max-w-3xl text-4xl font-black tracking-tight md:text-6xl">
-              Fix rejected Google Merchant Center products
+    <main>
+      <section className="relative overflow-hidden bg-slate-950">
+        <ProductPreview />
+        <div className="mx-auto max-w-7xl px-5 py-16 text-white md:px-8 md:py-24">
+          <div className="max-w-3xl">
+            <div className="flex flex-wrap gap-2">
+              <TextBadge tone="green">For Shopify merchants</TextBadge>
+              <TextBadge tone="blue">Google Merchant Center focused</TextBadge>
+            </div>
+            <h1 className="mt-6 text-5xl font-black tracking-tight md:text-7xl">
+              Find Shopify product data issues before they slow your ads.
             </h1>
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-200">
-              Check your Shopify store for visible product data issues in 60 seconds. Then upload your Shopify
-              product export for deeper GTIN, MPN, brand, and identifier_exists diagnosis.
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-200">
+              MerchantFix.ai runs a public Shopify surface scan, then helps diagnose GTIN, MPN, brand, and
+              identifier_exists issues from your Shopify CSV.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="/scan"
-                className="rounded-full bg-cyan-300 px-6 py-3 text-center font-bold text-slate-950 transition hover:bg-cyan-200"
-              >
-                Check My Shopify Store
-              </Link>
-              <Link
-                href="#csv-diagnostic"
-                className="rounded-full border border-white/30 px-6 py-3 text-center font-bold text-white transition hover:bg-white/10"
-              >
-                Upload Shopify CSV
-              </Link>
+              <PrimaryLink href="/scan">Start free Shopify scan</PrimaryLink>
+              <SecondaryLink href="#csv-diagnostic">Upload Shopify CSV</SecondaryLink>
             </div>
+            <p className="mt-5 max-w-xl text-sm leading-6 text-slate-300">
+              Focused diagnostics only. MerchantFix.ai does not invent identifiers and cannot guarantee Google approval.
+            </p>
           </div>
-          <Disclaimer>
-            MerchantFix.ai helps diagnose and fix product data issues. Some issues may require manual review. Google
-            approval is not guaranteed.
-          </Disclaimer>
         </div>
       </section>
 
-      <Disclaimer>
-        MerchantFix.ai surface scan is based on publicly available product data when accessible. It is not a full Google
-        Merchant Center diagnosis. Google approval is not guaranteed.
-      </Disclaimer>
-
-      <CsvUploadForm />
-
-      <Section title="Supported Merchant Center error checks" eyebrow="V1 CSV diagnostic">
-        <div className="grid gap-3 md:grid-cols-3">
-          {supportedErrors.map((error) => (
-            <div key={error} className="rounded-lg border border-slate-200 bg-slate-50 p-4 font-semibold text-slate-900">
-              {error}
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      <Section title="Supported checks" eyebrow="Two levels">
-        <div className="grid gap-6 md:grid-cols-2">
-          <div>
-            <h3 className="font-bold text-slate-950">V0.5 surface scan checks</h3>
-            <ul className="mt-3 list-disc space-y-2 pl-5">
-              {surfaceChecks.map((check) => (
-                <li key={check}>{check}</li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h3 className="font-bold text-slate-950">V1 CSV diagnostic checks</h3>
-            <ul className="mt-3 list-disc space-y-2 pl-5">
-              {csvChecks.map((check) => (
-                <li key={check}>{check}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </Section>
-
-      <Section title="How it works">
-        <ol className="grid gap-3 md:grid-cols-2">
-          {howItWorks.map((step, index) => (
-            <li key={step} className="rounded-2xl bg-slate-50 p-4">
-              <span className="mr-2 font-black text-blue-600">{index + 1}.</span>
-              {step}
-            </li>
-          ))}
-        </ol>
-      </Section>
-
-      <Section title="What MerchantFix.ai can scan">
-        <ul className="list-disc space-y-2 pl-5">
-          <li>Detect visible product data risks from publicly available Shopify product data when accessible.</li>
-          <li>Count public products when available.</li>
-          <li>Detect missing images.</li>
-          <li>Detect missing prices.</li>
-          <li>Detect weak titles.</li>
-          <li>Detect weak descriptions.</li>
-          <li>Invite the user to upload a Shopify CSV for deeper analysis.</li>
-        </ul>
-      </Section>
-
-      <Section title="What MerchantFix.ai can diagnose">
-        <ul className="list-disc space-y-2 pl-5">
-          <li>Detect product identifier inconsistencies.</li>
-          <li>Find rows with missing GTIN or MPN.</li>
-          <li>Identify identifier_exists conflicts.</li>
-          <li>Detect suspicious or duplicate GTIN values.</li>
-          <li>Create a corrected CSV only when changes are safe.</li>
-          <li>Add merchantfix_notes to explain recommendations.</li>
-        </ul>
-      </Section>
-
-      <Section title="What MerchantFix.ai cannot guarantee">
-        <ul className="list-disc space-y-2 pl-5">
-          {cannotGuarantee.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </Section>
-
-      <Section title="Pricing preview">
-        <div className="grid gap-4 md:grid-cols-4">
-          {[
-            "Free Shopify URL Surface Scan",
-            "Free CSV Diagnosis",
-            "Future Fix Pack",
-            "Agency plans later"
-          ].map((item) => (
-            <div key={item} className="rounded-2xl border border-slate-200 p-4 font-semibold text-slate-950">
+      <section className="border-b border-slate-200 bg-white">
+        <div className="mx-auto grid max-w-7xl gap-3 px-5 py-5 md:grid-cols-4 md:px-8">
+          {proofPoints.map((item) => (
+            <div key={item} className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-700">
               {item}
             </div>
           ))}
         </div>
-        <p className="mt-5 font-medium text-slate-700">Payment is not active in V0.5 or V1.</p>
-      </Section>
+      </section>
 
-      <Section title="FAQ">
-        <div className="space-y-5">
-          <div>
-            <h3 className="font-bold text-slate-950">Does this connect to my Shopify admin?</h3>
-            <p className="mt-1">No. The surface scan is designed as a no-install placeholder flow.</p>
+      <div className="mx-auto max-w-7xl px-5 md:px-8">
+        <Section
+          eyebrow="Two diagnostic levels"
+          title="Start broad. Go deep only when needed."
+          description="The URL scan is a quick public-data check. The CSV diagnostic is where identifier issues become row-level and actionable."
+        >
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+              <TextBadge tone="green">Surface scan</TextBadge>
+              <h3 className="mt-4 text-xl font-black text-slate-950">Public Shopify URL check</h3>
+              <p className="mt-3 leading-7 text-slate-600">
+                Uses publicly available product data when accessible. Good for visible issues and a fast risk score.
+              </p>
+              <ul className="mt-4 grid gap-2 text-sm font-semibold text-slate-700">
+                {surfaceChecks.map((check) => (
+                  <li key={check} className="rounded-lg bg-slate-50 px-3 py-2">
+                    {check}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+              <TextBadge tone="blue">CSV diagnostic</TextBadge>
+              <h3 className="mt-4 text-xl font-black text-slate-950">Shopify export analysis</h3>
+              <p className="mt-3 leading-7 text-slate-600">
+                Finds row-level identifier problems and marks uncertain fixes for manual review.
+              </p>
+              <ul className="mt-4 grid gap-2 text-sm font-semibold text-slate-700 md:grid-cols-2">
+                {csvChecks.map((check) => (
+                  <li key={check} className="rounded-lg bg-slate-50 px-3 py-2">
+                    {check}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-          <div>
-            <h3 className="font-bold text-slate-950">Does this guarantee Google approval?</h3>
-            <p className="mt-1">No. MerchantFix.ai helps find issues, but Google approval is not guaranteed.</p>
+        </Section>
+
+        <Section
+          eyebrow="Workflow"
+          title="A practical repair path for Shopify product data."
+          description="MerchantFix.ai keeps the work narrow: detect, explain, export safe CSV notes, and flag manual review when product identifiers cannot be verified."
+        >
+          <div className="grid gap-3">
+            {[
+              "Run the public surface scan to spot visible product data risks.",
+              "Upload a Shopify CSV when Merchant Center errors mention identifiers.",
+              "Review affected rows, suggested fixes, and manual review warnings.",
+              "Download a corrected CSV only when MerchantFix.ai can make a safe change."
+            ].map((step, index) => (
+              <div key={step} className="grid gap-3 rounded-lg border border-slate-200 bg-white p-4 shadow-sm md:grid-cols-[auto_1fr]">
+                <span className="grid h-8 w-8 place-items-center rounded-full bg-slate-950 text-sm font-black text-white">{index + 1}</span>
+                <p className="font-semibold leading-7 text-slate-700">{step}</p>
+              </div>
+            ))}
           </div>
-          <div>
-            <h3 className="font-bold text-slate-950">Will MerchantFix.ai invent product identifiers?</h3>
-            <p className="mt-1">No. It must never generate fake GTIN, MPN, or brand values.</p>
+        </Section>
+
+        <section className="py-10 md:py-14">
+          <CsvUploadForm />
+        </section>
+
+        <Section
+          eyebrow="Boundaries"
+          title="Clear by design. No overpromises."
+          description="MerchantFix.ai is built to help with product data diagnosis. It does not claim to solve every Merchant Center issue."
+        >
+          <div className="grid gap-3 md:grid-cols-2">
+            {[
+              "No Google approval guarantee.",
+              "No fake GTIN, MPN, or brand generation.",
+              "No private Shopify API or Google Merchant Center API.",
+              "No account recovery or suspension promise."
+            ].map((item) => (
+              <div key={item} className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 font-semibold text-amber-950">
+                {item}
+              </div>
+            ))}
           </div>
-        </div>
-      </Section>
+        </Section>
+
+        <Section eyebrow="FAQ" title="What merchants usually ask first.">
+          <div className="grid gap-4">
+            {[
+              ["Does this connect to my Shopify admin?", "No. The MVP uses public product data for the surface scan and CSV files you upload for diagnosis."],
+              ["Does this guarantee Google approval?", "No. It helps diagnose product data issues, but Google approval is not guaranteed."],
+              ["Will MerchantFix.ai invent product identifiers?", "No. It must never generate fake GTIN, MPN, or brand values."]
+            ].map(([question, answer]) => (
+              <div key={question} className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+                <h3 className="font-black text-slate-950">{question}</h3>
+                <p className="mt-2 leading-7 text-slate-600">{answer}</p>
+              </div>
+            ))}
+          </div>
+        </Section>
+      </div>
     </main>
   );
 }

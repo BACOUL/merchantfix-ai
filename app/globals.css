@@ -4,8 +4,8 @@
 
 :root {
   color-scheme: light;
-  background: #f8fafc;
-  color: #102033;
+  background: #f7f8fb;
+  color: #0f172a;
 }
 
 * {
@@ -15,8 +15,12 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: linear-gradient(180deg, #f8fafc 0%, #eef6ff 100%);
-  color: #102033;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(247, 248, 251, 0.96) 42%, #f7f8fb 100%),
+    #f7f8fb;
+  color: #0f172a;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
@@ -28,4 +32,9 @@ button,
 input,
 textarea {
   font: inherit;
+}
+
+::selection {
+  background: #bfdbfe;
+  color: #0f172a;
 }
