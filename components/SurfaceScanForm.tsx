@@ -58,12 +58,12 @@ export function SurfaceScanForm() {
   }
 
   return (
-    <div className="grid gap-6">
-      <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm md:p-8">
-        <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-          <div>
+    <div className="grid min-w-0 gap-6">
+      <section className="min-w-0 rounded-lg border border-slate-200 bg-white p-5 shadow-sm md:p-8">
+        <div className="flex min-w-0 flex-col gap-3 md:flex-row md:items-start md:justify-between">
+          <div className="min-w-0">
             <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">No-install surface audit</p>
-            <h1 className="mt-3 text-4xl font-black tracking-tight text-slate-950">Shopify Store Surface Scan</h1>
+            <h1 className="mt-3 break-words text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">Shopify Store Surface Scan</h1>
             <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-700">
               Check public Shopify product data for visible risks before you move into deeper CSV diagnosis.
             </p>
@@ -72,7 +72,7 @@ export function SurfaceScanForm() {
             Public data only
           </span>
         </div>
-        <form className="mt-8 grid gap-3 md:grid-cols-[1fr_auto]" onSubmit={handleSubmit}>
+        <form className="mt-8 grid min-w-0 gap-3 md:grid-cols-[1fr_auto]" onSubmit={handleSubmit}>
           <label className="sr-only" htmlFor="store-url">
             Shopify store URL
           </label>
@@ -83,7 +83,7 @@ export function SurfaceScanForm() {
             value={storeUrl}
             onChange={(event) => setStoreUrl(event.target.value)}
             placeholder="https://example-store.myshopify.com"
-            className="rounded-full border border-slate-300 bg-white px-5 py-3 outline-none ring-blue-500 transition focus:ring-2"
+            className="w-full min-w-0 rounded-full border border-slate-300 bg-white px-5 py-3 outline-none ring-blue-500 transition focus:ring-2"
           />
           <button
             type="submit"
@@ -98,9 +98,9 @@ export function SurfaceScanForm() {
         ) : null}
       </section>
 
-      <section className="grid gap-4 md:grid-cols-5">
+      <section className="grid min-w-0 gap-4 md:grid-cols-5">
         {summary.map((card) => (
-          <div key={card.label} className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+          <div key={card.label} className="min-w-0 rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
             <p className="text-xs font-bold uppercase tracking-[0.14em] text-slate-500">{card.label}</p>
             <p className="mt-2 text-3xl font-black text-slate-950">{card.value}</p>
           </div>
@@ -108,7 +108,7 @@ export function SurfaceScanForm() {
       </section>
 
       {result ? (
-        <section className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+        <section className="min-w-0 rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
           <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Surface scan result</p>
           <h2 className="mt-3 text-2xl font-black text-slate-950">{result.summary}</h2>
           <ul className="mt-4 grid gap-2 text-sm font-medium text-slate-700">
