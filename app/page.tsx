@@ -152,6 +152,9 @@ export default function HomePage() {
             <p className="mt-5 max-w-2xl text-sm font-bold leading-6 text-slate-300">
               No login. No Shopify admin access. No fake identifiers. Safe fixes only.
             </p>
+            <p className="mt-3 max-w-2xl text-sm font-semibold leading-6 text-slate-400">
+              Start with Google Merchant Center issues today. Build cleaner product data for tomorrow&apos;s shopping channels.
+            </p>
           </div>
 
           <SampleResultCard dark />
@@ -173,13 +176,13 @@ export default function HomePage() {
           <div className="rounded-lg border border-blue-200 bg-blue-50 p-5 md:p-6">
             <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
               <div className="min-w-0">
-                <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Try it free</p>
-                <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">
-                  See your product data risks before editing your feed.
-                </h2>
-                <p className="mt-4 leading-7 text-slate-700">
-                  Start with a public Shopify URL scan. Use CSV upload when you need row-level identifier diagnosis.
-                </p>
+              <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Try it free</p>
+              <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">
+                See your product data risks before editing your feed.
+              </h2>
+              <p className="mt-4 leading-7 text-slate-700">
+                Start with a public Shopify URL scan. Use CSV upload when you need row-level identifier diagnosis.
+              </p>
               </div>
               <div className="flex min-w-0 flex-col gap-3">
                 <PrimaryLink href="/scan">Scan my Shopify store</PrimaryLink>

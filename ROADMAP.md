@@ -1052,13 +1052,15 @@ First MRR.
 
 Decision to proceed or not proceed to V5.
 
-## V5 Platform and monitoring
+## V5 Platform, monitoring, and commerce-channel readiness
 
 ## V5 objective
 
 Transform MerchantFix.ai into a platform only if one-shot purchases and agency usage have validated the demand.
 
 V5 validates whether connected workflows, monitoring, and alerts are worth building.
+
+V5 may evolve toward product data quality and readiness across Google Shopping, marketplaces, comparison engines, and AI-assisted shopping surfaces only after the earlier versions prove clear user demand, reliable diagnostics, and manageable support.
 
 ## V5 assumption
 
@@ -1104,6 +1106,12 @@ No unsupported compliance claims.
 
 No approval guarantee.
 
+No ranking guarantee.
+
+No marketplace acceptance guarantee.
+
+No AI assistant visibility guarantee.
+
 ## V5 validation criteria
 
 MRR is stable.
@@ -1122,7 +1130,9 @@ The platform can be maintained by a solo founder or very small team.
 
 ## V5 output
 
-A mature product data quality platform for Google Merchant Center and potentially other shopping channels.
+A mature product data quality and readiness platform for Google Merchant Center and potentially other shopping channels, if demand is validated.
+
+Safety note: MerchantFix.ai must never guarantee approval, ranking, marketplace acceptance, or AI assistant visibility.
 
 ## Global anti-error rules
 
