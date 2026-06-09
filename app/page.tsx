@@ -36,12 +36,30 @@ const whoThisIsFor = [
 ];
 
 const deliverables = [
-  "Surface scan score",
-  "Product data gaps",
-  "CSV issue diagnosis",
-  "Safe correction notes",
-  "Manual review flags",
-  "Clear next actions"
+  {
+    title: "Surface scan score",
+    description: "Get a fast visible-risk score from public Shopify product data when it is available."
+  },
+  {
+    title: "Product data gaps",
+    description: "Spot missing or weak product fields that can reduce feed quality and shopper confidence."
+  },
+  {
+    title: "CSV issue diagnosis",
+    description: "Check row-level GTIN, MPN, brand, and identifier_exists issues in a Shopify export."
+  },
+  {
+    title: "Safe correction notes",
+    description: "See deterministic changes that are safe to explain without inventing identifiers."
+  },
+  {
+    title: "Manual review flags",
+    description: "Mark uncertain rows that need merchant verification before any feed change."
+  },
+  {
+    title: "Clear next actions",
+    description: "Know what to fix, export, or review next without digging through every product manually."
+  }
 ];
 
 const safetyPoints = [
@@ -60,7 +78,7 @@ function SampleResultCard({ dark = false }: { dark?: boolean }) {
   const strongTextClassName = dark ? "text-white" : "text-slate-950";
 
   return (
-    <div className={cardClassName}>
+    <div className={`${cardClassName} min-w-0`}>
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <p className={`text-xs font-black uppercase tracking-[0.22em] ${mutedTextClassName}`}>Example result</p>
@@ -87,7 +105,7 @@ function SampleResultCard({ dark = false }: { dark?: boolean }) {
           <p className={`text-xs font-bold uppercase tracking-[0.16em] ${mutedTextClassName}`}>Detected issues</p>
           <div className="mt-3 grid gap-2">
             {sampleIssues.map((issue) => (
-              <div key={issue.label} className={`rounded-lg border px-3 py-2 text-sm font-bold ${issue.tone}`}>
+              <div key={issue.label} className={`break-words rounded-lg border px-3 py-2 text-sm font-bold ${issue.tone}`}>
                 {issue.label}
               </div>
             ))}
@@ -98,10 +116,10 @@ function SampleResultCard({ dark = false }: { dark?: boolean }) {
       <div className={dark ? "mt-5 grid gap-3 rounded-lg bg-slate-950/45 p-4" : "mt-5 grid gap-3 rounded-lg bg-slate-50 p-4"}>
         <p className={`text-xs font-bold uppercase tracking-[0.16em] ${mutedTextClassName}`}>Recommended action</p>
         <div className="grid gap-2 md:grid-cols-2">
-          <span className="rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm font-bold text-emerald-800">
+          <span className="break-words rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm font-bold text-emerald-800">
             Safe CSV fixes available for deterministic fields
           </span>
-          <span className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm font-bold text-amber-900">
+          <span className="break-words rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm font-bold text-amber-900">
             Identifier issues require manual review
           </span>
         </div>
@@ -112,15 +130,15 @@ function SampleResultCard({ dark = false }: { dark?: boolean }) {
 
 export default function HomePage() {
   return (
-    <main>
-      <section className="bg-slate-950">
-        <div className="mx-auto grid max-w-7xl gap-10 px-5 py-16 text-white md:px-8 md:py-24 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
-          <div>
+    <main className="overflow-x-hidden">
+      <section className="overflow-hidden bg-slate-950">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 text-white sm:px-5 md:px-8 md:py-24 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+          <div className="min-w-0">
             <div className="flex flex-wrap gap-2">
               <TextBadge tone="green">For Shopify merchants</TextBadge>
               <TextBadge tone="blue">Google Shopping data quality</TextBadge>
             </div>
-            <h1 className="mt-6 text-5xl font-black tracking-tight md:text-7xl">
+            <h1 className="mt-6 max-w-full break-words text-4xl font-black tracking-tight sm:text-5xl md:text-7xl">
               Find Shopify product data issues before they cost you Google Shopping sales.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-200">
@@ -141,7 +159,7 @@ export default function HomePage() {
       </section>
 
       <section className="border-b border-slate-200 bg-white">
-        <div className="mx-auto grid max-w-7xl gap-3 px-5 py-5 md:grid-cols-4 md:px-8">
+        <div className="mx-auto grid max-w-7xl gap-3 px-4 py-5 sm:px-5 md:grid-cols-4 md:px-8">
           {proofPoints.map((item) => (
             <div key={item} className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-700">
               {item}
@@ -150,19 +168,20 @@ export default function HomePage() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-7xl px-5 md:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8">
         <section className="py-10 md:py-14">
-          <div className="grid gap-6 lg:grid-cols-[1fr_0.45fr] lg:items-center">
-            <SampleResultCard />
-            <div className="rounded-lg border border-blue-200 bg-blue-50 p-5">
-              <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Try it free</p>
-              <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">
-                See your product data risks before editing your feed.
-              </h2>
-              <p className="mt-4 leading-7 text-slate-700">
-                Start with a public Shopify URL scan. Use CSV upload when you need row-level identifier diagnosis.
-              </p>
-              <div className="mt-5 flex flex-col gap-3">
+          <div className="rounded-lg border border-blue-200 bg-blue-50 p-5 md:p-6">
+            <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
+              <div className="min-w-0">
+                <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Try it free</p>
+                <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">
+                  See your product data risks before editing your feed.
+                </h2>
+                <p className="mt-4 leading-7 text-slate-700">
+                  Start with a public Shopify URL scan. Use CSV upload when you need row-level identifier diagnosis.
+                </p>
+              </div>
+              <div className="flex min-w-0 flex-col gap-3">
                 <PrimaryLink href="/scan">Scan my Shopify store</PrimaryLink>
                 <SecondaryLink href="#csv-diagnostic">Upload Shopify CSV</SecondaryLink>
               </div>
@@ -191,15 +210,9 @@ export default function HomePage() {
         >
           <div className="grid gap-3 md:grid-cols-2">
             {deliverables.map((item) => (
-              <div key={item} className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
-                <h3 className="font-black text-slate-950">{item}</h3>
-                <p className="mt-2 text-sm leading-6 text-slate-600">
-                  {item === "Surface scan score"
-                    ? "A fast public-data score that highlights visible risk."
-                    : item === "CSV issue diagnosis"
-                      ? "Row-level checks for GTIN, MPN, brand, and identifier_exists."
-                      : "Clear output that helps you decide what to fix, export, or review manually."}
-                </p>
+              <div key={item.title} className="min-w-0 rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+                <h3 className="break-words font-black text-slate-950">{item.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-600">{item.description}</p>
               </div>
             ))}
           </div>
@@ -282,7 +295,7 @@ export default function HomePage() {
 
         <section className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm md:p-8">
           <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
-            <div>
+            <div className="min-w-0">
               <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Ready to check</p>
               <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">
                 Find the product data issues hiding in your Shopify catalog.
@@ -291,7 +304,7 @@ export default function HomePage() {
                 Start with a public scan, then upload CSV when you need deeper row-level diagnosis.
               </p>
             </div>
-            <div className="flex flex-col gap-3">
+            <div className="flex min-w-0 flex-col gap-3">
               <PrimaryLink href="/scan">Scan my Shopify store</PrimaryLink>
               <SecondaryLink href="#csv-diagnostic">Upload Shopify CSV</SecondaryLink>
             </div>
