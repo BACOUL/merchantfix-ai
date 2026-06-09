@@ -57,6 +57,9 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
             <Link href="/fix/missing-gtin-google-merchant-center" className="hover:text-slate-950">
               Missing GTIN guide
             </Link>
+            <Link href="/fix/shopify-product-feed-errors" className="hover:text-slate-950">
+              Product feed errors
+            </Link>
           </div>
           <div className="grid min-w-0 gap-2 font-semibold">
             <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-500">Legal</p>
