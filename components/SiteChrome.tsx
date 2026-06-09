@@ -8,12 +8,12 @@ const navItems = [
 
 export function SiteChrome({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-[#f7f8fb] text-slate-950">
+    <div className="min-h-screen overflow-x-hidden bg-[#f7f8fb] text-slate-950">
       <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/90 backdrop-blur">
-        <nav className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 md:px-8" aria-label="Main navigation">
-          <Link href="/" className="flex items-center gap-3 font-black tracking-tight text-slate-950">
+        <nav className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-4 sm:px-5 md:px-8" aria-label="Main navigation">
+          <Link href="/" className="flex min-w-0 items-center gap-3 font-black tracking-tight text-slate-950">
             <span className="grid h-9 w-9 place-items-center rounded-lg bg-slate-950 text-sm text-white">MF</span>
-            <span>MerchantFix.ai</span>
+            <span className="hidden sm:inline">MerchantFix.ai</span>
           </Link>
 
           <div className="hidden items-center gap-6 text-sm font-semibold text-slate-600 md:flex">
@@ -26,9 +26,11 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
 
           <Link
             href="/scan"
-            className="rounded-full bg-slate-950 px-4 py-2 text-sm font-bold text-white transition hover:bg-slate-800"
+            aria-label="Scan my Shopify store"
+            className="shrink-0 rounded-full bg-slate-950 px-3 py-2 text-sm font-bold text-white transition hover:bg-slate-800 sm:px-4"
           >
-            Scan my Shopify store
+            <span className="hidden sm:inline">Scan my Shopify store</span>
+            <span className="sm:hidden">Scan</span>
           </Link>
         </nav>
       </header>
@@ -78,7 +80,7 @@ export function TextBadge({ children, tone = "blue" }: { children: React.ReactNo
   };
 
   return (
-    <span className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-bold ${tones[tone]}`}>
+    <span className={`inline-flex max-w-full items-center break-words rounded-full border px-3 py-1 text-xs font-bold ${tones[tone]}`}>
       {children}
     </span>
   );
@@ -86,7 +88,7 @@ export function TextBadge({ children, tone = "blue" }: { children: React.ReactNo
 
 export function PrimaryLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
-    <Link href={href} className="rounded-full bg-blue-700 px-5 py-3 text-center text-sm font-black text-white transition hover:bg-blue-800">
+    <Link href={href} className="inline-flex max-w-full items-center justify-center whitespace-normal break-words rounded-full bg-blue-700 px-5 py-3 text-center text-sm font-black text-white transition hover:bg-blue-800">
       {children}
     </Link>
   );
@@ -96,7 +98,7 @@ export function SecondaryLink({ href, children }: { href: string; children: Reac
   return (
     <Link
       href={href}
-      className="rounded-full border border-slate-300 bg-white px-5 py-3 text-center text-sm font-black text-slate-950 transition hover:border-slate-400 hover:bg-slate-50"
+      className="inline-flex max-w-full items-center justify-center whitespace-normal break-words rounded-full border border-slate-300 bg-white px-5 py-3 text-center text-sm font-black text-slate-950 transition hover:border-slate-400 hover:bg-slate-50"
     >
       {children}
     </Link>
