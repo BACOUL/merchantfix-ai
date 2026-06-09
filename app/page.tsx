@@ -14,43 +14,114 @@ const csvChecks = [
 ];
 
 const proofPoints = [
-  "No account required",
-  "Public Shopify data first",
+  "No login",
+  "No Shopify admin access",
   "No fake identifiers",
-  "CSV fixes only when safe"
+  "Safe fixes only"
 ];
 
-function ProductPreview() {
+const sampleIssues = [
+  { label: "18 products missing GTIN", tone: "bg-red-50 text-red-700 border-red-200" },
+  { label: "11 products missing MPN", tone: "bg-amber-50 text-amber-800 border-amber-200" },
+  { label: "7 products with weak descriptions", tone: "bg-blue-50 text-blue-800 border-blue-200" },
+  { label: "4 products missing brand", tone: "bg-amber-50 text-amber-800 border-amber-200" }
+];
+
+const whoThisIsFor = [
+  "You have Google Merchant Center warnings.",
+  "Some products are limited, disapproved, or underperforming.",
+  "Your Shopify export has missing GTIN, MPN, brand, or identifier fields.",
+  "You manage too many products to check manually.",
+  "You want safe fixes, not risky automated guesses."
+];
+
+const deliverables = [
+  {
+    title: "Surface scan score",
+    description: "Get a fast visible-risk score from public Shopify product data when it is available."
+  },
+  {
+    title: "Product data gaps",
+    description: "Spot missing or weak product fields that can reduce feed quality and shopper confidence."
+  },
+  {
+    title: "CSV issue diagnosis",
+    description: "Check row-level GTIN, MPN, brand, and identifier_exists issues in a Shopify export."
+  },
+  {
+    title: "Safe correction notes",
+    description: "See deterministic changes that are safe to explain without inventing identifiers."
+  },
+  {
+    title: "Manual review flags",
+    description: "Mark uncertain rows that need merchant verification before any feed change."
+  },
+  {
+    title: "Clear next actions",
+    description: "Know what to fix, export, or review next without digging through every product manually."
+  }
+];
+
+const safetyPoints = [
+  "MerchantFix.ai does not invent GTINs.",
+  "MerchantFix.ai does not access private Shopify admin data.",
+  "MerchantFix.ai does not connect to Google Merchant Center.",
+  "MerchantFix.ai does not guarantee Google approval.",
+  "MerchantFix.ai only suggests deterministic fixes or manual review."
+];
+
+function SampleResultCard({ dark = false }: { dark?: boolean }) {
+  const cardClassName = dark
+    ? "rounded-lg border border-white/15 bg-white/10 p-5 shadow-2xl backdrop-blur"
+    : "rounded-lg border border-slate-200 bg-white p-5 shadow-sm";
+  const mutedTextClassName = dark ? "text-slate-300" : "text-slate-500";
+  const strongTextClassName = dark ? "text-white" : "text-slate-950";
+
   return (
-    <div className="pointer-events-none absolute inset-y-8 right-4 hidden w-[46%] max-w-xl opacity-95 lg:block" aria-hidden="true">
-      <div className="rounded-lg border border-white/15 bg-white/10 p-4 shadow-2xl backdrop-blur">
-        <div className="flex items-center justify-between border-b border-white/10 pb-3">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-blue-100">Surface score</p>
-            <p className="mt-1 text-4xl font-black text-white">82</p>
+    <div className={`${cardClassName} min-w-0`}>
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <p className={`text-xs font-black uppercase tracking-[0.22em] ${mutedTextClassName}`}>Example result</p>
+          <p className={`mt-2 text-sm font-semibold ${mutedTextClassName}`}>Demo only, not a real scan.</p>
+        </div>
+        <span className="w-fit rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-black text-emerald-800">
+          Sample output
+        </span>
+      </div>
+
+      <div className="mt-5 grid gap-4 md:grid-cols-[0.7fr_1.3fr]">
+        <div className={dark ? "rounded-lg bg-slate-950/45 p-4" : "rounded-lg bg-slate-50 p-4"}>
+          <p className={`text-xs font-bold uppercase tracking-[0.16em] ${mutedTextClassName}`}>Surface risk score</p>
+          <div className="mt-3 flex items-end gap-2">
+            <span className={`text-5xl font-black ${strongTextClassName}`}>72</span>
+            <span className={`pb-2 text-sm font-bold ${mutedTextClassName}`}>/ 100</span>
           </div>
-          <span className="rounded-full border border-emerald-300/40 bg-emerald-300/15 px-3 py-1 text-xs font-black text-emerald-100">
-            Public scan
+          <div className={dark ? "mt-4 h-2 rounded-full bg-white/10" : "mt-4 h-2 rounded-full bg-slate-200"}>
+            <div className="h-2 w-[72%] rounded-full bg-amber-500" />
+          </div>
+        </div>
+
+        <div>
+          <p className={`text-xs font-bold uppercase tracking-[0.16em] ${mutedTextClassName}`}>Detected issues</p>
+          <div className="mt-3 grid gap-2">
+            {sampleIssues.map((issue) => (
+              <div key={issue.label} className={`break-words rounded-lg border px-3 py-2 text-sm font-bold ${issue.tone}`}>
+                {issue.label}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className={dark ? "mt-5 grid gap-3 rounded-lg bg-slate-950/45 p-4" : "mt-5 grid gap-3 rounded-lg bg-slate-50 p-4"}>
+        <p className={`text-xs font-bold uppercase tracking-[0.16em] ${mutedTextClassName}`}>Recommended action</p>
+        <div className="grid gap-2 md:grid-cols-2">
+          <span className="break-words rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm font-bold text-emerald-800">
+            Safe CSV fixes available for deterministic fields
           </span>
-        </div>
-        <div className="mt-4 grid gap-3">
-          {[
-            { label: "Missing image", value: "4 products", tone: "bg-amber-300/20 text-amber-100" },
-            { label: "Weak title", value: "7 products", tone: "bg-blue-300/20 text-blue-100" },
-            { label: "Manual review", value: "Required", tone: "bg-rose-300/20 text-rose-100" }
-          ].map((item) => (
-            <div key={item.label} className="grid grid-cols-[1fr_auto] gap-3 rounded-lg border border-white/10 bg-white/10 p-3">
-              <span className="font-semibold text-white">{item.label}</span>
-              <span className={`rounded-full px-3 py-1 text-xs font-black ${item.tone}`}>{item.value}</span>
-            </div>
-          ))}
-        </div>
-        <div className="mt-4 rounded-lg border border-white/10 bg-slate-950/40 p-3">
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-300">CSV diagnostic</p>
-          <div className="mt-3 h-2 rounded-full bg-white/10">
-            <div className="h-2 w-2/3 rounded-full bg-blue-300" />
-          </div>
-          <p className="mt-3 text-sm text-slate-200">GTIN, MPN, brand, identifier_exists</p>
+          <span className="break-words rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm font-bold text-amber-900">
+            Identifier issues require manual review
+          </span>
         </div>
       </div>
     </div>
@@ -59,35 +130,36 @@ function ProductPreview() {
 
 export default function HomePage() {
   return (
-    <main>
-      <section className="relative overflow-hidden bg-slate-950">
-        <ProductPreview />
-        <div className="mx-auto max-w-7xl px-5 py-16 text-white md:px-8 md:py-24">
-          <div className="max-w-3xl">
+    <main className="overflow-x-hidden">
+      <section className="overflow-hidden bg-slate-950">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 text-white sm:px-5 md:px-8 md:py-24 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+          <div className="min-w-0">
             <div className="flex flex-wrap gap-2">
               <TextBadge tone="green">For Shopify merchants</TextBadge>
-              <TextBadge tone="blue">Google Merchant Center focused</TextBadge>
+              <TextBadge tone="blue">Google Shopping data quality</TextBadge>
             </div>
-            <h1 className="mt-6 text-5xl font-black tracking-tight md:text-7xl">
-              Find Shopify product data issues before they slow your ads.
+            <h1 className="mt-6 max-w-full break-words text-4xl font-black tracking-tight sm:text-5xl md:text-7xl">
+              Find Shopify product data issues before they cost you Google Shopping sales.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-200">
-              MerchantFix.ai runs a public Shopify surface scan, then helps diagnose GTIN, MPN, brand, and
-              identifier_exists issues from your Shopify CSV.
+              MerchantFix.ai scans public Shopify product data or a Shopify CSV export to detect missing identifiers,
+              weak product fields, and surface risks before they create Merchant Center problems.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <PrimaryLink href="/scan">Start free Shopify scan</PrimaryLink>
+              <PrimaryLink href="/scan">Scan my Shopify store</PrimaryLink>
               <SecondaryLink href="#csv-diagnostic">Upload Shopify CSV</SecondaryLink>
             </div>
-            <p className="mt-5 max-w-xl text-sm leading-6 text-slate-300">
-              Focused diagnostics only. MerchantFix.ai does not invent identifiers and cannot guarantee Google approval.
+            <p className="mt-5 max-w-2xl text-sm font-bold leading-6 text-slate-300">
+              No login. No Shopify admin access. No fake identifiers. Safe fixes only.
             </p>
           </div>
+
+          <SampleResultCard dark />
         </div>
       </section>
 
       <section className="border-b border-slate-200 bg-white">
-        <div className="mx-auto grid max-w-7xl gap-3 px-5 py-5 md:grid-cols-4 md:px-8">
+        <div className="mx-auto grid max-w-7xl gap-3 px-4 py-5 sm:px-5 md:grid-cols-4 md:px-8">
           {proofPoints.map((item) => (
             <div key={item} className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-700">
               {item}
@@ -96,7 +168,56 @@ export default function HomePage() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-7xl px-5 md:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8">
+        <section className="py-10 md:py-14">
+          <div className="rounded-lg border border-blue-200 bg-blue-50 p-5 md:p-6">
+            <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
+              <div className="min-w-0">
+                <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Try it free</p>
+                <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">
+                  See your product data risks before editing your feed.
+                </h2>
+                <p className="mt-4 leading-7 text-slate-700">
+                  Start with a public Shopify URL scan. Use CSV upload when you need row-level identifier diagnosis.
+                </p>
+              </div>
+              <div className="flex min-w-0 flex-col gap-3">
+                <PrimaryLink href="/scan">Scan my Shopify store</PrimaryLink>
+                <SecondaryLink href="#csv-diagnostic">Upload Shopify CSV</SecondaryLink>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <Section
+          eyebrow="Who this is for"
+          title="Built for Shopify merchants who need cleaner product data"
+          description="MerchantFix.ai is for merchants who need a practical way to find product feed issues without risky automated guesses."
+        >
+          <div className="grid gap-3">
+            {whoThisIsFor.map((item) => (
+              <div key={item} className="rounded-lg border border-slate-200 bg-white px-4 py-3 font-semibold text-slate-700 shadow-sm">
+                {item}
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        <Section
+          eyebrow="What you get"
+          title="A practical diagnostic, not vague advice"
+          description="The result is designed to show what is wrong, which products or rows are affected, and what the next safe action should be."
+        >
+          <div className="grid gap-3 md:grid-cols-2">
+            {deliverables.map((item) => (
+              <div key={item.title} className="min-w-0 rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+                <h3 className="break-words font-black text-slate-950">{item.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-600">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </Section>
+
         <Section
           eyebrow="Two diagnostic levels"
           title="Start broad. Go deep only when needed."
@@ -159,23 +280,36 @@ export default function HomePage() {
         </section>
 
         <Section
-          eyebrow="Boundaries"
-          title="Clear by design. No overpromises."
-          description="MerchantFix.ai is built to help with product data diagnosis. It does not claim to solve every Merchant Center issue."
+          eyebrow="Safety"
+          title="Safe by design"
+          description="MerchantFix.ai is intentionally narrow: it helps you find product data problems while avoiding risky feed edits."
         >
-          <div className="grid gap-3 md:grid-cols-2">
-            {[
-              "No Google approval guarantee.",
-              "No fake GTIN, MPN, or brand generation.",
-              "No private Shopify API or Google Merchant Center API.",
-              "No account recovery or suspension promise."
-            ].map((item) => (
-              <div key={item} className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 font-semibold text-amber-950">
+          <div className="grid gap-3">
+            {safetyPoints.map((item) => (
+              <div key={item} className="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 font-semibold text-emerald-950">
                 {item}
               </div>
             ))}
           </div>
         </Section>
+
+        <section className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+          <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
+            <div className="min-w-0">
+              <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Ready to check</p>
+              <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">
+                Find the product data issues hiding in your Shopify catalog.
+              </h2>
+              <p className="mt-3 max-w-3xl leading-7 text-slate-600">
+                Start with a public scan, then upload CSV when you need deeper row-level diagnosis.
+              </p>
+            </div>
+            <div className="flex min-w-0 flex-col gap-3">
+              <PrimaryLink href="/scan">Scan my Shopify store</PrimaryLink>
+              <SecondaryLink href="#csv-diagnostic">Upload Shopify CSV</SecondaryLink>
+            </div>
+          </div>
+        </section>
 
         <Section eyebrow="FAQ" title="What merchants usually ask first.">
           <div className="grid gap-4">
