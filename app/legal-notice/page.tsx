@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { canonical } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Legal Notice | MerchantFix.ai",
-  description: "Legal information for MerchantFix.ai, a digital product operated by TimeProofs."
+  description: "Legal information for MerchantFix.ai, a digital product operated by TimeProofs.",
+  alternates: {
+    canonical: canonical("/legal-notice")
+  }
 };
 
 export default function LegalNoticePage() {
