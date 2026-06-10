@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { canonical } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Terms of Use | MerchantFix.ai",
-  description: "Terms and limitations for using MerchantFix.ai product data diagnostics for Shopify merchants."
+  description: "Terms and limitations for using MerchantFix.ai product data diagnostics for Shopify merchants.",
+  alternates: {
+    canonical: canonical("/terms")
+  }
 };
 
 const serviceLimits = [
