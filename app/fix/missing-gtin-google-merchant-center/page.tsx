@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PrimaryLink, SecondaryLink, TextBadge } from "@/components";
+import { canonical } from "@/lib/seo";
 import { MANDATORY_DISCLAIMER } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "Missing GTIN Google Merchant Center: Shopify Fix Guide | MerchantFix.ai",
   description:
-    "Learn how to fix missing GTIN errors in Google Merchant Center for Shopify products. Check barcodes, identifier_exists, MPN, brand, and affected CSV rows."
+    "Learn how to fix missing GTIN errors in Google Merchant Center for Shopify products. Check barcodes, identifier_exists, MPN, brand, and affected CSV rows.",
+  alternates: {
+    canonical: canonical("/fix/missing-gtin-google-merchant-center")
+  }
 };
 
 const manualChecklist = [

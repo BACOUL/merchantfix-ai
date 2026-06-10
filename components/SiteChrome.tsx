@@ -54,6 +54,9 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
             <Link href="/#csv-diagnostic" className="hover:text-slate-950">
               Upload Shopify CSV
             </Link>
+            <Link href="/fix" className="hover:text-slate-950">
+              Product data guides
+            </Link>
             <Link href="/fix/missing-gtin-google-merchant-center" className="hover:text-slate-950">
               Missing GTIN guide
             </Link>

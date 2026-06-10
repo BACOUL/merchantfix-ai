@@ -1,4 +1,15 @@
+import type { Metadata } from "next";
 import { CsvUploadForm, PrimaryLink, SecondaryLink, Section, TextBadge } from "@/components";
+import { canonical } from "@/lib/seo";
+
+export const metadata: Metadata = {
+  title: "MerchantFix.ai | Shopify product data diagnostics",
+  description:
+    "Run a public Shopify surface scan and diagnose GTIN, MPN, brand, and identifier_exists issues from a Shopify CSV.",
+  alternates: {
+    canonical: canonical("/")
+  }
+};
 
 const surfaceChecks = ["Missing image", "Missing price", "Weak title", "Weak description", "Product count"];
 
@@ -176,13 +187,13 @@ export default function HomePage() {
           <div className="rounded-lg border border-blue-200 bg-blue-50 p-5 md:p-6">
             <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
               <div className="min-w-0">
-              <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Try it free</p>
-              <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">
-                See your product data risks before editing your feed.
-              </h2>
-              <p className="mt-4 leading-7 text-slate-700">
-                Start with a public Shopify URL scan. Use CSV upload when you need row-level identifier diagnosis.
-              </p>
+                <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Try it free</p>
+                <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">
+                  See your product data risks before editing your feed.
+                </h2>
+                <p className="mt-4 leading-7 text-slate-700">
+                  Start with a public Shopify URL scan. Use CSV upload when you need row-level identifier diagnosis.
+                </p>
               </div>
               <div className="flex min-w-0 flex-col gap-3">
                 <PrimaryLink href="/scan">Scan my Shopify store</PrimaryLink>

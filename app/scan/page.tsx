@@ -1,5 +1,16 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Disclaimer, PrimaryLink, SecondaryLink, SurfaceScanForm, TextBadge } from "@/components";
+import { canonical } from "@/lib/seo";
+
+export const metadata: Metadata = {
+  title: "Shopify Product Data Scan | MerchantFix.ai",
+  description:
+    "Run a public Shopify surface scan and upload a Shopify CSV for GTIN, MPN, brand, and identifier_exists diagnosis.",
+  alternates: {
+    canonical: canonical("/scan")
+  }
+};
 
 export default function ScanPage() {
   return (
@@ -80,9 +91,14 @@ export default function ScanPage() {
           </Disclaimer>
         </div>
 
-        <Link href="/" className="mt-8 inline-flex text-sm font-bold text-blue-700 hover:text-blue-900">
-          Back to homepage
-        </Link>
+        <div className="mt-8 flex flex-wrap gap-5">
+          <Link href="/" className="inline-flex text-sm font-bold text-blue-700 hover:text-blue-900">
+            Back to homepage
+          </Link>
+          <Link href="/fix" className="inline-flex text-sm font-bold text-blue-700 hover:text-blue-900">
+            Product data guides
+          </Link>
+        </div>
       </div>
     </main>
   );

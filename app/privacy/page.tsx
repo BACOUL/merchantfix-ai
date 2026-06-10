@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { canonical } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | MerchantFix.ai",
   description:
-    "How MerchantFix.ai processes public Shopify URLs, Shopify CSV uploads, and product data in the current MVP."
+    "How MerchantFix.ai processes public Shopify URLs, Shopify CSV uploads, and product data in the current MVP.",
+  alternates: {
+    canonical: canonical("/privacy")
+  }
 };
 
 const providedData = [
