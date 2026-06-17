@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PrimaryLink, SecondaryLink, TextBadge } from "@/components";
 import { canonical } from "@/lib/seo";
-import { getGmcErrorSeoPage, gmcErrorSeoPages } from "@/lib/gmcErrorSeo";
+import { combinedGmcErrorSeoPages, getCombinedGmcErrorSeoPage } from "@/lib/combinedGmcErrorSeo";
 import { MANDATORY_DISCLAIMER } from "@/lib/types";
 
 type PageProps = {
@@ -13,13 +13,13 @@ type PageProps = {
 };
 
 export function generateStaticParams() {
-  return gmcErrorSeoPages.map((page) => ({
+  return combinedGmcErrorSeoPages.map((page) => ({
     slug: page.slug
   }));
 }
 
 export function generateMetadata({ params }: PageProps): Metadata {
-  const page = getGmcErrorSeoPage(params.slug);
+  const page = getCombinedGmcErrorSeoPage(params.slug);
 
   if (!page) {
     return {};
@@ -46,7 +46,7 @@ function CtaRow() {
 }
 
 export default function GmcExactErrorPage({ params }: PageProps) {
-  const page = getGmcErrorSeoPage(params.slug);
+  const page = getCombinedGmcErrorSeoPage(params.slug);
 
   if (!page) {
     notFound();

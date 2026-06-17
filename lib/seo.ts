@@ -1,4 +1,4 @@
-import { gmcErrorSeoPages } from "./gmcErrorSeo";
+import { combinedGmcErrorSeoPages } from "./combinedGmcErrorSeo";
 
 export const SITE_URL = "https://merchantfix-ai.com";
 
@@ -40,7 +40,7 @@ export const fixGuides = [
   }
 ] as const;
 
-export const exactErrorGuides = gmcErrorSeoPages.map((page) => ({
+export const exactErrorGuides = combinedGmcErrorSeoPages.map((page) => ({
   path: `/fix/google-merchant-center-errors/${page.slug}`,
   label: page.label,
   description: page.description
