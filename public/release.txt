@@ -1,0 +1,5 @@
+MerchantFix.ai production release marker
+Expected production commit: 15866a9718fd531b559f9a466f1aef462b7b1960
+Expected state: paid CSV diagnostic is not public on homepage
+Expected #csv-diagnostic: Fix Pack CTA block, not upload form
+Created: 2026-06-17
