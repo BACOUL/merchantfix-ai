@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { CsvUploadForm, SecondaryLink, TextBadge } from "@/components";
+import { CsvUploadForm, PrimaryLink, SecondaryLink, TextBadge } from "@/components";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "CSV Diagnostic | MerchantFix.ai",
@@ -8,6 +10,28 @@ export const metadata: Metadata = {
     index: false,
     follow: false
   }
+};
+
+type DiagnosticPageProps = {
+  searchParams?: {
+    session_id?: string | string[];
+  };
+};
+
+type StripeCheckoutSession = {
+  id?: string;
+  status?: string;
+  payment_status?: string;
+  metadata?: {
+    plan?: string;
+  };
+};
+
+type SessionGateResult = {
+  allowed: boolean;
+  reason: string;
+  sessionId?: string;
+  plan?: string;
 };
 
 const uploadChecklist = [
@@ -24,22 +48,150 @@ const diagnosticLimits = [
   "Contact support at contact@timeproofs.io if you cannot complete the upload after payment."
 ];
 
-export default function DiagnosticPage() {
+function getSessionId(searchParams?: DiagnosticPageProps["searchParams"]) {
+  const value = searchParams?.session_id;
+
+  if (Array.isArray(value)) {
+    return value[0];
+  }
+
+  return value;
+}
+
+async function verifyCheckoutSession(sessionId?: string): Promise<SessionGateResult> {
+  if (!sessionId) {
+    return {
+      allowed: false,
+      reason: "Open this page from the payment confirmation screen so MerchantFix.ai can verify your Stripe checkout session."
+    };
+  }
+
+  const secretKey = process.env.STRIPE_SECRET_KEY;
+
+  if (!secretKey) {
+    return {
+      allowed: false,
+      sessionId,
+      reason: "Stripe verification is not configured yet. Add STRIPE_SECRET_KEY in Vercel before using the paid diagnostic area."
+    };
+  }
+
+  try {
+    const response = await fetch(`https://api.stripe.com/v1/checkout/sessions/${encodeURIComponent(sessionId)}`, {
+      headers: {
+        Authorization: `Bearer ${secretKey}`
+      },
+      cache: "no-store"
+    });
+
+    const session = (await response.json()) as StripeCheckoutSession & { error?: { message?: string } };
+
+    if (!response.ok) {
+      return {
+        allowed: false,
+        sessionId,
+        reason: session.error?.message || "Stripe could not verify this checkout session."
+      };
+    }
+
+    if (session.payment_status !== "paid") {
+      return {
+        allowed: false,
+        sessionId,
+        reason: "This checkout session is not marked as paid yet. Complete payment before opening the diagnostic area."
+      };
+    }
+
+    if (session.status && session.status !== "complete") {
+      return {
+        allowed: false,
+        sessionId,
+        reason: "This checkout session is not complete yet. Complete checkout before opening the diagnostic area."
+      };
+    }
+
+    return {
+      allowed: true,
+      sessionId,
+      plan: session.metadata?.plan,
+      reason: "Payment verified."
+    };
+  } catch {
+    return {
+      allowed: false,
+      sessionId,
+      reason: "Stripe verification failed. Try again or contact support with your Stripe session ID."
+    };
+  }
+}
+
+function LockedDiagnostic({ gate }: { gate: SessionGateResult }) {
+  return (
+    <main className="overflow-x-hidden">
+      <section className="border-b border-slate-200 bg-slate-950 text-white">
+        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-5 md:px-8 md:py-24">
+          <div className="max-w-4xl">
+            <div className="flex flex-wrap gap-2">
+              <TextBadge tone="amber">Diagnostic locked</TextBadge>
+              <TextBadge tone="blue">Stripe verification required</TextBadge>
+            </div>
+            <h1 className="mt-6 break-words text-4xl font-black tracking-tight sm:text-5xl md:text-7xl">
+              Complete checkout before uploading a Shopify CSV.
+            </h1>
+            <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-200">{gate.reason}</p>
+            {gate.sessionId ? (
+              <p className="mt-5 max-w-3xl rounded-xl border border-white/15 bg-white/10 p-4 text-sm font-bold leading-6 text-slate-200">
+                Stripe session: {gate.sessionId}
+              </p>
+            ) : null}
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <PrimaryLink href="/fix-pack">Buy Fix Pack</PrimaryLink>
+              <SecondaryLink href="/pricing">Back to pricing</SecondaryLink>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-10 sm:px-5 md:px-8 md:py-14">
+        <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm md:p-8">
+          <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Support</p>
+          <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">Already paid?</h2>
+          <p className="mt-4 max-w-3xl leading-7 text-slate-600">
+            Contact <a className="font-black text-blue-700 underline" href="mailto:contact@timeproofs.io">contact@timeproofs.io</a> with your Stripe confirmation email or session ID.
+          </p>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+export default async function DiagnosticPage({ searchParams }: DiagnosticPageProps) {
+  const gate = await verifyCheckoutSession(getSessionId(searchParams));
+
+  if (!gate.allowed) {
+    return <LockedDiagnostic gate={gate} />;
+  }
+
   return (
     <main className="overflow-x-hidden">
       <section className="border-b border-slate-200 bg-slate-950 text-white">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-5 md:px-8 md:py-20">
           <div className="max-w-4xl">
             <div className="flex flex-wrap gap-2">
-              <TextBadge tone="blue">Paid diagnostic area</TextBadge>
-              <TextBadge tone="green">Shopify CSV upload</TextBadge>
+              <TextBadge tone="green">Payment verified</TextBadge>
+              <TextBadge tone="blue">Shopify CSV upload</TextBadge>
             </div>
             <h1 className="mt-6 break-words text-4xl font-black tracking-tight sm:text-5xl md:text-7xl">
               Generate your Shopify CSV diagnostic report.
             </h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-200">
-              Use this page after completing checkout. Upload a clean Shopify product export to receive a prioritized report with safe fixes and manual review rows.
+              Your Stripe checkout session is verified. Upload a clean Shopify product export to receive a prioritized report with safe fixes and manual review rows.
             </p>
+            {gate.sessionId ? (
+              <p className="mt-5 max-w-3xl rounded-xl border border-white/15 bg-white/10 p-4 text-sm font-bold leading-6 text-slate-200">
+                Stripe session: {gate.sessionId}{gate.plan ? ` · Plan: ${gate.plan}` : ""}
+              </p>
+            ) : null}
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <SecondaryLink href="/how-to-export-shopify-csv">How to export CSV</SecondaryLink>
               <SecondaryLink href="/methodology">Read methodology</SecondaryLink>
@@ -68,7 +220,7 @@ export default function DiagnosticPage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 pb-10 sm:px-5 md:px-8 md:pb-14">
-        <CsvUploadForm />
+        <CsvUploadForm checkoutSessionId={gate.sessionId} />
       </section>
 
       <section className="mx-auto max-w-7xl px-4 pb-14 sm:px-5 md:px-8 md:pb-20">

@@ -5,12 +5,16 @@ import { DiagnosticResultView } from "./DiagnosticResultView";
 import type { AnalysisResult, CorrectedCsvResult } from "@/lib/types";
 
 type AnalyzeResponse = {
-  analysis: AnalysisResult;
+  analysis?: AnalysisResult;
   correctedCsvResult?: CorrectedCsvResult | null;
   error?: string;
 };
 
-export function CsvUploadForm() {
+type CsvUploadFormProps = {
+  checkoutSessionId?: string;
+};
+
+export function CsvUploadForm({ checkoutSessionId }: CsvUploadFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [response, setResponse] = useState<AnalyzeResponse | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -22,6 +26,11 @@ export function CsvUploadForm() {
 
     try {
       const formData = new FormData(event.currentTarget);
+
+      if (checkoutSessionId) {
+        formData.set("stripeSessionId", checkoutSessionId);
+      }
+
       const response = await fetch("/api/analyze", {
         method: "POST",
         body: formData
@@ -66,6 +75,8 @@ export function CsvUploadForm() {
         </div>
 
         <form className="grid min-w-0 gap-4 rounded-xl border border-slate-200 bg-slate-50 p-4" onSubmit={handleSubmit}>
+          <input type="hidden" name="stripeSessionId" value={checkoutSessionId ?? ""} />
+
           <label className="grid gap-2">
             <span className="font-bold text-slate-900">Merchant Center error text</span>
             <textarea

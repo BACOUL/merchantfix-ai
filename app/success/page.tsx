@@ -31,6 +31,7 @@ const supportNotes = [
 
 export default function SuccessPage({ searchParams }: SuccessPageProps) {
   const sessionId = searchParams?.session_id;
+  const diagnosticHref = sessionId ? `/diagnostic?session_id=${encodeURIComponent(sessionId)}` : "/diagnostic";
 
   return (
     <main className="overflow-x-hidden">
@@ -53,7 +54,7 @@ export default function SuccessPage({ searchParams }: SuccessPageProps) {
               </p>
             ) : null}
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <PrimaryLink href="/diagnostic">Open CSV diagnostic</PrimaryLink>
+              <PrimaryLink href={diagnosticHref}>Open CSV diagnostic</PrimaryLink>
               <SecondaryLink href="/how-to-export-shopify-csv">How to export CSV</SecondaryLink>
             </div>
           </div>
