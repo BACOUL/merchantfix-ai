@@ -289,7 +289,7 @@ export default function HomePage() {
           </div>
         </Section>
 
-        <section className="py-10 md:py-14">
+        <section id="csv-diagnostic" className="scroll-mt-24 py-10 md:py-14">
           <div className="rounded-lg border border-blue-200 bg-blue-50 p-6 shadow-sm md:p-8">
             <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
               <div className="min-w-0">
