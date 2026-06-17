@@ -48,6 +48,11 @@ const merchantFixChecks = [
 
 const relatedIdentifierGuides = [
   {
+    href: "/fix/google-merchant-center-errors/missing-value-gtin",
+    label: "Exact error: Missing value [gtin]",
+    description: "A page built for merchants who paste the exact Merchant Center warning."
+  },
+  {
     href: "/fix/google-merchant-center-missing-mpn",
     label: "Missing MPN guide",
     description: "Review manufacturer part number gaps when GTIN data is unavailable or incomplete."
@@ -97,7 +102,7 @@ const faqs = [
 function CtaRow() {
   return (
     <div className="flex flex-col gap-3 sm:flex-row">
-      <PrimaryLink href="/#csv-diagnostic">Scan my Shopify CSV</PrimaryLink>
+      <PrimaryLink href="/fix-pack">Use Fix Pack</PrimaryLink>
       <SecondaryLink href="/scan">Scan my Shopify store</SecondaryLink>
     </div>
   );
@@ -219,36 +224,17 @@ export default function MissingGtinPage() {
           </div>
         </section>
 
-        <section className="grid gap-8 border-t border-slate-200 py-12 lg:grid-cols-[0.75fr_1.25fr]">
-          <div>
-            <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">FAQ</p>
-            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">Short answers before you edit your feed.</h2>
-          </div>
-          <div className="grid gap-4">
+        <section className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+          <h2 className="text-3xl font-black tracking-tight text-slate-950">FAQ</h2>
+          <div className="mt-5 grid gap-4 md:grid-cols-2">
             {faqs.map((faq) => (
-              <div key={faq.question} className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+              <article key={faq.question} className="rounded-lg bg-slate-50 p-4">
                 <h3 className="font-black text-slate-950">{faq.question}</h3>
                 <p className="mt-2 leading-7 text-slate-600">{faq.answer}</p>
-              </div>
+              </article>
             ))}
           </div>
         </section>
-
-        <section className="rounded-lg border border-blue-200 bg-blue-50 p-6 md:p-8">
-          <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
-            <div>
-              <h2 className="text-3xl font-black tracking-tight text-slate-950">Find missing GTIN rows in your Shopify CSV.</h2>
-              <p className="mt-3 max-w-3xl leading-7 text-slate-700">
-                MerchantFix.ai identifies affected rows, explains what needs review, and avoids unsafe identifier generation.
-              </p>
-            </div>
-            <CtaRow />
-          </div>
-        </section>
-
-        <Link href="/" className="mt-8 inline-flex text-sm font-bold text-blue-700 hover:text-blue-900">
-          Back to MerchantFix.ai
-        </Link>
       </div>
     </main>
   );
