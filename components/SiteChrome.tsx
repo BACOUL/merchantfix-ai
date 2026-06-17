@@ -1,9 +1,11 @@
 import Link from "next/link";
 
 const navItems = [
+  { href: "/fix-pack", label: "Fix Pack" },
+  { href: "/pricing", label: "Pricing" },
+  { href: "/sample-report", label: "Sample report" },
   { href: "/scan", label: "Surface scan" },
-  { href: "/#csv-diagnostic", label: "CSV diagnostic" },
-  { href: "/fix/missing-gtin-google-merchant-center", label: "GTIN guide" }
+  { href: "/fix", label: "Guides" }
 ];
 
 export function SiteChrome({ children }: { children: React.ReactNode }) {
@@ -16,7 +18,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
             <span className="hidden sm:inline">MerchantFix.ai</span>
           </Link>
 
-          <div className="hidden items-center gap-6 text-sm font-semibold text-slate-600 md:flex">
+          <div className="hidden items-center gap-5 text-sm font-semibold text-slate-600 lg:flex">
             {navItems.map((item) => (
               <Link key={item.href} href={item.href} className="transition hover:text-slate-950">
                 {item.label}
@@ -25,12 +27,12 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
           </div>
 
           <Link
-            href="/scan"
-            aria-label="Scan my Shopify store"
+            href="/fix-pack"
+            aria-label="View MerchantFix Fix Pack"
             className="shrink-0 rounded-full bg-slate-950 px-3 py-2 text-sm font-bold text-white transition hover:bg-slate-800 sm:px-4"
           >
-            <span className="hidden sm:inline">Scan my Shopify store</span>
-            <span className="sm:hidden">Scan</span>
+            <span className="hidden sm:inline">View Fix Pack</span>
+            <span className="sm:hidden">Fix Pack</span>
           </Link>
         </nav>
       </header>
@@ -38,13 +40,25 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
       {children}
 
       <footer className="border-t border-slate-200 bg-white">
-        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 text-sm text-slate-600 sm:px-5 md:grid-cols-[1fr_auto_auto] md:px-8">
+        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 text-sm text-slate-600 sm:px-5 md:grid-cols-[1fr_auto_auto_auto] md:px-8">
           <div className="min-w-0">
             <p className="font-black text-slate-950">MerchantFix.ai</p>
             <p className="mt-3 max-w-xl leading-6">
               Focused Shopify product data diagnosis for surface risks, GTIN, MPN, brand, and identifier_exists issues.
               Google approval is not guaranteed.
             </p>
+          </div>
+          <div className="grid min-w-0 gap-2 font-semibold">
+            <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-500">Commercial</p>
+            <Link href="/fix-pack" className="hover:text-slate-950">
+              Fix Pack
+            </Link>
+            <Link href="/pricing" className="hover:text-slate-950">
+              Pricing
+            </Link>
+            <Link href="/sample-report" className="hover:text-slate-950">
+              Sample report
+            </Link>
           </div>
           <div className="grid min-w-0 gap-2 font-semibold">
             <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-500">Product</p>
@@ -59,9 +73,6 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
             </Link>
             <Link href="/fix/missing-gtin-google-merchant-center" className="hover:text-slate-950">
               Missing GTIN guide
-            </Link>
-            <Link href="/fix/shopify-product-feed-errors" className="hover:text-slate-950">
-              Product feed errors
             </Link>
           </div>
           <div className="grid min-w-0 gap-2 font-semibold">
