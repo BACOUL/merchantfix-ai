@@ -1,3 +1,5 @@
+import { gmcErrorSeoPages } from "./gmcErrorSeo";
+
 export const SITE_URL = "https://merchantfix-ai.com";
 
 export const fixGuides = [
@@ -38,6 +40,12 @@ export const fixGuides = [
   }
 ] as const;
 
+export const exactErrorGuides = gmcErrorSeoPages.map((page) => ({
+  path: `/fix/google-merchant-center-errors/${page.slug}`,
+  label: page.label,
+  description: page.description
+})) as readonly { path: string; label: string; description: string }[];
+
 export const publicRoutes = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
   { path: "/scan", changeFrequency: "monthly", priority: 0.9 },
@@ -55,6 +63,11 @@ export const publicRoutes = [
     path: guide.path,
     changeFrequency: "monthly" as const,
     priority: 0.7
+  })),
+  ...exactErrorGuides.map((guide) => ({
+    path: guide.path,
+    changeFrequency: "monthly" as const,
+    priority: 0.65
   }))
 ] as const;
 
