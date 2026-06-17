@@ -1,4 +1,4 @@
-export const SITE_URL = "https://merchantfix-ai.vercel.app";
+export const SITE_URL = "https://merchantfix-ai.com";
 
 export const fixGuides = [
   {
