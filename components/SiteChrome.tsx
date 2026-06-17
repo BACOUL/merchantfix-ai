@@ -3,6 +3,7 @@ import Link from "next/link";
 const navItems = [
   { href: "/fix-pack", label: "Fix Pack" },
   { href: "/pricing", label: "Pricing" },
+  { href: "/methodology", label: "Methodology" },
   { href: "/sample-report", label: "Sample report" },
   { href: "/how-to-export-shopify-csv", label: "CSV guide" },
   { href: "/fix", label: "Guides" }
@@ -18,7 +19,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
             <span className="hidden sm:inline">MerchantFix.ai</span>
           </Link>
 
-          <div className="hidden items-center gap-5 text-sm font-semibold text-slate-600 lg:flex">
+          <div className="hidden items-center gap-4 text-sm font-semibold text-slate-600 xl:flex">
             {navItems.map((item) => (
               <Link key={item.href} href={item.href} className="transition hover:text-slate-950">
                 {item.label}
@@ -62,6 +63,9 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
           </div>
           <div className="grid min-w-0 gap-2 font-semibold">
             <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-500">Product</p>
+            <Link href="/methodology" className="hover:text-slate-950">
+              Methodology
+            </Link>
             <Link href="/how-to-export-shopify-csv" className="hover:text-slate-950">
               Export Shopify CSV
             </Link>
