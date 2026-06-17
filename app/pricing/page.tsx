@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { CheckoutButton } from "@/components/CheckoutButton";
 import { PrimaryLink, SecondaryLink, TextBadge } from "@/components";
 import { canonical } from "@/lib/seo";
 
@@ -21,6 +21,7 @@ const plans = [
     href: "/scan",
     cta: "Start free scan",
     featured: false,
+    checkoutPlan: null,
     items: [
       "Public Shopify URL scan",
       "Visible product data risk checks",
@@ -35,8 +36,9 @@ const plans = [
     note: "One-time CSV diagnostic",
     description: "The focused paid offer for Shopify merchants dealing with Merchant Center product data issues.",
     href: "/fix-pack",
-    cta: "View Fix Pack",
+    cta: "Buy Fix Pack",
     featured: true,
+    checkoutPlan: "fix-pack" as const,
     items: [
       "Shopify CSV diagnostic",
       "GTIN, MPN, brand, and identifier_exists checks",
@@ -52,8 +54,9 @@ const plans = [
     note: "Priority manual guidance",
     description: "For merchants who want the Fix Pack plus a deeper practical checklist before resubmission.",
     href: "/fix-pack",
-    cta: "Prepare Pro Review",
+    cta: "Buy Pro Review",
     featured: false,
+    checkoutPlan: "pro-review" as const,
     items: [
       "Everything in Fix Pack",
       "Priority manual review guidance",
@@ -141,7 +144,11 @@ export default function PricingPage() {
                 ))}
               </ul>
               <div className="mt-6">
-                <PrimaryLink href={plan.href}>{plan.cta}</PrimaryLink>
+                {plan.checkoutPlan ? (
+                  <CheckoutButton plan={plan.checkoutPlan}>{plan.cta}</CheckoutButton>
+                ) : (
+                  <PrimaryLink href={plan.href}>{plan.cta}</PrimaryLink>
+                )}
               </div>
             </article>
           ))}
