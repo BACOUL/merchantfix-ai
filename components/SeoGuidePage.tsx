@@ -67,7 +67,7 @@ export function SeoGuidePage({ badge, title, intro, highlights, sections, relate
             <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">{intro}</p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <PrimaryLink href="/scan">Scan my Shopify store</PrimaryLink>
-              <SecondaryLink href="/scan">Upload Shopify CSV</SecondaryLink>
+              <SecondaryLink href="/#csv-diagnostic">Upload Shopify CSV</SecondaryLink>
             </div>
           </div>
           <aside className="min-w-0 rounded-lg border border-blue-200 bg-blue-50 p-5">
@@ -132,7 +132,7 @@ export function SeoGuidePage({ badge, title, intro, highlights, sections, relate
             </div>
             <div className="flex min-w-0 flex-col gap-3">
               <PrimaryLink href="/scan">Scan my Shopify store</PrimaryLink>
-              <SecondaryLink href="/scan">Upload Shopify CSV</SecondaryLink>
+              <SecondaryLink href="/#csv-diagnostic">Upload Shopify CSV</SecondaryLink>
             </div>
           </div>
         </section>
