@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 const plans = [
   {
     name: "Free Scan",
-    price: "$0",
+    price: "0 €",
     note: "Public Shopify URL check",
     description: "A fast surface scan for visible product data risks before you touch your feed.",
     href: "/scan",
@@ -32,7 +32,7 @@ const plans = [
   },
   {
     name: "Fix Pack",
-    price: "$29",
+    price: "29 €",
     note: "One-time CSV diagnostic",
     description: "The focused paid offer for Shopify merchants dealing with Merchant Center product data issues.",
     href: "/fix-pack",
@@ -50,7 +50,7 @@ const plans = [
   },
   {
     name: "Pro Review",
-    price: "$79",
+    price: "79 €",
     note: "Priority manual guidance",
     description: "For merchants who want the Fix Pack plus a deeper practical checklist before resubmission.",
     href: "/fix-pack",
