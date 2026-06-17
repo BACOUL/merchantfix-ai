@@ -220,7 +220,7 @@ export default async function DiagnosticPage({ searchParams }: DiagnosticPagePro
       </section>
 
       <section className="mx-auto max-w-7xl px-4 pb-10 sm:px-5 md:px-8 md:pb-14">
-        <CsvUploadForm />
+        <CsvUploadForm checkoutSessionId={gate.sessionId} />
       </section>
 
       <section className="mx-auto max-w-7xl px-4 pb-14 sm:px-5 md:px-8 md:pb-20">
