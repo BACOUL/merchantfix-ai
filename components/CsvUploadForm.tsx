@@ -12,9 +12,10 @@ type AnalyzeResponse = {
 
 type CsvUploadFormProps = {
   checkoutSessionId?: string;
+  diagnosticTestToken?: string;
 };
 
-export function CsvUploadForm({ checkoutSessionId }: CsvUploadFormProps) {
+export function CsvUploadForm({ checkoutSessionId, diagnosticTestToken }: CsvUploadFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [response, setResponse] = useState<AnalyzeResponse | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -29,6 +30,10 @@ export function CsvUploadForm({ checkoutSessionId }: CsvUploadFormProps) {
 
       if (checkoutSessionId) {
         formData.set("stripeSessionId", checkoutSessionId);
+      }
+
+      if (diagnosticTestToken) {
+        formData.set("diagnosticTestToken", diagnosticTestToken);
       }
 
       const response = await fetch("/api/analyze", {
@@ -76,6 +81,7 @@ export function CsvUploadForm({ checkoutSessionId }: CsvUploadFormProps) {
 
         <form className="grid min-w-0 gap-4 rounded-xl border border-slate-200 bg-slate-50 p-4" onSubmit={handleSubmit}>
           <input type="hidden" name="stripeSessionId" value={checkoutSessionId ?? ""} />
+          <input type="hidden" name="diagnosticTestToken" value={diagnosticTestToken ?? ""} />
 
           <label className="grid gap-2">
             <span className="font-bold text-slate-900">Merchant Center error text</span>
