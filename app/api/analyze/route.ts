@@ -13,7 +13,35 @@ type StripeCheckoutSession = {
   };
 };
 
-async function verifyPaidCheckoutSession(sessionId: string) {
+type AccessGateResult = {
+  allowed: boolean;
+  error: string | null;
+};
+
+function verifyDiagnosticTestToken(testToken: string): AccessGateResult {
+  const configuredToken = process.env.DIAGNOSTIC_TEST_TOKEN;
+
+  if (!configuredToken) {
+    return {
+      allowed: false,
+      error: "Diagnostic test mode is not configured yet. Add DIAGNOSTIC_TEST_TOKEN in Vercel before using unpaid API tests."
+    };
+  }
+
+  if (testToken !== configuredToken) {
+    return {
+      allowed: false,
+      error: "Invalid diagnostic test token."
+    };
+  }
+
+  return {
+    allowed: true,
+    error: null
+  };
+}
+
+async function verifyPaidCheckoutSession(sessionId: string): Promise<AccessGateResult> {
   const secretKey = process.env.STRIPE_SECRET_KEY;
 
   if (!secretKey) {
@@ -59,22 +87,27 @@ async function verifyPaidCheckoutSession(sessionId: string) {
   };
 }
 
+async function verifyDiagnosticAccess(stripeSessionId: string, diagnosticTestToken: string): Promise<AccessGateResult> {
+  if (diagnosticTestToken) {
+    return verifyDiagnosticTestToken(diagnosticTestToken);
+  }
+
+  if (!stripeSessionId) {
+    return {
+      allowed: false,
+      error: "A verified Stripe checkout session or private diagnostic test token is required before generating a CSV diagnostic report."
+    };
+  }
+
+  return verifyPaidCheckoutSession(stripeSessionId);
+}
+
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
     const stripeSessionId = String(formData.get("stripeSessionId") ?? "").trim();
-
-    if (!stripeSessionId) {
-      return NextResponse.json(
-        {
-          error: "A verified Stripe checkout session is required before generating a CSV diagnostic report.",
-          correctedCsvResult: null
-        },
-        { status: 402 }
-      );
-    }
-
-    const gate = await verifyPaidCheckoutSession(stripeSessionId);
+    const diagnosticTestToken = String(formData.get("diagnosticTestToken") ?? "").trim();
+    const gate = await verifyDiagnosticAccess(stripeSessionId, diagnosticTestToken);
 
     if (!gate.allowed) {
       return NextResponse.json(
