@@ -40,17 +40,24 @@ export function CsvUploadForm() {
   }
 
   return (
-    <section id="csv-diagnostic" className="min-w-0 rounded-lg border border-slate-200 bg-white p-5 shadow-sm md:p-8">
+    <section id="csv-diagnostic" className="min-w-0 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm md:p-8">
       <div className="grid min-w-0 gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
         <div className="min-w-0">
-          <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">CSV diagnostic</p>
-          <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">Find the rows Google is complaining about</h2>
+          <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">CSV diagnostic report</p>
+          <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 md:text-4xl">
+            Turn your Shopify export into a prioritized product data report.
+          </h2>
           <p className="mt-4 leading-7 text-slate-700">
             Upload a Shopify product export and optionally paste the Merchant Center warning. MerchantFix.ai checks
-            GTIN, MPN, brand, identifier_exists, image, and price fields.
+            GTIN, MPN, brand, identifier_exists, image, and price fields, then separates safe fixes from manual review rows.
           </p>
-          <div className="mt-5 grid gap-3 text-sm text-slate-700">
-            {["No fake identifiers", "Safe CSV notes only", "Manual review when uncertain"].map((item) => (
+          <div className="mt-5 grid gap-3 text-sm text-slate-700 sm:grid-cols-2">
+            {[
+              "Catalog health score",
+              "Critical and warning counts",
+              "Safe CSV notes only",
+              "Manual review when uncertain"
+            ].map((item) => (
               <div key={item} className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 font-semibold">
                 {item}
               </div>
@@ -58,7 +65,7 @@ export function CsvUploadForm() {
           </div>
         </div>
 
-        <form className="grid min-w-0 gap-4 rounded-lg border border-slate-200 bg-slate-50 p-4" onSubmit={handleSubmit}>
+        <form className="grid min-w-0 gap-4 rounded-xl border border-slate-200 bg-slate-50 p-4" onSubmit={handleSubmit}>
           <label className="grid gap-2">
             <span className="font-bold text-slate-900">Merchant Center error text</span>
             <textarea
@@ -85,7 +92,7 @@ export function CsvUploadForm() {
             disabled={isSubmitting}
             className="rounded-full bg-blue-700 px-6 py-3 font-black text-white transition hover:bg-blue-800 disabled:cursor-not-allowed disabled:bg-slate-400"
           >
-            {isSubmitting ? "Analyzing CSV..." : "Diagnose product errors"}
+            {isSubmitting ? "Building diagnostic report..." : "Generate diagnostic report"}
           </button>
 
           {errorMessage ? (
