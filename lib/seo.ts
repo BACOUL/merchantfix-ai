@@ -46,6 +46,7 @@ export const publicRoutes = [
   { path: "/sample-report", changeFrequency: "monthly", priority: 0.8 },
   { path: "/how-to-export-shopify-csv", changeFrequency: "monthly", priority: 0.8 },
   { path: "/methodology", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/security", changeFrequency: "monthly", priority: 0.8 },
   { path: "/legal-notice", changeFrequency: "yearly", priority: 0.2 },
   { path: "/privacy", changeFrequency: "yearly", priority: 0.2 },
   { path: "/terms", changeFrequency: "yearly", priority: 0.2 },
