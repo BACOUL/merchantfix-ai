@@ -19,7 +19,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
             <span className="hidden sm:inline">MerchantFix.ai</span>
           </Link>
 
-          <div className="hidden items-center gap-4 text-sm font-semibold text-slate-600 xl:flex">
+          <div className="hidden items-center gap-3 text-xs font-semibold text-slate-600 lg:flex xl:gap-4 xl:text-sm">
             {navItems.map((item) => (
               <Link key={item.href} href={item.href} className="transition hover:text-slate-950">
                 {item.label}
