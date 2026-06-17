@@ -4,8 +4,8 @@ const navItems = [
   { href: "/fix-pack", label: "Fix Pack" },
   { href: "/pricing", label: "Pricing" },
   { href: "/methodology", label: "Methodology" },
+  { href: "/security", label: "Security" },
   { href: "/sample-report", label: "Sample report" },
-  { href: "/how-to-export-shopify-csv", label: "CSV guide" },
   { href: "/fix", label: "Guides" }
 ];
 
@@ -65,6 +65,9 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
             <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-500">Product</p>
             <Link href="/methodology" className="hover:text-slate-950">
               Methodology
+            </Link>
+            <Link href="/security" className="hover:text-slate-950">
+              Security
             </Link>
             <Link href="/how-to-export-shopify-csv" className="hover:text-slate-950">
               Export Shopify CSV
