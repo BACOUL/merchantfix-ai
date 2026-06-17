@@ -34,6 +34,7 @@ const deliverables = [
 ];
 
 const process = [
+  "Export a clean Shopify product CSV.",
   "Upload your Shopify CSV export.",
   "MerchantFix.ai checks supported product data fields.",
   "Review critical issues, warnings, and manual review flags.",
@@ -68,7 +69,7 @@ export default function FixPackPage() {
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <PrimaryLink href="/#csv-diagnostic">Upload Shopify CSV</PrimaryLink>
-              <SecondaryLink href="/sample-report">See sample report</SecondaryLink>
+              <SecondaryLink href="/how-to-export-shopify-csv">How to export CSV</SecondaryLink>
             </div>
             <p className="mt-5 max-w-2xl text-sm font-bold leading-6 text-slate-300">
               No fake identifiers. No approval guarantee. Safe deterministic fixes only.
@@ -113,7 +114,7 @@ export default function FixPackPage() {
         <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm md:p-8">
           <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">How it works</p>
           <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">A simple repair path, without risky guesses.</h2>
-          <div className="mt-6 grid gap-3 md:grid-cols-4">
+          <div className="mt-6 grid gap-3 md:grid-cols-5">
             {process.map((step, index) => (
               <div key={step} className="rounded-xl border border-slate-200 bg-slate-50 p-4">
                 <span className="grid h-9 w-9 place-items-center rounded-full bg-slate-950 text-sm font-black text-white">{index + 1}</span>
@@ -148,14 +149,14 @@ export default function FixPackPage() {
           <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
             <div className="min-w-0">
               <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Ready to prepare your CSV</p>
-              <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">Start with the CSV diagnostic flow.</h2>
+              <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">Start with a clean Shopify export.</h2>
               <p className="mt-3 max-w-3xl leading-7 text-slate-700">
-                The checkout step comes next. This page routes users to the existing CSV flow so the value can be tested immediately.
+                Export the right CSV first, then upload it to generate a clearer diagnostic report.
               </p>
             </div>
             <div className="flex min-w-0 flex-col gap-3">
-              <PrimaryLink href="/#csv-diagnostic">Upload Shopify CSV</PrimaryLink>
-              <SecondaryLink href="/pricing">Compare pricing</SecondaryLink>
+              <PrimaryLink href="/how-to-export-shopify-csv">How to export CSV</PrimaryLink>
+              <SecondaryLink href="/#csv-diagnostic">Upload Shopify CSV</SecondaryLink>
             </div>
           </div>
         </div>

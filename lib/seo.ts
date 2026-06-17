@@ -44,6 +44,7 @@ export const publicRoutes = [
   { path: "/pricing", changeFrequency: "monthly", priority: 0.9 },
   { path: "/fix-pack", changeFrequency: "monthly", priority: 0.9 },
   { path: "/sample-report", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/how-to-export-shopify-csv", changeFrequency: "monthly", priority: 0.8 },
   { path: "/legal-notice", changeFrequency: "yearly", priority: 0.2 },
   { path: "/privacy", changeFrequency: "yearly", priority: 0.2 },
   { path: "/terms", changeFrequency: "yearly", priority: 0.2 },

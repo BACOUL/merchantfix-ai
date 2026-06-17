@@ -4,7 +4,7 @@ const navItems = [
   { href: "/fix-pack", label: "Fix Pack" },
   { href: "/pricing", label: "Pricing" },
   { href: "/sample-report", label: "Sample report" },
-  { href: "/scan", label: "Surface scan" },
+  { href: "/how-to-export-shopify-csv", label: "CSV guide" },
   { href: "/fix", label: "Guides" }
 ];
 
@@ -62,17 +62,17 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
           </div>
           <div className="grid min-w-0 gap-2 font-semibold">
             <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-500">Product</p>
-            <Link href="/scan" className="hover:text-slate-950">
-              Scan my Shopify store
+            <Link href="/how-to-export-shopify-csv" className="hover:text-slate-950">
+              Export Shopify CSV
             </Link>
             <Link href="/#csv-diagnostic" className="hover:text-slate-950">
               Upload Shopify CSV
             </Link>
+            <Link href="/scan" className="hover:text-slate-950">
+              Scan my Shopify store
+            </Link>
             <Link href="/fix" className="hover:text-slate-950">
               Product data guides
-            </Link>
-            <Link href="/fix/missing-gtin-google-merchant-center" className="hover:text-slate-950">
-              Missing GTIN guide
             </Link>
           </div>
           <div className="grid min-w-0 gap-2 font-semibold">
