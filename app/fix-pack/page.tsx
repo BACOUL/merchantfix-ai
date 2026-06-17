@@ -59,7 +59,7 @@ export default function FixPackPage() {
           <div className="min-w-0">
             <div className="flex flex-wrap gap-2">
               <TextBadge tone="blue">Fix Pack</TextBadge>
-              <TextBadge tone="green">$29 one-time</TextBadge>
+              <TextBadge tone="green">29 € one-time</TextBadge>
             </div>
             <h1 className="mt-6 break-words text-4xl font-black tracking-tight sm:text-5xl md:text-7xl">
               A practical Shopify CSV diagnostic for product data issues.
@@ -69,7 +69,7 @@ export default function FixPackPage() {
               before editing a feed or resubmitting products.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <CheckoutButton plan="fix-pack">Buy Fix Pack — $29</CheckoutButton>
+              <CheckoutButton plan="fix-pack">Buy Fix Pack — 29 €</CheckoutButton>
               <SecondaryLink href="/how-to-export-shopify-csv">How to export CSV</SecondaryLink>
             </div>
             <p className="mt-5 max-w-2xl text-sm font-bold leading-6 text-slate-300">
@@ -156,7 +156,7 @@ export default function FixPackPage() {
               </p>
             </div>
             <div className="flex min-w-0 flex-col gap-3">
-              <CheckoutButton plan="fix-pack">Buy Fix Pack — $29</CheckoutButton>
+              <CheckoutButton plan="fix-pack">Buy Fix Pack — 29 €</CheckoutButton>
               <SecondaryLink href="/sample-report">See sample report</SecondaryLink>
             </div>
           </div>
