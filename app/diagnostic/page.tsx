@@ -10,6 +10,20 @@ export const metadata: Metadata = {
   }
 };
 
+const uploadChecklist = [
+  "Use an original Shopify product export when possible.",
+  "Do not sort the CSV before uploading it.",
+  "Keep a backup copy before importing any edited file into Shopify.",
+  "Do not invent GTIN, MPN, brand, price, or product facts to satisfy a warning."
+];
+
+const diagnosticLimits = [
+  "This page is intended for customers who completed checkout.",
+  "The report is a product data diagnostic, not a Google approval guarantee.",
+  "Manual review rows require merchant, supplier, or manufacturer verification.",
+  "Contact support at contact@timeproofs.io if you cannot complete the upload after payment."
+];
+
 export default function DiagnosticPage() {
   return (
     <main className="overflow-x-hidden">
@@ -35,7 +49,40 @@ export default function DiagnosticPage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-5 md:px-8 md:py-14">
+        <div className="grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="rounded-xl border border-amber-200 bg-amber-50 p-6 text-amber-950 md:p-8">
+            <p className="text-xs font-black uppercase tracking-[0.22em]">Before upload</p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight">Use the cleanest CSV you have.</h2>
+            <p className="mt-4 leading-7 font-semibold">
+              A clean Shopify export reduces false positives and makes manual review easier.
+            </p>
+          </div>
+          <div className="grid gap-3">
+            {uploadChecklist.map((item) => (
+              <div key={item} className="rounded-xl border border-slate-200 bg-white p-4 font-semibold leading-7 text-slate-700 shadow-sm">
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 pb-10 sm:px-5 md:px-8 md:pb-14">
         <CsvUploadForm />
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 pb-14 sm:px-5 md:px-8 md:pb-20">
+        <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm md:p-8">
+          <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Important limits</p>
+          <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">Review before changing your feed.</h2>
+          <div className="mt-6 grid gap-3 md:grid-cols-2">
+            {diagnosticLimits.map((item) => (
+              <div key={item} className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 font-semibold leading-7 text-slate-700">
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
     </main>
   );
