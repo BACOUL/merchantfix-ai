@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { CsvUploadForm, PrimaryLink, SecondaryLink, Section, TextBadge } from "@/components";
+import { PrimaryLink, SecondaryLink, Section, TextBadge } from "@/components";
 import { canonical } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "MerchantFix.ai | Shopify product data diagnostics",
   description:
-    "Run a public Shopify surface scan and diagnose GTIN, MPN, brand, and identifier_exists issues from a Shopify CSV.",
+    "Run a public Shopify surface scan and buy the Fix Pack for row-level GTIN, MPN, brand, and identifier_exists diagnostics from a Shopify CSV.",
   alternates: {
     canonical: canonical("/")
   }
@@ -25,10 +25,10 @@ const csvChecks = [
 ];
 
 const proofPoints = [
-  "No login",
+  "Free surface scan",
   "No Shopify admin access",
   "No fake identifiers",
-  "Safe fixes only"
+  "Paid CSV Fix Pack"
 ];
 
 const sampleIssues = [
@@ -57,7 +57,7 @@ const deliverables = [
   },
   {
     title: "CSV issue diagnosis",
-    description: "Check row-level GTIN, MPN, brand, and identifier_exists issues in a Shopify export."
+    description: "Use the paid Fix Pack to check row-level GTIN, MPN, brand, and identifier_exists issues in a Shopify export."
   },
   {
     title: "Safe correction notes",
@@ -128,7 +128,7 @@ function SampleResultCard({ dark = false }: { dark?: boolean }) {
         <p className={`text-xs font-bold uppercase tracking-[0.16em] ${mutedTextClassName}`}>Recommended action</p>
         <div className="grid gap-2 md:grid-cols-2">
           <span className="break-words rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm font-bold text-emerald-800">
-            Safe CSV fixes available for deterministic fields
+            Safe CSV notes available in Fix Pack
           </span>
           <span className="break-words rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm font-bold text-amber-900">
             Identifier issues require manual review
@@ -153,15 +153,14 @@ export default function HomePage() {
               Find Shopify product data issues before they cost you Google Shopping sales.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-200">
-              MerchantFix.ai scans public Shopify product data or a Shopify CSV export to detect missing identifiers,
-              weak product fields, and surface risks before they create Merchant Center problems.
+              Start with a free public Shopify scan. Use the paid Fix Pack when you need row-level CSV diagnostics for identifiers, product data gaps, and safe cleanup notes.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <PrimaryLink href="/scan">Scan my Shopify store</PrimaryLink>
-              <SecondaryLink href="#csv-diagnostic">Upload Shopify CSV</SecondaryLink>
+              <SecondaryLink href="/fix-pack">View Fix Pack</SecondaryLink>
             </div>
             <p className="mt-5 max-w-2xl text-sm font-bold leading-6 text-slate-300">
-              No login. No Shopify admin access. No fake identifiers. Safe fixes only.
+              No Shopify admin access. No fake identifiers. Safe fixes only.
             </p>
             <p className="mt-3 max-w-2xl text-sm font-semibold leading-6 text-slate-400">
               Start with Google Merchant Center issues today. Build cleaner product data for tomorrow&apos;s shopping channels.
@@ -189,15 +188,15 @@ export default function HomePage() {
               <div className="min-w-0">
                 <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Try it free</p>
                 <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">
-                  See your product data risks before editing your feed.
+                  See your public product data risks before editing your feed.
                 </h2>
                 <p className="mt-4 leading-7 text-slate-700">
-                  Start with a public Shopify URL scan. Use CSV upload when you need row-level identifier diagnosis.
+                  Start with a public Shopify URL scan. Use the paid Fix Pack when you need CSV-level identifier diagnosis.
                 </p>
               </div>
               <div className="flex min-w-0 flex-col gap-3">
                 <PrimaryLink href="/scan">Scan my Shopify store</PrimaryLink>
-                <SecondaryLink href="#csv-diagnostic">Upload Shopify CSV</SecondaryLink>
+                <SecondaryLink href="/fix-pack">Buy Fix Pack</SecondaryLink>
               </div>
             </div>
           </div>
@@ -235,11 +234,11 @@ export default function HomePage() {
         <Section
           eyebrow="Two diagnostic levels"
           title="Start broad. Go deep only when needed."
-          description="The URL scan is a quick public-data check. The CSV diagnostic is where identifier issues become row-level and actionable."
+          description="The URL scan is a quick public-data check. The Fix Pack CSV diagnostic is where identifier issues become row-level and actionable."
         >
           <div className="grid gap-4 md:grid-cols-2">
             <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
-              <TextBadge tone="green">Surface scan</TextBadge>
+              <TextBadge tone="green">Free surface scan</TextBadge>
               <h3 className="mt-4 text-xl font-black text-slate-950">Public Shopify URL check</h3>
               <p className="mt-3 leading-7 text-slate-600">
                 Uses publicly available product data when accessible. Good for visible issues and a fast risk score.
@@ -253,10 +252,10 @@ export default function HomePage() {
               </ul>
             </div>
             <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
-              <TextBadge tone="blue">CSV diagnostic</TextBadge>
+              <TextBadge tone="blue">Paid Fix Pack</TextBadge>
               <h3 className="mt-4 text-xl font-black text-slate-950">Shopify export analysis</h3>
               <p className="mt-3 leading-7 text-slate-600">
-                Finds row-level identifier problems and marks uncertain fixes for manual review.
+                Finds row-level identifier problems and marks uncertain fixes for manual review after checkout.
               </p>
               <ul className="mt-4 grid gap-2 text-sm font-semibold text-slate-700 md:grid-cols-2">
                 {csvChecks.map((check) => (
@@ -276,8 +275,9 @@ export default function HomePage() {
         >
           <div className="grid gap-3">
             {[
-              "Run the public surface scan to spot visible product data risks.",
-              "Upload a Shopify CSV when Merchant Center errors mention identifiers.",
+              "Run the free public surface scan to spot visible product data risks.",
+              "Buy the Fix Pack when Merchant Center errors mention identifiers.",
+              "Upload your Shopify CSV after checkout.",
               "Review affected rows, suggested fixes, and manual review warnings.",
               "Download a corrected CSV only when MerchantFix.ai can make a safe change."
             ].map((step, index) => (
@@ -289,8 +289,24 @@ export default function HomePage() {
           </div>
         </Section>
 
-        <section className="py-10 md:py-14">
-          <CsvUploadForm />
+        <section id="csv-diagnostic" className="scroll-mt-24 py-10 md:py-14">
+          <div className="rounded-lg border border-blue-200 bg-blue-50 p-6 shadow-sm md:p-8">
+            <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
+              <div className="min-w-0">
+                <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Fix Pack CSV diagnostic</p>
+                <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">
+                  Need row-level CSV diagnosis?
+                </h2>
+                <p className="mt-3 max-w-3xl leading-7 text-slate-700">
+                  The CSV diagnostic is part of the paid Fix Pack. Review the sample report, then complete checkout to upload your Shopify export.
+                </p>
+              </div>
+              <div className="flex min-w-0 flex-col gap-3">
+                <PrimaryLink href="/fix-pack">Buy Fix Pack</PrimaryLink>
+                <SecondaryLink href="/sample-report">See sample report</SecondaryLink>
+              </div>
+            </div>
+          </div>
         </section>
 
         <Section
@@ -315,12 +331,12 @@ export default function HomePage() {
                 Find the product data issues hiding in your Shopify catalog.
               </h2>
               <p className="mt-3 max-w-3xl leading-7 text-slate-600">
-                Start with a public scan, then upload CSV when you need deeper row-level diagnosis.
+                Start with a free public scan, then buy the Fix Pack when you need deeper row-level diagnosis.
               </p>
             </div>
             <div className="flex min-w-0 flex-col gap-3">
               <PrimaryLink href="/scan">Scan my Shopify store</PrimaryLink>
-              <SecondaryLink href="#csv-diagnostic">Upload Shopify CSV</SecondaryLink>
+              <SecondaryLink href="/fix-pack">View Fix Pack</SecondaryLink>
             </div>
           </div>
         </section>
@@ -328,7 +344,7 @@ export default function HomePage() {
         <Section eyebrow="FAQ" title="What merchants usually ask first.">
           <div className="grid gap-4">
             {[
-              ["Does this connect to my Shopify admin?", "No. The MVP uses public product data for the surface scan and CSV files you upload for diagnosis."],
+              ["Does this connect to my Shopify admin?", "No. The MVP uses public product data for the surface scan and CSV files you upload after checkout for diagnosis."],
               ["Does this guarantee Google approval?", "No. It helps diagnose product data issues, but Google approval is not guaranteed."],
               ["Will MerchantFix.ai invent product identifiers?", "No. It must never generate fake GTIN, MPN, or brand values."]
             ].map(([question, answer]) => (

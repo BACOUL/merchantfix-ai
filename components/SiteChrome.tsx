@@ -72,8 +72,8 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
             <Link href="/how-to-export-shopify-csv" className="hover:text-slate-950">
               Export Shopify CSV
             </Link>
-            <Link href="/#csv-diagnostic" className="hover:text-slate-950">
-              Upload Shopify CSV
+            <Link href="/fix-pack" className="hover:text-slate-950">
+              Paid CSV diagnostic
             </Link>
             <Link href="/scan" className="hover:text-slate-950">
               Scan my Shopify store

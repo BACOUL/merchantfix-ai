@@ -32,7 +32,7 @@ export default function SuccessPage({ searchParams }: SuccessPageProps) {
               Your MerchantFix checkout is complete.
             </h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-200">
-              Upload your Shopify CSV to generate the diagnostic report. Keep your Stripe confirmation email for your records.
+              Open the diagnostic area, upload your Shopify CSV, and keep your Stripe confirmation email for your records.
             </p>
             {sessionId ? (
               <p className="mt-5 max-w-3xl rounded-xl border border-white/15 bg-white/10 p-4 text-sm font-bold leading-6 text-slate-200">
@@ -40,7 +40,7 @@ export default function SuccessPage({ searchParams }: SuccessPageProps) {
               </p>
             ) : null}
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <PrimaryLink href="/#csv-diagnostic">Upload Shopify CSV</PrimaryLink>
+              <PrimaryLink href="/diagnostic">Open CSV diagnostic</PrimaryLink>
               <SecondaryLink href="/how-to-export-shopify-csv">How to export CSV</SecondaryLink>
             </div>
           </div>

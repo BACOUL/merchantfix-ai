@@ -217,12 +217,12 @@ export default function PricingPage() {
               <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Best next step</p>
               <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">See exactly what the Fix Pack produces.</h2>
               <p className="mt-3 max-w-3xl leading-7 text-slate-700">
-                Review the sample report before uploading a CSV or preparing a paid diagnostic flow.
+                Review the sample report before buying the paid CSV diagnostic flow.
               </p>
             </div>
             <div className="flex min-w-0 flex-col gap-3">
               <PrimaryLink href="/sample-report">See sample report</PrimaryLink>
-              <SecondaryLink href="/#csv-diagnostic">Upload Shopify CSV</SecondaryLink>
+              <SecondaryLink href="/fix-pack">View Fix Pack</SecondaryLink>
             </div>
           </div>
         </div>
