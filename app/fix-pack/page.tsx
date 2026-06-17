@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { CheckoutButton } from "@/components/CheckoutButton";
 import { PrimaryLink, SecondaryLink, TextBadge } from "@/components";
 import { canonical } from "@/lib/seo";
 
@@ -35,8 +36,8 @@ const deliverables = [
 
 const process = [
   "Export a clean Shopify product CSV.",
+  "Buy the one-time Fix Pack.",
   "Upload your Shopify CSV export.",
-  "MerchantFix.ai checks supported product data fields.",
   "Review critical issues, warnings, and manual review flags.",
   "Download safe correction notes or a corrected CSV when deterministic fixes exist."
 ];
@@ -68,7 +69,7 @@ export default function FixPackPage() {
               before editing a feed or resubmitting products.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <PrimaryLink href="/#csv-diagnostic">Upload Shopify CSV</PrimaryLink>
+              <CheckoutButton plan="fix-pack">Buy Fix Pack — $29</CheckoutButton>
               <SecondaryLink href="/how-to-export-shopify-csv">How to export CSV</SecondaryLink>
             </div>
             <p className="mt-5 max-w-2xl text-sm font-bold leading-6 text-slate-300">
@@ -149,14 +150,14 @@ export default function FixPackPage() {
           <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
             <div className="min-w-0">
               <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Ready to prepare your CSV</p>
-              <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">Start with a clean Shopify export.</h2>
+              <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">Buy once, then upload a clean Shopify export.</h2>
               <p className="mt-3 max-w-3xl leading-7 text-slate-700">
-                Export the right CSV first, then upload it to generate a clearer diagnostic report.
+                Complete the one-time checkout, then upload your CSV to generate the diagnostic report.
               </p>
             </div>
             <div className="flex min-w-0 flex-col gap-3">
-              <PrimaryLink href="/how-to-export-shopify-csv">How to export CSV</PrimaryLink>
-              <SecondaryLink href="/#csv-diagnostic">Upload Shopify CSV</SecondaryLink>
+              <CheckoutButton plan="fix-pack">Buy Fix Pack — $29</CheckoutButton>
+              <SecondaryLink href="/sample-report">See sample report</SecondaryLink>
             </div>
           </div>
         </div>
