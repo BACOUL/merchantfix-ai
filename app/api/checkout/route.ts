@@ -74,7 +74,7 @@ export async function POST(request: NextRequest) {
   body.append("customer_creation", "if_required");
   body.append("metadata[plan]", plan);
   body.append("line_items[0][quantity]", "1");
-  body.append("line_items[0][price_data][currency]", "usd");
+  body.append("line_items[0][price_data][currency]", "eur");
   body.append("line_items[0][price_data][unit_amount]", String(product.unitAmount));
   body.append("line_items[0][price_data][product_data][name]", product.name);
   body.append("line_items[0][price_data][product_data][description]", product.description);
