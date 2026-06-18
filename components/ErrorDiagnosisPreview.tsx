@@ -8,14 +8,6 @@ const severityStyles = {
   limited: "border-slate-200 bg-slate-50 text-slate-700"
 };
 
-function guideHrefForIssue(issue: NonNullable<MerchantCenterErrorDiagnosis["issue"]>) {
-  if (issue.id === "invalid-gtin") {
-    return "/fix/invalid-gtin-google-merchant-center";
-  }
-
-  return issue.guideUrl;
-}
-
 export function ErrorDiagnosisPreview({ diagnosis }: { diagnosis: MerchantCenterErrorDiagnosis }) {
   const issue = diagnosis.issue;
 
@@ -36,8 +28,6 @@ export function ErrorDiagnosisPreview({ diagnosis }: { diagnosis: MerchantCenter
       </div>
     );
   }
-
-  const guideHref = guideHrefForIssue(issue);
 
   return (
     <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm md:p-6">
@@ -91,7 +81,7 @@ export function ErrorDiagnosisPreview({ diagnosis }: { diagnosis: MerchantCenter
           <Link href={issue.ctaHref} className="inline-flex justify-center rounded-full bg-blue-700 px-5 py-3 text-sm font-black text-white transition hover:bg-blue-800">
             {issue.ctaLabel}
           </Link>
-          <Link href={guideHref} className="inline-flex justify-center rounded-full border border-blue-200 bg-white px-5 py-3 text-sm font-black text-blue-800 transition hover:bg-blue-50">
+          <Link href={issue.guideUrl} className="inline-flex justify-center rounded-full border border-blue-200 bg-white px-5 py-3 text-sm font-black text-blue-800 transition hover:bg-blue-50">
             Read guide
           </Link>
         </div>
