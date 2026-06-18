@@ -1,4 +1,5 @@
 import { combinedGmcErrorSeoPages } from "./combinedGmcErrorSeo";
+import { glossarySeoPages } from "./glossarySeo";
 import { shopifyGmcLongTailSeoPages } from "./shopifyGmcLongTailSeo";
 
 export const SITE_URL = "https://merchantfix-ai.com";
@@ -53,6 +54,12 @@ export const longTailGuides = shopifyGmcLongTailSeoPages.map((page) => ({
   description: page.description
 })) as readonly { path: string; label: string; description: string }[];
 
+export const glossaryGuides = glossarySeoPages.map((page) => ({
+  path: `/learn/${page.slug}`,
+  label: page.term,
+  description: page.description
+})) as readonly { path: string; label: string; description: string }[];
+
 export const publicRoutes = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
   { path: "/scan", changeFrequency: "monthly", priority: 0.9 },
@@ -66,6 +73,7 @@ export const publicRoutes = [
   { path: "/privacy", changeFrequency: "yearly", priority: 0.2 },
   { path: "/terms", changeFrequency: "yearly", priority: 0.2 },
   { path: "/fix", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/learn", changeFrequency: "monthly", priority: 0.76 },
   { path: "/google-merchant-center-errors-shopify", changeFrequency: "monthly", priority: 0.86 },
   ...fixGuides.map((guide) => ({
     path: guide.path,
@@ -81,6 +89,11 @@ export const publicRoutes = [
     path: guide.path,
     changeFrequency: "monthly" as const,
     priority: 0.62
+  })),
+  ...glossaryGuides.map((guide) => ({
+    path: guide.path,
+    changeFrequency: "monthly" as const,
+    priority: 0.58
   }))
 ] as const;
 
