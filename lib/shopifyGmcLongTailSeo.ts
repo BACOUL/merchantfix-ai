@@ -222,7 +222,7 @@ export const shopifyGmcLongTailSeoPages = [
     avoid: ["Do not assume one tool can guarantee visibility.", "Do not ignore campaign settings.", "Do not edit product data before reading the exact error."],
     relatedGuides: [
       { href: "/scan", label: "Scan Shopify store" },
-      { href: "/fix/google-merchant-center-disapproved-shopify-products", label: "Disapproved Shopify products" }
+      { href: "/fix/shopify-google-shopping/google-merchant-center-disapproved-shopify-products", label: "Disapproved Shopify products" }
     ]
   },
   {
@@ -312,7 +312,7 @@ export const shopifyGmcLongTailSeoPages = [
     ],
     avoid: ["Do not assume pending always means broken.", "Do not keep resubmitting unchanged data.", "Do not ignore item-level issue details."],
     relatedGuides: [
-      { href: "/fix/shopify-google-merchant-center-errors", label: "Shopify Merchant Center errors" },
+      { href: "/fix/shopify-google-shopping/shopify-google-merchant-center-errors", label: "Shopify Merchant Center errors" },
       { href: "/scan", label: "Scan Shopify store" }
     ]
   }
