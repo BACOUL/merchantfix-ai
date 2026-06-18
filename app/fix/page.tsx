@@ -47,7 +47,7 @@ export default function FixIndexPage() {
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <PrimaryLink href="/scan">Scan my Shopify store</PrimaryLink>
-              <SecondaryLink href="/fix-pack">View Fix Pack</SecondaryLink>
+              <SecondaryLink href="/google-merchant-center-errors-shopify">Open error hub</SecondaryLink>
             </div>
           </div>
           <aside className="min-w-0 rounded-lg border border-amber-200 bg-amber-50 p-5 text-sm font-semibold leading-7 text-amber-950">
@@ -57,7 +57,20 @@ export default function FixIndexPage() {
       </section>
 
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-5 md:px-8 md:py-14">
-        <section>
+        <section className="rounded-xl border border-slate-200 bg-slate-950 p-5 text-white shadow-sm md:p-8">
+          <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
+            <div className="min-w-0">
+              <p className="text-xs font-black uppercase tracking-[0.22em] text-slate-300">Main hub</p>
+              <h2 className="mt-3 break-words text-3xl font-black tracking-tight">Google Merchant Center errors for Shopify.</h2>
+              <p className="mt-3 max-w-3xl leading-7 text-slate-300">
+                Use the hub to classify errors by identifiers, price, availability, images, shipping, condition, and policy before editing product data.
+              </p>
+            </div>
+            <PrimaryLink href="/google-merchant-center-errors-shopify">Open hub</PrimaryLink>
+          </div>
+        </section>
+
+        <section className="mt-10">
           <div className="max-w-3xl">
             <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Core guides</p>
             <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">Main Shopify product data guides.</h2>
