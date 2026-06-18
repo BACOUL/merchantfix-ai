@@ -38,7 +38,7 @@ const checks = [
 
 const process = [
   "Export a clean Shopify product CSV before editing it.",
-  "Complete the one-time Fix Pack checkout.",
+  "Open the one-time Fix Pack checkout.",
   "Upload your Shopify CSV export.",
   "Review critical issues, warnings, affected rows, and safe actions.",
   "Download correction notes or a corrected CSV only when the change is deterministic."
@@ -94,7 +94,7 @@ export default function FixPackPage() {
               Use Fix Pack when Google flags GTIN, MPN, brand, identifier_exists, price, availability, or image issues and you need to know which Shopify CSV rows to review.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <CheckoutButton plan="fix-pack">Buy Fix Pack - 29 €</CheckoutButton>
+              <CheckoutButton plan="fix-pack">Start Fix Pack checkout</CheckoutButton>
               <SecondaryLink href="/sample-report">See sample report</SecondaryLink>
             </div>
             <p className="mt-5 max-w-2xl text-sm font-bold leading-6 text-slate-300">
@@ -211,7 +211,7 @@ export default function FixPackPage() {
               </p>
             </div>
             <div className="flex min-w-0 flex-col gap-3">
-              <CheckoutButton plan="fix-pack">Buy Fix Pack - 29 €</CheckoutButton>
+              <CheckoutButton plan="fix-pack">Start Fix Pack checkout</CheckoutButton>
               <SecondaryLink href="/how-to-export-shopify-csv">How to export CSV</SecondaryLink>
             </div>
           </div>
