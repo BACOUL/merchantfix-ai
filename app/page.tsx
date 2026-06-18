@@ -118,7 +118,7 @@ export default function HomePage() {
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <PrimaryLink href="/#paste-error">Paste my error</PrimaryLink>
-              <SecondaryLink href="/fix-pack">View Fix Pack — 29 €</SecondaryLink>
+              <SecondaryLink href="/fix-pack">View Fix Pack</SecondaryLink>
             </div>
             <p className="mt-5 max-w-2xl text-sm font-bold leading-6 text-slate-300">
               Safe diagnostics only. No fake GTINs. No invented product data. No Google approval guarantee.
@@ -209,7 +209,7 @@ export default function HomePage() {
             </p>
           </div>
           <div className="flex min-w-0 flex-col gap-3">
-            <PrimaryLink href="/fix-pack">Buy Fix Pack — 29 €</PrimaryLink>
+            <PrimaryLink href="/fix-pack">View Fix Pack</PrimaryLink>
             <SecondaryLink href="/sample-report">See sample report</SecondaryLink>
           </div>
         </section>
