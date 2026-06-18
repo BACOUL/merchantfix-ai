@@ -1,4 +1,5 @@
 import { combinedGmcErrorSeoPages } from "./combinedGmcErrorSeo";
+import { shopifyGmcLongTailSeoPages } from "./shopifyGmcLongTailSeo";
 
 export const SITE_URL = "https://merchantfix-ai.com";
 
@@ -46,6 +47,12 @@ export const exactErrorGuides = combinedGmcErrorSeoPages.map((page) => ({
   description: page.description
 })) as readonly { path: string; label: string; description: string }[];
 
+export const longTailGuides = shopifyGmcLongTailSeoPages.map((page) => ({
+  path: `/fix/shopify-google-shopping/${page.slug}`,
+  label: page.label,
+  description: page.description
+})) as readonly { path: string; label: string; description: string }[];
+
 export const publicRoutes = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
   { path: "/scan", changeFrequency: "monthly", priority: 0.9 },
@@ -68,6 +75,11 @@ export const publicRoutes = [
     path: guide.path,
     changeFrequency: "monthly" as const,
     priority: 0.65
+  })),
+  ...longTailGuides.map((guide) => ({
+    path: guide.path,
+    changeFrequency: "monthly" as const,
+    priority: 0.62
   }))
 ] as const;
 
