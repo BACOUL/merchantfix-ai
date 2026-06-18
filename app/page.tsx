@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PrimaryLink, SecondaryLink, Section, TextBadge } from "@/components";
+import { buildBreadcrumbSchema, buildFaqPageSchema, jsonLd } from "@/lib/aiFirstSeo";
 import { canonical } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -81,6 +82,25 @@ const safetyPoints = [
   "MerchantFix.ai only suggests deterministic fixes or manual review."
 ];
 
+const homeFaqs = [
+  {
+    question: "Does this connect to my Shopify admin?",
+    answer: "No. The MVP uses public product data for the surface scan and CSV files you upload after checkout for diagnosis."
+  },
+  {
+    question: "Does this guarantee Google approval?",
+    answer: "No. It helps diagnose product data issues, but Google approval, ranking, traffic, performance, and sales are not guaranteed."
+  },
+  {
+    question: "Will MerchantFix.ai invent product identifiers?",
+    answer: "No. It must never generate fake GTIN, MPN, brand, price, shipping, or product values."
+  },
+  {
+    question: "When should I buy the Fix Pack?",
+    answer: "Buy the Fix Pack when Google Merchant Center errors require row-level Shopify CSV diagnosis, especially identifiers, GTIN, MPN, brand, price, availability, or image issues."
+  }
+];
+
 function SampleResultCard({ dark = false }: { dark?: boolean }) {
   const cardClassName = dark
     ? "rounded-lg border border-white/15 bg-white/10 p-5 shadow-2xl backdrop-blur"
@@ -140,8 +160,14 @@ function SampleResultCard({ dark = false }: { dark?: boolean }) {
 }
 
 export default function HomePage() {
+  const faqSchema = buildFaqPageSchema(homeFaqs);
+  const breadcrumbSchema = buildBreadcrumbSchema([{ name: "Home", path: "/" }]);
+
   return (
     <main className="overflow-x-hidden">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema) }} />
+
       <section className="overflow-hidden bg-slate-950">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 text-white sm:px-5 md:px-8 md:py-24 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
           <div className="min-w-0">
@@ -343,14 +369,10 @@ export default function HomePage() {
 
         <Section eyebrow="FAQ" title="What merchants usually ask first.">
           <div className="grid gap-4">
-            {[
-              ["Does this connect to my Shopify admin?", "No. The MVP uses public product data for the surface scan and CSV files you upload after checkout for diagnosis."],
-              ["Does this guarantee Google approval?", "No. It helps diagnose product data issues, but Google approval is not guaranteed."],
-              ["Will MerchantFix.ai invent product identifiers?", "No. It must never generate fake GTIN, MPN, or brand values."]
-            ].map(([question, answer]) => (
-              <div key={question} className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
-                <h3 className="font-black text-slate-950">{question}</h3>
-                <p className="mt-2 leading-7 text-slate-600">{answer}</p>
+            {homeFaqs.map((faq) => (
+              <div key={faq.question} className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+                <h3 className="font-black text-slate-950">{faq.question}</h3>
+                <p className="mt-2 leading-7 text-slate-600">{faq.answer}</p>
               </div>
             ))}
           </div>
