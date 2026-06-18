@@ -66,6 +66,7 @@ export const publicRoutes = [
   { path: "/privacy", changeFrequency: "yearly", priority: 0.2 },
   { path: "/terms", changeFrequency: "yearly", priority: 0.2 },
   { path: "/fix", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/google-merchant-center-errors-shopify", changeFrequency: "monthly", priority: 0.86 },
   ...fixGuides.map((guide) => ({
     path: guide.path,
     changeFrequency: "monthly" as const,
