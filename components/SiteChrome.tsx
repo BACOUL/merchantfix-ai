@@ -74,11 +74,17 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
             <Link href="/methodology" className="hover:text-slate-950">
               Methodology
             </Link>
+            <Link href="/security" className="hover:text-slate-950">
+              Security
+            </Link>
             <Link href="/how-to-export-shopify-csv" className="hover:text-slate-950">
               Export Shopify CSV
             </Link>
             <Link href="/scan" className="hover:text-slate-950">
               Scan my Shopify store
+            </Link>
+            <Link href="/fix" className="hover:text-slate-950">
+              Product data guides
             </Link>
           </div>
           <div className="grid min-w-0 gap-2 font-semibold">
