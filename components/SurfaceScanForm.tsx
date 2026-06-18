@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import type { SurfaceScanResult } from "@/lib/types";
 
@@ -14,6 +15,49 @@ const emptySummary = [
   { label: "Warnings", value: "-" },
   { label: "Info", value: "-" }
 ];
+
+function getOutcome(result: SurfaceScanResult | null, errorMessage: string | null) {
+  if (errorMessage || result?.status === "failed" || result?.status === "unsupported") {
+    return {
+      tone: "border-amber-200 bg-amber-50 text-amber-950",
+      title: "Public data unavailable or incomplete.",
+      description:
+        "Some Shopify stores do not expose public product data. Use the Fix Pack when you need row-level CSV diagnosis from your Shopify export.",
+      primaryHref: "/fix-pack",
+      primaryLabel: "Use Fix Pack CSV diagnosis",
+      secondaryHref: "/how-to-export-shopify-csv",
+      secondaryLabel: "Export Shopify CSV"
+    };
+  }
+
+  if (result?.csvUploadRecommended || (result?.riskCount ?? 0) > 0 || (result?.warningCount ?? 0) > 0) {
+    return {
+      tone: "border-blue-200 bg-blue-50 text-blue-950",
+      title: "Visible risks found. CSV diagnosis is the next useful step.",
+      description:
+        "The free scan found surface signals. For GTIN, MPN, brand, identifier_exists, price, availability, or affected-row diagnosis, use the Fix Pack with a Shopify CSV export.",
+      primaryHref: "/fix-pack",
+      primaryLabel: "View Fix Pack",
+      secondaryHref: "/sample-report",
+      secondaryLabel: "See sample report"
+    };
+  }
+
+  if (result) {
+    return {
+      tone: "border-emerald-200 bg-emerald-50 text-emerald-950",
+      title: "No major public surface risks detected.",
+      description:
+        "This is still not a full Merchant Center diagnosis. If Google shows identifier, price, availability, or image warnings, paste the exact warning or use a CSV-level Fix Pack.",
+      primaryHref: "/#paste-error",
+      primaryLabel: "Paste Merchant Center error",
+      secondaryHref: "/supported-errors",
+      secondaryLabel: "View supported errors"
+    };
+  }
+
+  return null;
+}
 
 export function SurfaceScanForm() {
   const [storeUrl, setStoreUrl] = useState("");
@@ -30,6 +74,8 @@ export function SurfaceScanForm() {
         { label: "Info", value: String(result.infoCount) }
       ]
     : emptySummary;
+
+  const outcome = getOutcome(result, errorMessage);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -65,7 +111,7 @@ export function SurfaceScanForm() {
             <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">No-install surface audit</p>
             <h1 className="mt-3 break-words text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">Shopify Store Surface Scan</h1>
             <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-700">
-              Check public Shopify product data for visible risks before you move into deeper CSV diagnosis.
+              Check public Shopify product data for visible risks. If public data is unavailable or identifier errors need row-level review, move directly to the Fix Pack.
             </p>
           </div>
           <span className="w-fit rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-black text-emerald-800">
@@ -106,6 +152,26 @@ export function SurfaceScanForm() {
           </div>
         ))}
       </section>
+
+      {outcome ? (
+        <section className={`rounded-xl border p-5 shadow-sm md:p-6 ${outcome.tone}`}>
+          <div className="grid gap-4 md:grid-cols-[1fr_auto] md:items-center">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.22em]">Recommended next step</p>
+              <h2 className="mt-3 text-2xl font-black tracking-tight">{outcome.title}</h2>
+              <p className="mt-3 font-semibold leading-7">{outcome.description}</p>
+            </div>
+            <div className="flex flex-col gap-3">
+              <Link href={outcome.primaryHref} className="inline-flex justify-center rounded-full bg-blue-700 px-5 py-3 text-sm font-black text-white transition hover:bg-blue-800">
+                {outcome.primaryLabel}
+              </Link>
+              <Link href={outcome.secondaryHref} className="inline-flex justify-center rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-black text-slate-950 transition hover:bg-slate-50">
+                {outcome.secondaryLabel}
+              </Link>
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       {result ? (
         <section className="min-w-0 rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
