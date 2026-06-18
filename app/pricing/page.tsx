@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { CheckoutButton } from "@/components/CheckoutButton";
 import { PrimaryLink, SecondaryLink, TextBadge } from "@/components";
+import { buildBreadcrumbSchema, buildFaqPageSchema, jsonLd } from "@/lib/aiFirstSeo";
 import { canonical } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -80,7 +81,7 @@ const comparison = [
 const faqs = [
   {
     question: "Do I need to connect my Shopify admin?",
-    answer: "No. The free scan uses public product data when available. The deeper diagnostic uses the Shopify CSV you upload."
+    answer: "No. The free scan uses public product data when available. The deeper diagnostic uses the Shopify CSV you upload after checkout."
   },
   {
     question: "Will MerchantFix.ai fix every Google Merchant Center issue?",
@@ -93,12 +94,25 @@ const faqs = [
   {
     question: "Will the tool create missing GTINs or brands for me?",
     answer: "No. MerchantFix.ai never invents GTINs, MPNs, brands, prices, or product identifiers. Uncertain rows are marked for manual review."
+  },
+  {
+    question: "Which plan should I choose first?",
+    answer: "Start with the Free Scan for public Shopify product data risks. Choose Fix Pack when you need row-level CSV diagnosis for Merchant Center product data issues."
   }
 ];
 
 export default function PricingPage() {
+  const faqSchema = buildFaqPageSchema(faqs);
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Pricing", path: "/pricing" }
+  ]);
+
   return (
     <main className="overflow-x-hidden">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema) }} />
+
       <section className="border-b border-slate-200 bg-slate-950 text-white">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-5 md:px-8 md:py-20">
           <div className="max-w-4xl">
