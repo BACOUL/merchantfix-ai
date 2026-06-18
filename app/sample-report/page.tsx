@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PrimaryLink, SecondaryLink, TextBadge } from "@/components";
+import { buildBreadcrumbSchema, buildFaqPageSchema, jsonLd } from "@/lib/aiFirstSeo";
 import { canonical } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -64,9 +65,37 @@ const actions = [
   "Never add invented identifiers to satisfy a feed warning."
 ];
 
+const faqs = [
+  {
+    question: "Is this sample report based on a real merchant?",
+    answer: "No. The sample report uses fictional product data to show the type of structure, priorities, and safety notes a merchant can expect."
+  },
+  {
+    question: "What does the Fix Pack report show?",
+    answer: "It shows diagnostic summaries, affected rows when available, issue priorities, safe correction guidance, and manual review flags."
+  },
+  {
+    question: "Does every report include a corrected CSV?",
+    answer: "No. A corrected CSV is only produced when a change is deterministic and safe. Uncertain product data is marked for manual review."
+  },
+  {
+    question: "Does the sample report guarantee Google approval?",
+    answer: "No. MerchantFix.ai does not guarantee Google approval, ranking, traffic, performance, sales, or account recovery."
+  }
+];
+
 export default function SampleReportPage() {
+  const faqSchema = buildFaqPageSchema(faqs);
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Sample report", path: "/sample-report" }
+  ]);
+
   return (
     <main className="overflow-x-hidden">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema) }} />
+
       <section className="border-b border-slate-200 bg-white">
         <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-5 md:px-8 md:py-20 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
           <div className="min-w-0">
@@ -79,8 +108,8 @@ export default function SampleReportPage() {
               how serious it is, and which rows need safe correction or manual review.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <PrimaryLink href="/#csv-diagnostic">Upload Shopify CSV</PrimaryLink>
-              <SecondaryLink href="/fix-pack">View Fix Pack</SecondaryLink>
+              <PrimaryLink href="/fix-pack">Buy Fix Pack</PrimaryLink>
+              <SecondaryLink href="/pricing">Compare pricing</SecondaryLink>
             </div>
           </div>
 
@@ -159,6 +188,21 @@ export default function SampleReportPage() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-7xl px-4 pb-10 sm:px-5 md:px-8 md:pb-14">
+        <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm md:p-8">
+          <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">FAQ</p>
+          <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">Before you buy from the sample.</h2>
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            {faqs.map((faq) => (
+              <article key={faq.question} className="rounded-lg bg-slate-50 p-4">
+                <h3 className="font-black text-slate-950">{faq.question}</h3>
+                <p className="mt-2 leading-7 text-slate-600">{faq.answer}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="mx-auto max-w-7xl px-4 pb-14 sm:px-5 md:px-8 md:pb-20">
         <div className="rounded-xl border border-amber-200 bg-amber-50 p-6 text-amber-950 md:p-8">
           <p className="text-xs font-black uppercase tracking-[0.22em]">Important</p>
@@ -167,7 +211,7 @@ export default function SampleReportPage() {
             MerchantFix.ai does not guarantee approval, visibility, ranking, traffic, performance, or sales. It helps diagnose supported product data issues and marks uncertain data for manual review.
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <PrimaryLink href="/#csv-diagnostic">Upload Shopify CSV</PrimaryLink>
+            <PrimaryLink href="/fix-pack">Buy Fix Pack</PrimaryLink>
             <SecondaryLink href="/pricing">Compare pricing</SecondaryLink>
           </div>
         </div>
