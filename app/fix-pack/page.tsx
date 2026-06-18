@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { CheckoutButton } from "@/components/CheckoutButton";
 import { PrimaryLink, SecondaryLink, TextBadge } from "@/components";
+import { buildBreadcrumbSchema, buildFaqPageSchema, jsonLd } from "@/lib/aiFirstSeo";
 import { canonical } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -51,9 +52,42 @@ const trustRules = [
   "No Merchant Center connection required."
 ];
 
+const faqs = [
+  {
+    question: "What do I get after buying the Fix Pack?",
+    answer:
+      "You get access to the Shopify CSV diagnostic flow, a prioritized report, safe correction guidance, manual review flags, and a corrected CSV only when a deterministic safe fix exists."
+  },
+  {
+    question: "Do I need to connect Shopify or Google Merchant Center?",
+    answer: "No. The Fix Pack uses the Shopify CSV export you upload after checkout. It does not require Shopify admin access or Google Merchant Center access."
+  },
+  {
+    question: "Does the Fix Pack guarantee Google approval?",
+    answer: "No. Google approval, ranking, traffic, performance, sales, and account recovery are not guaranteed. MerchantFix.ai focuses on product data diagnosis."
+  },
+  {
+    question: "Will MerchantFix.ai invent missing GTIN, MPN, brand, price, or shipping data?",
+    answer: "No. MerchantFix.ai never invents product facts. Uncertain rows are marked for manual review so the merchant can verify real product data."
+  },
+  {
+    question: "When should I use Fix Pack instead of the free scan?",
+    answer: "Use Fix Pack when Merchant Center errors mention identifiers, GTIN, MPN, brand, identifier_exists, price, availability, images, or many affected product rows."
+  }
+];
+
 export default function FixPackPage() {
+  const faqSchema = buildFaqPageSchema(faqs);
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Fix Pack", path: "/fix-pack" }
+  ]);
+
   return (
     <main className="overflow-x-hidden">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema) }} />
+
       <section className="bg-slate-950 text-white">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-5 md:px-8 md:py-24 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
           <div className="min-w-0">
@@ -140,6 +174,21 @@ export default function FixPackPage() {
               <div key={rule} className="rounded-lg border border-slate-200 bg-white px-4 py-3 font-semibold text-slate-700 shadow-sm">
                 {rule}
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 pb-10 sm:px-5 md:px-8 md:pb-14">
+        <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm md:p-8">
+          <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">FAQ</p>
+          <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">Before you buy the Fix Pack.</h2>
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            {faqs.map((faq) => (
+              <article key={faq.question} className="rounded-lg bg-slate-50 p-4">
+                <h3 className="font-black text-slate-950">{faq.question}</h3>
+                <p className="mt-2 leading-7 text-slate-600">{faq.answer}</p>
+              </article>
             ))}
           </div>
         </div>
