@@ -4,12 +4,18 @@ import { notFound } from "next/navigation";
 import { PrimaryLink, SecondaryLink, TextBadge } from "@/components";
 import { canonical } from "@/lib/seo";
 import { getShopifyGmcLongTailSeoPage, shopifyGmcLongTailSeoPages } from "@/lib/shopifyGmcLongTailSeo";
+import { buildBreadcrumbSchema, buildFaqPageSchema, jsonLd } from "@/lib/aiFirstSeo";
 import { MANDATORY_DISCLAIMER } from "@/lib/types";
 
 type PageProps = {
   params: {
     slug: string;
   };
+};
+
+type FaqItem = {
+  question: string;
+  answer: string;
 };
 
 export function generateStaticParams() {
@@ -45,6 +51,30 @@ function CtaRow() {
   );
 }
 
+function buildFaqs(page: NonNullable<ReturnType<typeof getShopifyGmcLongTailSeoPage>>): FaqItem[] {
+  const mainPhrase = page.searchPhrases[0] ?? page.label;
+  const checks = page.shopifyChecks.slice(0, 5).join(", ");
+
+  return [
+    {
+      question: `What does ${mainPhrase} usually mean?`,
+      answer: page.problem
+    },
+    {
+      question: `What should I check in Shopify for ${mainPhrase}?`,
+      answer: `Check ${checks}. Then compare the Shopify source data with the Merchant Center issue details before editing your feed.`
+    },
+    {
+      question: `Can MerchantFix.ai fix ${mainPhrase}?`,
+      answer: "MerchantFix.ai helps diagnose Shopify product data issues and highlight affected rows. It does not guarantee Google approval, ranking, traffic, sales, or account recovery."
+    },
+    {
+      question: `What should I avoid when troubleshooting ${mainPhrase}?`,
+      answer: "Do not make blind bulk edits, do not invent product data, and do not treat policy or account issues as CSV-only problems."
+    }
+  ];
+}
+
 export default function ShopifyGmcLongTailPage({ params }: PageProps) {
   const page = getShopifyGmcLongTailSeoPage(params.slug);
 
@@ -52,8 +82,21 @@ export default function ShopifyGmcLongTailPage({ params }: PageProps) {
     notFound();
   }
 
+  const path = `/fix/shopify-google-shopping/${page.slug}`;
+  const faqs = buildFaqs(page);
+  const faqSchema = buildFaqPageSchema(faqs);
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Google Merchant Center errors for Shopify", path: "/google-merchant-center-errors-shopify" },
+    { name: page.label, path }
+  ]);
+  const topChecks = page.shopifyChecks.slice(0, 4);
+
   return (
     <main className="overflow-x-hidden">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema) }} />
+
       <section className="border-b border-slate-200 bg-white">
         <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-5 md:grid-cols-[1fr_0.52fr] md:px-8 md:py-16">
           <div className="min-w-0">
@@ -78,7 +121,27 @@ export default function ShopifyGmcLongTailPage({ params }: PageProps) {
       </section>
 
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-5 md:px-8 md:py-14">
-        <section className="rounded-xl border border-blue-200 bg-blue-50 p-5 md:p-8">
+        <section className="rounded-xl border border-slate-200 bg-slate-950 p-5 text-white shadow-sm md:p-8">
+          <p className="text-xs font-black uppercase tracking-[0.22em] text-slate-300">Direct answer for AI search</p>
+          <h2 className="mt-3 text-3xl font-black tracking-tight">What this usually means and what to check.</h2>
+          <p className="mt-4 max-w-4xl text-lg font-semibold leading-8 text-slate-200">{page.problem}</p>
+          <div className="mt-6 grid gap-3 md:grid-cols-3">
+            <div className="rounded-lg border border-white/15 bg-white/10 p-4">
+              <p className="font-black text-white">Check first</p>
+              <p className="mt-2 text-sm font-semibold leading-6 text-slate-200">{topChecks.join(", ")}</p>
+            </div>
+            <div className="rounded-lg border border-white/15 bg-white/10 p-4">
+              <p className="font-black text-white">Best next step</p>
+              <p className="mt-2 text-sm font-semibold leading-6 text-slate-200">Read the exact Merchant Center status, then fix only verified Shopify source data.</p>
+            </div>
+            <div className="rounded-lg border border-white/15 bg-white/10 p-4">
+              <p className="font-black text-white">Avoid</p>
+              <p className="mt-2 text-sm font-semibold leading-6 text-slate-200">Do not make blind bulk edits or invent product data.</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-10 rounded-xl border border-blue-200 bg-blue-50 p-5 md:p-8">
           <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Search phrases covered</p>
           <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">Natural queries this page answers.</h2>
           <div className="mt-5 grid gap-3 md:grid-cols-3">
@@ -152,6 +215,19 @@ export default function ShopifyGmcLongTailPage({ params }: PageProps) {
               <div key={item} className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 font-semibold text-red-900">
                 {item}
               </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm md:p-8">
+          <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">FAQ</p>
+          <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">Questions AI search engines and merchants ask.</h2>
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            {faqs.map((faq) => (
+              <article key={faq.question} className="rounded-lg bg-slate-50 p-4">
+                <h3 className="font-black text-slate-950">{faq.question}</h3>
+                <p className="mt-2 leading-7 text-slate-600">{faq.answer}</p>
+              </article>
             ))}
           </div>
         </section>

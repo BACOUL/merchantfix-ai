@@ -4,12 +4,18 @@ import { notFound } from "next/navigation";
 import { PrimaryLink, SecondaryLink, TextBadge } from "@/components";
 import { canonical } from "@/lib/seo";
 import { combinedGmcErrorSeoPages, getCombinedGmcErrorSeoPage } from "@/lib/combinedGmcErrorSeo";
+import { buildBreadcrumbSchema, buildFaqPageSchema, jsonLd } from "@/lib/aiFirstSeo";
 import { MANDATORY_DISCLAIMER } from "@/lib/types";
 
 type PageProps = {
   params: {
     slug: string;
   };
+};
+
+type FaqItem = {
+  question: string;
+  answer: string;
 };
 
 export function generateStaticParams() {
@@ -45,6 +51,31 @@ function CtaRow() {
   );
 }
 
+function buildFaqs(page: NonNullable<ReturnType<typeof getCombinedGmcErrorSeoPage>>): FaqItem[] {
+  const mainPhrase = page.copiedErrorPhrases[0] ?? page.label;
+  const firstFields = page.shopifyFieldsToCheck.slice(0, 4).join(", ");
+  const firstAvoid = page.avoid[0] ?? "Do not invent product data.";
+
+  return [
+    {
+      question: `What does ${mainPhrase} mean in Google Merchant Center?`,
+      answer: page.whatItUsuallyMeans
+    },
+    {
+      question: `Which Shopify fields should I check first for ${mainPhrase}?`,
+      answer: `Start with these Shopify fields: ${firstFields}. Then review affected variants before changing your feed.`
+    },
+    {
+      question: `Can MerchantFix.ai automatically fix ${mainPhrase}?`,
+      answer: "MerchantFix.ai can help diagnose affected Shopify CSV rows and separate safe fixes from manual review rows. It does not guarantee Google approval."
+    },
+    {
+      question: `What should I avoid when fixing ${mainPhrase}?`,
+      answer: `${firstAvoid} Never invent GTIN, MPN, brand, price, or product facts just to silence a warning.`
+    }
+  ];
+}
+
 export default function GmcExactErrorPage({ params }: PageProps) {
   const page = getCombinedGmcErrorSeoPage(params.slug);
 
@@ -52,8 +83,21 @@ export default function GmcExactErrorPage({ params }: PageProps) {
     notFound();
   }
 
+  const path = `/fix/google-merchant-center-errors/${page.slug}`;
+  const faqs = buildFaqs(page);
+  const faqSchema = buildFaqPageSchema(faqs);
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Google Merchant Center errors for Shopify", path: "/google-merchant-center-errors-shopify" },
+    { name: page.label, path }
+  ]);
+  const firstFields = page.shopifyFieldsToCheck.slice(0, 4);
+
   return (
     <main className="overflow-x-hidden">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema) }} />
+
       <section className="border-b border-slate-200 bg-white">
         <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-5 md:grid-cols-[1fr_0.52fr] md:px-8 md:py-16">
           <div className="min-w-0">
@@ -78,7 +122,27 @@ export default function GmcExactErrorPage({ params }: PageProps) {
       </section>
 
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-5 md:px-8 md:py-14">
-        <section className="rounded-xl border border-blue-200 bg-blue-50 p-5 md:p-8">
+        <section className="rounded-xl border border-slate-200 bg-slate-950 p-5 text-white shadow-sm md:p-8">
+          <p className="text-xs font-black uppercase tracking-[0.22em] text-slate-300">Direct answer for AI search</p>
+          <h2 className="mt-3 text-3xl font-black tracking-tight">What to do first.</h2>
+          <p className="mt-4 max-w-4xl text-lg font-semibold leading-8 text-slate-200">{page.whatItUsuallyMeans}</p>
+          <div className="mt-6 grid gap-3 md:grid-cols-3">
+            <div className="rounded-lg border border-white/15 bg-white/10 p-4">
+              <p className="font-black text-white">Check first</p>
+              <p className="mt-2 text-sm font-semibold leading-6 text-slate-200">{firstFields.join(", ")}</p>
+            </div>
+            <div className="rounded-lg border border-white/15 bg-white/10 p-4">
+              <p className="font-black text-white">Safe action</p>
+              <p className="mt-2 text-sm font-semibold leading-6 text-slate-200">Review affected Shopify variants and only add verified product data.</p>
+            </div>
+            <div className="rounded-lg border border-white/15 bg-white/10 p-4">
+              <p className="font-black text-white">Avoid</p>
+              <p className="mt-2 text-sm font-semibold leading-6 text-slate-200">Do not invent identifiers, prices, brands, or product facts.</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-10 rounded-xl border border-blue-200 bg-blue-50 p-5 md:p-8">
           <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Copied error phrases</p>
           <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">
             Searches this page is designed to answer.
@@ -160,6 +224,19 @@ export default function GmcExactErrorPage({ params }: PageProps) {
             <p className="mt-3 leading-7 text-slate-600">
               Export your Shopify product CSV, run the diagnostic, then review affected rows before changing your feed or resubmitting products.
             </p>
+          </div>
+        </section>
+
+        <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm md:p-8">
+          <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">FAQ</p>
+          <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">Questions AI search engines and merchants ask.</h2>
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            {faqs.map((faq) => (
+              <article key={faq.question} className="rounded-lg bg-slate-50 p-4">
+                <h3 className="font-black text-slate-950">{faq.question}</h3>
+                <p className="mt-2 leading-7 text-slate-600">{faq.answer}</p>
+              </article>
+            ))}
           </div>
         </section>
 
