@@ -40,7 +40,7 @@ const plans = [
     badge: "Best for most merchants",
     description: "Best when a Merchant Center warning affects products and you need Shopify CSV rows, fields, and safe actions.",
     href: "/fix-pack",
-    cta: "Buy Fix Pack",
+    cta: "Start Fix Pack checkout",
     featured: true,
     checkoutPlan: "fix-pack" as const,
     items: [
@@ -60,7 +60,7 @@ const plans = [
     badge: "For larger catalogs",
     description: "Best when you want Fix Pack plus a deeper practical checklist before resubmission.",
     href: "/fix-pack",
-    cta: "Buy Pro Review",
+    cta: "Start Pro Review checkout",
     featured: false,
     checkoutPlan: "pro-review" as const,
     items: [
