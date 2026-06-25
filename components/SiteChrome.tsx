@@ -5,7 +5,7 @@ const navItems = [
   { href: "/fix-pack", label: "Fix Pack" },
   { href: "/sample-report", label: "Sample report" },
   { href: "/pricing", label: "Pricing" },
-  { href: "/supported-errors", label: "Errors" },
+  { href: "/fix", label: "Error guides" },
   { href: "/how-it-works", label: "How it works" }
 ];
 
@@ -68,6 +68,9 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
             <Link href="/#paste-error" className="hover:text-slate-950">
               Paste error
             </Link>
+            <Link href="/fix" className="hover:text-slate-950">
+              Error guides
+            </Link>
             <Link href="/supported-errors" className="hover:text-slate-950">
               Supported errors
             </Link>
@@ -85,9 +88,6 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
             </Link>
             <Link href="/scan" className="hover:text-slate-950">
               Scan my Shopify store
-            </Link>
-            <Link href="/fix" className="hover:text-slate-950">
-              Product data guides
             </Link>
           </div>
           <div className="grid min-w-0 gap-2 font-semibold">
