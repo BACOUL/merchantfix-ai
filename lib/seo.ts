@@ -1,3 +1,4 @@
+import { authorityGuides } from "./authoritySeo";
 import { combinedGmcErrorSeoPages } from "./combinedGmcErrorSeo";
 import { exactShopifyErrorGuides } from "./exactShopifyErrorSeo";
 import { glossarySeoPages } from "./glossarySeo";
@@ -43,7 +44,7 @@ export const fixGuides = [
   }
 ] as const;
 
-export { exactShopifyErrorGuides };
+export { authorityGuides, exactShopifyErrorGuides };
 
 export const exactErrorGuides = combinedGmcErrorSeoPages.map((page) => ({
   path: `/fix/google-merchant-center-errors/${page.slug}`,
@@ -76,8 +77,14 @@ export const publicRoutes = [
   { path: "/privacy", changeFrequency: "yearly", priority: 0.2 },
   { path: "/terms", changeFrequency: "yearly", priority: 0.2 },
   { path: "/fix", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/reference", changeFrequency: "monthly", priority: 0.84 },
   { path: "/learn", changeFrequency: "monthly", priority: 0.76 },
   { path: "/google-merchant-center-errors-shopify", changeFrequency: "monthly", priority: 0.86 },
+  ...authorityGuides.map((guide) => ({
+    path: guide.path,
+    changeFrequency: "monthly" as const,
+    priority: 0.82
+  })),
   ...exactShopifyErrorGuides.map((guide) => ({
     path: guide.path,
     changeFrequency: "monthly" as const,
