@@ -1,0 +1,9 @@
+Title,Handle,Vendor,Variant Barcode,MPN,Variant SKU,Variant Price,Image Src,identifier_exists
+Branded Shirt,branded-shirt,Example Brand,,,SHIRT-1,29.00,https://example.com/shirt.jpg,true
+Custom Handmade Bracelet,custom-handmade-bracelet,,,,HB-1,35.00,https://example.com/bracelet.jpg,false
+Leather Wallet,leather-wallet,,,,WALLET-1,49.00,https://example.com/wallet.jpg,true
+Invalid Barcode Bottle,invalid-barcode-bottle,Example Brand,ABC123,,BOTTLE-1,19.00,https://example.com/bottle.jpg,true
+Duplicate GTIN Jacket A,jacket-a,Outdoor Co,1234567890123,JACKET-A,JACKET-A-SKU,89.00,https://example.com/jacket-a.jpg,true
+Duplicate GTIN Jacket B,jacket-b,Outdoor Co,1234567890123,JACKET-B,JACKET-B-SKU,94.00,https://example.com/jacket-b.jpg,true
+Missing Image Hat,missing-image-hat,Hat Brand,4006381333931,HAT-01,HAT-1,24.00,,true
+Missing Price Lantern,missing-price-lantern,Lantern Brand,5012345678900,LANTERN-01,LANTERN-1,,https://example.com/lantern.jpg,true
