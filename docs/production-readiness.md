@@ -4,6 +4,8 @@ Date: 2026-06-25
 
 Status: not launched publicly until all blocking checks are complete.
 
+Detailed execution procedure: see `docs/qa-production-runbook.md`.
+
 ## 1. Customer-facing trust
 
 - [ ] `contact@merchantfix.ai` exists and receives email.
@@ -64,13 +66,19 @@ Checks:
 - [ ] Report shows counts, categories, affected rows, recommended actions, and disclaimer.
 - [ ] Annotated CSV download works when safe notes or deterministic changes are available.
 
-## 6. MVP launch rule
+## 6. Test case files
+
+- [ ] `docs/test-cases/merchant-center-errors.md` is used to verify paste-error behavior.
+- [ ] `docs/test-cases/shopify-sample-clean.csv` is used to verify clean CSV behavior.
+- [ ] `docs/test-cases/shopify-sample-issues.csv` is used to verify issue-heavy CSV behavior.
+
+## 7. MVP launch rule
 
 MerchantFix can be sold only after this full path works on the intended production deployment:
 
 `/fix-pack` -> Stripe Checkout -> `/success?session_id=...` -> `/diagnostic?session_id=...` -> Shopify CSV upload -> diagnostic report -> annotated CSV download.
 
-## 7. First-sales validation target
+## 8. First-sales validation target
 
 - Target: 20 real Shopify merchants or agencies with a current Merchant Center warning.
 - Validation threshold: 3 paid Fix Pack purchases or 5 serious manual-review calls.

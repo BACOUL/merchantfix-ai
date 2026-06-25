@@ -1,0 +1,3 @@
+Title,Handle,Vendor,Variant Barcode,MPN,Variant SKU,Variant Price,Image Src,identifier_exists
+Classic Mug,classic-mug,Example Brand,1234567890123,MUG-MPN,MUG-SKU,12.00,https://example.com/mug.jpg,true
+Trail Backpack,trail-backpack,Outdoor Co,4006381333931,BAG-TRAIL-01,BAG-SKU-01,79.00,https://example.com/backpack.jpg,true

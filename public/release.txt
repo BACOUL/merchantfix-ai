@@ -1,11 +1,12 @@
 MerchantFix.ai production release marker
 Expected production state: error-first Merchant Center warning flow + paid Fix Pack CSV diagnosis
-Expected PR sequence: #33 error-first flow, #35 sales readiness cleanup, #36 simplified launch offer
+Expected PR sequence: #33 error-first flow, #35 sales readiness cleanup, #36 simplified launch offer, #37 production QA pack
 Expected homepage: paste a Google Merchant Center warning, then route to public scan or Fix Pack
 Expected paid flow: Stripe checkout -> /success?session_id=... -> locked /diagnostic CSV upload
 Expected active paid offer: Fix Pack only at 29 EUR
 Expected inactive launch offer: Pro Review is not sold during first-sales validation
 Expected output wording: annotated CSV with safe notes and deterministic changes only
+Expected QA files: docs/qa-production-runbook.md and docs/test-cases/*
 Expected safety rules: no fake GTIN, no invented MPN, no invented brand, no invented product facts, no Google approval guarantee
 Launch blocker: complete preview QA, Stripe test checkout, support email confirmation, and paid/test diagnostic upload before public sales
 Updated: 2026-06-25
