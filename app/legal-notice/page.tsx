@@ -49,9 +49,9 @@ export default function LegalNoticePage() {
             <section>
               <h2 className="text-2xl font-black text-slate-950">Contact</h2>
               <p className="mt-3 leading-7">
-                Public contact email:{" "}
-                <Link href="mailto:contact@timeproofs.io" className="font-bold text-blue-700 hover:text-blue-900">
-                  contact@timeproofs.io
+                Public contact email: {" "}
+                <Link href="mailto:contact@merchantfix.ai" className="font-bold text-blue-700 hover:text-blue-900">
+                  contact@merchantfix.ai
                 </Link>
               </p>
             </section>
@@ -85,7 +85,7 @@ export default function LegalNoticePage() {
               </p>
             </section>
 
-            <p className="border-t border-slate-200 pt-5 text-sm font-semibold text-slate-500">Last updated: June 9, 2026</p>
+            <p className="border-t border-slate-200 pt-5 text-sm font-semibold text-slate-500">Last updated: June 25, 2026</p>
           </div>
         </article>
       </div>
