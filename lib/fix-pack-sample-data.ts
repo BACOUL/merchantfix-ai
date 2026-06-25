@@ -59,8 +59,8 @@ export const fixPackOutputs = [
     description: "Rows that need supplier data, packaging, official brand confirmation, or merchant judgment before resubmission."
   },
   {
-    title: "Corrected CSV when safe",
-    description: "Only generated when a correction is deterministic. Missing product facts are never invented."
+    title: "Annotated CSV when safe",
+    description: "Generated when safe notes or deterministic changes are available. Missing product facts are never invented."
   }
 ];
 
