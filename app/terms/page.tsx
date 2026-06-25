@@ -119,14 +119,14 @@ export default function TermsPage() {
               <h2 className="text-2xl font-black text-slate-950">Contact</h2>
               <p className="mt-3 leading-7">
                 For questions about these terms, contact{" "}
-                <Link href="mailto:contact@timeproofs.io" className="font-bold text-blue-700 hover:text-blue-900">
-                  contact@timeproofs.io
+                <Link href="mailto:contact@merchantfix.ai" className="font-bold text-blue-700 hover:text-blue-900">
+                  contact@merchantfix.ai
                 </Link>
                 .
               </p>
             </section>
 
-            <p className="border-t border-slate-200 pt-5 text-sm font-semibold text-slate-500">Last updated: June 18, 2026</p>
+            <p className="border-t border-slate-200 pt-5 text-sm font-semibold text-slate-500">Last updated: June 25, 2026</p>
           </div>
         </article>
       </div>
