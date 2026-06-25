@@ -107,71 +107,99 @@ export default function PricingPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema) }} />
 
-      <section className="border-b border-slate-200 bg-slate-950 text-white">
-        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-5 md:px-8 md:py-20">
+      <section className="relative overflow-hidden bg-slate-950 text-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(37,99,235,0.28),transparent_34%),radial-gradient(circle_at_80%_20%,rgba(14,165,233,0.16),transparent_28%)]" />
+        <div className="relative mx-auto grid max-w-7xl gap-8 px-4 py-16 sm:px-5 md:px-8 md:py-24 lg:grid-cols-[0.86fr_1.14fr] lg:items-center">
           <div className="max-w-4xl">
             <TextBadge tone="blue">Simple launch pricing</TextBadge>
-            <h1 className="mt-6 break-words text-4xl font-black tracking-tight sm:text-5xl md:text-7xl">
-              Start free. Buy Fix Pack only when the error needs CSV rows.
+            <h1 className="mt-6 break-words text-4xl font-black tracking-tight sm:text-6xl md:text-7xl">
+              One free check. One paid CSV diagnosis.
             </h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-200">
-              MerchantFix keeps the launch offer intentionally simple: paste the error, scan public Shopify data when useful, then use the 29 € Fix Pack for row-level product-data diagnosis.
+              MerchantFix keeps the launch offer intentionally simple: paste the error, scan public Shopify data when useful, then use the 29 € Fix Pack only when the problem needs affected rows.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <PrimaryLink href="/#paste-error">Paste my error first</PrimaryLink>
               <SecondaryLink href="/sample-report">See sample report</SecondaryLink>
             </div>
           </div>
-        </div>
-      </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-10 sm:px-5 md:px-8 md:py-14">
-        <div className="grid gap-4 lg:grid-cols-2">
-          {plans.map((plan) => (
-            <article
-              key={plan.name}
-              className={`flex min-w-0 flex-col rounded-xl border p-6 shadow-sm ${
-                plan.featured ? "border-blue-300 bg-blue-50 ring-2 ring-blue-200" : "border-slate-200 bg-white"
-              }`}
-            >
+          <aside className="rounded-[2rem] border border-white/15 bg-white/10 p-5 shadow-2xl shadow-blue-950/40 backdrop-blur md:p-6">
+            <p className="text-xs font-black uppercase tracking-[0.22em] text-slate-300">Launch offer</p>
+            <div className="mt-4 rounded-3xl bg-white p-6 text-slate-950 shadow-2xl">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <p className="text-sm font-black uppercase tracking-[0.18em] text-blue-700">{plan.note}</p>
-                  <h2 className="mt-3 text-2xl font-black text-slate-950">{plan.name}</h2>
+                  <p className="text-sm font-black uppercase tracking-[0.18em] text-blue-700">Fix Pack</p>
+                  <p className="mt-3 text-6xl font-black tracking-tight">29 €</p>
                 </div>
-                <TextBadge tone={plan.featured ? "blue" : "slate"}>{plan.badge}</TextBadge>
+                <TextBadge tone="green">Paid product</TextBadge>
               </div>
-              <p className="mt-5 text-5xl font-black tracking-tight text-slate-950">{plan.price}</p>
-              <p className="mt-4 leading-7 text-slate-600">{plan.description}</p>
-              <ul className="mt-6 grid gap-3 text-sm font-semibold text-slate-700">
-                {plan.items.map((item) => (
-                  <li key={item} className="rounded-lg bg-white px-3 py-2 shadow-sm ring-1 ring-slate-200">
-                    {item}
-                  </li>
-                ))}
-              </ul>
+              <p className="mt-5 leading-7 text-slate-600">One-time Shopify CSV diagnostic after checkout.</p>
               <div className="mt-6">
-                {plan.checkoutPlan ? (
-                  <CheckoutButton plan={plan.checkoutPlan}>{plan.cta}</CheckoutButton>
-                ) : (
-                  <PrimaryLink href={plan.href}>{plan.cta}</PrimaryLink>
-                )}
+                <CheckoutButton plan="fix-pack">Start Fix Pack checkout</CheckoutButton>
               </div>
-            </article>
-          ))}
+            </div>
+          </aside>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 pb-10 sm:px-5 md:px-8 md:pb-14">
-        <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm md:p-8">
-          <div className="max-w-3xl">
-            <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Compare options</p>
-            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">One free entry point. One paid diagnostic.</h2>
-            <p className="mt-4 leading-7 text-slate-600">
-              The launch offer avoids decision friction: use free checks first, then buy the 29 € Fix Pack only when the problem needs affected rows.
+      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-5 md:px-8 md:py-16">
+        <div className="grid gap-5 lg:grid-cols-[0.74fr_1.26fr] lg:items-start">
+          <div className="rounded-[2rem] border border-slate-900 bg-slate-950 p-6 text-white shadow-2xl shadow-slate-300/70 md:p-8">
+            <p className="text-xs font-black uppercase tracking-[0.22em] text-slate-400">Decision clarity</p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight md:text-4xl">No pricing maze.</h2>
+            <p className="mt-4 leading-7 text-slate-300">
+              The first commercial test should be easy to understand: use the free check first, then pay once when CSV rows are needed.
             </p>
           </div>
-          <div className="mt-6 overflow-x-auto">
+
+          <div className="grid gap-5 lg:grid-cols-2">
+            {plans.map((plan) => (
+              <article
+                key={plan.name}
+                className={`flex min-w-0 flex-col rounded-[2rem] border p-6 shadow-xl transition hover:-translate-y-1 ${
+                  plan.featured ? "border-blue-200 bg-blue-50 shadow-blue-100/70" : "border-slate-200 bg-white shadow-slate-200/70"
+                }`}
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-sm font-black uppercase tracking-[0.18em] text-blue-700">{plan.note}</p>
+                    <h3 className="mt-3 text-2xl font-black text-slate-950">{plan.name}</h3>
+                  </div>
+                  <TextBadge tone={plan.featured ? "blue" : "slate"}>{plan.badge}</TextBadge>
+                </div>
+                <p className="mt-5 text-5xl font-black tracking-tight text-slate-950">{plan.price}</p>
+                <p className="mt-4 leading-7 text-slate-600">{plan.description}</p>
+                <ul className="mt-6 grid gap-3 text-sm font-semibold text-slate-700">
+                  {plan.items.map((item) => (
+                    <li key={item} className="rounded-2xl bg-white px-4 py-3 shadow-sm ring-1 ring-slate-200">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-6">
+                  {plan.checkoutPlan ? (
+                    <CheckoutButton plan={plan.checkoutPlan}>{plan.cta}</CheckoutButton>
+                  ) : (
+                    <PrimaryLink href={plan.href}>{plan.cta}</PrimaryLink>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 pb-12 sm:px-5 md:px-8 md:pb-16">
+        <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/60 md:p-8">
+          <div className="max-w-3xl">
+            <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Compare options</p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 md:text-4xl">Free scan vs Fix Pack.</h2>
+            <p className="mt-4 leading-7 text-slate-600">
+              Free checks are useful for direction. Fix Pack is the paid product when the problem needs affected rows and a CSV-level worklist.
+            </p>
+          </div>
+          <div className="mt-6 overflow-x-auto rounded-2xl border border-slate-200 bg-slate-50 p-2">
             <table className="w-full min-w-[680px] border-separate border-spacing-y-2 text-left text-sm">
               <thead>
                 <tr className="text-slate-500">
@@ -182,10 +210,10 @@ export default function PricingPage() {
               </thead>
               <tbody>
                 {comparison.map(([feature, free, fix]) => (
-                  <tr key={feature} className="bg-slate-50 font-semibold text-slate-700">
-                    <td className="rounded-l-lg px-3 py-3 text-slate-950">{feature}</td>
-                    <td className="px-3 py-3">{free}</td>
-                    <td className="rounded-r-lg px-3 py-3 font-black text-blue-800">{fix}</td>
+                  <tr key={feature} className="bg-white font-semibold text-slate-700 shadow-sm">
+                    <td className="rounded-l-xl px-3 py-4 text-slate-950">{feature}</td>
+                    <td className="px-3 py-4">{free}</td>
+                    <td className="rounded-r-xl px-3 py-4 font-black text-blue-800">{fix}</td>
                   </tr>
                 ))}
               </tbody>
@@ -194,9 +222,9 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 pb-10 sm:px-5 md:px-8 md:pb-14">
-        <div className="grid gap-4 lg:grid-cols-[0.72fr_1.28fr]">
-          <div className="rounded-xl border border-amber-200 bg-amber-50 p-6 text-amber-950">
+      <section className="mx-auto max-w-7xl px-4 pb-12 sm:px-5 md:px-8 md:pb-16">
+        <div className="grid gap-5 lg:grid-cols-[0.72fr_1.28fr]">
+          <div className="rounded-[2rem] border border-amber-200 bg-amber-50 p-6 text-amber-950 shadow-xl shadow-amber-100/50">
             <p className="text-xs font-black uppercase tracking-[0.22em]">Important limits</p>
             <h2 className="mt-3 text-3xl font-black tracking-tight">No fake guarantees.</h2>
             <p className="mt-4 leading-7 font-semibold">
@@ -205,7 +233,7 @@ export default function PricingPage() {
           </div>
           <div className="grid gap-4 md:grid-cols-2">
             {faqs.map((faq) => (
-              <article key={faq.question} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+              <article key={faq.question} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
                 <h3 className="font-black text-slate-950">{faq.question}</h3>
                 <p className="mt-3 leading-7 text-slate-600">{faq.answer}</p>
               </article>
@@ -214,8 +242,8 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 pb-14 sm:px-5 md:px-8 md:pb-20">
-        <div className="rounded-xl border border-blue-200 bg-blue-50 p-6 md:p-8">
+      <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-5 md:px-8 md:pb-24">
+        <div className="rounded-[2rem] border border-blue-200 bg-blue-50 p-6 shadow-xl shadow-blue-100/60 md:p-8">
           <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
             <div className="min-w-0">
               <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Best next step</p>
