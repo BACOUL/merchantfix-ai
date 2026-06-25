@@ -2,26 +2,26 @@ import Link from "next/link";
 
 const navItems = [
   { href: "/#paste-error", label: "Paste error" },
-  { href: "/supported-errors", label: "Supported errors" },
   { href: "/fix-pack", label: "Fix Pack" },
   { href: "/sample-report", label: "Sample report" },
   { href: "/pricing", label: "Pricing" },
+  { href: "/supported-errors", label: "Errors" },
   { href: "/how-it-works", label: "How it works" }
 ];
 
 export function SiteChrome({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#f7f8fb] text-slate-950">
-      <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/90 backdrop-blur">
-        <nav className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-4 sm:px-5 md:px-8" aria-label="Main navigation">
+    <div className="min-h-screen overflow-x-hidden bg-[#f5f7fb] text-slate-950">
+      <header className="sticky top-0 z-40 border-b border-slate-200/70 bg-white/85 shadow-[0_1px_0_rgba(15,23,42,0.04)] backdrop-blur-xl">
+        <nav className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-5 md:px-8" aria-label="Main navigation">
           <Link href="/" className="flex min-w-0 items-center gap-3 font-black tracking-tight text-slate-950">
-            <span className="grid h-9 w-9 place-items-center rounded-lg bg-slate-950 text-sm text-white">MF</span>
-            <span className="hidden sm:inline">MerchantFix.ai</span>
+            <span className="grid h-10 w-10 place-items-center rounded-2xl bg-slate-950 text-sm text-white shadow-lg shadow-slate-950/15">MF</span>
+            <span className="hidden text-base sm:inline">MerchantFix.ai</span>
           </Link>
 
-          <div className="hidden items-center gap-3 text-xs font-semibold text-slate-600 lg:flex xl:gap-4 xl:text-sm">
+          <div className="hidden items-center gap-1 rounded-full border border-slate-200 bg-slate-50/80 px-2 py-1 text-xs font-bold text-slate-600 lg:flex xl:text-sm">
             {navItems.map((item) => (
-              <Link key={item.href} href={item.href} className="transition hover:text-slate-950">
+              <Link key={item.href} href={item.href} className="rounded-full px-3 py-2 transition hover:bg-white hover:text-slate-950 hover:shadow-sm">
                 {item.label}
               </Link>
             ))}
@@ -30,7 +30,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
           <Link
             href="/#paste-error"
             aria-label="Paste a Google Merchant Center error"
-            className="shrink-0 rounded-full bg-slate-950 px-3 py-2 text-sm font-bold text-white transition hover:bg-slate-800 sm:px-4"
+            className="shrink-0 rounded-full bg-slate-950 px-4 py-2 text-sm font-black text-white shadow-lg shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-slate-800 sm:px-5"
           >
             <span className="hidden sm:inline">Paste error</span>
             <span className="sm:hidden">Error</span>
@@ -41,11 +41,14 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
       {children}
 
       <footer className="border-t border-slate-200 bg-white">
-        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 text-sm text-slate-600 sm:px-5 md:grid-cols-[1fr_auto_auto_auto] md:px-8">
+        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 text-sm text-slate-600 sm:px-5 md:grid-cols-[1.2fr_auto_auto_auto] md:px-8">
           <div className="min-w-0">
-            <p className="font-black text-slate-950">MerchantFix.ai</p>
-            <p className="mt-3 max-w-xl leading-6">
-              Paste a Google Merchant Center warning, identify the likely Shopify fields to check, and use the Fix Pack when CSV-level diagnosis is needed. Google approval is not guaranteed.
+            <div className="flex items-center gap-3">
+              <span className="grid h-9 w-9 place-items-center rounded-2xl bg-slate-950 text-xs font-black text-white">MF</span>
+              <p className="font-black text-slate-950">MerchantFix.ai</p>
+            </div>
+            <p className="mt-4 max-w-xl leading-7">
+              Shopify CSV diagnosis for Google Merchant Center warnings. MerchantFix helps identify product-data issues before merchants edit or resubmit. Google approval is not guaranteed.
             </p>
           </div>
           <div className="grid min-w-0 gap-2 font-semibold">
@@ -118,11 +121,11 @@ export function TextBadge({ children, tone = "blue" }: { children: React.ReactNo
     blue: "border-blue-200 bg-blue-50 text-blue-800",
     green: "border-emerald-200 bg-emerald-50 text-emerald-800",
     amber: "border-amber-200 bg-amber-50 text-amber-900",
-    slate: "border-slate-200 bg-white text-slate-700"
+    slate: "border-slate-200 bg-white/90 text-slate-700"
   };
 
   return (
-    <span className={`inline-flex max-w-full items-center break-words rounded-full border px-3 py-1 text-xs font-bold ${tones[tone]}`}>
+    <span className={`inline-flex max-w-full items-center break-words rounded-full border px-3 py-1 text-xs font-black shadow-sm ${tones[tone]}`}>
       {children}
     </span>
   );
@@ -130,7 +133,7 @@ export function TextBadge({ children, tone = "blue" }: { children: React.ReactNo
 
 export function PrimaryLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
-    <Link href={href} className="inline-flex max-w-full items-center justify-center whitespace-normal break-words rounded-full bg-blue-700 px-5 py-3 text-center text-sm font-black text-white transition hover:bg-blue-800">
+    <Link href={href} className="inline-flex max-w-full items-center justify-center whitespace-normal break-words rounded-full bg-blue-700 px-5 py-3 text-center text-sm font-black text-white shadow-lg shadow-blue-700/20 transition hover:-translate-y-0.5 hover:bg-blue-800">
       {children}
     </Link>
   );
@@ -140,7 +143,7 @@ export function SecondaryLink({ href, children }: { href: string; children: Reac
   return (
     <Link
       href={href}
-      className="inline-flex max-w-full items-center justify-center whitespace-normal break-words rounded-full border border-slate-300 bg-white px-5 py-3 text-center text-sm font-black text-slate-950 transition hover:border-slate-400 hover:bg-slate-50"
+      className="inline-flex max-w-full items-center justify-center whitespace-normal break-words rounded-full border border-slate-300 bg-white px-5 py-3 text-center text-sm font-black text-slate-950 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-400 hover:bg-slate-50"
     >
       {children}
     </Link>
