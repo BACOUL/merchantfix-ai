@@ -41,7 +41,7 @@ Purpose: answer exact Google Merchant Center wording with broader Shopify contex
 
 Routes: `/reference/...`
 
-Purpose: become the definitive answer for high-intent topics. These pages include:
+Purpose: become the definitive answer for high-intent identifier and CSV topics. These pages include:
 
 - direct answer for Google and AI search;
 - exact warning phrases;
@@ -54,6 +54,12 @@ Purpose: become the definitive answer for high-intent topics. These pages includ
 - FAQ schema;
 - related internal links.
 
+### 4. Authority reference level 2
+
+Routes: `/reference/level-2/...`
+
+Purpose: expand topical authority beyond identifiers into broader Merchant Center warning families. This layer is designed to capture merchants searching for price, availability, image, limited performance, disapproval, shipping, tax, and policy-adjacent problems.
+
 ## First authority topics
 
 - Missing value [gtin]
@@ -62,12 +68,26 @@ Purpose: become the definitive answer for high-intent topics. These pages includ
 - identifier_exists
 - Shopify CSV diagnosis for Merchant Center errors
 
+## Level 2 authority topics
+
+- Price mismatch Shopify
+- Availability mismatch Shopify
+- Image issues Shopify
+- Limited performance Shopify
+- Misrepresentation Shopify
+- Disapproved products Shopify
+- Shipping issues Shopify
+- Tax issues Shopify
+
 ## Guardrails
 
 - No promise of Google approval.
+- No promise of account recovery, ranking, traffic, or sales.
 - No fake GTINs.
 - No invented MPNs.
 - No invented brand, price, availability, or product facts.
+- Shipping and tax pages must remain diagnostic and non-advisory.
+- Misrepresentation pages must clearly separate product-data checks from broader manual account/store trust review.
 - No changes to Stripe, checkout, diagnostic engine, CSV analyzer, pricing, or APIs.
 
 ## Why this matters
