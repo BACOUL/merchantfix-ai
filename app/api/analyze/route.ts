@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { analyzeShopifyCsv } from "@/lib/analyzeShopifyCsv";
 import { generateCorrectedCsv } from "@/lib/generateCorrectedCsv";
+import { buildGuardrailSummary } from "@/lib/guardrails";
 
 type StripeCheckoutSession = {
   status?: string;
@@ -127,11 +128,13 @@ export async function POST(request: NextRequest) {
         csvText: "",
         merchantCenterErrorText
       });
+      const guardrails = buildGuardrailSummary(analysis.issues);
 
       return NextResponse.json(
         {
           error: "No Shopify CSV file was provided.",
-          analysis,
+          analysis: { ...analysis, guardrails },
+          guardrails,
           correctedCsvResult: null
         },
         { status: 400 }
@@ -143,6 +146,7 @@ export async function POST(request: NextRequest) {
       csvText,
       merchantCenterErrorText
     });
+    const guardrails = buildGuardrailSummary(analysis.issues);
     const correctedCsvResult =
       analysis.status !== "error" && analysis.correctedCsvAvailable
         ? generateCorrectedCsv({
@@ -158,20 +162,24 @@ export async function POST(request: NextRequest) {
       {
         analysis: {
           ...analysis,
+          guardrails,
           normalizedProducts: undefined,
           originalRows: undefined
         },
+        guardrails,
         correctedCsvResult
       },
       { status: analysis.status === "error" ? 400 : 200 }
     );
   } catch {
     const analysis = analyzeShopifyCsv({ csvText: "" });
+    const guardrails = buildGuardrailSummary(analysis.issues);
 
     return NextResponse.json(
       {
         error: "The uploaded file could not be read.",
-        analysis,
+        analysis: { ...analysis, guardrails },
+        guardrails,
         correctedCsvResult: null
       },
       { status: 400 }
