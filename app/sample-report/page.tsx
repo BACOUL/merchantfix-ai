@@ -18,9 +18,9 @@ const summaryCards = [
 ];
 
 const faqs = [
-  { question: "Is this based on a real merchant?", answer: "No. The sample uses fictional data to show the structure and clarity a MerchantFix report should provide." },
+  { question: "Is this based on a real merchant?", answer: "No. The sample uses fictional data to show the structure and clarity of a MerchantFix report." },
   { question: "What does the report show?", answer: "It shows a summary, affected rows when available, issue priorities, field context, safe actions, and manual review flags." },
-  { question: "Does every report include a corrected CSV?", answer: "No. A corrected CSV is only produced when a change is deterministic and safe. Missing product facts are never invented." },
+  { question: "Does every report include an annotated CSV?", answer: "No. An annotated CSV is only produced when safe notes or deterministic changes are available. Missing product facts are never invented." },
   { question: "Does the sample guarantee approval?", answer: "No. MerchantFix does not guarantee Google approval, ranking, traffic, performance, sales, or account recovery." }
 ];
 
@@ -41,7 +41,7 @@ export default function SampleReportPage() {
               See the row-level report before paying.
             </h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600">
-              This fictional report shows the concrete value MerchantFix must deliver: affected rows, the Google issue, severity, why it matters, and the next safe action.
+              This fictional report shows the concrete value of a Fix Pack diagnosis: affected rows, the Google issue, severity, why it matters, and the next safe action.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <PrimaryLink href="/fix-pack">Buy Fix Pack</PrimaryLink>
@@ -72,7 +72,7 @@ export default function SampleReportPage() {
             <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Row-level table</p>
             <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">Rows, issues, reasons, and safe actions.</h2>
             <p className="mt-4 leading-7 text-slate-600">
-              A merchant should not receive vague advice. The report must show what to check and what not to guess.
+              The report is designed to replace vague advice with a practical review list: what to check, why it matters, and what not to guess.
             </p>
           </div>
           <div className="mt-6">
@@ -85,8 +85,8 @@ export default function SampleReportPage() {
         <div className="grid gap-6 lg:grid-cols-[0.74fr_1.26fr]">
           <div className="rounded-xl border border-blue-200 bg-blue-50 p-6 md:p-8">
             <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Deliverables</p>
-            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">What the paid report should include.</h2>
-            <p className="mt-4 leading-7 text-slate-700">The output must be concrete enough for a merchant to use inside Shopify or a feed app without guessing product facts.</p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">What the paid report includes.</h2>
+            <p className="mt-4 leading-7 text-slate-700">The output gives merchants concrete CSV-level context they can review before editing Shopify or resubmitting products.</p>
           </div>
           <FixPackOutputPreview />
         </div>

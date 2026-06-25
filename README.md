@@ -25,7 +25,9 @@ The repository is no longer only a documentation or placeholder project. It alre
 - Glossary and commercial FAQ schema work.
 - Vitest coverage for the core CSV analyzer.
 
-PR #33 moves the product further toward an error-first conversion flow: paste a Merchant Center warning, identify the Shopify fields to check, then use the Fix Pack when row-level CSV diagnosis is needed.
+PR #33 moved the product toward an error-first conversion flow: paste a Merchant Center warning, identify the Shopify fields to check, then use the Fix Pack when row-level CSV diagnosis is needed.
+
+This sales-readiness cleanup aligns the customer-facing copy, support email, sample report, and downloadable output wording before active sales.
 
 ## Current user journey
 
@@ -36,7 +38,7 @@ PR #33 moves the product further toward an error-first conversion flow: paste a 
 5. The merchant buys the Fix Pack when row-level CSV diagnosis is needed.
 6. After Stripe checkout, the merchant opens the locked diagnostic area.
 7. The merchant uploads a clean Shopify CSV export.
-8. MerchantFix analyzes the CSV, flags affected rows, explains safe actions, and generates a corrected CSV only when the change is deterministic.
+8. MerchantFix analyzes the CSV, flags affected rows, explains safe actions, and generates an annotated CSV with notes or deterministic changes only when safe.
 9. Rows requiring real merchant, supplier, or manufacturer verification are marked for manual review.
 
 ## Current product scope
@@ -58,7 +60,7 @@ PR #33 moves the product further toward an error-first conversion flow: paste a 
 - Row-level issue detection.
 - Critical, warning, and info severity levels.
 - Manual review flags.
-- Corrected CSV generation only when safe and deterministic.
+- Annotated CSV generation only when safe notes or deterministic changes are available.
 
 ## Supported issue families
 
@@ -90,8 +92,8 @@ MerchantFix must follow strict product-data safety rules:
 4. Never copy SKU into MPN unless the merchant confirms it is truly the manufacturer part number.
 5. Never guarantee Google approval, ranking, traffic, account recovery, or sales.
 6. Always separate deterministic fixes from manual review.
-7. Preserve original client CSV data unless a safe correction is explicitly applied.
-8. Explain corrections through `merchantfix_notes`.
+7. Preserve original client CSV data unless a safe deterministic change is explicitly applied.
+8. Explain notes and actions through `merchantfix_notes` and `merchantfix_action`.
 9. Keep the public Shopify surface scan separate from deep CSV diagnosis.
 10. Do not present public URL scanning as a full Merchant Center diagnosis.
 
@@ -178,10 +180,10 @@ Before moving the product toward active sales, verify:
 - `/api/analyze` rejects unpaid calls.
 - `/api/analyze` accepts valid paid/test calls.
 - Shopify CSV diagnosis flags affected rows correctly.
-- Corrected CSV is generated only when deterministic.
+- Annotated CSV is generated only when safe notes or deterministic changes are available.
 - No text says Google approval is guaranteed.
 - No text says MerchantFix invents or repairs GTIN/MPN/brand automatically.
-- No TimeProofs email or unrelated project reference remains.
+- No TimeProofs support email or unrelated project reference remains in customer-facing pages.
 
 ## Roadmap
 
@@ -209,7 +211,7 @@ Includes:
 - Stripe Checkout;
 - protected diagnostic page;
 - paid CSV upload;
-- downloadable correction output when safe;
+- downloadable annotated CSV output when safe;
 - sample report;
 - pricing and legal pages aligned with paid digital service rules.
 
@@ -259,10 +261,11 @@ Possible later features only after validation:
 
 ## Immediate next step
 
-Finish and merge PR #33 after final QA, then test the production deployment with:
+Complete preview QA and the paid diagnostic test path before public sales:
 
 1. one real Shopify public URL;
 2. one sample Shopify CSV;
 3. one private diagnostic token;
 4. one real Stripe test checkout;
-5. one full post-payment CSV upload.
+5. one full post-payment CSV upload;
+6. one annotated CSV download.

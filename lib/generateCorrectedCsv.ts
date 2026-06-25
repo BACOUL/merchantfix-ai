@@ -32,7 +32,7 @@ const ISSUE_NOTES: Record<IssueCode, string> = {
   missing_image: "Missing image. Add a valid product image in Shopify before resubmitting.",
   missing_price: "Missing price. Add a valid product price in Shopify before resubmitting.",
   unrecognized_columns: "Unrecognized columns. Upload a Shopify CSV export with recognizable product columns.",
-  empty_file: "No product rows were available for correction.",
+  empty_file: "No product rows were available for correction notes.",
   invalid_csv: "The CSV could not be parsed safely.",
   manual_review_required: "Manual review required before resubmitting."
 };
@@ -76,7 +76,7 @@ function groupIssuesByRow(issues: ProductIssue[]): Map<number, ProductIssue[]> {
 
 function noteForIssues(issues: ProductIssue[]): string {
   if (issues.length === 0) {
-    return "No supported V1 correction needed based on current MerchantFix.ai checks.";
+    return "No supported V1 correction note needed based on current MerchantFix.ai checks.";
   }
 
   return Array.from(new Set(issues.map((issue) => ISSUE_NOTES[issue.issueCode]))).join(" ");
@@ -131,7 +131,7 @@ export function generateCorrectedCsv(input: {
       changes: [],
       manualReviewRows: [],
       notes: [
-        "No original rows were available for correction.",
+        "No original rows were available for annotation.",
         "MerchantFix.ai does not generate GTIN or MPN.",
         "Google approval is not guaranteed."
       ],
@@ -204,7 +204,7 @@ export function generateCorrectedCsv(input: {
     changes,
     manualReviewRows,
     notes: [
-      "Corrected CSV preserves original product data.",
+      "Annotated CSV preserves original product data.",
       "MerchantFix.ai does not generate GTIN or MPN.",
       "MerchantFix.ai does not invent brand.",
       "Rows marked manual review require human verification.",

@@ -49,10 +49,10 @@ export function DiagnosticResultView({ analysis, correctedCsvResult }: Diagnosti
   const status = diagnosticStatus(analysis);
   const manualReviewCount = analysis.issues.filter((issue) => issue.manualReviewRequired).length;
   const safeFixCount = analysis.issues.filter((issue) => issue.autoFixable || issue.fixType === "auto_fixable").length;
-  const hasCorrectedCsv = Boolean(correctedCsvResult?.correctedCsv);
+  const hasAnnotatedCsv = Boolean(correctedCsvResult?.correctedCsv);
   const generatedAt = new Date(analysis.createdAt).toLocaleString();
 
-  function downloadCorrectedCsv() {
+  function downloadAnnotatedCsv() {
     if (!correctedCsvResult?.correctedCsv) {
       return;
     }
@@ -61,7 +61,7 @@ export function DiagnosticResultView({ analysis, correctedCsvResult }: Diagnosti
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `merchantfix-corrected-${analysis.sessionId}.csv`;
+    link.download = `merchantfix-annotated-${analysis.sessionId}.csv`;
     link.click();
     URL.revokeObjectURL(url);
   }
@@ -134,35 +134,35 @@ export function DiagnosticResultView({ analysis, correctedCsvResult }: Diagnosti
           </section>
         ) : null}
 
-        {hasCorrectedCsv ? (
+        {hasAnnotatedCsv ? (
           <section className="rounded-xl border border-emerald-200 bg-emerald-50 p-5 shadow-sm md:p-6">
             <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
               <div className="min-w-0">
-                <p className="text-xs font-black uppercase tracking-[0.18em] text-emerald-800">Corrected CSV available</p>
-                <h3 className="mt-3 text-2xl font-black tracking-tight text-emerald-950">Download safe CSV notes and corrections.</h3>
+                <p className="text-xs font-black uppercase tracking-[0.18em] text-emerald-800">Annotated CSV available</p>
+                <h3 className="mt-3 text-2xl font-black tracking-tight text-emerald-950">Download CSV notes and safe deterministic changes.</h3>
                 <p className="mt-3 leading-7 text-emerald-900">
-                  The corrected CSV adds MerchantFix.ai notes and safe deterministic changes. It does not invent GTIN, MPN, brand, or price values.
+                  The annotated CSV preserves original product data, adds MerchantFix.ai notes, and only applies deterministic changes when safe. It does not invent GTIN, MPN, brand, or price values.
                 </p>
                 <div className="mt-4 grid gap-3 text-sm font-bold text-emerald-950 sm:grid-cols-2">
-                  <div className="rounded-lg bg-white/70 px-3 py-2">Changes: {correctedCsvResult?.changes.length ?? 0}</div>
+                  <div className="rounded-lg bg-white/70 px-3 py-2">Notes/changes: {correctedCsvResult?.changes.length ?? 0}</div>
                   <div className="rounded-lg bg-white/70 px-3 py-2">Manual rows: {correctedCsvResult?.manualReviewRows.length ?? 0}</div>
                 </div>
               </div>
               <button
                 type="button"
-                onClick={downloadCorrectedCsv}
+                onClick={downloadAnnotatedCsv}
                 className="rounded-full bg-emerald-700 px-5 py-3 font-black text-white transition hover:bg-emerald-800"
               >
-                Download corrected CSV
+                Download annotated CSV
               </button>
             </div>
           </section>
         ) : (
           <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm md:p-6">
             <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-500">CSV export</p>
-            <h3 className="mt-3 text-2xl font-black tracking-tight text-slate-950">No corrected CSV generated.</h3>
+            <h3 className="mt-3 text-2xl font-black tracking-tight text-slate-950">No annotated CSV generated.</h3>
             <p className="mt-3 leading-7 text-slate-600">
-              MerchantFix.ai only generates a corrected CSV when safe deterministic notes or changes are available.
+              MerchantFix.ai only generates an annotated CSV when safe notes or deterministic changes are available.
             </p>
           </section>
         )}

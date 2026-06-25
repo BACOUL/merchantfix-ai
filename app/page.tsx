@@ -145,7 +145,7 @@ export default function HomePage() {
         <Section
           eyebrow="Before / after"
           title="From vague Google warning to practical Shopify worklist."
-          description="The product must feel useful before checkout. MerchantFix starts by translating the error into the fields and rows that matter."
+          description="MerchantFix gives merchants useful direction before checkout by translating the error into the fields and rows that matter."
         >
           <BeforeAfterTable />
         </Section>
