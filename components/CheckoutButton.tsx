@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-type CheckoutPlan = "fix-pack" | "pro-review";
+type CheckoutPlan = "fix-pack";
 
 type CheckoutButtonProps = {
   plan: CheckoutPlan;
