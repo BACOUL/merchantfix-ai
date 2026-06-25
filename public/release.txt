@@ -1,7 +1,9 @@
 MerchantFix.ai production release marker
 Expected production state: error-first Merchant Center warning flow + paid Fix Pack CSV diagnosis
-Expected PR: #33 Upgrade MerchantFix to error-first diagnosis flow
+Expected PR sequence: #33 error-first flow, #35 sales readiness cleanup
 Expected homepage: paste a Google Merchant Center warning, then route to public scan or Fix Pack
 Expected paid flow: Stripe checkout -> /success?session_id=... -> locked /diagnostic CSV upload
-Expected safety rules: no fake GTIN, no invented MPN, no invented brand, no Google approval guarantee
+Expected output wording: annotated CSV with safe notes and deterministic changes only
+Expected safety rules: no fake GTIN, no invented MPN, no invented brand, no invented product facts, no Google approval guarantee
+Launch blocker: complete preview QA, Stripe test checkout, support email confirmation, and paid/test diagnostic upload before public sales
 Updated: 2026-06-25
