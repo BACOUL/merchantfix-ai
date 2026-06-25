@@ -24,10 +24,13 @@ The repository is no longer only a documentation or placeholder project. It alre
 - SEO pages for exact Merchant Center errors and Shopify Google Shopping problems.
 - Glossary and commercial FAQ schema work.
 - Vitest coverage for the core CSV analyzer.
+- Production QA runbook and sample CSV test cases.
 
 PR #33 moved the product toward an error-first conversion flow: paste a Merchant Center warning, identify the Shopify fields to check, then use the Fix Pack when row-level CSV diagnosis is needed.
 
-This sales-readiness cleanup aligns the customer-facing copy, support email, sample report, and downloadable output wording before active sales.
+The sales-readiness cleanup aligns the customer-facing copy, support email, sample report, and downloadable output wording before active sales.
+
+The simplified launch offer keeps only one paid product during first-sales validation: Fix Pack at 29 €.
 
 ## Current user journey
 
@@ -163,6 +166,14 @@ The app must stay usable without leaking private keys client-side.
 - `POST /api/checkout` — Stripe Checkout session creation.
 - `POST /api/analyze` — protected Shopify CSV diagnostic.
 
+## QA documents and test cases
+
+- `docs/qa-production-runbook.md` — full production QA procedure.
+- `docs/production-readiness.md` — launch readiness checklist.
+- `docs/test-cases/merchant-center-errors.md` — paste-error warning cases.
+- `docs/test-cases/shopify-sample-clean.csv` — clean CSV sample.
+- `docs/test-cases/shopify-sample-issues.csv` — issue-heavy CSV sample.
+
 ## Validation checklist before public push
 
 Before moving the product toward active sales, verify:
@@ -172,14 +183,15 @@ Before moving the product toward active sales, verify:
 - Paste-error form works client-side.
 - `/supported-errors` renders and maps warnings correctly.
 - `/fix-pack` renders with checkout buttons.
-- `/pricing` highlights Fix Pack clearly.
-- `/api/checkout` creates a Stripe session in EUR.
+- `/pricing` highlights Fix Pack clearly and shows no Pro Review checkout.
+- `/api/checkout` creates a Stripe session in EUR for `fix-pack`.
+- `/api/checkout` rejects `pro-review`.
 - `/success` passes `session_id` to `/diagnostic`.
 - `/diagnostic` blocks unpaid access.
 - `/diagnostic?test_token=...` works only with the configured private test token.
 - `/api/analyze` rejects unpaid calls.
 - `/api/analyze` accepts valid paid/test calls.
-- Shopify CSV diagnosis flags affected rows correctly.
+- Shopify CSV diagnosis flags affected rows correctly using the QA samples.
 - Annotated CSV is generated only when safe notes or deterministic changes are available.
 - No text says Google approval is guaranteed.
 - No text says MerchantFix invents or repairs GTIN/MPN/brand automatically.
