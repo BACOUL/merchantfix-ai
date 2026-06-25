@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PrimaryLink, SecondaryLink, TextBadge } from "@/components";
-import { canonical, exactErrorGuides, fixGuides, longTailGuides } from "@/lib/seo";
+import { canonical, exactErrorGuides, exactShopifyErrorGuides, fixGuides, longTailGuides } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Shopify Product Data Guides | MerchantFix.ai",
@@ -43,10 +43,10 @@ export default function FixIndexPage() {
               Practical Shopify product data guides for Google Merchant Center issues.
             </h1>
             <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">
-              MerchantFix.ai guides focus on Shopify product data, missing identifiers, feed errors, and cleaner product readiness.
+              MerchantFix.ai guides focus on Shopify product data, exact Merchant Center warnings, missing identifiers, feed errors, and cleaner product readiness.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <PrimaryLink href="/scan">Scan my Shopify store</PrimaryLink>
+              <PrimaryLink href="/#paste-error">Paste my Merchant Center warning</PrimaryLink>
               <SecondaryLink href="/google-merchant-center-errors-shopify">Open error hub</SecondaryLink>
             </div>
           </div>
@@ -68,6 +68,17 @@ export default function FixIndexPage() {
             </div>
             <PrimaryLink href="/google-merchant-center-errors-shopify">Open hub</PrimaryLink>
           </div>
+        </section>
+
+        <section className="mt-10 rounded-xl border border-blue-200 bg-blue-50 p-5 shadow-sm md:p-8">
+          <div className="max-w-3xl">
+            <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Copy-paste search pages</p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">URLs built for merchants who paste their exact Google warning into search.</h2>
+            <p className="mt-4 leading-7 text-slate-700">
+              These shorter guides target natural searches such as “missing value gtin shopify”, “identifier_exists conflict shopify”, and “price mismatch Google Merchant Center Shopify”.
+            </p>
+          </div>
+          <GuideGrid guides={exactShopifyErrorGuides} variant="blue" />
         </section>
 
         <section className="mt-10">
@@ -103,13 +114,13 @@ export default function FixIndexPage() {
         <section className="mt-8 rounded-lg border border-blue-200 bg-blue-50 p-6 md:p-8">
           <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
             <div className="min-w-0">
-              <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Start with your catalog</p>
-              <h2 className="mt-3 break-words text-3xl font-black tracking-tight text-slate-950">Check public Shopify product data before deeper CSV diagnosis.</h2>
+              <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Start with your warning</p>
+              <h2 className="mt-3 break-words text-3xl font-black tracking-tight text-slate-950">Paste the Merchant Center text first, then use CSV diagnosis if many rows are affected.</h2>
               <p className="mt-3 max-w-3xl leading-7 text-slate-700">
-                Use the URL scan for a surface check. Use the Fix Pack when Merchant Center issues mention GTIN, MPN, brand, or identifier_exists.
+                The guides help classify the warning. The Fix Pack is for affected-row diagnosis before editing Shopify or resubmitting products to Google.
               </p>
             </div>
-            <PrimaryLink href="/scan">Scan my Shopify store</PrimaryLink>
+            <PrimaryLink href="/#paste-error">Paste my warning</PrimaryLink>
           </div>
         </section>
       </div>
