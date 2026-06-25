@@ -1,4 +1,5 @@
 import { combinedGmcErrorSeoPages } from "./combinedGmcErrorSeo";
+import { exactShopifyErrorGuides } from "./exactShopifyErrorSeo";
 import { glossarySeoPages } from "./glossarySeo";
 import { shopifyGmcLongTailSeoPages } from "./shopifyGmcLongTailSeo";
 
@@ -42,6 +43,8 @@ export const fixGuides = [
   }
 ] as const;
 
+export { exactShopifyErrorGuides };
+
 export const exactErrorGuides = combinedGmcErrorSeoPages.map((page) => ({
   path: `/fix/google-merchant-center-errors/${page.slug}`,
   label: page.label,
@@ -75,6 +78,11 @@ export const publicRoutes = [
   { path: "/fix", changeFrequency: "monthly", priority: 0.8 },
   { path: "/learn", changeFrequency: "monthly", priority: 0.76 },
   { path: "/google-merchant-center-errors-shopify", changeFrequency: "monthly", priority: 0.86 },
+  ...exactShopifyErrorGuides.map((guide) => ({
+    path: guide.path,
+    changeFrequency: "monthly" as const,
+    priority: 0.74
+  })),
   ...fixGuides.map((guide) => ({
     path: guide.path,
     changeFrequency: "monthly" as const,
@@ -119,18 +127,15 @@ export const structuredData = [
   },
   {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "MerchantFix.ai",
-    url: SITE_URL
-  },
-  {
-    "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "MerchantFix.ai",
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web",
-    description:
-      "Focused Shopify product data diagnosis for Google Merchant Center surface risks and CSV issues.",
-    url: SITE_URL
+    url: SITE_URL,
+    offers: {
+      "@type": "Offer",
+      price: "29",
+      priceCurrency: "EUR"
+    }
   }
-] as const;
+];
