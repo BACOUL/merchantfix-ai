@@ -7,7 +7,7 @@ import { canonical } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Pricing | MerchantFix.ai Fix Pack",
   description:
-    "Simple pricing for Shopify merchants who need Google Merchant Center error diagnosis, public scans, row-level CSV checks, and safe product-data guidance.",
+    "Simple launch pricing for Shopify merchants who need Google Merchant Center error diagnosis, public scans, row-level CSV checks, and safe product-data guidance.",
   alternates: {
     canonical: canonical("/pricing")
   }
@@ -37,7 +37,7 @@ const plans = [
     name: "Fix Pack",
     price: "29 €",
     note: "Row-level CSV diagnosis",
-    badge: "Best for most merchants",
+    badge: "Only paid launch offer",
     description: "Best when a Merchant Center warning affects products and you need Shopify CSV rows, fields, and safe actions.",
     href: "/fix-pack",
     cta: "Start Fix Pack checkout",
@@ -52,50 +52,31 @@ const plans = [
       "Annotated CSV only when safe",
       "Manual review checklist for uncertain rows"
     ]
-  },
-  {
-    name: "Pro Review",
-    price: "79 €",
-    note: "Priority practical review",
-    badge: "For larger catalogs",
-    description: "Best when you want Fix Pack plus a deeper practical checklist before resubmission.",
-    href: "/fix-pack",
-    cta: "Start Pro Review checkout",
-    featured: false,
-    checkoutPlan: "pro-review" as const,
-    items: [
-      "Everything in Fix Pack",
-      "Priority manual review guidance",
-      "Deeper resubmission checklist",
-      "Issue prioritization for larger catalogs",
-      "No approval guarantee",
-      "No invented identifiers"
-    ]
   }
 ];
 
 const comparison = [
-  ["Paste Merchant Center error", "Included", "Included", "Included"],
-  ["Public Shopify URL scan", "Included", "Included", "Included"],
-  ["Shopify CSV diagnostic", "Not included", "Included", "Included"],
-  ["GTIN, MPN, brand, identifier_exists checks", "Surface only", "Included", "Included"],
-  ["Price, availability, image fields", "Surface only", "CSV review where supported", "CSV review plus priority guidance"],
-  ["Affected row table", "Not included", "Included when available", "Priority"],
-  ["Annotated CSV when safe", "Not included", "Included", "Included"],
-  ["Manual review checklist", "Basic", "Included", "Priority"],
-  ["Google approval guarantee", "Never guaranteed", "Never guaranteed", "Never guaranteed"]
+  ["Paste Merchant Center error", "Included", "Included"],
+  ["Public Shopify URL scan", "Included", "Included"],
+  ["Shopify CSV diagnostic", "Not included", "Included"],
+  ["GTIN, MPN, brand, identifier_exists checks", "Surface only", "Included"],
+  ["Price, availability, image fields", "Surface only", "CSV review where supported"],
+  ["Affected row table", "Not included", "Included when available"],
+  ["Annotated CSV when safe", "Not included", "Included"],
+  ["Manual review checklist", "Basic", "Included"],
+  ["Google approval guarantee", "Never guaranteed", "Never guaranteed"]
 ];
 
 const faqs = [
   {
-    question: "Which plan should I choose first?",
+    question: "Which option should I choose first?",
     answer:
       "Start with the Free Scan if you only want a public Shopify surface check. Choose Fix Pack when the Merchant Center warning needs row-level CSV diagnosis."
   },
   {
-    question: "Why is Fix Pack marked best for most merchants?",
+    question: "Why is Fix Pack the only paid launch offer?",
     answer:
-      "Because most serious Merchant Center product-data issues require affected rows, Shopify fields, and manual review flags. That requires CSV context."
+      "Because the first commercial test should stay simple: one free entry point and one paid CSV diagnosis. Manual or priority review can be added later if customers ask for it."
   },
   {
     question: "Do I need Shopify admin access?",
@@ -103,7 +84,7 @@ const faqs = [
       "No. The free scan uses public product data when available. The paid diagnostic uses the Shopify CSV export you upload after checkout."
   },
   {
-    question: "Does any plan guarantee Google approval?",
+    question: "Does Fix Pack guarantee Google approval?",
     answer:
       "No. MerchantFix helps diagnose product data issues and safe actions, but Google approval, ranking, traffic, performance, sales, and account recovery are not guaranteed."
   },
@@ -129,12 +110,12 @@ export default function PricingPage() {
       <section className="border-b border-slate-200 bg-slate-950 text-white">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-5 md:px-8 md:py-20">
           <div className="max-w-4xl">
-            <TextBadge tone="blue">Simple pricing</TextBadge>
+            <TextBadge tone="blue">Simple launch pricing</TextBadge>
             <h1 className="mt-6 break-words text-4xl font-black tracking-tight sm:text-5xl md:text-7xl">
-              Start free. Use Fix Pack when the error needs CSV rows.
+              Start free. Buy Fix Pack only when the error needs CSV rows.
             </h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-200">
-              MerchantFix pricing follows the workflow: paste the error, scan public Shopify data when useful, then use Fix Pack for row-level product-data diagnosis.
+              MerchantFix keeps the launch offer intentionally simple: paste the error, scan public Shopify data when useful, then use the 29 € Fix Pack for row-level product-data diagnosis.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <PrimaryLink href="/#paste-error">Paste my error first</PrimaryLink>
@@ -145,7 +126,7 @@ export default function PricingPage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-5 md:px-8 md:py-14">
-        <div className="grid gap-4 lg:grid-cols-3">
+        <div className="grid gap-4 lg:grid-cols-2">
           {plans.map((plan) => (
             <article
               key={plan.name}
@@ -184,29 +165,27 @@ export default function PricingPage() {
       <section className="mx-auto max-w-7xl px-4 pb-10 sm:px-5 md:px-8 md:pb-14">
         <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm md:p-8">
           <div className="max-w-3xl">
-            <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Compare plans</p>
-            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">The Fix Pack is the main paid product.</h2>
+            <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Compare options</p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">One free entry point. One paid diagnostic.</h2>
             <p className="mt-4 leading-7 text-slate-600">
-              The offer stays intentionally simple: free first checks, then a one-time CSV diagnosis when the problem needs affected rows.
+              The launch offer avoids decision friction: use free checks first, then buy the 29 € Fix Pack only when the problem needs affected rows.
             </p>
           </div>
           <div className="mt-6 overflow-x-auto">
-            <table className="w-full min-w-[820px] border-separate border-spacing-y-2 text-left text-sm">
+            <table className="w-full min-w-[680px] border-separate border-spacing-y-2 text-left text-sm">
               <thead>
                 <tr className="text-slate-500">
                   <th className="px-3 py-2 font-black">Feature</th>
                   <th className="px-3 py-2 font-black">Free Scan</th>
                   <th className="px-3 py-2 font-black">Fix Pack</th>
-                  <th className="px-3 py-2 font-black">Pro Review</th>
                 </tr>
               </thead>
               <tbody>
-                {comparison.map(([feature, free, fix, pro]) => (
+                {comparison.map(([feature, free, fix]) => (
                   <tr key={feature} className="bg-slate-50 font-semibold text-slate-700">
                     <td className="rounded-l-lg px-3 py-3 text-slate-950">{feature}</td>
                     <td className="px-3 py-3">{free}</td>
-                    <td className="px-3 py-3 font-black text-blue-800">{fix}</td>
-                    <td className="rounded-r-lg px-3 py-3">{pro}</td>
+                    <td className="rounded-r-lg px-3 py-3 font-black text-blue-800">{fix}</td>
                   </tr>
                 ))}
               </tbody>
@@ -240,7 +219,7 @@ export default function PricingPage() {
           <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
             <div className="min-w-0">
               <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Best next step</p>
-              <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">See the sample report before choosing a plan.</h2>
+              <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">See the sample report before buying Fix Pack.</h2>
               <p className="mt-3 max-w-3xl leading-7 text-slate-700">
                 The sample report shows the row-level clarity the Fix Pack is built to provide.
               </p>

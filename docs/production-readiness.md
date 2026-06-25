@@ -13,7 +13,15 @@ Status: not launched publicly until all blocking checks are complete.
 - [ ] No copy says MerchantFix invents GTIN, MPN, brand, price, or product facts.
 - [ ] The downloadable output is described as an annotated CSV, not a full automatic fix.
 
-## 2. Public site QA
+## 2. Launch offer
+
+- [ ] Public pricing shows only two choices: Free Scan and Fix Pack.
+- [ ] Fix Pack is the only paid launch offer.
+- [ ] Pro Review is not sold during the first sales validation phase.
+- [ ] `/api/checkout` rejects any plan other than `fix-pack`.
+- [ ] The checkout button type only accepts `fix-pack`.
+
+## 3. Public site QA
 
 - [ ] Homepage renders on desktop.
 - [ ] Homepage renders on mobile.
@@ -21,11 +29,11 @@ Status: not launched publicly until all blocking checks are complete.
 - [ ] `/supported-errors` renders.
 - [ ] `/sample-report` renders and sounds like a real deliverable.
 - [ ] `/fix-pack` renders with working checkout button.
-- [ ] `/pricing` renders and does not confuse the customer before the first sales test.
+- [ ] `/pricing` renders the simplified launch offer without Pro Review checkout.
 - [ ] `/scan` accepts a public Shopify URL and handles failure states cleanly.
 - [ ] All important CTAs lead to a useful next step.
 
-## 3. Stripe and Vercel configuration
+## 4. Stripe and Vercel configuration
 
 Required Vercel variables:
 
@@ -35,14 +43,15 @@ Required Vercel variables:
 
 Checks:
 
-- [ ] `/api/checkout` creates a Stripe Checkout session in test mode.
+- [ ] `/api/checkout` creates a Stripe Checkout session in test mode for `fix-pack`.
+- [ ] `/api/checkout` rejects `pro-review`.
 - [ ] Stripe success URL returns to `/success?session_id=...`.
 - [ ] Stripe cancel URL returns to `/cancel`.
 - [ ] `/success` includes a working link to `/diagnostic?session_id=...`.
 - [ ] `/diagnostic` verifies the paid session before showing CSV upload.
 - [ ] `/api/analyze` rejects unpaid calls.
 
-## 4. Diagnostic flow QA
+## 5. Diagnostic flow QA
 
 - [ ] `/diagnostic` without `session_id` or `test_token` is locked.
 - [ ] `/diagnostic?test_token=wrong` is locked.
@@ -55,13 +64,13 @@ Checks:
 - [ ] Report shows counts, categories, affected rows, recommended actions, and disclaimer.
 - [ ] Annotated CSV download works when safe notes or deterministic changes are available.
 
-## 5. MVP launch rule
+## 6. MVP launch rule
 
 MerchantFix can be sold only after this full path works on the intended production deployment:
 
 `/fix-pack` -> Stripe Checkout -> `/success?session_id=...` -> `/diagnostic?session_id=...` -> Shopify CSV upload -> diagnostic report -> annotated CSV download.
 
-## 6. First-sales validation target
+## 7. First-sales validation target
 
 - Target: 20 real Shopify merchants or agencies with a current Merchant Center warning.
 - Validation threshold: 3 paid Fix Pack purchases or 5 serious manual-review calls.

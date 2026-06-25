@@ -8,7 +8,7 @@ Status: preview QA, not production launch.
 
 Do not communicate the public product as launched until the preview has been manually checked and the paid diagnostic flow has been tested end to end.
 
-## Sales readiness cleanup included in this PR
+## Sales readiness cleanup included in this PR stack
 
 - Customer-facing copy no longer sounds like an internal product specification.
 - Sample report explains what the customer receives after a Fix Pack diagnosis.
@@ -16,13 +16,17 @@ Do not communicate the public product as launched until the preview has been man
 - The downloadable output is described as an annotated CSV, not a magic automatic correction.
 - MerchantFix still states that it does not invent GTIN, MPN, brand, price, or product facts.
 - Google approval, ranking, traffic, account recovery, and sales remain explicitly not guaranteed.
+- Public launch pricing is simplified to Free Scan + Fix Pack.
+- Pro Review is not sold during first-sales validation.
 
 ## Required preview checks
 
 - Homepage renders on desktop and mobile.
 - Paste-error form updates diagnosis client-side.
-- `/fix-pack` renders and checkout buttons call `/api/checkout`.
-- `/pricing` renders with Fix Pack as the main paid offer.
+- `/fix-pack` renders and checkout buttons call `/api/checkout` with `fix-pack`.
+- `/pricing` renders Free Scan and Fix Pack only.
+- `/pricing` contains no Pro Review checkout CTA.
+- `/api/checkout` rejects `pro-review`.
 - `/supported-errors` renders supported Merchant Center warnings.
 - `/sample-report` renders row-level output table and customer-facing wording.
 - `/scan` calls `/api/surface-scan`.

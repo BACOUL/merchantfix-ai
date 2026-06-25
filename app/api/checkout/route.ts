@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-type PlanKey = "fix-pack" | "pro-review";
+type PlanKey = "fix-pack";
 
 type CheckoutProduct = {
   name: string;
@@ -13,11 +13,6 @@ const products: Record<PlanKey, CheckoutProduct> = {
     name: "MerchantFix Fix Pack",
     description: "One-time Shopify CSV diagnostic for Google Merchant Center product data issues.",
     unitAmount: 2900
-  },
-  "pro-review": {
-    name: "MerchantFix Pro Review",
-    description: "Fix Pack plus priority manual review guidance and deeper resubmission checklist.",
-    unitAmount: 7900
   }
 };
 
@@ -38,6 +33,10 @@ function getOrigin(request: NextRequest) {
   return "https://merchantfix-ai.com";
 }
 
+function isPlanKey(plan: unknown): plan is PlanKey {
+  return plan === "fix-pack";
+}
+
 export async function POST(request: NextRequest) {
   const secretKey = process.env.STRIPE_SECRET_KEY;
 
@@ -48,18 +47,18 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  let payload: { plan?: PlanKey };
+  let payload: { plan?: unknown };
 
   try {
-    payload = (await request.json()) as { plan?: PlanKey };
+    payload = (await request.json()) as { plan?: unknown };
   } catch {
     return NextResponse.json({ error: "Invalid checkout request." }, { status: 400 });
   }
 
   const plan = payload.plan;
 
-  if (!plan || !products[plan]) {
-    return NextResponse.json({ error: "Unknown checkout plan." }, { status: 400 });
+  if (!isPlanKey(plan)) {
+    return NextResponse.json({ error: "Unknown checkout plan. Fix Pack is the only active launch offer." }, { status: 400 });
   }
 
   const product = products[plan];
