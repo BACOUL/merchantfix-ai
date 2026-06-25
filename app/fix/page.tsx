@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PrimaryLink, SecondaryLink, TextBadge } from "@/components";
-import { canonical, exactErrorGuides, exactShopifyErrorGuides, fixGuides, longTailGuides } from "@/lib/seo";
+import { authorityGuides, canonical, exactErrorGuides, exactShopifyErrorGuides, fixGuides, longTailGuides } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Shopify Product Data Guides | MerchantFix.ai",
@@ -47,7 +47,7 @@ export default function FixIndexPage() {
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <PrimaryLink href="/#paste-error">Paste my Merchant Center warning</PrimaryLink>
-              <SecondaryLink href="/google-merchant-center-errors-shopify">Open error hub</SecondaryLink>
+              <SecondaryLink href="/reference">Open reference library</SecondaryLink>
             </div>
           </div>
           <aside className="min-w-0 rounded-lg border border-amber-200 bg-amber-50 p-5 text-sm font-semibold leading-7 text-amber-950">
@@ -68,6 +68,17 @@ export default function FixIndexPage() {
             </div>
             <PrimaryLink href="/google-merchant-center-errors-shopify">Open hub</PrimaryLink>
           </div>
+        </section>
+
+        <section className="mt-10 rounded-xl border border-slate-900 bg-slate-950 p-5 text-white shadow-sm md:p-8">
+          <div className="max-w-4xl">
+            <p className="text-xs font-black uppercase tracking-[0.22em] text-slate-300">Reference layer</p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight">Long-form authority pages designed to become the answer.</h2>
+            <p className="mt-4 leading-7 text-slate-300">
+              These pages go beyond short SEO capture pages. They explain root causes, Shopify fields, CSV workflows, bad fixes, decision tables, and when a Fix Pack is useful.
+            </p>
+          </div>
+          <GuideGrid guides={authorityGuides} variant="blue" />
         </section>
 
         <section className="mt-10 rounded-xl border border-blue-200 bg-blue-50 p-5 shadow-sm md:p-8">

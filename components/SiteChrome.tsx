@@ -6,6 +6,7 @@ const navItems = [
   { href: "/sample-report", label: "Sample report" },
   { href: "/pricing", label: "Pricing" },
   { href: "/fix", label: "Error guides" },
+  { href: "/reference", label: "Reference" },
   { href: "/how-it-works", label: "How it works" }
 ];
 
@@ -70,6 +71,9 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
             </Link>
             <Link href="/fix" className="hover:text-slate-950">
               Error guides
+            </Link>
+            <Link href="/reference" className="hover:text-slate-950">
+              Reference library
             </Link>
             <Link href="/supported-errors" className="hover:text-slate-950">
               Supported errors
