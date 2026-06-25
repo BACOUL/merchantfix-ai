@@ -22,6 +22,9 @@ The repository is no longer only a documentation or placeholder project. It alre
 - Post-payment diagnostic gate.
 - Private diagnostic test token mode.
 - SEO pages for exact Merchant Center errors and Shopify Google Shopping problems.
+- Reference library and level 2 authority SEO pages.
+- Diagnostic guardrail system with `safe_note`, `manual_review`, and `blocked` statuses.
+- Guardrail columns in annotated CSV output.
 - Glossary and commercial FAQ schema work.
 - Vitest coverage for the core CSV analyzer.
 - Production QA runbook and sample CSV test cases.
@@ -62,7 +65,8 @@ The simplified launch offer keeps only one paid product during first-sales valid
 - CSV parsing and Shopify column normalization.
 - Row-level issue detection.
 - Critical, warning, and info severity levels.
-- Manual review flags.
+- Guardrail status: `safe_note`, `manual_review`, or `blocked`.
+- Manual review reasons and evidence needed.
 - Annotated CSV generation only when safe notes or deterministic changes are available.
 
 ## Supported issue families
@@ -97,12 +101,31 @@ MerchantFix must follow strict product-data safety rules:
 6. Always separate deterministic fixes from manual review.
 7. Preserve original client CSV data unless a safe deterministic change is explicitly applied.
 8. Explain notes and actions through `merchantfix_notes` and `merchantfix_action`.
-9. Keep the public Shopify surface scan separate from deep CSV diagnosis.
-10. Do not present public URL scanning as a full Merchant Center diagnosis.
+9. Explain guardrails through `merchantfix_status`, `merchantfix_manual_review_reason`, and `merchantfix_evidence_needed`.
+10. Keep the public Shopify surface scan separate from deep CSV diagnosis.
+11. Do not present public URL scanning as a full Merchant Center diagnosis.
 
 Mandatory product disclaimer:
 
 > MerchantFix.ai helps diagnose Shopify product data issues. Some rows may require manual review. Google approval is not guaranteed.
+
+## Guardrail operating model
+
+MerchantFix is designed so the owner does not need to judge every CSV row from scratch.
+
+The diagnostic output classifies rows as:
+
+- `safe_note` — informational note only;
+- `manual_review` — source evidence is needed before editing Shopify;
+- `blocked` — automated correction should not be delivered.
+
+The annotated CSV includes:
+
+- `merchantfix_status`
+- `merchantfix_manual_review_reason`
+- `merchantfix_evidence_needed`
+
+During early sales, Jeason only needs to inspect rows marked `manual_review` or `blocked` and confirm that the reason and evidence needed are clear. The full operating model is documented in `docs/guardrails-system.md`.
 
 ## What MerchantFix is not
 
@@ -159,6 +182,8 @@ The app must stay usable without leaking private keys client-side.
 - `/supported-errors` — supported Merchant Center warning map.
 - `/how-it-works` — process explanation.
 - `/fix/...` — SEO guides for exact Google Merchant Center and Shopify Google Shopping issues.
+- `/reference` — authority reference library.
+- `/reference/level-2` — advanced authority reference layer.
 
 ## Key APIs
 
@@ -170,6 +195,7 @@ The app must stay usable without leaking private keys client-side.
 
 - `docs/qa-production-runbook.md` — full production QA procedure.
 - `docs/production-readiness.md` — launch readiness checklist.
+- `docs/guardrails-system.md` — guardrail operating model.
 - `docs/test-cases/merchant-center-errors.md` — paste-error warning cases.
 - `docs/test-cases/shopify-sample-clean.csv` — clean CSV sample.
 - `docs/test-cases/shopify-sample-issues.csv` — issue-heavy CSV sample.
@@ -192,6 +218,7 @@ Before moving the product toward active sales, verify:
 - `/api/analyze` rejects unpaid calls.
 - `/api/analyze` accepts valid paid/test calls.
 - Shopify CSV diagnosis flags affected rows correctly using the QA samples.
+- Annotated CSV includes guardrail columns.
 - Annotated CSV is generated only when safe notes or deterministic changes are available.
 - No text says Google approval is guaranteed.
 - No text says MerchantFix invents or repairs GTIN/MPN/brand automatically.
@@ -210,7 +237,9 @@ Includes:
 - public surface scan;
 - CSV analyzer;
 - affected row table;
+- guardrail status;
 - manual review flags;
+- evidence-needed checklist;
 - safe correction notes;
 - tests.
 
@@ -225,6 +254,7 @@ Includes:
 - paid CSV upload;
 - downloadable annotated CSV output when safe;
 - sample report;
+- guardrail-driven manual review output;
 - pricing and legal pages aligned with paid digital service rules.
 
 ### V3 — More Merchant Center errors
@@ -280,4 +310,5 @@ Complete preview QA and the paid diagnostic test path before public sales:
 3. one private diagnostic token;
 4. one real Stripe test checkout;
 5. one full post-payment CSV upload;
-6. one annotated CSV download.
+6. one annotated CSV download;
+7. one guardrail check confirming manual-review rows explain evidence needed.
