@@ -49,7 +49,7 @@ const plans = [
       "Price, availability, and image field review where supported",
       "Affected rows when CSV data allows it",
       "Safe correction guidance",
-      "Corrected CSV only when deterministic",
+      "Annotated CSV only when safe",
       "Manual review checklist for uncertain rows"
     ]
   },
@@ -81,7 +81,7 @@ const comparison = [
   ["GTIN, MPN, brand, identifier_exists checks", "Surface only", "Included", "Included"],
   ["Price, availability, image fields", "Surface only", "CSV review where supported", "CSV review plus priority guidance"],
   ["Affected row table", "Not included", "Included when available", "Priority"],
-  ["Corrected CSV when deterministic", "Not included", "Included", "Included"],
+  ["Annotated CSV when safe", "Not included", "Included", "Included"],
   ["Manual review checklist", "Basic", "Included", "Priority"],
   ["Google approval guarantee", "Never guaranteed", "Never guaranteed", "Never guaranteed"]
 ];
