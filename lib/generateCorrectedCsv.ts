@@ -1,4 +1,5 @@
 import { getIssueAction } from "./detectIdentifierIssues";
+import { buildGuardrailSummary } from "./guardrails";
 import {
   MANDATORY_DISCLAIMER,
   type CorrectedCsvChange,
@@ -74,6 +75,10 @@ function groupIssuesByRow(issues: ProductIssue[]): Map<number, ProductIssue[]> {
   return grouped;
 }
 
+function uniqueValues(values: string[]): string {
+  return Array.from(new Set(values.filter(Boolean))).join(" | ");
+}
+
 function noteForIssues(issues: ProductIssue[]): string {
   if (issues.length === 0) {
     return "No supported V1 correction note needed based on current MerchantFix.ai checks.";
@@ -118,7 +123,10 @@ export function generateCorrectedCsv(input: {
     new Set([
       ...input.originalRows.flatMap((row) => Object.keys(row)),
       "merchantfix_notes",
-      "merchantfix_action"
+      "merchantfix_action",
+      "merchantfix_status",
+      "merchantfix_manual_review_reason",
+      "merchantfix_evidence_needed"
     ])
   );
   const changes: CorrectedCsvChange[] = [];
@@ -127,7 +135,7 @@ export function generateCorrectedCsv(input: {
   if (input.originalRows.length === 0) {
     return {
       sessionId: input.sessionId,
-      correctedCsv: serializeRows([], headers.length > 0 ? headers : ["merchantfix_notes", "merchantfix_action"]),
+      correctedCsv: serializeRows([], headers.length > 0 ? headers : ["merchantfix_notes", "merchantfix_action", "merchantfix_status"]),
       changes: [],
       manualReviewRows: [],
       notes: [
@@ -143,10 +151,13 @@ export function generateCorrectedCsv(input: {
     const product = input.products[index];
     const rowNumber = index + 1;
     const rowIssues = issuesByRow.get(rowNumber) ?? [];
+    const rowGuardrails = buildGuardrailSummary(rowIssues);
     const notes = noteForIssues(rowIssues);
     const action = actionForIssues(rowIssues);
     const correctedRow: RawCsvRow = { ...row };
     const productTitle = product?.title ?? row.Title ?? row.title ?? null;
+    const manualReviewReason = uniqueValues(rowGuardrails.decisions.map((decision) => decision.reason));
+    const evidenceNeeded = uniqueValues(rowGuardrails.decisions.flatMap((decision) => decision.evidenceNeeded));
 
     if (product && canSafelySetIdentifierExistsNo(product, rowIssues, row)) {
       const identifierExistsColumn = findIdentifierExistsColumn(row);
@@ -169,6 +180,10 @@ export function generateCorrectedCsv(input: {
 
     correctedRow.merchantfix_notes = notes;
     correctedRow.merchantfix_action = action;
+    correctedRow.merchantfix_status = rowGuardrails.status;
+    correctedRow.merchantfix_manual_review_reason = manualReviewReason;
+    correctedRow.merchantfix_evidence_needed = evidenceNeeded;
+
     changes.push({
       rowNumber,
       productTitle,
@@ -191,7 +206,7 @@ export function generateCorrectedCsv(input: {
       });
     }
 
-    if (rowIssues.some((issue) => issue.manualReviewRequired || issue.fixType === "manual_review")) {
+    if (rowGuardrails.status === "manual_review" || rowGuardrails.status === "blocked") {
       manualReviewRows.push(correctedRow);
     }
 
@@ -205,9 +220,11 @@ export function generateCorrectedCsv(input: {
     manualReviewRows,
     notes: [
       "Annotated CSV preserves original product data.",
+      "merchantfix_status tells whether each row is safe_note, manual_review, or blocked.",
+      "merchantfix_evidence_needed explains what the merchant must verify before editing Shopify.",
       "MerchantFix.ai does not generate GTIN or MPN.",
       "MerchantFix.ai does not invent brand.",
-      "Rows marked manual review require human verification.",
+      "Rows marked manual_review require human verification.",
       "Google approval is not guaranteed."
     ],
     disclaimer: MANDATORY_DISCLAIMER
