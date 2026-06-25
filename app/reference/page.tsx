@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PrimaryLink, SecondaryLink, TextBadge } from "@/components";
 import { authorityGuides } from "@/lib/authoritySeo";
+import { authoritySeoLevel2Guides } from "@/lib/authoritySeoLevel2";
 import { canonical } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "MerchantFix Reference Library | Shopify Merchant Center Errors",
   description:
-    "Reference library for Shopify merchants fixing Google Merchant Center errors: GTIN, brand, MPN, identifier_exists, CSV diagnosis, and safe resubmission workflows.",
+    "Reference library for Shopify merchants fixing Google Merchant Center errors: GTIN, brand, MPN, identifier_exists, CSV diagnosis, price, availability, images, shipping, and policy-adjacent issues.",
   alternates: {
     canonical: canonical("/reference")
   }
@@ -19,6 +20,12 @@ const principles = [
   "No fake data: GTIN, MPN, brand, price, availability, and product facts must be verified.",
   "CSV diagnosis before bulk edits: affected rows and manual review flags matter more than generic advice."
 ];
+
+const level2PreviewGuides = authoritySeoLevel2Guides.slice(0, 6).map((guide) => ({
+  path: `/reference/level-2/${guide.slug}`,
+  label: guide.label,
+  description: guide.description
+}));
 
 export default function ReferenceHubPage() {
   return (
@@ -36,7 +43,7 @@ export default function ReferenceHubPage() {
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <PrimaryLink href="/#paste-error">Paste my Merchant Center warning</PrimaryLink>
-              <SecondaryLink href="/fix">Open all guides</SecondaryLink>
+              <SecondaryLink href="/reference/level-2">Open level 2 library</SecondaryLink>
             </div>
           </div>
           <aside className="rounded-[2rem] border border-white/15 bg-white/10 p-5 shadow-2xl shadow-blue-950/40 backdrop-blur md:p-6">
@@ -77,6 +84,25 @@ export default function ReferenceHubPage() {
               <Link key={guide.path} href={guide.path} className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-blue-50 hover:shadow-xl hover:shadow-blue-100/60">
                 <span className="block text-xl font-black text-slate-950">{guide.label}</span>
                 <span className="mt-3 block text-sm font-semibold leading-6 text-slate-600">{guide.description}</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-14 rounded-[2rem] border border-slate-900 bg-slate-950 p-6 text-white shadow-2xl shadow-slate-300/70 md:p-8">
+          <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
+            <div className="min-w-0">
+              <p className="text-xs font-black uppercase tracking-[0.22em] text-slate-300">Topical authority level 2</p>
+              <h2 className="mt-3 text-3xl font-black tracking-tight">Expand beyond identifiers into every high-intent warning family.</h2>
+              <p className="mt-3 max-w-3xl leading-7 text-slate-300">Price, availability, image, limited performance, misrepresentation, disapproved products, shipping, and tax pages extend the acquisition surface.</p>
+            </div>
+            <PrimaryLink href="/reference/level-2">Open level 2</PrimaryLink>
+          </div>
+          <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {level2PreviewGuides.map((guide) => (
+              <Link key={guide.path} href={guide.path} className="rounded-2xl border border-white/15 bg-white/10 p-5 transition hover:bg-white/15">
+                <span className="block text-lg font-black text-white">{guide.label}</span>
+                <span className="mt-3 block text-sm font-semibold leading-6 text-slate-300">{guide.description}</span>
               </Link>
             ))}
           </div>
