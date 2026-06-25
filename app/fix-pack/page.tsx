@@ -33,7 +33,7 @@ const checks = [
   "Missing price fields",
   "Availability and status fields",
   "Manual review rows",
-  "Corrected CSV only when deterministic"
+  "Annotated CSV only when safe"
 ];
 
 const process = [
@@ -41,14 +41,14 @@ const process = [
   "Open the one-time Fix Pack checkout.",
   "Upload your Shopify CSV export.",
   "Review critical issues, warnings, affected rows, and safe actions.",
-  "Download correction notes or a corrected CSV only when the change is deterministic."
+  "Download annotation notes or a CSV with deterministic changes only when safe."
 ];
 
 const faqs = [
   {
     question: "What do I get after buying the Fix Pack?",
     answer:
-      "You get access to the Shopify CSV diagnostic flow, a prioritized report, affected rows when available, safe correction guidance, manual review flags, and a corrected CSV only when a deterministic safe fix exists."
+      "You get access to the Shopify CSV diagnostic flow, a prioritized report, affected rows when available, safe correction guidance, manual review flags, and an annotated CSV only when safe notes or deterministic changes are available."
   },
   {
     question: "When should I choose the Fix Pack?",
@@ -98,7 +98,7 @@ export default function FixPackPage() {
               <SecondaryLink href="/sample-report">See sample report</SecondaryLink>
             </div>
             <p className="mt-5 max-w-2xl text-sm font-bold leading-6 text-slate-300">
-              No fake identifiers. No invented values. Corrected CSV only when the change is deterministic.
+              No fake identifiers. No invented values. Annotated CSV only when notes or deterministic changes are safe.
             </p>
           </div>
 
