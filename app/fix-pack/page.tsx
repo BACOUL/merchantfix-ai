@@ -37,23 +37,90 @@ const checks = [
 ];
 
 const process = [
-  { title: "Export", text: "Export a clean Shopify product CSV before editing it." },
-  { title: "Checkout", text: "Open the one-time Fix Pack checkout." },
-  { title: "Upload", text: "Upload your Shopify CSV export after payment." },
-  { title: "Review", text: "Read critical issues, warnings, affected rows, and safe actions." },
-  { title: "Download", text: "Download annotation notes or deterministic changes only when safe." }
+  { title: "Paste warning", text: "Start from the exact Merchant Center warning so the diagnostic stays focused." },
+  { title: "Checkout", text: "Use the one-time 29 euro Fix Pack checkout. No monthly subscription." },
+  { title: "Upload CSV", text: "Upload a clean Shopify product CSV export after payment." },
+  { title: "Review rows", text: "Read affected rows, guardrail status, reason, and evidence needed." },
+  { title: "Download", text: "Download the annotated CSV before editing Shopify or resubmitting." }
+];
+
+const deliverables = [
+  {
+    title: "Annotated Shopify CSV",
+    text: "Your original CSV preserved with MerchantFix notes, action, status, manual-review reason, and evidence-needed columns."
+  },
+  {
+    title: "Affected-row diagnosis",
+    text: "A row-level view of product-data issues such as GTIN, MPN, brand, identifier_exists, image, and price problems."
+  },
+  {
+    title: "Guardrail decision",
+    text: "Each row is classified as safe_note, manual_review, or blocked so you know what can be reviewed safely."
+  },
+  {
+    title: "Evidence checklist",
+    text: "Rows that require product truth explain what to check: packaging, supplier sheet, manufacturer data, Shopify admin, or storefront."
+  }
+];
+
+const guardrailRows = [
+  {
+    status: "safe_note",
+    meaning: "MerchantFix can add a note without changing factual product data.",
+    example: "Missing image note or informational CSV note.",
+    action: "Normally no owner action needed."
+  },
+  {
+    status: "manual_review",
+    meaning: "The correct value cannot be known from the CSV alone.",
+    example: "Missing GTIN, missing brand, duplicate GTIN, SKU used as MPN.",
+    action: "Merchant checks packaging, supplier, manufacturer, Shopify, or storefront evidence."
+  },
+  {
+    status: "blocked",
+    meaning: "MerchantFix should not deliver an automated correction.",
+    example: "Malformed CSV, unrecognized columns, or unsupported account-level issue.",
+    action: "Use a fresh Shopify CSV or treat the case as outside safe automation."
+  }
+];
+
+const csvColumns = [
+  "merchantfix_notes",
+  "merchantfix_action",
+  "merchantfix_status",
+  "merchantfix_manual_review_reason",
+  "merchantfix_evidence_needed"
+];
+
+const notIncluded = [
+  "No fake GTIN generation",
+  "No invented MPN or brand",
+  "No Google approval guarantee",
+  "No Merchant Center account recovery service",
+  "No feed management app replacement",
+  "No monthly subscription in the launch offer"
 ];
 
 const faqs = [
   {
     question: "What do I get after buying the Fix Pack?",
     answer:
-      "You get access to the Shopify CSV diagnostic flow, a prioritized report, affected rows when available, safe correction guidance, manual review flags, and an annotated CSV only when safe notes or deterministic changes are available."
+      "You get access to the Shopify CSV diagnostic flow, affected-row diagnosis, guardrail status, manual-review reasons, evidence-needed notes, and an annotated CSV when safe notes or deterministic changes are available."
   },
   {
     question: "When should I choose the Fix Pack?",
     answer:
       "Choose it when Google Merchant Center shows GTIN, MPN, brand, identifier_exists, price, availability, or image issues and you need row-level Shopify CSV context."
+  },
+  {
+    question: "What does manual_review mean?",
+    answer:
+      "It means MerchantFix detected a row that needs real product evidence before editing Shopify. The system tells you what evidence is needed, but it does not invent product facts."
+  },
+  {
+    question: "What does blocked mean?",
+    answer:
+      "It means the case is not safe for automated correction, for example a malformed CSV, unrecognized columns, or an issue that requires broader manual review."
   },
   {
     question: "Does this guarantee Google approval?",
@@ -86,26 +153,29 @@ export default function FixPackPage() {
             <div className="flex flex-wrap gap-2">
               <TextBadge tone="blue">Fix Pack</TextBadge>
               <TextBadge tone="slate">29 € one-time</TextBadge>
-              <TextBadge tone="green">Launch offer</TextBadge>
+              <TextBadge tone="green">No subscription</TextBadge>
             </div>
             <h1 className="mt-6 break-words text-4xl font-black tracking-tight sm:text-6xl md:text-7xl">
-              Row-level Shopify CSV diagnosis before you edit product data.
+              Upload your Shopify CSV. Get the rows to fix, review, or block.
             </h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-200">
-              Use Fix Pack when Google flags GTIN, MPN, brand, identifier_exists, price, availability, or image issues and you need a practical list of Shopify rows to review.
+              Fix Pack turns Merchant Center warnings into a row-level Shopify CSV diagnosis with guardrails: safe notes, manual-review reasons, and evidence needed before you edit product data.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <CheckoutButton plan="fix-pack">Start Fix Pack checkout</CheckoutButton>
               <SecondaryLink href="/sample-report">See sample report</SecondaryLink>
             </div>
             <p className="mt-5 max-w-2xl text-sm font-bold leading-6 text-slate-300">
-              No fake identifiers. No invented product facts. No Google approval guarantee.
+              One-time 29 €. No fake identifiers. No invented product facts. No Google approval guarantee.
             </p>
           </div>
 
           <aside className="rounded-[2rem] border border-white/15 bg-white/10 p-5 shadow-2xl shadow-blue-950/40 backdrop-blur md:p-6">
-            <p className="text-xs font-black uppercase tracking-[0.22em] text-slate-300">What the merchant receives</p>
+            <p className="text-xs font-black uppercase tracking-[0.22em] text-slate-300">What you receive</p>
             <h2 className="mt-3 text-2xl font-black">A diagnostic package, not vague advice.</h2>
+            <p className="mt-3 leading-7 text-slate-300">
+              The output is designed to show the next step clearly: which row is affected, why it matters, what evidence is needed, and what must not be guessed.
+            </p>
             <div className="mt-5">
               <FixPackOutputPreview />
             </div>
@@ -114,6 +184,17 @@ export default function FixPackPage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-5 md:px-8 md:py-16">
+        <div className="grid gap-4 md:grid-cols-4">
+          {deliverables.map((item) => (
+            <article key={item.title} className="rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-xl shadow-slate-200/60">
+              <h2 className="font-black text-slate-950">{item.title}</h2>
+              <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{item.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 pb-12 sm:px-5 md:px-8 md:pb-16">
         <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
           <div className="min-w-0 lg:sticky lg:top-28">
             <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">When to use it</p>
@@ -142,6 +223,49 @@ export default function FixPackPage() {
               {checks.map((check) => (
                 <div key={check} className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 font-semibold text-slate-700">
                   {check}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 pb-12 sm:px-5 md:px-8 md:pb-16">
+        <div className="rounded-[2rem] border border-blue-200 bg-blue-50 p-6 shadow-xl shadow-blue-100/60 md:p-8">
+          <div className="max-w-3xl">
+            <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">New guardrail output</p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 md:text-4xl">Every row gets a decision status.</h2>
+            <p className="mt-4 leading-7 text-slate-700">
+              MerchantFix does not ask you to guess. The annotated CSV separates safe notes from rows that need evidence and cases that should not be treated as automated fixes.
+            </p>
+          </div>
+          <div className="mt-6 grid gap-4 lg:grid-cols-3">
+            {guardrailRows.map((row) => (
+              <article key={row.status} className="rounded-2xl border border-blue-100 bg-white p-5">
+                <p className="font-mono text-sm font-black text-blue-700">{row.status}</p>
+                <h3 className="mt-3 font-black text-slate-950">{row.meaning}</h3>
+                <p className="mt-3 text-sm font-semibold leading-6 text-slate-600">Example: {row.example}</p>
+                <p className="mt-3 rounded-xl bg-slate-950 px-3 py-2 text-sm font-bold leading-6 text-white">{row.action}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 pb-12 sm:px-5 md:px-8 md:pb-16">
+        <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/60 md:p-8">
+          <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">CSV columns added</p>
+              <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 md:text-4xl">The file tells you what to do next.</h2>
+              <p className="mt-4 leading-7 text-slate-600">
+                The annotated CSV keeps your original data and adds MerchantFix columns designed for safe decision-making before resubmission.
+              </p>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {csvColumns.map((column) => (
+                <div key={column} className="rounded-2xl border border-slate-200 bg-slate-50 p-4 font-mono text-sm font-black text-slate-800">
+                  {column}
                 </div>
               ))}
             </div>
@@ -196,6 +320,27 @@ export default function FixPackPage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 pb-12 sm:px-5 md:px-8 md:pb-16">
+        <div className="rounded-[2rem] border border-amber-200 bg-amber-50 p-6 shadow-xl shadow-amber-100/60 md:p-8">
+          <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.22em] text-amber-700">What is not included</p>
+              <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 md:text-4xl">This is a diagnostic Fix Pack, not a feed app or account recovery service.</h2>
+              <p className="mt-4 leading-7 text-slate-700">
+                The low launch price works because the product stays focused: CSV diagnosis, evidence checklist, and safe output. It does not replace supplier verification or Google account support.
+              </p>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {notIncluded.map((item) => (
+                <div key={item} className="rounded-2xl border border-amber-200 bg-white px-4 py-3 font-bold text-slate-800">
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 pb-12 sm:px-5 md:px-8 md:pb-16">
         <SafeDiagnosticNotice />
       </section>
 
@@ -221,7 +366,7 @@ export default function FixPackPage() {
               <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Ready to prepare your CSV</p>
               <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">Get the row-level diagnosis before changing product data.</h2>
               <p className="mt-3 max-w-3xl leading-7 text-slate-700">
-                Complete checkout, upload your Shopify CSV, and review the diagnosis before editing or resubmitting products.
+                Complete checkout, upload your Shopify CSV, and review the guardrail-based diagnosis before editing or resubmitting products.
               </p>
             </div>
             <div className="flex min-w-0 flex-col gap-3">
