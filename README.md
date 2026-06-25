@@ -1,652 +1,268 @@
 # MerchantFix.ai
 
-MerchantFix.ai helps Shopify merchants diagnose and fix Google Merchant Center product data issues, starting with a no-install Shopify surface scan and a deeper Shopify CSV diagnostic for GTIN, MPN, brand, and identifier_exists problems.
+MerchantFix.ai helps Shopify merchants turn Google Merchant Center product-data warnings into practical Shopify checks and CSV-level diagnosis.
 
-The first versions are intentionally narrow.
+The current product direction is simple:
 
-Start with a quick Shopify store URL scan when public product data is available. Then upload a Shopify product CSV for deeper identifier diagnosis. Get a clear diagnosis, exact fixes, and a corrected CSV when possible.
+> Paste a Google Merchant Center warning. Get the Shopify fields and CSV rows to check before resubmitting.
 
-MerchantFix.ai is not a full feed management platform, not an agency service, and not a guarantee of Google approval. It is a focused diagnostic and repair tool for product data issues that can block or limit visibility in Google Merchant Center and Google Shopping.
+MerchantFix is not a feed management platform, not a Shopify app, not a Google Merchant Center connector, not an agency service, and not a guarantee of Google approval. It is a focused diagnostic layer for Shopify product data issues.
 
 ## Project status
 
-Current stage: V0 / V0.5 / V1 preparation
+Current stage: **V1/V2 paid MVP preparation**.
 
-The project is currently ready to move from documentation and samples into initial application development.
+The repository is no longer only a documentation or placeholder project. It already includes:
 
-Documentation, product scope, rules, prompts, and sample files are prepared.
+- Next.js application structure.
+- Public Shopify surface scan flow.
+- Google Merchant Center error-first homepage direction.
+- Shopify CSV diagnostic engine.
+- Stripe Checkout for paid Fix Pack access.
+- Post-payment diagnostic gate.
+- Private diagnostic test token mode.
+- SEO pages for exact Merchant Center errors and Shopify Google Shopping problems.
+- Glossary and commercial FAQ schema work.
+- Vitest coverage for the core CSV analyzer.
 
-The next technical step is to initialize the Next.js project structure and placeholder pages with Codex Prompt 01.
+PR #33 moves the product further toward an error-first conversion flow: paste a Merchant Center warning, identify the Shopify fields to check, then use the Fix Pack when row-level CSV diagnosis is needed.
 
-No production feature should be added outside the documented version scope.
+## Current user journey
 
-## Core positioning
+1. A Shopify merchant sees a Google Merchant Center warning or product-data problem.
+2. The merchant pastes the exact warning into MerchantFix.
+3. MerchantFix maps supported warnings to likely Shopify fields and safe next actions.
+4. The merchant can run a free public Shopify surface scan when public product data is accessible.
+5. The merchant buys the Fix Pack when row-level CSV diagnosis is needed.
+6. After Stripe checkout, the merchant opens the locked diagnostic area.
+7. The merchant uploads a clean Shopify CSV export.
+8. MerchantFix analyzes the CSV, flags affected rows, explains safe actions, and generates a corrected CSV only when the change is deterministic.
+9. Rows requiring real merchant, supplier, or manufacturer verification are marked for manual review.
 
-MerchantFix.ai is the urgent-care tool for Google Merchant Center product disapprovals and product data issues.
+## Current product scope
 
-The first user journey is simple:
+### Free layer
 
-Shopify merchant receives a Google Merchant Center product disapproval or suspects product data issues.
+- Paste a Google Merchant Center warning.
+- Detect supported error patterns.
+- Show likely Shopify fields to check.
+- Explain safe next actions.
+- Run a public Shopify URL surface scan when product data is publicly available.
 
-The merchant enters a Shopify store URL for a quick no-install surface scan when public product data is available.
+### Paid Fix Pack
 
-MerchantFix.ai detects basic visible risks such as missing images, missing prices, weak titles, weak descriptions, and product count.
+- One-time Stripe Checkout payment.
+- Protected `/diagnostic` access through verified Stripe session or private test token.
+- Shopify CSV upload.
+- CSV parsing and Shopify column normalization.
+- Row-level issue detection.
+- Critical, warning, and info severity levels.
+- Manual review flags.
+- Corrected CSV generation only when safe and deterministic.
 
-MerchantFix.ai clearly explains that the URL scan is only a surface risk audit, not a full Google Merchant Center diagnosis.
+## Supported issue families
 
-The merchant is invited to upload a Shopify CSV for deeper identifier diagnosis.
+The current diagnostic scope focuses on Shopify product-data issues that commonly appear around Google Merchant Center and Google Shopping:
 
-The issue is analyzed for GTIN, MPN, brand, or identifier_exists problems.
-
-MerchantFix.ai shows a clear diagnosis.
-
-MerchantFix.ai generates a corrected CSV when the correction is safe.
-
-MerchantFix.ai provides a manual review checklist when required.
-
-## Long-term vision
-
-MerchantFix.ai starts as a focused Google Merchant Center diagnostic tool for Shopify merchants.
-
-The long-term opportunity is broader: product data readiness for Google Shopping, marketplaces, comparison engines, and future AI-assisted shopping surfaces.
-
-That means helping merchants keep product titles, descriptions, images, prices, brands, GTINs, MPNs, and identifier signals clear enough for the channels that increasingly decide how products are discovered, matched, and trusted.
-
-This broader vision does not expand the current MVP scope. The current MVP remains limited to Shopify URL surface scan and Shopify CSV diagnostic for Google Merchant Center product data issues.
-
-## Initial target customer
-
-The first target customer is Shopify merchants using Google Merchant Center.
-
-MerchantFix.ai is also relevant for Shopify merchants running Google Shopping or Performance Max campaigns, e-commerce operators seeing product disapprovals or limited visibility, Google Ads freelancers managing Shopify stores, and Shopify or SEA agencies managing several merchant accounts.
-
-The first versions are not designed for WooCommerce, Prestashop, Magento, Amazon listings, Meta Catalog, TikTok Shop, general feed management, or full Merchant Center account recovery.
-
-Those use cases may be considered in later versions only after validation.
-
-After the Shopify and Google Merchant Center wedge is validated, MerchantFix.ai may later expand carefully toward other commerce channels where product data readiness creates repeatable value.
-
-## Initial problem
-
-Shopify merchants often face Google Merchant Center issues such as missing GTIN, missing MPN, missing brand, incorrect identifier_exists, product identifiers not provided, invalid-looking barcode, duplicate GTIN, SKU incorrectly used as MPN, missing images, missing prices, weak product data, and products disapproved or limited because product data is incomplete or inconsistent.
-
-V0.5 focuses only on a no-install surface scan from publicly available Shopify product data when accessible.
-
-V1 focuses only on identifier-related issues inside Shopify CSV files.
-
-## First MVP scope
-
-The first MVP sequence must do only this:
-
-Run a no-install Shopify URL surface scan when public product data is available.
-
-Detect basic visible risks.
-
-Show a simple surface risk score.
-
-Invite the user to upload a Shopify CSV for deeper diagnosis.
-
-Upload Shopify CSV.
-
-Normalize product columns.
-
-Detect GTIN, MPN, brand, and identifier_exists issues.
-
-Show a clear diagnostic.
-
-Generate a corrected CSV when the correction is safe.
-
-## V0.5 No-install Shopify surface scan
-
-Goal: validate whether Shopify merchants engage more easily with a no-install Shopify URL scan before being asked to upload a CSV.
-
-V0.5 is an acquisition and validation layer, not the core diagnostic engine.
-
-The user enters a Shopify store URL. MerchantFix.ai attempts to read publicly available Shopify product data when possible. MerchantFix.ai runs a surface-level risk scan only.
-
-V0.5 may detect:
-
-- Basic product count.
+- Missing GTIN.
+- Invalid GTIN.
+- Duplicate GTIN.
+- Missing MPN.
+- SKU used as MPN warning.
+- Missing brand or vendor.
+- Missing `identifier_exists`.
+- `identifier_exists` conflict.
+- Possible custom, handmade, personalized, or made-to-order products.
 - Missing product image.
 - Missing product price.
-- Weak or very short product title.
-- Empty or weak product description.
-
-V0.5 must show a simple surface risk score and invite the user to upload a Shopify CSV for deeper identifier diagnosis.
-
-V0.5 is not a full Google Merchant Center diagnostic. It does not use Shopify API, Google Merchant Center API, authentication, database, Stripe, AI, PDF generation, or a Shopify app.
-
-V0.5 must include a clear disclaimer:
-
-MerchantFix.ai surface scan is based on publicly available product data when accessible. It is not a full Google Merchant Center diagnosis. Google approval is not guaranteed.
-
-V1 remains the serious diagnostic engine for Shopify CSV identifier issues: GTIN, MPN, brand, and identifier_exists.
-
-## V0.5 allowed features
-
-The V0.5 is allowed to include a landing page, Shopify store URL input, URL normalization, public Shopify product data fetch when available, graceful failure when public product data is unavailable, product count detection, missing image detection, missing price detection, weak title detection, weak description detection, simple surface risk score, and a CTA to upload a Shopify CSV for deeper identifier diagnosis.
-
-## V0.5 forbidden features
-
-The V0.5 must not include Stripe, authentication, user accounts, database, Shopify API, Google Merchant Center API, OpenAI or AI calls, PDF generation, ZIP generation, subscription plans, agency dashboard, WooCommerce, XML feed parsing, Merchant Center monitoring, Shopify app, automatic CSV correction, or any guarantee of Google approval.
-
-V0.5 must not claim to reproduce Google Merchant Center diagnostics. V0.5 must not claim that detected issues are guaranteed disapproval causes.
-
-## V1 allowed features
-
-The V1 is allowed to include a landing page, a textarea to paste a Google Merchant Center error message, Shopify CSV upload, CSV parsing, flexible Shopify column normalization, product identifier issue detection, diagnostic summary, affected product table, severity levels such as critical, warning, and info, recommended actions, corrected CSV generation when safe, a merchantfix_notes column in the corrected CSV, and a clear disclaimer that Google approval is not guaranteed.
-
-## V1 forbidden features
-
-The V1 must not include Stripe, authentication, user accounts, database, Shopify API, Google Merchant Center API, OpenAI or AI calls, PDF generation, ZIP generation, subscription plans, agency dashboard, WooCommerce, XML feed parsing, Merchant Center monitoring, Shopify app, or any guarantee of Google approval.
-
-These features are reserved for later versions if the previous version is validated.
+- Price mismatch support at CSV/checklist level.
+- Availability mismatch support at CSV/checklist level.
+- Image issue support at CSV/checklist level.
+- Misrepresentation support is limited and must not be positioned as automatic account recovery.
 
 ## Product safety rules
 
-MerchantFix.ai must follow strict safety rules.
-
-## Rule 1: never invent GTIN
-
-A GTIN is a real product identifier. If the file does not contain a valid GTIN, the tool must never create one.
-
-Allowed behavior: GTIN missing, manual review required.
-
-Forbidden behavior: generated fake GTIN.
-
-## Rule 2: never invent MPN
-
-A SKU is not automatically a manufacturer part number.
-
-Allowed behavior: SKU may not be a real MPN, manual review required.
-
-Forbidden behavior: copy SKU into MPN without verification.
-
-## Rule 3: never invent brand
-
-Brand must not be fabricated from the product title, store name, category, or description.
-
-Allowed behavior: brand missing, manual review required.
-
-Forbidden behavior: generated brand.
-
-## Rule 4: never guarantee Google approval
-
-MerchantFix.ai can diagnose and correct product data issues. It cannot guarantee Google Merchant Center approval.
-
-Mandatory disclaimer:
-
-MerchantFix.ai helps diagnose and fix product data issues. Some issues may require manual review. Google approval is not guaranteed.
-
-## Rule 5: separate automatic fixes from manual review
-
-Each issue must be classified as automatically fixable, manual review required, or not fixable from the product file.
-
-## Rule 6: preserve original client data
-
-Corrected CSV files must preserve the original columns and values unless a safe correction is explicitly applied.
-
-Every correction must be explained in merchantfix_notes.
-
-## Rule 7: separate surface scan from deep diagnosis
-
-V0.5 surface scan must remain separate from V1 CSV diagnosis.
-
-V0.5 can identify visible surface risks only. V1 performs the deeper Shopify CSV identifier diagnosis.
-
-## Rule 8: do not overstate URL scan accuracy
-
-The no-install URL scan must always be positioned as a surface risk audit based on publicly available product data when accessible.
-
-It must not be positioned as a full Merchant Center diagnostic.
-
-## Initial error families
-
-V0.5 focuses on missing image, missing price, weak title, empty or weak description, and basic product count.
-
-V1 focuses on identifier_exists=true while GTIN and MPN are missing, missing GTIN, missing MPN, missing brand, missing identifier_exists, invalid-looking GTIN length, duplicate GTIN, SKU identical to MPN, missing image, and missing price.
-
-identifier_exists=true while GTIN and MPN are missing must be treated as critical.
-
-Missing GTIN must be treated as warning or critical depending on context.
-
-Missing MPN must be treated as warning.
-
-Missing brand must be treated as warning.
-
-Missing identifier_exists must be treated as info.
-
-Invalid-looking GTIN length must be treated as warning.
-
-Duplicate GTIN must be treated as warning.
-
-SKU identical to MPN must be treated as info.
-
-Missing image must be treated as warning.
-
-Missing price must be treated as warning.
-
-## Planned roadmap
-
-## V0 Market validation
-
-Goal: validate that Shopify merchants and agencies have real Merchant Center product data and identifier issues.
-
-V0 includes landing page, error submission form, manual or semi-manual diagnosis, first SEO pages, and outreach to Shopify communities, Google Ads communities, e-commerce communities, freelancers, and agencies.
-
-Validation criteria for V0:
-
-- Collect 10 real Merchant Center errors.
-- Receive 3 screenshots or CSV files.
-- Get 1 agency to confirm recurring need.
-- Get 1 to 3 users to show willingness to pay.
-
-## V0.5 No-install Shopify surface scan
-
-Goal: validate whether Shopify merchants engage more easily with a no-install Shopify store URL scan before being asked to upload a CSV.
-
-V0.5 includes Shopify store URL input, public product data fetch when available, surface-level product scan, product count, missing image detection, missing price detection, weak title detection, weak description detection, basic surface risk score, clear disclaimer, and CTA to upload a Shopify CSV for deeper identifier diagnosis.
-
-V0.5 excludes Stripe, payment, authentication, user accounts, database, Shopify API, Google Merchant Center API, AI calls, PDF generation, ZIP generation, subscription plans, agency dashboard, Shopify app, automatic CSV correction, full Merchant Center diagnosis, and Google approval guarantees.
-
-Validation criteria for V0.5:
-
-- Test 20 Shopify URLs.
-- Achieve 10 successful public scans.
-- Get 5 users to continue toward CSV upload or show intent to do so.
-- Receive 3 real Shopify CSV files.
-- Get 1 agency or freelancer to confirm interest.
-- Get 3 users to show willingness to pay for a deeper Fix Pack.
-
-## V1 Identifier diagnostic MVP
-
-Goal: build the first technical engine for Shopify CSV identifier issues.
-
-V1 includes CSV upload, Shopify column normalization, GTIN detection, MPN detection, brand detection, identifier_exists detection, diagnostic result page, corrected CSV when safe, and test samples.
-
-V1 excludes Stripe, authentication, database, PDF, ZIP, AI, Shopify API, and Google API.
-
-## V2 Paid Fix Pack
-
-Goal: turn the diagnostic into a paid self-service product.
-
-V2 may include Stripe payment, ZIP download, PDF report, corrected CSV, manual review CSV, resubmission checklist, and a first paid offer around 79 euros.
-
-## V3 More Merchant Center errors
-
-Goal: expand beyond product identifiers.
-
-Potential V3 error families include price mismatch, availability mismatch, image issue, missing shipping, missing tax, missing Google product category, products not showing, limited performance, and misrepresentation checklist only.
-
-Misrepresentation must never be positioned as an automatic fix.
-
-## V4 Agency product
-
-Goal: create recurring revenue from agencies and freelancers.
-
-V4 may include agency dashboard, diagnosis history, branded reports, monthly packs, Stripe subscriptions, Supabase database, and authentication.
-
-## V5 Platform and monitoring
-
-Goal: become a product data quality platform for shopping channels.
-
-V5 may include Shopify API, Google Merchant Center API, monitoring, alerts, Shopify app, WooCommerce support, XML parsing, and multi-channel product data checks only if previous versions have been validated.
+MerchantFix must follow strict product-data safety rules:
+
+1. Never invent GTIN values.
+2. Never invent MPN values.
+3. Never invent brand values.
+4. Never copy SKU into MPN unless the merchant confirms it is truly the manufacturer part number.
+5. Never guarantee Google approval, ranking, traffic, account recovery, or sales.
+6. Always separate deterministic fixes from manual review.
+7. Preserve original client CSV data unless a safe correction is explicitly applied.
+8. Explain corrections through `merchantfix_notes`.
+9. Keep the public Shopify surface scan separate from deep CSV diagnosis.
+10. Do not present public URL scanning as a full Merchant Center diagnosis.
+
+Mandatory product disclaimer:
+
+> MerchantFix.ai helps diagnose Shopify product data issues. Some rows may require manual review. Google approval is not guaranteed.
+
+## What MerchantFix is not
+
+MerchantFix is not:
+
+- a full feed management platform;
+- a Google Merchant Center account recovery service;
+- a Shopify app in the current version;
+- a Google API integration in the current version;
+- an AI-based automatic fixer;
+- a guarantee of approval or performance;
+- a replacement for merchant, supplier, or manufacturer verification.
 
 ## Technical stack
 
-Planned initial stack:
+Current stack:
 
 - Next.js 14.
 - TypeScript.
 - Tailwind CSS.
 - PapaParse.
-- No authentication in V0.5 or V1.
-- No database in V0.5 or V1.
-- No Stripe in V0.5 or V1.
-- No AI in V0.5 or V1.
-- No Shopify API in V0.5 or V1.
-- No Google Merchant Center API in V0.5 or V1.
+- Stripe Checkout through server route.
+- Vitest for core analyzer tests.
 
-Potential later stack:
+Current scripts:
 
-- Stripe for V2.
-- Supabase for V4.
-- OpenAI API for explanatory reports in V3 or later.
-- Shopify API for V5.
-- Google Merchant Center API for V5.
+```bash
+npm run dev
+npm run build
+npm run typecheck
+npm run test
+```
 
-## Planned repository structure
+## Important environment variables
 
-merchantfix-ai/
+The paid diagnostic flow depends on environment configuration:
 
-app/
+- `STRIPE_SECRET_KEY` — required for checkout creation and paid diagnostic verification.
+- `NEXT_PUBLIC_APP_URL` or `APP_URL` — recommended for stable Stripe success/cancel URLs.
+- `DIAGNOSTIC_TEST_TOKEN` — optional private token for unpaid diagnostic API tests before production activation.
 
-app/page.tsx
+The app must stay usable without leaking private keys client-side.
 
-app/scan/page.tsx
+## Key routes
 
-app/result/[sessionId]/page.tsx
+- `/` — homepage and error-first entry point.
+- `/scan` — public Shopify surface scan.
+- `/fix-pack` — paid Fix Pack offer.
+- `/pricing` — pricing page.
+- `/success` — Stripe checkout success route.
+- `/cancel` — Stripe checkout cancellation route.
+- `/diagnostic` — locked CSV diagnostic upload area.
+- `/sample-report` — sample output page.
+- `/supported-errors` — supported Merchant Center warning map.
+- `/how-it-works` — process explanation.
+- `/fix/...` — SEO guides for exact Google Merchant Center and Shopify Google Shopping issues.
 
-app/api/surface-scan/route.ts
+## Key APIs
 
-app/api/analyze/route.ts
+- `POST /api/surface-scan` — public Shopify product-data surface scan.
+- `POST /api/checkout` — Stripe Checkout session creation.
+- `POST /api/analyze` — protected Shopify CSV diagnostic.
 
-components/
+## Validation checklist before public push
 
-lib/
+Before moving the product toward active sales, verify:
 
-lib/types.ts
+- Vercel build passes.
+- Homepage renders on desktop and mobile.
+- Paste-error form works client-side.
+- `/supported-errors` renders and maps warnings correctly.
+- `/fix-pack` renders with checkout buttons.
+- `/pricing` highlights Fix Pack clearly.
+- `/api/checkout` creates a Stripe session in EUR.
+- `/success` passes `session_id` to `/diagnostic`.
+- `/diagnostic` blocks unpaid access.
+- `/diagnostic?test_token=...` works only with the configured private test token.
+- `/api/analyze` rejects unpaid calls.
+- `/api/analyze` accepts valid paid/test calls.
+- Shopify CSV diagnosis flags affected rows correctly.
+- Corrected CSV is generated only when deterministic.
+- No text says Google approval is guaranteed.
+- No text says MerchantFix invents or repairs GTIN/MPN/brand automatically.
+- No TimeProofs email or unrelated project reference remains.
 
-lib/normalizeStoreUrl.ts
+## Roadmap
 
-lib/fetchPublicShopifyProducts.ts
+### V1 — Diagnostic MVP
 
-lib/detectSurfaceRisks.ts
+Goal: make the diagnostic useful and safe.
 
-lib/calculateSurfaceRiskScore.ts
+Includes:
 
-lib/normalizeColumns.ts
+- paste-error entry point;
+- supported warning map;
+- public surface scan;
+- CSV analyzer;
+- affected row table;
+- manual review flags;
+- safe correction notes;
+- tests.
 
-lib/analyzeShopifyCsv.ts
+### V2 — Paid Fix Pack
 
-lib/detectIdentifierIssues.ts
+Goal: sell a one-time self-service product.
 
-lib/generateCorrectedCsv.ts
+Includes:
 
-lib/generateSummary.ts
+- Stripe Checkout;
+- protected diagnostic page;
+- paid CSV upload;
+- downloadable correction output when safe;
+- sample report;
+- pricing and legal pages aligned with paid digital service rules.
 
-lib/validationRules.ts
+### V3 — More Merchant Center errors
 
-docs/
+Goal: expand carefully beyond identifiers.
 
-docs/MERCHANTFIX_MASTER_PLAN.md
+Potential families:
 
-docs/VERSION_SCOPE.md
+- price mismatch;
+- availability mismatch;
+- image issues;
+- shipping and tax checklist;
+- Google product category guidance;
+- limited performance support;
+- misrepresentation checklist only.
 
-docs/PRODUCT_RULES.md
+Misrepresentation must never be presented as an automatic fix.
 
-docs/QA_CHECKLIST.md
+### V4 — Agency product
 
-docs/GO_STOP_CRITERIA.md
+Goal: create recurring revenue for agencies and freelancers.
 
-docs/ACQUISITION_PLAN.md
+Possible later features:
 
-docs/DECISIONS.md
+- accounts;
+- history;
+- branded reports;
+- monthly packs;
+- subscriptions;
+- database;
+- authentication.
 
-docs/PLATFORM_EXPANSION_STRATEGY.md
+### V5 — Platform and monitoring
 
-docs/PROGRAMMATIC_SEO_STRATEGY.md
+Goal: product-data quality monitoring across shopping channels.
 
-docs/SCALE_STRATEGY.md
+Possible later features only after validation:
 
-docs/SEO_SNIPER_STRATEGY.md
+- Shopify API;
+- Google Merchant Center API;
+- monitoring alerts;
+- Shopify app;
+- WooCommerce support;
+- XML feed parsing;
+- multi-channel product data checks.
 
-prompts/
+## Immediate next step
 
-prompts/00_PROJECT_CONTEXT.md
+Finish and merge PR #33 after final QA, then test the production deployment with:
 
-prompts/01_CREATE_PROJECT_STRUCTURE.md
-
-prompts/02_CREATE_TYPES.md
-
-prompts/03_NORMALIZE_COLUMNS.md
-
-prompts/04_DETECT_IDENTIFIER_ISSUES.md
-
-prompts/05_ANALYZE_SHOPIFY_CSV.md
-
-prompts/06_GENERATE_CORRECTED_CSV.md
-
-prompts/07_BUILD_RESULT_PAGE.md
-
-prompts/08_CREATE_TESTS.md
-
-prompts/09_CREATE_SEO_PAGE.md
-
-prompts/10_ADD_STRIPE_V2.md
-
-samples/
-
-samples/clean-shopify.csv
-
-samples/missing-gtin.csv
-
-samples/custom-products.csv
-
-samples/duplicate-gtin.csv
-
-samples/dirty-file.csv
-
-samples/invalid-gtin.csv
-
-samples/sku-as-mpn.csv
-
-samples/missing-brand.csv
-
-qa/
-
-public/
-
-README.md
-
-ROADMAP.md
-
-CHANGELOG.md
-
-.env.example
-
-.gitignore
-
-## Sample files
-
-The samples folder must contain fictional CSV files only.
-
-Never commit real client exports, real Shopify product data, Merchant Center screenshots from clients, customer emails, payment data, or private business data.
-
-## Security and privacy
-
-The project must not store sensitive customer data unnecessarily.
-
-V0.5 should work as a no-auth, no-database surface scan flow.
-
-V1 should work as a no-auth, no-database diagnostic flow.
-
-Temporary file handling should be preferred.
-
-Never commit .env, .env.local, API keys, Stripe secrets, OpenAI keys, Shopify tokens, Google API credentials, or customer files.
-
-Use .env.example for placeholder variables only.
-
-## Acquisition strategy
-
-MerchantFix.ai will not rely on cold mass prospecting.
-
-Initial acquisition channels are long-tail SEO around exact Merchant Center errors, Shopify Community, Reddit communities such as Shopify, PPC, and e-commerce, Google Ads freelancers, Shopify agencies, SEA agencies, and product-led sharing through generated reports.
-
-The V0.5 no-install Shopify URL scan is the first acquisition layer.
-
-Primary CTA:
-
-Check your Shopify store for Google Merchant Center product issues in 60 seconds.
-
-Secondary CTA:
-
-Upload your Shopify CSV for deeper identifier diagnosis.
-
-Key SEO pages:
-
-/fix/shopify-google-merchant-center-checker
-
-/fix/shopify-google-shopping-audit
-
-/fix/missing-gtin-google-merchant-center
-
-/fix/missing-mpn-google-merchant-center
-
-/fix/incorrect-identifier-exists-shopify
-
-/fix/shopify-products-disapproved-google-merchant-center
-
-/fix/google-merchant-center-gtin-mpn-error
-
-/fix/shopify-google-shopping-image-issues
-
-/fix/shopify-products-missing-price-google-shopping
-
-Future SEO pages:
-
-/fix/google-merchant-center-price-mismatch
-
-/fix/google-merchant-center-availability-mismatch
-
-/fix/google-shopping-products-not-showing
-
-## Development method
-
-The project must be built step by step.
-
-Rule: one version equals one objective, one validation, and no scope creep.
-
-The workflow is plan, ticket, code, test, review, validate, then next step.
-
-Do not build the next version before the current one is validated.
-
-## Git workflow
-
-Recommended branches:
-
-main
-
-develop
-
-feature/v0-landing
-
-feature/v0-5-url-scan
-
-feature/v1-csv-parser
-
-feature/v1-identifier-rules
-
-feature/v1-result-page
-
-feature/v1-corrected-csv
-
-feature/v2-stripe
-
-Rules:
-
-main must remain stable.
-
-Work should happen on develop or feature branches.
-
-One feature branch should correspond to one clear task.
-
-Do not merge if tests fail.
-
-Do not merge if the change adds out-of-scope features.
-
-## Definition of Done
-
-A feature is done only if it matches the current version scope, does not add forbidden features, passes relevant tests, does not invent GTIN or MPN, does not invent brand, preserves original CSV data, explains every correction, displays clear manual review cases, includes the Google approval disclaimer where needed, does not claim full Merchant Center diagnosis from a surface scan, and does not store sensitive data unnecessarily.
-
-## Current completed preparation items
-
-README.md.
-
-ROADMAP.md.
-
-docs/MERCHANTFIX_MASTER_PLAN.md.
-
-docs/VERSION_SCOPE.md.
-
-docs/PRODUCT_RULES.md.
-
-docs/QA_CHECKLIST.md.
-
-docs/GO_STOP_CRITERIA.md.
-
-docs/ACQUISITION_PLAN.md.
-
-docs/DECISIONS.md.
-
-docs/PLATFORM_EXPANSION_STRATEGY.md.
-
-docs/PROGRAMMATIC_SEO_STRATEGY.md.
-
-docs/SCALE_STRATEGY.md.
-
-docs/SEO_SNIPER_STRATEGY.md.
-
-prompts/00_PROJECT_CONTEXT.md.
-
-prompts/01_CREATE_PROJECT_STRUCTURE.md.
-
-prompts/02_CREATE_TYPES.md.
-
-prompts/03_NORMALIZE_COLUMNS.md.
-
-prompts/04_DETECT_IDENTIFIER_ISSUES.md.
-
-prompts/05_ANALYZE_SHOPIFY_CSV.md.
-
-prompts/06_GENERATE_CORRECTED_CSV.md.
-
-prompts/07_BUILD_RESULT_PAGE.md.
-
-prompts/08_CREATE_TESTS.md.
-
-prompts/09_CREATE_SEO_PAGE.md.
-
-prompts/10_ADD_STRIPE_V2.md.
-
-samples/clean-shopify.csv.
-
-samples/missing-gtin.csv.
-
-samples/custom-products.csv.
-
-samples/duplicate-gtin.csv.
-
-samples/dirty-file.csv.
-
-samples/invalid-gtin.csv.
-
-samples/sku-as-mpn.csv.
-
-samples/missing-brand.csv.
-
-## Current next steps
-
-Initialize the Next.js project.
-
-Build V0.5 no-install Shopify surface scan first.
-
-Validate V0.5 engagement.
-
-Build V1 CSV identifier diagnostic after V0.5 scope is implemented or deliberately skipped based on validation.
-
-Do not add Stripe.
-
-Do not add authentication.
-
-Do not add database.
-
-Do not add AI.
-
-Do not add Shopify API.
-
-Do not add Google Merchant Center API.
-
-Do not add PDF.
-
-Do not add ZIP.
-
-Do not add monitoring.
-
-Do not build V2 before V1 validation.
-
-## Mandatory disclaimer
-
-MerchantFix.ai helps diagnose and fix product data issues. Some issues may require manual review. Google approval is not guaranteed.
-
-MerchantFix.ai surface scan is based on publicly available product data when accessible. It is not a full Google Merchant Center diagnosis. Google approval is not guaranteed.
+1. one real Shopify public URL;
+2. one sample Shopify CSV;
+3. one private diagnostic token;
+4. one real Stripe test checkout;
+5. one full post-payment CSV upload.

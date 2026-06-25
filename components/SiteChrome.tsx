@@ -1,12 +1,12 @@
 import Link from "next/link";
 
 const navItems = [
+  { href: "/#paste-error", label: "Paste error" },
+  { href: "/supported-errors", label: "Supported errors" },
   { href: "/fix-pack", label: "Fix Pack" },
-  { href: "/pricing", label: "Pricing" },
-  { href: "/methodology", label: "Methodology" },
-  { href: "/security", label: "Security" },
   { href: "/sample-report", label: "Sample report" },
-  { href: "/fix", label: "Guides" }
+  { href: "/pricing", label: "Pricing" },
+  { href: "/how-it-works", label: "How it works" }
 ];
 
 export function SiteChrome({ children }: { children: React.ReactNode }) {
@@ -28,12 +28,12 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
           </div>
 
           <Link
-            href="/fix-pack"
-            aria-label="View MerchantFix Fix Pack"
+            href="/#paste-error"
+            aria-label="Paste a Google Merchant Center error"
             className="shrink-0 rounded-full bg-slate-950 px-3 py-2 text-sm font-bold text-white transition hover:bg-slate-800 sm:px-4"
           >
-            <span className="hidden sm:inline">View Fix Pack</span>
-            <span className="sm:hidden">Fix Pack</span>
+            <span className="hidden sm:inline">Paste error</span>
+            <span className="sm:hidden">Error</span>
           </Link>
         </nav>
       </header>
@@ -45,8 +45,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
           <div className="min-w-0">
             <p className="font-black text-slate-950">MerchantFix.ai</p>
             <p className="mt-3 max-w-xl leading-6">
-              Focused Shopify product data diagnosis for surface risks, GTIN, MPN, brand, and identifier_exists issues.
-              Google approval is not guaranteed.
+              Paste a Google Merchant Center warning, identify the likely Shopify fields to check, and use the Fix Pack when CSV-level diagnosis is needed. Google approval is not guaranteed.
             </p>
           </div>
           <div className="grid min-w-0 gap-2 font-semibold">
@@ -63,6 +62,15 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
           </div>
           <div className="grid min-w-0 gap-2 font-semibold">
             <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-500">Product</p>
+            <Link href="/#paste-error" className="hover:text-slate-950">
+              Paste error
+            </Link>
+            <Link href="/supported-errors" className="hover:text-slate-950">
+              Supported errors
+            </Link>
+            <Link href="/how-it-works" className="hover:text-slate-950">
+              How it works
+            </Link>
             <Link href="/methodology" className="hover:text-slate-950">
               Methodology
             </Link>
@@ -71,9 +79,6 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
             </Link>
             <Link href="/how-to-export-shopify-csv" className="hover:text-slate-950">
               Export Shopify CSV
-            </Link>
-            <Link href="/fix-pack" className="hover:text-slate-950">
-              Paid CSV diagnostic
             </Link>
             <Link href="/scan" className="hover:text-slate-950">
               Scan my Shopify store

@@ -1,5 +1,7 @@
 MerchantFix.ai production release marker
-Expected production commit: 15866a9718fd531b559f9a466f1aef462b7b1960
-Expected state: paid CSV diagnostic is not public on homepage
-Expected #csv-diagnostic: Fix Pack CTA block, not upload form
-Created: 2026-06-17
+Expected production state: error-first Merchant Center warning flow + paid Fix Pack CSV diagnosis
+Expected PR: #33 Upgrade MerchantFix to error-first diagnosis flow
+Expected homepage: paste a Google Merchant Center warning, then route to public scan or Fix Pack
+Expected paid flow: Stripe checkout -> /success?session_id=... -> locked /diagnostic CSV upload
+Expected safety rules: no fake GTIN, no invented MPN, no invented brand, no Google approval guarantee
+Updated: 2026-06-25
