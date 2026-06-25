@@ -37,6 +37,8 @@ type SessionGateResult = {
   mode?: "stripe" | "test";
 };
 
+const supportEmail = "contact@merchantfix.ai";
+
 const uploadChecklist = [
   "Use an original Shopify product export when possible.",
   "Do not sort the CSV before uploading it.",
@@ -48,7 +50,7 @@ const diagnosticLimits = [
   "This page is intended for customers who completed checkout or for private test access.",
   "The report is a product data diagnostic, not a Google approval guarantee.",
   "Manual review rows require merchant, supplier, or manufacturer verification.",
-  "Contact support at contact@timeproofs.io if you cannot complete the upload after payment."
+  `Contact support at ${supportEmail} if you cannot complete the upload after payment.`
 ];
 
 function getSearchValue(value?: string | string[]) {
@@ -209,7 +211,7 @@ function LockedDiagnostic({ gate }: { gate: SessionGateResult }) {
           <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Support</p>
           <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">Already paid or testing privately?</h2>
           <p className="mt-4 max-w-3xl leading-7 text-slate-600">
-            Contact <a className="font-black text-blue-700 underline" href="mailto:contact@timeproofs.io">contact@timeproofs.io</a> with your Stripe confirmation email, session ID, or test context.
+            Contact <a className="font-black text-blue-700 underline" href={`mailto:${supportEmail}`}>{supportEmail}</a> with your Stripe confirmation email, session ID, or test context.
           </p>
         </div>
       </section>
