@@ -6,14 +6,13 @@ import {
   PrimaryLink,
   SafeDiagnosticNotice,
   SecondaryLink,
-  Section,
   TextBadge
 } from "@/components";
 import { buildBreadcrumbSchema, buildFaqPageSchema, jsonLd } from "@/lib/aiFirstSeo";
 import { canonical } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "MerchantFix.ai | Paste Google Merchant Center errors for Shopify",
+  title: "MerchantFix.ai | Shopify CSV diagnosis for Merchant Center errors",
   description:
     "Paste a Google Merchant Center warning, identify Shopify fields to check, and use Fix Pack for row-level CSV diagnosis of GTIN, brand, MPN, identifier_exists, price, availability, and image issues.",
   alternates: {
@@ -22,18 +21,17 @@ export const metadata: Metadata = {
 };
 
 const proofPoints = [
-  "Paste Merchant Center error",
-  "Free public Shopify scan",
-  "29 € Fix Pack CSV diagnosis",
-  "No fake GTINs or invented product data"
+  { label: "Entry point", value: "Paste the exact warning" },
+  { label: "Free check", value: "Public Shopify scan" },
+  { label: "Paid product", value: "29 € Fix Pack" },
+  { label: "Safety rule", value: "No invented identifiers" }
 ];
 
 const workflowSteps = [
-  "Paste the exact Google Merchant Center warning.",
-  "See the likely Shopify fields to check.",
-  "Run a free public Shopify scan when useful.",
-  "Use the Fix Pack when row-level CSV diagnosis is needed.",
-  "Apply safe edits only after merchant or supplier verification."
+  { title: "Understand the warning", text: "Paste the Google Merchant Center message and see which Shopify fields are likely involved." },
+  { title: "Check visible product data", text: "Run a public Shopify scan when the store exposes enough product information." },
+  { title: "Use CSV when rows matter", text: "Buy Fix Pack only when the issue needs row-level Shopify CSV diagnosis." },
+  { title: "Review before editing", text: "Apply safe notes and deterministic changes only. Product facts must be verified." }
 ];
 
 const feedAppComparison = [
@@ -69,26 +67,37 @@ const homeFaqs = [
 
 function HeroReportCard() {
   return (
-    <aside className="rounded-2xl border border-white/15 bg-white/10 p-5 shadow-2xl backdrop-blur md:p-6">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-        <div>
-          <p className="text-xs font-black uppercase tracking-[0.22em] text-slate-300">Example pasted error</p>
-          <h2 className="mt-3 text-2xl font-black text-white">Missing value [gtin]</h2>
-        </div>
-        <span className="w-fit rounded-full border border-red-200 bg-red-50 px-3 py-1 text-xs font-black text-red-800">Critical</span>
-      </div>
-      <div className="mt-5 grid gap-3">
-        {[
-          ["Likely Shopify field", "Variant Barcode"],
-          ["Also check", "Vendor / Brand, MPN, custom product status"],
-          ["Safe warning", "Do not invent GTIN values"],
-          ["Best next step", "Fix Pack for affected CSV rows"]
-        ].map(([label, value]) => (
-          <div key={label} className="rounded-xl bg-slate-950/45 p-4">
-            <p className="text-xs font-black uppercase tracking-[0.16em] text-slate-400">{label}</p>
-            <p className="mt-2 font-bold leading-6 text-white">{value}</p>
+    <aside className="relative overflow-hidden rounded-[2rem] border border-white/15 bg-white/10 p-5 shadow-2xl shadow-blue-950/40 backdrop-blur md:p-6">
+      <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-blue-500/20 blur-3xl" />
+      <div className="relative">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.22em] text-slate-300">Live-style diagnosis</p>
+            <h2 className="mt-3 text-2xl font-black text-white">Missing value [gtin]</h2>
           </div>
-        ))}
+          <span className="w-fit rounded-full border border-red-200 bg-red-50 px-3 py-1 text-xs font-black text-red-800">Critical</span>
+        </div>
+
+        <div className="mt-5 grid gap-3">
+          {[
+            ["Likely Shopify field", "Variant Barcode"],
+            ["Also check", "Vendor / Brand, MPN, custom product status"],
+            ["Unsafe shortcut", "Do not invent GTIN values"],
+            ["Best next step", "Fix Pack for affected CSV rows"]
+          ].map(([label, value]) => (
+            <div key={label} className="rounded-2xl border border-white/10 bg-slate-950/50 p-4">
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-slate-400">{label}</p>
+              <p className="mt-2 font-bold leading-6 text-white">{value}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-5 rounded-2xl border border-blue-300/20 bg-blue-300/10 p-4">
+          <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-100">What changes</p>
+          <p className="mt-2 text-sm font-semibold leading-6 text-slate-200">
+            The merchant moves from a vague Google warning to a row-level Shopify worklist before editing product data.
+          </p>
+        </div>
       </div>
     </aside>
   );
@@ -103,26 +112,29 @@ export default function HomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema) }} />
 
-      <section className="overflow-hidden bg-slate-950">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 text-white sm:px-5 md:px-8 md:py-24 lg:grid-cols-[0.96fr_1.04fr] lg:items-center">
+      <section className="relative overflow-hidden bg-slate-950">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.32),transparent_36%),radial-gradient(circle_at_80%_20%,rgba(14,165,233,0.18),transparent_28%)]" />
+        <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-16 text-white sm:px-5 md:px-8 md:py-28 lg:grid-cols-[0.98fr_1.02fr] lg:items-center">
           <div className="min-w-0">
             <div className="flex flex-wrap gap-2">
-              <TextBadge tone="green">For Shopify merchants</TextBadge>
-              <TextBadge tone="blue">Google Merchant Center errors</TextBadge>
+              <TextBadge tone="blue">Shopify product data</TextBadge>
+              <TextBadge tone="slate">Merchant Center warnings</TextBadge>
             </div>
-            <h1 className="mt-6 max-w-full break-words text-4xl font-black tracking-tight sm:text-5xl md:text-7xl">
-              Paste your Google Merchant Center error. Get the Shopify fields to check.
+            <h1 className="mt-6 max-w-5xl break-words text-4xl font-black tracking-tight sm:text-6xl md:text-7xl">
+              Turn Merchant Center warnings into a Shopify CSV action plan.
             </h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-200">
-              MerchantFix turns warnings like missing GTIN, missing brand, identifier_exists conflicts, price mismatch, availability mismatch, and image issues into a practical Shopify checklist and CSV diagnosis path.
+              MerchantFix helps Shopify merchants understand GTIN, brand, MPN, identifier_exists, price, availability, and image issues before they edit product data or resubmit to Google.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <PrimaryLink href="/#paste-error">Paste my error</PrimaryLink>
-              <SecondaryLink href="/fix-pack">View Fix Pack</SecondaryLink>
+              <SecondaryLink href="/sample-report">See sample report</SecondaryLink>
             </div>
-            <p className="mt-5 max-w-2xl text-sm font-bold leading-6 text-slate-300">
-              Safe diagnostics only. No fake GTINs. No invented product data. No Google approval guarantee.
-            </p>
+            <div className="mt-6 grid gap-3 text-sm font-bold text-slate-300 sm:grid-cols-3">
+              <p>No Shopify admin access.</p>
+              <p>No fake GTINs.</p>
+              <p>No Google approval guarantee.</p>
+            </div>
           </div>
 
           <HeroReportCard />
@@ -132,53 +144,72 @@ export default function HomePage() {
       <section className="border-b border-slate-200 bg-white">
         <div className="mx-auto grid max-w-7xl gap-3 px-4 py-5 sm:px-5 md:grid-cols-4 md:px-8">
           {proofPoints.map((item) => (
-            <div key={item} className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-700">
-              {item}
+            <div key={item.label} className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 shadow-sm">
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-500">{item.label}</p>
+              <p className="mt-2 font-black text-slate-950">{item.value}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-5 md:px-8 md:py-14">
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-5 md:px-8 md:py-16">
         <ErrorPasteForm />
 
-        <Section
-          eyebrow="Before / after"
-          title="From vague Google warning to practical Shopify worklist."
-          description="MerchantFix gives merchants useful direction before checkout by translating the error into the fields and rows that matter."
-        >
-          <BeforeAfterTable />
-        </Section>
-
-        <Section
-          eyebrow="What you receive"
-          title="The Fix Pack is a concrete deliverable, not vague advice."
-          description="The paid 29 € product is designed for merchants who need row-level Shopify CSV diagnosis before resubmitting or editing product data."
-        >
-          <FixPackOutputPreview />
-        </Section>
-
-        <Section
-          eyebrow="How it works"
-          title="One clear path from error to action."
-          description="The flow stays narrow on purpose: understand the warning, check visible data, then use CSV diagnosis only when row-level context is needed."
-        >
-          <div className="grid gap-3">
-            {workflowSteps.map((step, index) => (
-              <div key={step} className="grid gap-3 rounded-lg border border-slate-200 bg-white p-4 shadow-sm md:grid-cols-[auto_1fr]">
-                <span className="grid h-8 w-8 place-items-center rounded-full bg-slate-950 text-sm font-black text-white">{index + 1}</span>
-                <p className="font-semibold leading-7 text-slate-700">{step}</p>
-              </div>
-            ))}
+        <section className="grid gap-6 py-14 lg:grid-cols-[0.76fr_1.24fr] lg:items-start">
+          <div className="min-w-0 lg:sticky lg:top-28">
+            <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Product value</p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 md:text-5xl">
+              Stop guessing which Shopify row caused the warning.
+            </h2>
+            <p className="mt-4 leading-7 text-slate-600">
+              Merchant Center messages are often vague. MerchantFix turns them into a practical review flow: fields, rows, risk level, and safe next action.
+            </p>
           </div>
-        </Section>
+          <div className="grid gap-5">
+            <BeforeAfterTable />
+            <div className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-xl shadow-slate-200/60 md:p-6">
+              <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Fix Pack deliverable</p>
+              <h3 className="mt-3 text-2xl font-black tracking-tight text-slate-950">Concrete output, not generic advice.</h3>
+              <p className="mt-3 leading-7 text-slate-600">
+                The paid 29 € product is designed for merchants who need row-level Shopify CSV diagnosis before editing or resubmitting products.
+              </p>
+              <div className="mt-5">
+                <FixPackOutputPreview />
+              </div>
+            </div>
+          </div>
+        </section>
 
-        <Section
-          eyebrow="Positioning"
-          title="MerchantFix is not another feed management app."
-          description="This distinction matters. The product is a diagnostic layer for merchants who need to understand what Google is complaining about before changing product data."
-        >
-          <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white p-2 shadow-sm">
+        <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/60 md:p-8">
+          <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+            <div className="min-w-0">
+              <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">How it works</p>
+              <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 md:text-4xl">A narrow path from warning to action.</h2>
+              <p className="mt-4 leading-7 text-slate-600">
+                The product stays focused on the moment before a merchant edits product data: understand, check, diagnose, then review.
+              </p>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {workflowSteps.map((step, index) => (
+                <article key={step.title} className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                  <span className="grid h-9 w-9 place-items-center rounded-full bg-slate-950 text-sm font-black text-white">{index + 1}</span>
+                  <h3 className="mt-4 font-black text-slate-950">{step.title}</h3>
+                  <p className="mt-2 leading-7 text-slate-600">{step.text}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="grid gap-6 py-14 lg:grid-cols-[0.78fr_1.22fr]">
+          <div className="rounded-[2rem] border border-slate-900 bg-slate-950 p-6 text-white shadow-2xl shadow-slate-300/70 md:p-8">
+            <p className="text-xs font-black uppercase tracking-[0.22em] text-slate-400">Positioning</p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight md:text-4xl">Not a feed app. A diagnosis layer.</h2>
+            <p className="mt-4 leading-7 text-slate-300">
+              Feed apps push product data. MerchantFix helps merchants understand what is wrong before they change the data.
+            </p>
+          </div>
+          <div className="overflow-x-auto rounded-[2rem] border border-slate-200 bg-white p-2 shadow-xl shadow-slate-200/60">
             <table className="w-full min-w-[760px] border-separate border-spacing-y-2 text-left text-sm">
               <thead>
                 <tr className="text-slate-500">
@@ -190,22 +221,22 @@ export default function HomePage() {
               <tbody>
                 {feedAppComparison.map(([area, feedApp, merchantFix]) => (
                   <tr key={area} className="bg-slate-50 font-semibold leading-6 text-slate-700">
-                    <td className="rounded-l-lg px-3 py-3 text-slate-950">{area}</td>
-                    <td className="px-3 py-3">{feedApp}</td>
-                    <td className="rounded-r-lg px-3 py-3">{merchantFix}</td>
+                    <td className="rounded-l-xl px-3 py-4 text-slate-950">{area}</td>
+                    <td className="px-3 py-4">{feedApp}</td>
+                    <td className="rounded-r-xl px-3 py-4 font-black text-slate-950">{merchantFix}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-        </Section>
+        </section>
 
-        <section className="grid gap-5 rounded-2xl border border-blue-200 bg-blue-50 p-6 md:grid-cols-[1fr_auto] md:items-center md:p-8">
+        <section className="grid gap-5 rounded-[2rem] border border-blue-200 bg-blue-50 p-6 shadow-xl shadow-blue-100/60 md:grid-cols-[1fr_auto] md:items-center md:p-8">
           <div className="min-w-0">
             <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Fix Pack CSV diagnostic</p>
             <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">Need row-level CSV diagnosis?</h2>
             <p className="mt-3 max-w-3xl leading-7 text-slate-700">
-              Review the sample report, then buy the Fix Pack when your Merchant Center warning affects multiple products or needs affected rows.
+              Review the sample report, then buy the Fix Pack when your warning affects multiple products or needs affected rows.
             </p>
           </div>
           <div className="flex min-w-0 flex-col gap-3">
@@ -218,16 +249,20 @@ export default function HomePage() {
           <SafeDiagnosticNotice />
         </div>
 
-        <Section eyebrow="FAQ" title="What merchants usually ask first.">
-          <div className="grid gap-4">
+        <section className="py-14">
+          <div className="max-w-3xl">
+            <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">FAQ</p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 md:text-4xl">What merchants usually ask first.</h2>
+          </div>
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
             {homeFaqs.map((faq) => (
-              <div key={faq.question} className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+              <article key={faq.question} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
                 <h3 className="font-black text-slate-950">{faq.question}</h3>
                 <p className="mt-2 leading-7 text-slate-600">{faq.answer}</p>
-              </div>
+              </article>
             ))}
           </div>
-        </Section>
+        </section>
       </div>
     </main>
   );
