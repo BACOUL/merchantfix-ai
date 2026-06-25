@@ -4,9 +4,13 @@ Date: 2026-06-25
 
 Status: preview QA, not production launch.
 
+Branch used for QA: `preview-qa-merchantfix`.
+
 ## Current rule
 
 Do not communicate the public product as launched until the preview has been manually checked.
+
+Future QA changes must be made on a preview branch and reviewed through a pull request before any production deployment.
 
 ## Required preview checks
 
