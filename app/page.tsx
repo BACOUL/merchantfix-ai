@@ -21,10 +21,40 @@ export const metadata: Metadata = {
 };
 
 const proofPoints = [
-  { label: "Entry point", value: "Paste the exact warning" },
-  { label: "Free check", value: "Public Shopify scan" },
-  { label: "Paid product", value: "29 € Fix Pack" },
-  { label: "Safety rule", value: "No invented identifiers" }
+  { label: "Free first step", value: "Paste your warning" },
+  { label: "Paid diagnostic", value: "29 € Fix Pack" },
+  { label: "Input", value: "Shopify CSV export" },
+  { label: "Safety rule", value: "No fake identifiers" }
+];
+
+const supportedWarnings = [
+  "Missing value [gtin]",
+  "Invalid value [gtin]",
+  "Missing value [brand]",
+  "Missing value [mpn]",
+  "identifier_exists conflict",
+  "SKU used as MPN",
+  "Price mismatch",
+  "Availability mismatch",
+  "Image issue"
+];
+
+const offerSteps = [
+  {
+    title: "Free",
+    price: "Paste your warning",
+    text: "Start with the exact Google Merchant Center message and see which Shopify fields are likely involved."
+  },
+  {
+    title: "29 € Fix Pack",
+    price: "CSV-level diagnosis",
+    text: "Use the paid Fix Pack when you need affected rows, manual review flags, and safe notes before editing or resubmitting products."
+  },
+  {
+    title: "No subscription",
+    price: "One-off review",
+    text: "No Shopify admin access, no Google login, no fake GTINs, and no invented product facts."
+  }
 ];
 
 const workflowSteps = [
@@ -118,16 +148,16 @@ export default function HomePage() {
           <div className="min-w-0">
             <div className="flex flex-wrap gap-2">
               <TextBadge tone="blue">Shopify product data</TextBadge>
-              <TextBadge tone="slate">Merchant Center warnings</TextBadge>
+              <TextBadge tone="slate">Google Merchant Center warnings</TextBadge>
             </div>
             <h1 className="mt-6 max-w-5xl break-words text-4xl font-black tracking-tight sm:text-6xl md:text-7xl">
-              Turn Merchant Center warnings into a Shopify CSV action plan.
+              Paste your Google Merchant Center warning. Get a Shopify CSV fix plan.
             </h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-200">
-              MerchantFix helps Shopify merchants understand GTIN, brand, MPN, identifier_exists, price, availability, and image issues before they edit product data or resubmit to Google.
+              MerchantFix helps Shopify merchants turn GTIN, brand, MPN, identifier_exists, price, availability, and image warnings into clear actions before editing product data or resubmitting to Google.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <PrimaryLink href="/#paste-error">Paste my error</PrimaryLink>
+              <PrimaryLink href="/#paste-error">Paste my Merchant Center warning</PrimaryLink>
               <SecondaryLink href="/sample-report">See sample report</SecondaryLink>
             </div>
             <div className="mt-6 grid gap-3 text-sm font-bold text-slate-300 sm:grid-cols-3">
@@ -153,6 +183,33 @@ export default function HomePage() {
       </section>
 
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-5 md:px-8 md:py-16">
+        <section className="grid gap-6 pb-12 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
+          <div className="rounded-[2rem] border border-slate-900 bg-slate-950 p-6 text-white shadow-2xl shadow-slate-300/70 md:p-8">
+            <p className="text-xs font-black uppercase tracking-[0.22em] text-slate-400">Use MerchantFix when you see this</p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight md:text-4xl">Recognize your Merchant Center warning immediately.</h2>
+            <p className="mt-4 leading-7 text-slate-300">
+              The faster a merchant recognizes the exact warning, the faster the product value becomes obvious.
+            </p>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {supportedWarnings.map((warning) => (
+              <div key={warning} className="rounded-2xl border border-slate-200 bg-white p-4 font-black text-slate-950 shadow-sm shadow-slate-200/70">
+                {warning}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="grid gap-4 pb-14 md:grid-cols-3">
+          {offerSteps.map((step) => (
+            <article key={step.title} className="rounded-[2rem] border border-blue-200 bg-blue-50 p-6 shadow-xl shadow-blue-100/60">
+              <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">{step.title}</p>
+              <h2 className="mt-3 text-2xl font-black tracking-tight text-slate-950">{step.price}</h2>
+              <p className="mt-3 leading-7 text-slate-700">{step.text}</p>
+            </article>
+          ))}
+        </section>
+
         <ErrorPasteForm />
 
         <section className="grid gap-6 py-14 lg:grid-cols-[0.76fr_1.24fr] lg:items-start">
