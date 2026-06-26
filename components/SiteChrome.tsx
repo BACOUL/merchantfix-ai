@@ -3,6 +3,7 @@ import Link from "next/link";
 const navItems = [
   { href: "/#paste-error", label: "Paste error" },
   { href: "/fix-pack", label: "Fix Pack" },
+  { href: "/merchantfix-vs-feed-apps", label: "Vs feed apps" },
   { href: "/sample-report", label: "Sample report" },
   { href: "/pricing", label: "Pricing" },
   { href: "/fix", label: "Error guides" },
@@ -56,6 +57,9 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
             <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-500">Commercial</p>
             <Link href="/fix-pack" className="hover:text-slate-950">
               Fix Pack
+            </Link>
+            <Link href="/merchantfix-vs-feed-apps" className="hover:text-slate-950">
+              MerchantFix vs feed apps
             </Link>
             <Link href="/pricing" className="hover:text-slate-950">
               Pricing
