@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import { DiagnosticResultView } from "./DiagnosticResultView";
+import type { MerchantFixReportModel } from "@/lib/reportDataModel";
 import type { AnalysisResult, CorrectedCsvResult } from "@/lib/types";
 
 type AnalyzeResponse = {
   analysis?: AnalysisResult;
   correctedCsvResult?: CorrectedCsvResult | null;
+  reportModel?: MerchantFixReportModel | null;
   error?: string;
 };
 
@@ -67,9 +69,9 @@ export function CsvUploadForm({ checkoutSessionId, diagnosticTestToken }: CsvUpl
           </p>
           <div className="mt-5 grid gap-3 text-sm text-slate-700 sm:grid-cols-2">
             {[
-              "Catalog health score",
+              "Product Data Readiness score",
               "Critical and warning counts",
-              "Annotated CSV notes only",
+              "Full report preview",
               "Manual review when uncertain"
             ].map((item) => (
               <div key={item} className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 font-semibold">
@@ -120,7 +122,11 @@ export function CsvUploadForm({ checkoutSessionId, diagnosticTestToken }: CsvUpl
 
       {response?.analysis ? (
         <div className="mt-8">
-          <DiagnosticResultView analysis={response.analysis} correctedCsvResult={response.correctedCsvResult} />
+          <DiagnosticResultView
+            analysis={response.analysis}
+            correctedCsvResult={response.correctedCsvResult}
+            reportModel={response.reportModel}
+          />
         </div>
       ) : null}
     </section>
