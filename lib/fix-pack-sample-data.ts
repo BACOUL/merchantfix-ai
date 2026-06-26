@@ -4,10 +4,13 @@ export const sampleReportRows = [
     handle: "blue-running-shoes",
     googleIssue: "Missing value [gtin]",
     severity: "Critical",
-    currentValue: "Barcode: empty",
+    currentValue: "Variant Barcode: empty",
     detectedProblem: "The product looks like a branded manufactured item, but the barcode field is empty.",
     recommendedAction: "Check the product packaging or supplier sheet for the official GTIN before resubmission.",
     fixStatus: "Manual review",
+    guardrailStatus: "manual_review",
+    merchantfixAction: "verify_gtin_before_editing",
+    evidenceNeeded: "Product packaging | Supplier sheet | Manufacturer data",
     whyItMatters: "The product appears to need a manufacturer barcode before resubmission.",
     safeAction: "Check packaging or supplier barcode. Do not invent GTIN."
   },
@@ -19,7 +22,10 @@ export const sampleReportRows = [
     currentValue: "Vendor: blank",
     detectedProblem: "The brand field is missing, so Google cannot clearly identify the product source.",
     recommendedAction: "Confirm the official brand name, then update Shopify Vendor or the feed mapping.",
-    fixStatus: "Needs merchant check",
+    fixStatus: "Manual review",
+    guardrailStatus: "manual_review",
+    merchantfixAction: "verify_brand_before_editing",
+    evidenceNeeded: "Real product brand | Supplier data | Product page or packaging",
     whyItMatters: "The brand field is empty or too generic for product identification.",
     safeAction: "Confirm the official brand name before editing Shopify Vendor or feed mapping."
   },
@@ -31,7 +37,10 @@ export const sampleReportRows = [
     currentValue: "identifier_exists: true, GTIN: empty, MPN: empty",
     detectedProblem: "The feed says product identifiers exist, but no identifier values are provided.",
     recommendedAction: "Verify whether this is truly a custom product before changing identifier_exists.",
-    fixStatus: "Cannot fix safely",
+    fixStatus: "Blocked",
+    guardrailStatus: "blocked",
+    merchantfixAction: "do_not_auto_fix_identifier_exists",
+    evidenceNeeded: "Merchant confirmation | Identifier availability | Product type proof",
     whyItMatters: "The product may be custom, but identifier data is inconsistent.",
     safeAction: "Verify if the item truly has no GTIN, MPN, or brand before changing identifier_exists."
   },
@@ -40,10 +49,13 @@ export const sampleReportRows = [
     handle: "black-rain-jacket",
     googleIssue: "Image issue",
     severity: "Warning",
-    currentValue: "Image src: missing on one variant",
+    currentValue: "Image Src: missing on one variant",
     detectedProblem: "One variant may be submitted without a usable product image.",
     recommendedAction: "Review Shopify product media and variant image mapping before resubmitting.",
-    fixStatus: "Deterministic note",
+    fixStatus: "Safe note",
+    guardrailStatus: "safe_note",
+    merchantfixAction: "add_image_review_note",
+    evidenceNeeded: "Shopify product media | Public image URL | Product page check",
     whyItMatters: "The product image may be missing, weak, or not mapped to the right variant.",
     safeAction: "Review product media and variant image mapping before resubmitting."
   },
@@ -56,19 +68,57 @@ export const sampleReportRows = [
     detectedProblem: "The MPN looks like an internal SKU rather than an official manufacturer part number.",
     recommendedAction: "Confirm the real manufacturer MPN from supplier data before keeping this value.",
     fixStatus: "Manual review",
+    guardrailStatus: "manual_review",
+    merchantfixAction: "verify_mpn_before_resubmission",
+    evidenceNeeded: "Manufacturer part number proof | Supplier sheet | Merchant confirmation",
     whyItMatters: "The SKU looks internal and may not be a real manufacturer part number.",
     safeAction: "Confirm manufacturer MPN from supplier data before copying SKU into MPN."
   }
 ];
 
+export const annotatedCsvPreviewColumns = [
+  "merchantfix_notes",
+  "merchantfix_action",
+  "merchantfix_status",
+  "merchantfix_manual_review_reason",
+  "merchantfix_evidence_needed"
+] as const;
+
+export const annotatedCsvPreviewRows = [
+  {
+    title: "Blue Running Shoes",
+    shopifyField: "Variant Barcode",
+    merchantfixStatus: "manual_review",
+    merchantfixAction: "verify_gtin_before_editing",
+    manualReviewReason: "MerchantFix cannot know or create the real GTIN from a CSV alone.",
+    evidenceNeeded: "Product packaging | Supplier sheet | Manufacturer data"
+  },
+  {
+    title: "Black Rain Jacket",
+    shopifyField: "Image Src",
+    merchantfixStatus: "safe_note",
+    merchantfixAction: "add_image_review_note",
+    manualReviewReason: "No product fact is invented. The row receives an image-review note only.",
+    evidenceNeeded: "Shopify product media | Product page check"
+  },
+  {
+    title: "Handmade Silver Ring",
+    shopifyField: "identifier_exists",
+    merchantfixStatus: "blocked",
+    merchantfixAction: "do_not_auto_fix_identifier_exists",
+    manualReviewReason: "The row is inconsistent and should not be treated as an automated correction.",
+    evidenceNeeded: "Merchant confirmation | Identifier availability | Product type proof"
+  }
+] as const;
+
 export const fixPackOutputs = [
   {
     title: "merchantfix-diagnostic-report.pdf",
-    description: "A clear PDF summary of detected issues, priorities, affected rows, unsupported areas, and safe next steps."
+    description: "A clear PDF-style summary of detected issues, priorities, affected rows, unsupported areas, and safe next steps."
   },
   {
     title: "merchantfix-annotated-products.csv",
-    description: "Your Shopify CSV with MerchantFix notes added when safe. Product facts are never invented."
+    description: "Your Shopify CSV with MerchantFix notes, action, guardrail status, manual-review reason, and evidence needed."
   },
   {
     title: "merchantfix-manual-review.csv",
@@ -87,15 +137,15 @@ export const fixPackOutputs = [
 export const beforeAfterRows = [
   {
     before: "Merchant Center shows “Missing value [gtin]”.",
-    after: "You know which Shopify rows need barcode review."
+    after: "You know which Shopify rows need barcode review and which evidence is needed."
   },
   {
     before: "You do not know whether identifier_exists should be true or false.",
-    after: "You get safe decision rules and manual review flags."
+    after: "You get safe decision rules, manual-review flags, and blocked rows when automation is unsafe."
   },
   {
     before: "You check products one by one inside Shopify.",
-    after: "You receive a prioritized CSV diagnosis."
+    after: "You receive a prioritized CSV diagnosis with row numbers and product handles."
   },
   {
     before: "You risk fake identifiers or unsafe bulk edits.",
