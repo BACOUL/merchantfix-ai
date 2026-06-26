@@ -76,6 +76,7 @@ export const publicRoutes = [
   { path: "/scan", changeFrequency: "monthly", priority: 0.9 },
   { path: "/pricing", changeFrequency: "monthly", priority: 0.9 },
   { path: "/fix-pack", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/merchantfix-vs-feed-apps", changeFrequency: "monthly", priority: 0.88 },
   { path: "/sample-report", changeFrequency: "monthly", priority: 0.8 },
   { path: "/how-to-export-shopify-csv", changeFrequency: "monthly", priority: 0.8 },
   { path: "/methodology", changeFrequency: "monthly", priority: 0.8 },
