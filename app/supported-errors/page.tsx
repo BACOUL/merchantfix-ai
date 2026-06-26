@@ -6,9 +6,15 @@ import { canonical } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Supported Google Merchant Center errors for Shopify | MerchantFix.ai",
   description:
-    "See which Google Merchant Center errors MerchantFix supports for Shopify merchants, including GTIN, brand, MPN, identifier_exists, price, availability, image issues, and limited misrepresentation support.",
+    "See which Google Merchant Center errors MerchantFix supports for Shopify merchants, including GTIN, duplicate GTIN, brand, MPN, identifier_exists, duplicate item ID, price, availability, image, shipping, tax, category, landing page, and limited misrepresentation support.",
   alternates: { canonical: canonical("/supported-errors") }
 };
+
+const coverageCards = [
+  { label: "Strong CSV support", value: "6", detail: "Identifiers and core product-data issues" },
+  { label: "Partial support", value: "7", detail: "Useful but needs live or settings review" },
+  { label: "Limited support", value: "2", detail: "Account, crawl, or broader trust cases" }
+];
 
 export default function SupportedErrorsPage() {
   const breadcrumbSchema = buildBreadcrumbSchema([
@@ -25,7 +31,7 @@ export default function SupportedErrorsPage() {
           <div className="min-w-0">
             <div className="flex flex-wrap gap-2">
               <TextBadge tone="blue">Supported errors</TextBadge>
-              <TextBadge tone="green">Shopify product data</TextBadge>
+              <TextBadge tone="green">15 mapped families</TextBadge>
             </div>
             <h1 className="mt-6 break-words text-4xl font-black tracking-tight sm:text-5xl md:text-7xl">
               Know when MerchantFix can help, and when it cannot.
@@ -41,8 +47,17 @@ export default function SupportedErrorsPage() {
           <div className="rounded-xl border border-white/15 bg-white/10 p-5 shadow-2xl backdrop-blur md:p-6">
             <p className="text-xs font-black uppercase tracking-[0.22em] text-slate-300">Rule of thumb</p>
             <p className="mt-4 text-2xl font-black leading-9 text-white">
-              Product field warnings are usually diagnosable. Account-level policy issues require broader manual review.
+              Product field warnings are usually diagnosable. Account-level policy, live crawl, shipping, or tax issues require broader manual review.
             </p>
+            <div className="mt-5 grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+              {coverageCards.map((card) => (
+                <div key={card.label} className="rounded-2xl border border-white/10 bg-slate-950/40 p-4">
+                  <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-300">{card.label}</p>
+                  <p className="mt-2 text-4xl font-black text-white">{card.value}</p>
+                  <p className="mt-1 text-sm font-semibold leading-6 text-slate-300">{card.detail}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -50,9 +65,9 @@ export default function SupportedErrorsPage() {
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-5 md:px-8 md:py-14">
         <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm md:p-8">
           <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Coverage table</p>
-          <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">Errors currently mapped by MerchantFix.</h2>
+          <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">15 Merchant Center warning families currently mapped by MerchantFix.</h2>
           <p className="mt-4 max-w-3xl leading-7 text-slate-600">
-            The table is intentionally honest: some issues are strongly supported by CSV diagnosis, some are partial, and misrepresentation is only limited product-data support.
+            The table is intentionally honest: identifier and core product-data issues are strongest; live site, tax, shipping, and policy issues are partial or limited.
           </p>
           <div className="mt-6">
             <SupportedErrorsTable />
