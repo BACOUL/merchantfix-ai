@@ -2,12 +2,15 @@
 
 import { AffectedProductsTable } from "./AffectedProductsTable";
 import { DiagnosticSummaryCards } from "./DiagnosticSummaryCards";
+import { MerchantFixReportPanel } from "./MerchantFixReportPanel";
 import { RecommendedActions } from "./RecommendedActions";
+import type { MerchantFixReportModel } from "@/lib/reportDataModel";
 import type { AnalysisResult, CorrectedCsvResult, IssueCategory } from "@/lib/types";
 
 type DiagnosticResultViewProps = {
   analysis: AnalysisResult;
   correctedCsvResult?: CorrectedCsvResult | null;
+  reportModel?: MerchantFixReportModel | null;
 };
 
 const categoryLabel: Record<IssueCategory, string> = {
@@ -45,7 +48,7 @@ function diagnosticStatus(analysis: AnalysisResult) {
   };
 }
 
-export function DiagnosticResultView({ analysis, correctedCsvResult }: DiagnosticResultViewProps) {
+export function DiagnosticResultView({ analysis, correctedCsvResult, reportModel }: DiagnosticResultViewProps) {
   const status = diagnosticStatus(analysis);
   const manualReviewCount = analysis.issues.filter((issue) => issue.manualReviewRequired).length;
   const safeFixCount = analysis.issues.filter((issue) => issue.autoFixable || issue.fixType === "auto_fixable").length;
@@ -90,6 +93,12 @@ export function DiagnosticResultView({ analysis, correctedCsvResult }: Diagnosti
           <DiagnosticSummaryCards analysis={analysis} />
         </div>
       </div>
+
+      {reportModel ? (
+        <div className="mt-5">
+          <MerchantFixReportPanel report={reportModel} />
+        </div>
+      ) : null}
 
       <div className="mt-5 grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
         <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
