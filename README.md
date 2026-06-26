@@ -28,6 +28,7 @@ The repository is no longer only a documentation or placeholder project. It alre
 - Glossary and commercial FAQ schema work.
 - Vitest coverage for the core CSV analyzer.
 - Production QA runbook and sample CSV test cases.
+- Final launch readiness checklist for controlled merchant tests.
 
 PR #33 moved the product toward an error-first conversion flow: paste a Merchant Center warning, identify the Shopify fields to check, then use the Fix Pack when row-level CSV diagnosis is needed.
 
@@ -81,12 +82,18 @@ The current diagnostic scope focuses on Shopify product-data issues that commonl
 - Missing brand or vendor.
 - Missing `identifier_exists`.
 - `identifier_exists` conflict.
+- Duplicate item ID.
 - Possible custom, handmade, personalized, or made-to-order products.
 - Missing product image.
+- Image not retrieved or crawl blocked.
 - Missing product price.
 - Price mismatch support at CSV/checklist level.
 - Availability mismatch support at CSV/checklist level.
 - Image issue support at CSV/checklist level.
+- Missing shipping support at product-data/checklist level.
+- Tax issue support is limited and must not be positioned as tax advice.
+- Product category issue support at CSV/checklist level.
+- Landing page unavailable support is limited and must be verified live.
 - Misrepresentation support is limited and must not be positioned as automatic account recovery.
 
 ## Product safety rules
@@ -193,6 +200,7 @@ The app must stay usable without leaking private keys client-side.
 
 ## QA documents and test cases
 
+- `docs/launch-readiness-final.md` — final pass/fail launch gate for controlled merchant tests.
 - `docs/qa-production-runbook.md` — full production QA procedure.
 - `docs/production-readiness.md` — launch readiness checklist.
 - `docs/guardrails-system.md` — guardrail operating model.
@@ -223,6 +231,8 @@ Before moving the product toward active sales, verify:
 - No text says Google approval is guaranteed.
 - No text says MerchantFix invents or repairs GTIN/MPN/brand automatically.
 - No TimeProofs support email or unrelated project reference remains in customer-facing pages.
+
+For the strict final gate before first controlled merchant tests, use `docs/launch-readiness-final.md`.
 
 ## Roadmap
 
@@ -258,57 +268,3 @@ Includes:
 - pricing and legal pages aligned with paid digital service rules.
 
 ### V3 — More Merchant Center errors
-
-Goal: expand carefully beyond identifiers.
-
-Potential families:
-
-- price mismatch;
-- availability mismatch;
-- image issues;
-- shipping and tax checklist;
-- Google product category guidance;
-- limited performance support;
-- misrepresentation checklist only.
-
-Misrepresentation must never be presented as an automatic fix.
-
-### V4 — Agency product
-
-Goal: create recurring revenue for agencies and freelancers.
-
-Possible later features:
-
-- accounts;
-- history;
-- branded reports;
-- monthly packs;
-- subscriptions;
-- database;
-- authentication.
-
-### V5 — Platform and monitoring
-
-Goal: product-data quality monitoring across shopping channels.
-
-Possible later features only after validation:
-
-- Shopify API;
-- Google Merchant Center API;
-- monitoring alerts;
-- Shopify app;
-- WooCommerce support;
-- XML feed parsing;
-- multi-channel product data checks.
-
-## Immediate next step
-
-Complete preview QA and the paid diagnostic test path before public sales:
-
-1. one real Shopify public URL;
-2. one sample Shopify CSV;
-3. one private diagnostic token;
-4. one real Stripe test checkout;
-5. one full post-payment CSV upload;
-6. one annotated CSV download;
-7. one guardrail check confirming manual-review rows explain evidence needed.
