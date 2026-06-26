@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { analyzeShopifyCsv } from "@/lib/analyzeShopifyCsv";
 import { generateCorrectedCsv } from "@/lib/generateCorrectedCsv";
 import { buildGuardrailSummary } from "@/lib/guardrails";
+import { buildMerchantFixReportModel } from "@/lib/reportDataModel";
 
 type StripeCheckoutSession = {
   status?: string;
@@ -114,7 +115,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           error: gate.error,
-          correctedCsvResult: null
+          correctedCsvResult: null,
+          reportModel: null
         },
         { status: 402 }
       );
@@ -129,13 +131,18 @@ export async function POST(request: NextRequest) {
         merchantCenterErrorText
       });
       const guardrails = buildGuardrailSummary(analysis.issues);
+      const reportModel = buildMerchantFixReportModel({
+        analysis,
+        stripeSessionId
+      });
 
       return NextResponse.json(
         {
           error: "No Shopify CSV file was provided.",
           analysis: { ...analysis, guardrails },
           guardrails,
-          correctedCsvResult: null
+          correctedCsvResult: null,
+          reportModel
         },
         { status: 400 }
       );
@@ -147,6 +154,11 @@ export async function POST(request: NextRequest) {
       merchantCenterErrorText
     });
     const guardrails = buildGuardrailSummary(analysis.issues);
+    const reportModel = buildMerchantFixReportModel({
+      analysis,
+      csvFilename: csvFile.name,
+      stripeSessionId
+    });
     const correctedCsvResult =
       analysis.status !== "error" && analysis.correctedCsvAvailable
         ? generateCorrectedCsv({
@@ -167,20 +179,23 @@ export async function POST(request: NextRequest) {
           originalRows: undefined
         },
         guardrails,
-        correctedCsvResult
+        correctedCsvResult,
+        reportModel
       },
       { status: analysis.status === "error" ? 400 : 200 }
     );
   } catch {
     const analysis = analyzeShopifyCsv({ csvText: "" });
     const guardrails = buildGuardrailSummary(analysis.issues);
+    const reportModel = buildMerchantFixReportModel({ analysis });
 
     return NextResponse.json(
       {
         error: "The uploaded file could not be read.",
         analysis: { ...analysis, guardrails },
         guardrails,
-        correctedCsvResult: null
+        correctedCsvResult: null,
+        reportModel
       },
       { status: 400 }
     );
