@@ -140,7 +140,7 @@ export const structuredData = [
     "@type": "Organization",
     name: "MerchantFix.ai",
     url: SITE_URL,
-    email: "contact@timeproofs.io",
+    email: "contact@merchantfix.com",
     parentOrganization: {
       "@type": "Organization",
       name: "TimeProofs"
