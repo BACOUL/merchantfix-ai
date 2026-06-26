@@ -6,11 +6,10 @@ const severityTone: Record<string, string> = {
   "Manual review": "border-blue-200 bg-blue-50 text-blue-800"
 };
 
-const fixStatusTone: Record<string, string> = {
-  "Manual review": "border-blue-200 bg-blue-50 text-blue-800",
-  "Needs merchant check": "border-amber-200 bg-amber-50 text-amber-900",
-  "Cannot fix safely": "border-red-200 bg-red-50 text-red-800",
-  "Deterministic note": "border-emerald-200 bg-emerald-50 text-emerald-800"
+const guardrailTone: Record<string, string> = {
+  safe_note: "border-emerald-200 bg-emerald-50 text-emerald-800",
+  manual_review: "border-blue-200 bg-blue-50 text-blue-800",
+  blocked: "border-red-200 bg-red-50 text-red-800"
 };
 
 export function SampleReportTable() {
@@ -24,7 +23,7 @@ export function SampleReportTable() {
         <span className="w-fit rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-black text-slate-200">Fictional data</span>
       </div>
       <div className="overflow-x-auto p-2">
-        <table className="w-full min-w-[1180px] border-separate border-spacing-y-2 text-left text-sm">
+        <table className="w-full min-w-[1500px] border-separate border-spacing-y-2 text-left text-sm">
           <thead>
             <tr className="text-slate-500">
               <th className="px-3 py-2 font-black">Row</th>
@@ -33,8 +32,9 @@ export function SampleReportTable() {
               <th className="px-3 py-2 font-black">Severity</th>
               <th className="px-3 py-2 font-black">Current value</th>
               <th className="px-3 py-2 font-black">Detected problem</th>
-              <th className="px-3 py-2 font-black">Recommended action</th>
-              <th className="px-3 py-2 font-black">Fix status</th>
+              <th className="px-3 py-2 font-black">merchantfix_status</th>
+              <th className="px-3 py-2 font-black">merchantfix_action</th>
+              <th className="px-3 py-2 font-black">Evidence needed</th>
             </tr>
           </thead>
           <tbody>
@@ -50,12 +50,13 @@ export function SampleReportTable() {
                 </td>
                 <td className="px-3 py-4 text-slate-950">{row.currentValue}</td>
                 <td className="px-3 py-4">{row.detectedProblem}</td>
-                <td className="px-3 py-4">{row.recommendedAction}</td>
-                <td className="rounded-r-xl px-3 py-4">
-                  <span className={`inline-flex rounded-full border px-2.5 py-1 text-xs font-black ${fixStatusTone[row.fixStatus] ?? "border-slate-200 bg-white text-slate-700"}`}>
-                    {row.fixStatus}
+                <td className="px-3 py-4">
+                  <span className={`inline-flex rounded-full border px-2.5 py-1 font-mono text-xs font-black ${guardrailTone[row.guardrailStatus] ?? "border-slate-200 bg-white text-slate-700"}`}>
+                    {row.guardrailStatus}
                   </span>
                 </td>
+                <td className="px-3 py-4 font-mono text-xs font-black text-slate-950">{row.merchantfixAction}</td>
+                <td className="rounded-r-xl px-3 py-4">{row.evidenceNeeded}</td>
               </tr>
             ))}
           </tbody>
