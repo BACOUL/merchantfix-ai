@@ -21,6 +21,7 @@ The repository is no longer only a documentation or placeholder project. It alre
 - Stripe Checkout for paid Fix Pack access.
 - Post-payment diagnostic gate.
 - Private diagnostic test token mode.
+- Structured report model and post-upload report panel.
 - SEO pages for exact Merchant Center errors and Shopify Google Shopping problems.
 - Reference library and level 2 authority SEO pages.
 - Diagnostic guardrail system with `safe_note`, `manual_review`, and `blocked` statuses.
@@ -68,7 +69,32 @@ The simplified launch offer keeps only one paid product during first-sales valid
 - Critical, warning, and info severity levels.
 - Guardrail status: `safe_note`, `manual_review`, or `blocked`.
 - Manual review reasons and evidence needed.
+- Structured report panel with score, top issues, row findings, credibility rules, and limitations.
 - Annotated CSV generation only when safe notes or deterministic changes are available.
+
+## Private unpaid owner testing
+
+Before PDFShift or active sales, the owner can test the paid diagnostic flow without paying through Stripe.
+
+Set the private server-side environment variable:
+
+```text
+DIAGNOSTIC_TEST_TOKEN=<long-random-private-token>
+```
+
+Then open:
+
+```text
+/diagnostic?test_token=<DIAGNOSTIC_TEST_TOKEN>
+```
+
+This unlocks the diagnostic page for owner QA only. Do not share the test URL publicly and never commit the real token to GitHub.
+
+Full instructions and pass/fail checks are documented in:
+
+```text
+docs/private-diagnostic-test-access.md
+```
 
 ## Supported issue families
 
@@ -188,83 +214,3 @@ The app must stay usable without leaking private keys client-side.
 - `/sample-report` — sample output page.
 - `/supported-errors` — supported Merchant Center warning map.
 - `/how-it-works` — process explanation.
-- `/fix/...` — SEO guides for exact Google Merchant Center and Shopify Google Shopping issues.
-- `/reference` — authority reference library.
-- `/reference/level-2` — advanced authority reference layer.
-
-## Key APIs
-
-- `POST /api/surface-scan` — public Shopify product-data surface scan.
-- `POST /api/checkout` — Stripe Checkout session creation.
-- `POST /api/analyze` — protected Shopify CSV diagnostic.
-
-## QA documents and test cases
-
-- `docs/launch-readiness-final.md` — final pass/fail launch gate for controlled merchant tests.
-- `docs/qa-production-runbook.md` — full production QA procedure.
-- `docs/production-readiness.md` — launch readiness checklist.
-- `docs/guardrails-system.md` — guardrail operating model.
-- `docs/test-cases/merchant-center-errors.md` — paste-error warning cases.
-- `docs/test-cases/shopify-sample-clean.csv` — clean CSV sample.
-- `docs/test-cases/shopify-sample-issues.csv` — issue-heavy CSV sample.
-
-## Validation checklist before public push
-
-Before moving the product toward active sales, verify:
-
-- Vercel build passes.
-- Homepage renders on desktop and mobile.
-- Paste-error form works client-side.
-- `/supported-errors` renders and maps warnings correctly.
-- `/fix-pack` renders with checkout buttons.
-- `/pricing` highlights Fix Pack clearly and shows no Pro Review checkout.
-- `/api/checkout` creates a Stripe session in EUR for `fix-pack`.
-- `/api/checkout` rejects `pro-review`.
-- `/success` passes `session_id` to `/diagnostic`.
-- `/diagnostic` blocks unpaid access.
-- `/diagnostic?test_token=...` works only with the configured private test token.
-- `/api/analyze` rejects unpaid calls.
-- `/api/analyze` accepts valid paid/test calls.
-- Shopify CSV diagnosis flags affected rows correctly using the QA samples.
-- Annotated CSV includes guardrail columns.
-- Annotated CSV is generated only when safe notes or deterministic changes are available.
-- No text says Google approval is guaranteed.
-- No text says MerchantFix invents or repairs GTIN/MPN/brand automatically.
-- No TimeProofs support email or unrelated project reference remains in customer-facing pages.
-
-For the strict final gate before first controlled merchant tests, use `docs/launch-readiness-final.md`.
-
-## Roadmap
-
-### V1 — Diagnostic MVP
-
-Goal: make the diagnostic useful and safe.
-
-Includes:
-
-- paste-error entry point;
-- supported warning map;
-- public surface scan;
-- CSV analyzer;
-- affected row table;
-- guardrail status;
-- manual review flags;
-- evidence-needed checklist;
-- safe correction notes;
-- tests.
-
-### V2 — Paid Fix Pack
-
-Goal: sell a one-time self-service product.
-
-Includes:
-
-- Stripe Checkout;
-- protected diagnostic page;
-- paid CSV upload;
-- downloadable annotated CSV output when safe;
-- sample report;
-- guardrail-driven manual review output;
-- pricing and legal pages aligned with paid digital service rules.
-
-### V3 — More Merchant Center errors
