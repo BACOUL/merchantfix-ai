@@ -61,15 +61,20 @@ export function AffectedProductsTable({ issues }: AffectedProductsTableProps) {
   const criticalCount = issues.filter((issue) => issue.severity === "critical").length;
   const warningCount = issues.filter((issue) => issue.severity === "warning").length;
   const manualReviewCount = issues.filter((issue) => issue.manualReviewRequired).length;
+  const systemOnly = issues.every((issue) => issue.category === "system");
 
   return (
     <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm md:p-6">
       <div className="grid gap-5 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
         <div className="min-w-0">
-          <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-700">Affected products</p>
-          <h3 className="mt-3 text-2xl font-black tracking-tight text-slate-950">Rows to fix or review first</h3>
+          <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-700">{systemOnly ? "CSV upload issue" : "Affected products"}</p>
+          <h3 className="mt-3 text-2xl font-black tracking-tight text-slate-950">
+            {systemOnly ? "Fix the file first" : "Rows to fix or review first"}
+          </h3>
           <p className="mt-3 leading-7 text-slate-600">
-            Issues are sorted by severity so critical rows and manual review items are easier to handle before resubmission.
+            {systemOnly
+              ? "MerchantFix could not inspect product rows yet. Use the recovery action below, then upload a fresh Shopify product CSV export."
+              : "Issues are sorted by severity so critical rows and manual review items are easier to handle before resubmission."}
           </p>
         </div>
         <div className="grid gap-3 sm:grid-cols-3">
@@ -111,7 +116,7 @@ export function AffectedProductsTable({ issues }: AffectedProductsTableProps) {
                   </span>
                 </td>
                 <td className="px-3 py-3 text-slate-700">{issue.rowNumber || "-"}</td>
-                <td className="max-w-64 px-3 py-3 text-slate-950">{issue.productTitle || "Untitled product"}</td>
+                <td className="max-w-64 px-3 py-3 text-slate-950">{issue.productTitle || (systemOnly ? "CSV file" : "Untitled product")}</td>
                 <td className="px-3 py-3 text-slate-700">{formatIssueCode(issue.issueCode)}</td>
                 <td className="px-3 py-3 text-slate-700">{issue.field || "csv"}</td>
                 <td className="max-w-48 px-3 py-3 text-slate-700">{issue.currentValue || "-"}</td>
