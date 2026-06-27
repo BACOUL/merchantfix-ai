@@ -99,7 +99,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
             </Link>
           </div>
           <div className="grid min-w-0 gap-2 font-semibold">
-            <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-500">Legal</p>
+            <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-500">Legal & support</p>
             <Link href="/legal-notice" className="hover:text-slate-950">
               Legal Notice
             </Link>
@@ -108,6 +108,15 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
             </Link>
             <Link href="/terms" className="hover:text-slate-950">
               Terms
+            </Link>
+            <Link href="/refund-policy" className="hover:text-slate-950">
+              Refund Policy
+            </Link>
+            <Link href="/data-handling" className="hover:text-slate-950">
+              Data Handling
+            </Link>
+            <Link href="/contact" className="hover:text-slate-950">
+              Contact
             </Link>
           </div>
         </div>
