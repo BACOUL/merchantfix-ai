@@ -7,7 +7,7 @@ import { canonical } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Sample Report | MerchantFix.ai Shopify CSV diagnosis",
   description:
-    "Example Shopify CSV diagnostic report showing guardrail status, manual review reasons, evidence needed, affected rows, and CSV-level notes for Google Merchant Center warnings.",
+    "Example Shopify CSV diagnostic report showing guardrail status, manual review reasons, evidence needed, affected rows, and CSV-level notes.",
   alternates: { canonical: canonical("/sample-report") }
 };
 
@@ -18,74 +18,30 @@ const summaryCards = [
   { label: "safe_note rows", value: "41", detail: "Notes only, no invented facts" }
 ];
 
-const reportInsights = [
-  "Affected CSV rows",
-  "Current Shopify field values",
-  "merchantfix_status",
-  "merchantfix_action",
-  "Manual review reasons",
-  "Evidence needed before editing"
-];
-
 const outputFiles = [
   {
-    filename: "merchantfix-diagnostic-report.pdf",
-    detail: "A readable summary of detected issues, priorities, affected rows, guardrails, and resubmission risks."
+    filename: "On-screen diagnostic report",
+    detail: "A readable report page with detected issues, priorities, affected rows, guardrails, limitations, and resubmission risks. PDF export is planned for a later delivery layer."
   },
   {
     filename: "merchantfix-annotated-products.csv",
-    detail: "Your Shopify CSV enriched with MerchantFix notes, actions, status, manual-review reason, and evidence-needed columns."
+    detail: "Your Shopify CSV enriched with MerchantFix notes, actions, status, manual-review reason, and evidence-needed columns when safe output is available."
   },
   {
-    filename: "merchantfix-manual-review.csv",
-    detail: "Rows that require packaging, supplier data, manufacturer data, barcode, brand, or merchant verification."
+    filename: "Manual-review rows inside the report",
+    detail: "Rows that require packaging, supplier data, manufacturer data, barcode, brand, or merchant verification are clearly marked instead of auto-fixed."
   },
   {
-    filename: "merchantfix-resubmission-checklist.txt",
-    detail: "A simple checklist before editing Shopify, uploading a feed, or resubmitting products to Google."
+    filename: "Resubmission checklist inside the report",
+    detail: "A simple set of next steps before editing Shopify, uploading a feed, or resubmitting products."
   }
-];
-
-const guardrailCards = [
-  {
-    status: "safe_note",
-    title: "Safe note only",
-    text: "MerchantFix can add an explanatory note without changing factual product data."
-  },
-  {
-    status: "manual_review",
-    title: "Evidence needed",
-    text: "The merchant must verify product truth before editing Shopify or resubmitting."
-  },
-  {
-    status: "blocked",
-    title: "No automated correction",
-    text: "The case is unsafe, inconsistent, malformed, or outside safe automation."
-  }
-];
-
-const willNotDo = [
-  "Invent GTINs, MPNs, brand names, or manufacturer data.",
-  "Guarantee Google approval, traffic, ranking, sales, or account recovery.",
-  "Replace merchant verification when product facts are missing or ambiguous.",
-  "Recommend unsafe bulk edits that could make the feed less trustworthy."
-];
-
-const bestForErrors = [
-  "Missing value [gtin]",
-  "Missing value [brand]",
-  "Missing value [mpn]",
-  "identifier_exists conflicts",
-  "SKU used as MPN warnings",
-  "Product data warnings before resubmission"
 ];
 
 const faqs = [
   { question: "Is this based on a real merchant?", answer: "No. The sample uses fictional data to show the structure and clarity of a MerchantFix report." },
   { question: "What does the report show?", answer: "It shows affected rows, current field context, guardrail status, recommended action, manual review reason, and evidence needed before editing Shopify." },
   { question: "Does every report include an annotated CSV?", answer: "No. An annotated CSV is only produced when safe notes or deterministic changes are available. Missing product facts are never invented." },
-  { question: "What does blocked mean?", answer: "Blocked means MerchantFix should not deliver an automated correction for that row or case. It needs a fresh file, merchant verification, or broader review." },
-  { question: "Does the sample guarantee approval?", answer: "No. MerchantFix does not guarantee Google approval, ranking, traffic, performance, sales, or account recovery." }
+  { question: "What does blocked mean?", answer: "Blocked means MerchantFix should not deliver an automated correction for that row or case. It needs a fresh file, merchant verification, or broader review." }
 ];
 
 export default function SampleReportPage() {
@@ -110,10 +66,10 @@ export default function SampleReportPage() {
               See the exact kind of CSV diagnosis a merchant receives.
             </h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-200">
-              This fictional report shows how MerchantFix turns vague Merchant Center warnings into affected rows, current values, guardrail status, manual-review reasons, and evidence needed before Shopify edits.
+              This fictional report shows how MerchantFix turns product-data warnings into affected rows, current values, guardrail status, manual-review reasons, and evidence needed before Shopify edits.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <PrimaryLink href="/#paste-error">Paste my Merchant Center warning</PrimaryLink>
+              <PrimaryLink href="/#paste-error">Paste my warning</PrimaryLink>
               <SecondaryLink href="/fix-pack">View Fix Pack details</SecondaryLink>
             </div>
           </div>
@@ -131,9 +87,6 @@ export default function SampleReportPage() {
                 </div>
               ))}
             </div>
-            <p className="mt-5 rounded-2xl border border-white/10 bg-white/10 p-4 text-sm font-bold leading-6 text-slate-200">
-              The table below shows 5 preview rows from a larger fictional diagnostic table.
-            </p>
           </aside>
         </div>
       </section>
@@ -141,10 +94,10 @@ export default function SampleReportPage() {
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-5 md:px-8 md:py-16">
         <div className="grid gap-6 lg:grid-cols-[0.78fr_1.22fr]">
           <div className="rounded-[2rem] border border-blue-200 bg-blue-50 p-6 shadow-xl shadow-blue-100/60 md:p-8">
-            <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">What you receive</p>
-            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 md:text-4xl">Concrete files, not vague advice.</h2>
+            <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">What you receive now</p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 md:text-4xl">Concrete output, not vague advice.</h2>
             <p className="mt-4 leading-7 text-slate-700">
-              Fix Pack is designed for merchants who already have a Merchant Center warning and need CSV-level clarity before editing Shopify or resubmitting products.
+              Fix Pack is designed for merchants who already have a product-data warning and need CSV-level clarity before editing Shopify or resubmitting products.
             </p>
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
@@ -211,15 +164,7 @@ export default function SampleReportPage() {
             <p className="mt-4 leading-7 text-slate-300">
               A merchant should immediately understand which products need attention, what can be reviewed safely, and where human verification is required.
             </p>
-            <div className="mt-6 grid gap-3 sm:grid-cols-2">
-              {reportInsights.map((insight) => (
-                <div key={insight} className="rounded-2xl border border-white/10 bg-white/10 px-4 py-3 font-black">
-                  {insight}
-                </div>
-              ))}
-            </div>
           </div>
-
           <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/60 md:p-8">
             <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Before / after</p>
             <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 md:text-4xl">From warning text to a prioritized review list.</h2>
@@ -254,66 +199,13 @@ export default function SampleReportPage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 pb-12 sm:px-5 md:px-8 md:pb-16">
-        <div className="rounded-[2rem] border border-blue-200 bg-blue-50 p-6 shadow-xl shadow-blue-100/60 md:p-8">
-          <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
-            <div>
-              <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Guardrail statuses</p>
-              <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 md:text-4xl">The report tells the merchant what kind of decision each row needs.</h2>
-              <p className="mt-4 leading-7 text-slate-700">
-                This protects the customer and MerchantFix from fake identifiers, unsafe bulk changes, and unrealistic approval promises.
-              </p>
-            </div>
-            <div className="grid gap-3">
-              {guardrailCards.map((card) => (
-                <article key={card.status} className="rounded-2xl border border-blue-100 bg-white p-5">
-                  <p className="font-mono text-sm font-black text-blue-700">{card.status}</p>
-                  <h3 className="mt-2 font-black text-slate-950">{card.title}</h3>
-                  <p className="mt-2 font-semibold leading-7 text-slate-700">{card.text}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-4 pb-12 sm:px-5 md:px-8 md:pb-16">
         <div className="grid gap-6 lg:grid-cols-[0.74fr_1.26fr]">
           <div className="rounded-[2rem] border border-blue-200 bg-blue-50 p-6 shadow-xl shadow-blue-100/60 md:p-8">
             <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Deliverables</p>
-            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">What the paid report includes.</h2>
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">What the paid report includes now.</h2>
             <p className="mt-4 leading-7 text-slate-700">The output gives merchants concrete CSV-level context they can review before editing Shopify or resubmitting products.</p>
           </div>
           <FixPackOutputPreview />
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-4 pb-12 sm:px-5 md:px-8 md:pb-16">
-        <div className="grid gap-6 lg:grid-cols-2">
-          <div className="rounded-[2rem] border border-red-200 bg-red-50 p-6 shadow-xl shadow-red-100/40 md:p-8">
-            <p className="text-xs font-black uppercase tracking-[0.22em] text-red-700">Safety boundaries</p>
-            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">What MerchantFix will not do.</h2>
-            <div className="mt-6 grid gap-3">
-              {willNotDo.map((item) => (
-                <div key={item} className="rounded-2xl border border-red-200 bg-white px-4 py-3 font-bold leading-7 text-slate-700">
-                  {item}
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/60 md:p-8">
-            <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Best fit</p>
-            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">Useful when the warning is precise but the fix is unclear.</h2>
-            <div className="mt-6 flex flex-wrap gap-3">
-              {bestForErrors.map((error) => (
-                <span key={error} className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-black text-slate-700">
-                  {error}
-                </span>
-              ))}
-            </div>
-            <p className="mt-6 leading-7 text-slate-600">
-              The goal is not to promise approval. The goal is to reduce confusion before you edit product data, upload a CSV, or resubmit products for review.
-            </p>
-          </div>
         </div>
       </section>
 
@@ -337,7 +229,7 @@ export default function SampleReportPage() {
           <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
             <div className="min-w-0">
               <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Best next step</p>
-              <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">Start with your real Merchant Center warning.</h2>
+              <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">Start with your real product-data warning.</h2>
               <p className="mt-3 max-w-3xl leading-7 text-slate-700">Paste your exact warning first, then buy the Fix Pack if affected rows, CSV-level notes, or manual review flags are needed.</p>
             </div>
             <div className="flex min-w-0 flex-col gap-3">
