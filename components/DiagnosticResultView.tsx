@@ -21,10 +21,18 @@ const categoryLabel: Record<IssueCategory, string> = {
   price: "Prices",
   data_quality: "Data quality",
   manual_review: "Manual review",
-  system: "System"
+  system: "Upload / file format"
 };
 
 function diagnosticStatus(analysis: AnalysisResult) {
+  if (analysis.status === "error") {
+    return {
+      label: "CSV upload needs attention",
+      description: "MerchantFix could not complete the diagnosis. Follow the recovery steps below, then upload a fresh Shopify product CSV export.",
+      className: "border-slate-300 bg-slate-100 text-slate-800"
+    };
+  }
+
   if (analysis.criticalCount > 0) {
     return {
       label: "Critical cleanup required",
@@ -54,6 +62,7 @@ export function DiagnosticResultView({ analysis, correctedCsvResult, reportModel
   const safeFixCount = analysis.issues.filter((issue) => issue.autoFixable || issue.fixType === "auto_fixable").length;
   const hasAnnotatedCsv = Boolean(correctedCsvResult?.correctedCsv);
   const generatedAt = new Date(analysis.createdAt).toLocaleString();
+  const isUploadError = analysis.status === "error";
 
   function downloadAnnotatedCsv() {
     if (!correctedCsvResult?.correctedCsv) {
@@ -76,7 +85,7 @@ export function DiagnosticResultView({ analysis, correctedCsvResult, reportModel
           <div className="min-w-0">
             <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">MerchantFix.ai diagnostic report</p>
             <h2 className="mt-3 break-words text-3xl font-black tracking-tight text-slate-950 md:text-4xl">
-              Shopify CSV product data report
+              {isUploadError ? "Shopify CSV upload recovery" : "Shopify CSV product data report"}
             </h2>
             <p className="mt-3 max-w-3xl leading-7 text-slate-700">{analysis.summary}</p>
             <p className="mt-3 text-sm font-semibold text-slate-500">Report ID: {analysis.sessionId} · Generated: {generatedAt}</p>
@@ -94,7 +103,23 @@ export function DiagnosticResultView({ analysis, correctedCsvResult, reportModel
         </div>
       </div>
 
-      {reportModel ? (
+      {isUploadError ? (
+        <section className="mt-5 rounded-xl border border-slate-300 bg-white p-5 shadow-sm md:p-6">
+          <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-500">How to recover</p>
+          <h3 className="mt-3 text-2xl font-black tracking-tight text-slate-950">Upload a fresh Shopify product CSV export.</h3>
+          <div className="mt-4 grid gap-3 text-sm font-bold leading-6 text-slate-700 md:grid-cols-2">
+            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">Expected columns include: Title, Handle, Vendor, Variant SKU, Variant Barcode, Variant Price, Image Src.</div>
+            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">Use the original Shopify product export. Do not rename, sort, delete, or manually rebuild columns before upload.</div>
+            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">Do not upload a feed-app export, Google Merchant Center feed file, order export, or customer export.</div>
+            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">Export again from Shopify admin, then retry the diagnostic with the new CSV.</div>
+          </div>
+          <a href="/how-to-export-shopify-csv" className="mt-5 inline-flex rounded-full bg-blue-700 px-5 py-3 text-sm font-black text-white transition hover:bg-blue-800">
+            How to export a Shopify CSV
+          </a>
+        </section>
+      ) : null}
+
+      {reportModel && !isUploadError ? (
         <div className="mt-5">
           <MerchantFixReportPanel report={reportModel} />
         </div>
@@ -143,7 +168,7 @@ export function DiagnosticResultView({ analysis, correctedCsvResult, reportModel
           </section>
         ) : null}
 
-        {hasAnnotatedCsv ? (
+        {hasAnnotatedCsv && !isUploadError ? (
           <section className="rounded-xl border border-emerald-200 bg-emerald-50 p-5 shadow-sm md:p-6">
             <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
               <div className="min-w-0">
@@ -171,7 +196,9 @@ export function DiagnosticResultView({ analysis, correctedCsvResult, reportModel
             <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-500">CSV export</p>
             <h3 className="mt-3 text-2xl font-black tracking-tight text-slate-950">No annotated CSV generated.</h3>
             <p className="mt-3 leading-7 text-slate-600">
-              MerchantFix.ai only generates an annotated CSV when safe notes or deterministic changes are available.
+              {isUploadError
+                ? "MerchantFix needs a valid Shopify product CSV before it can generate an annotated CSV."
+                : "MerchantFix.ai only generates an annotated CSV when safe notes or deterministic changes are available."}
             </p>
           </section>
         )}
