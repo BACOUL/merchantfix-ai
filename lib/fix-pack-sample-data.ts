@@ -113,24 +113,24 @@ export const annotatedCsvPreviewRows = [
 
 export const fixPackOutputs = [
   {
-    title: "merchantfix-diagnostic-report.pdf",
-    description: "A clear PDF-style summary of detected issues, priorities, affected rows, unsupported areas, and safe next steps."
+    title: "On-screen diagnostic report",
+    description: "A structured report page with detected issues, priorities, affected rows, guardrails, evidence needed, and clear limitations. PDF export is a later delivery layer."
   },
   {
     title: "merchantfix-annotated-products.csv",
-    description: "Your Shopify CSV with MerchantFix notes, action, guardrail status, manual-review reason, and evidence needed."
+    description: "Your Shopify CSV with MerchantFix notes, action, guardrail status, manual-review reason, and evidence needed when safe output is available."
   },
   {
-    title: "merchantfix-manual-review.csv",
-    description: "Rows that need supplier data, packaging, barcode, official brand confirmation, or merchant judgment."
+    title: "Manual-review rows inside the report",
+    description: "Rows that require supplier data, packaging, barcode, official brand confirmation, or merchant judgment are marked clearly instead of being auto-fixed."
   },
   {
-    title: "merchantfix-resubmission-checklist.txt",
-    description: "A short checklist to review before editing Shopify, uploading a feed, or resubmitting products."
+    title: "Resubmission checklist inside the report",
+    description: "A short set of next steps to review before editing Shopify, uploading a feed, or resubmitting products."
   },
   {
     title: "Safe correction notes",
-    description: "Deterministic edits only. MerchantFix explains what can be changed safely and what must be verified manually."
+    description: "Deterministic notes only. MerchantFix explains what can be reviewed safely and what must be verified manually."
   }
 ];
 
