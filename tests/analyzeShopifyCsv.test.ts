@@ -2,14 +2,77 @@ import { describe, expect, it } from "vitest";
 import { analyzeShopifyCsv } from "../lib/analyzeShopifyCsv";
 
 describe("analyzeShopifyCsv", () => {
-  it("handles empty CSV text", () => {
+  it("handles empty CSV text with customer-facing recovery steps", () => {
     const result = analyzeShopifyCsv({ csvText: "", sessionId: "empty-test" });
 
     expect(result.status).toBe("error");
+    expect(result.sessionId).toBe("empty-test");
     expect(result.totalProducts).toBe(0);
+    expect(result.correctedCsvAvailable).toBe(false);
     expect(result.summary).toContain("empty");
-    expect(result.recommendedActions.join(" ")).toContain("valid Shopify CSV");
+    expect(result.recommendedActions.join(" ")).toContain("Export a fresh Shopify product CSV");
+    expect(result.recommendedActions.join(" ")).toContain("Title");
+    expect(result.recommendedActions.join(" ")).toContain("Variant Barcode");
+    expect(result.issues).toHaveLength(1);
+    expect(result.issues[0].issueCode).toBe("empty_file");
+    expect(result.issues[0].category).toBe("system");
     expect(result.disclaimer).toContain("Google approval is not guaranteed");
+  });
+
+  it("handles CSV with headers but no product rows", () => {
+    const result = analyzeShopifyCsv({
+      csvText: "Title,Handle,Vendor,Variant Barcode,Variant Price,Image Src\n",
+      sessionId: "header-only-test"
+    });
+
+    expect(result.status).toBe("error");
+    expect(result.totalProducts).toBe(0);
+    expect(result.correctedCsvAvailable).toBe(false);
+    expect(result.summary).toContain("header");
+    expect(result.summary).toContain("no product rows");
+    expect(result.issues.some((issue) => issue.issueCode === "empty_file")).toBe(true);
+    expect(result.detectedCategories).toEqual(["system"]);
+  });
+
+  it("returns an error for unrecognized non-Shopify columns with clear recovery copy", () => {
+    const result = analyzeShopifyCsv({ csvText: "Foo,Bar\none,two", sessionId: "bad-columns-test" });
+
+    expect(result.status).toBe("error");
+    expect(result.totalProducts).toBe(0);
+    expect(result.correctedCsvAvailable).toBe(false);
+    expect(result.summary).toContain("does not appear to be a Shopify product CSV");
+    expect(result.summary).toContain("Title");
+    expect(result.summary).toContain("Variant SKU");
+    expect(result.recommendedActions.join(" ")).toContain("Do not upload a Google Merchant Center feed export");
+    expect(result.issues.some((issue) => issue.issueCode === "unrecognized_columns")).toBe(true);
+    expect(result.issues[0].suggestedFix).toContain("Shopify product CSV export");
+  });
+
+  it("returns an invalid CSV error for malformed CSV input", () => {
+    const result = analyzeShopifyCsv({
+      csvText: "Title,Handle,Variant Barcode\n\"Broken product,broken-product,1234567890123",
+      sessionId: "malformed-csv-test"
+    });
+
+    expect(result.status).toBe("error");
+    expect(result.totalProducts).toBe(0);
+    expect(result.correctedCsvAvailable).toBe(false);
+    expect(result.summary).toContain("could not be read as a valid CSV");
+    expect(result.recommendedActions.join(" ")).toContain("fresh Shopify product CSV");
+    expect(result.issues.some((issue) => issue.issueCode === "invalid_csv")).toBe(true);
+  });
+
+  it("preserves pasted Merchant Center warning context even when upload fails", () => {
+    const result = analyzeShopifyCsv({
+      csvText: "",
+      merchantCenterErrorText: "Missing value [gtin] and identifier_exists conflict",
+      sessionId: "error-context-test"
+    });
+
+    expect(result.status).toBe("error");
+    expect(result.merchantCenterErrorContext?.mentionsGtin).toBe(true);
+    expect(result.merchantCenterErrorContext?.mentionsIdentifierExists).toBe(true);
+    expect(result.merchantCenterErrorContext?.detectedErrorKeywords).toEqual(expect.arrayContaining(["gtin", "identifier_exists"]));
   });
 
   it("analyzes a clean CSV without false critical errors", () => {
@@ -22,6 +85,7 @@ describe("analyzeShopifyCsv", () => {
     expect(result.status).toBe("success");
     expect(result.totalProducts).toBe(1);
     expect(result.criticalCount).toBe(0);
+    expect(result.correctedCsvAvailable).toBe(false);
     expect(result.disclaimer).toContain("Google approval is not guaranteed");
   });
 
@@ -33,6 +97,7 @@ describe("analyzeShopifyCsv", () => {
     const result = analyzeShopifyCsv({ csvText, sessionId: "missing-gtin-test" });
 
     expect(result.criticalCount).toBeGreaterThan(0);
+    expect(result.correctedCsvAvailable).toBe(true);
     expect(result.issues.some((issue) => issue.issueCode === "identifier_exists_conflict")).toBe(true);
     expect(result.recommendedActions.join(" ")).toContain("Do not invent GTIN");
   });
@@ -46,14 +111,7 @@ describe("analyzeShopifyCsv", () => {
 
     expect(result.issues.some((issue) => issue.issueCode === "possible_custom_product")).toBe(true);
     expect(result.recommendedActions.join(" ")).toContain("custom");
-  });
-
-  it("returns an error for unrecognized columns", () => {
-    const result = analyzeShopifyCsv({ csvText: "Foo,Bar\none,two", sessionId: "bad-columns-test" });
-
-    expect(result.status).toBe("error");
-    expect(result.summary).toContain("recognizable Shopify product columns");
-    expect(result.issues.some((issue) => issue.issueCode === "unrecognized_columns")).toBe(true);
+    expect(result.issues.some((issue) => issue.manualReviewRequired)).toBe(true);
   });
 
   it("returns detected categories", () => {
