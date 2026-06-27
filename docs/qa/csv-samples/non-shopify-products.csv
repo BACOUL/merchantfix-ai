@@ -1,0 +1,3 @@
+Name,Category,Internal note
+Sample row,Example category,This file intentionally does not use Shopify product export columns.
+Another row,Example category,Expected result is unrecognized columns.
