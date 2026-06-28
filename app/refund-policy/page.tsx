@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { canonical } from "@/lib/seo";
+import { canonical, SUPPORT_EMAIL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Refund Policy | MerchantFix.ai",
@@ -84,7 +84,7 @@ export default function RefundPolicyPage() {
             <section>
               <h2 className="text-2xl font-black text-slate-950">How to request support</h2>
               <p className="mt-3 leading-7">
-                Email <Link href="mailto:contact@merchantfix.ai" className="font-bold text-blue-700 hover:text-blue-900">contact@merchantfix.ai</Link> with your checkout email, payment date, and a clear description of the issue. Do not send full card details.
+                Email <Link href={`mailto:${SUPPORT_EMAIL}`} className="font-bold text-blue-700 hover:text-blue-900">{SUPPORT_EMAIL}</Link> with your checkout email, payment date, and a clear description of the issue. Do not send full card details.
               </p>
             </section>
           </div>
