@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PrimaryLink, SecondaryLink, TextBadge } from "@/components";
+import { SUPPORT_EMAIL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Payment confirmed | MerchantFix.ai",
@@ -15,8 +16,6 @@ type SuccessPageProps = {
     session_id?: string;
   };
 };
-
-const supportEmail = "contact@merchantfix.ai";
 
 const nextSteps = [
   "Keep your Stripe confirmation email for your records.",
@@ -88,7 +87,7 @@ export default function SuccessPage({ searchParams }: SuccessPageProps) {
           <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Support</p>
           <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">Need help after payment?</h2>
           <p className="mt-4 max-w-3xl leading-7 text-slate-600">
-            Contact support at <a className="font-black text-blue-700 underline" href={`mailto:${supportEmail}`}>{supportEmail}</a>. Include your Stripe session ID when available.
+            Contact support at <a className="font-black text-blue-700 underline" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>. Include your Stripe session ID when available.
           </p>
           <div className="mt-6 grid gap-3 md:grid-cols-3">
             {supportNotes.map((item) => (
