@@ -6,6 +6,7 @@ import { glossarySeoPages } from "./glossarySeo";
 import { shopifyGmcLongTailSeoPages } from "./shopifyGmcLongTailSeo";
 
 export const SITE_URL = "https://merchantfix-ai.com";
+export const SUPPORT_EMAIL = "contact@merchantfix-ai.com";
 
 export const fixGuides = [
   {
@@ -140,7 +141,7 @@ export const structuredData = [
     "@type": "Organization",
     name: "MerchantFix.ai",
     url: SITE_URL,
-    email: "contact@merchantfix.com",
+    email: SUPPORT_EMAIL,
     parentOrganization: {
       "@type": "Organization",
       name: "TimeProofs"
