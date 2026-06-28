@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { canonical } from "@/lib/seo";
+import { canonical, SUPPORT_EMAIL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Data Handling | MerchantFix.ai",
@@ -97,7 +97,7 @@ export default function DataHandlingPage() {
             <section>
               <h2 className="text-2xl font-black text-slate-950">Support and deletion requests</h2>
               <p className="mt-3 leading-7">
-                For data questions or deletion requests, contact <Link href="mailto:contact@merchantfix.ai" className="font-bold text-blue-700 hover:text-blue-900">contact@merchantfix.ai</Link>.
+                For data questions or deletion requests, contact <Link href={`mailto:${SUPPORT_EMAIL}`} className="font-bold text-blue-700 hover:text-blue-900">{SUPPORT_EMAIL}</Link>.
               </p>
             </section>
           </div>
