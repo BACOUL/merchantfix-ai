@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { canonical } from "@/lib/seo";
+import { canonical, SUPPORT_EMAIL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Contact | MerchantFix.ai",
@@ -46,7 +46,7 @@ export default function ContactPage() {
             <section className="rounded-lg border border-blue-200 bg-blue-50 p-5 text-blue-950">
               <h2 className="text-2xl font-black">Support email</h2>
               <p className="mt-3 leading-7 text-lg font-semibold">
-                Contact <Link href="mailto:contact@merchantfix.ai" className="font-black underline">contact@merchantfix.ai</Link>.
+                Contact <Link href={`mailto:${SUPPORT_EMAIL}`} className="font-black underline">{SUPPORT_EMAIL}</Link>.
               </p>
               <p className="mt-3 leading-7 font-semibold">
                 MerchantFix.ai is a digital diagnostic product. It does not provide guaranteed Google approval, account recovery, ranking, traffic, sales, legal advice, tax advice, or official Google support.
