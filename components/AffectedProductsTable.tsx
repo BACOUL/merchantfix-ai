@@ -43,7 +43,7 @@ export function AffectedProductsTable({ issues }: AffectedProductsTableProps) {
         <p className="text-xs font-black uppercase tracking-[0.18em] text-emerald-800">Affected products</p>
         <h3 className="mt-3 text-2xl font-black tracking-tight text-emerald-950">No supported V1 product issues detected.</h3>
         <p className="mt-3 leading-7 text-emerald-900">
-          MerchantFix.ai did not find supported identifier, image, price, or data-quality issues in this CSV.
+          MerchantFix.ai did not find supported identifier, title, description, image, price, availability, apparel, or data-quality issues in this CSV.
         </p>
       </section>
     );
