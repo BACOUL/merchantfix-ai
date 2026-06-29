@@ -60,7 +60,7 @@ export default function TermsPage() {
             <section>
               <h2 className="text-2xl font-black text-slate-950">Operator</h2>
               <p className="mt-3 leading-7">
-                MerchantFix.ai is operated by TimeProofs, Entreprise individuelle, Jeason Alexandre Bacoul, SIREN 999356439. VAT exemption under the French small business VAT exemption regime. No VAT charged.
+                MerchantFix.ai is published by Jeason Alexandre Bacoul EI, operating under the commercial name TimeProofs. Legal form: Entreprise individuelle. SIREN: 999356439. VAT exemption under the French small business VAT exemption regime. No VAT charged.
               </p>
             </section>
 
@@ -126,7 +126,7 @@ export default function TermsPage() {
               </p>
             </section>
 
-            <p className="border-t border-slate-200 pt-5 text-sm font-semibold text-slate-500">Last updated: June 25, 2026</p>
+            <p className="border-t border-slate-200 pt-5 text-sm font-semibold text-slate-500">Last updated: June 29, 2026</p>
           </div>
         </article>
       </div>
