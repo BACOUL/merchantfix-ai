@@ -65,7 +65,7 @@ export function CsvUploadForm({ checkoutSessionId, diagnosticTestToken }: CsvUpl
           </h2>
           <p className="mt-4 leading-7 text-slate-700">
             Upload a Shopify product export and optionally paste the Merchant Center warning. MerchantFix.ai checks
-            GTIN, MPN, brand, identifier_exists, image, and price fields, then separates safe notes from manual review rows.
+            identifiers, brand, title, description, image, price, availability context, and selected apparel attributes, then separates safe notes from manual review rows.
           </p>
           <div className="mt-5 grid gap-3 text-sm text-slate-700 sm:grid-cols-2">
             {[
