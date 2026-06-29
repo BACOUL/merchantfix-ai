@@ -93,6 +93,20 @@ function parseMerchantCenterErrorContext(rawErrorText = "") {
     "identifier_exists",
     "identifier exists",
     "brand",
+    "title",
+    "description",
+    "link",
+    "landing page",
+    "image",
+    "image_link",
+    "price",
+    "availability",
+    "color",
+    "colour",
+    "size",
+    "age_group",
+    "age group",
+    "gender",
     "disapproved",
     "limited performance",
     "custom",
@@ -110,6 +124,16 @@ function parseMerchantCenterErrorContext(rawErrorText = "") {
     mentionsMpn: normalized.includes("mpn"),
     mentionsIdentifierExists: normalized.includes("identifier_exists") || normalized.includes("identifier exists"),
     mentionsBrand: normalized.includes("brand"),
+    mentionsTitle: normalized.includes("title"),
+    mentionsDescription: normalized.includes("description"),
+    mentionsLink: normalized.includes("link") || normalized.includes("landing page"),
+    mentionsImage: normalized.includes("image") || normalized.includes("image_link"),
+    mentionsPrice: normalized.includes("price"),
+    mentionsAvailability: normalized.includes("availability"),
+    mentionsColor: normalized.includes("color") || normalized.includes("colour"),
+    mentionsSize: normalized.includes("size"),
+    mentionsAgeGroup: normalized.includes("age_group") || normalized.includes("age group"),
+    mentionsGender: normalized.includes("gender"),
     mentionsCustomProduct:
       normalized.includes("custom") ||
       normalized.includes("handmade") ||
@@ -200,7 +224,7 @@ export function analyzeShopifyCsv(input: {
     };
   }
 
-  const issues = detectIdentifierIssues(products);
+  const issues = detectIdentifierIssues(products, merchantCenterErrorContext);
   const criticalCount = issues.filter((issue) => issue.severity === "critical").length;
   const warningCount = issues.filter((issue) => issue.severity === "warning").length;
   const infoCount = issues.filter((issue) => issue.severity === "info").length;
