@@ -66,6 +66,45 @@ Expected result:
 - explains custom, handmade, personalized, or made-to-order review;
 - requires merchant verification.
 
+### Missing title
+
+```text
+Missing value [title]
+A product title is required for this item.
+```
+
+Expected result:
+
+- maps to Shopify title and feed title mapping fields;
+- warns not to use keyword stuffing or promotional titles;
+- suggests CSV diagnosis if many rows are affected.
+
+### Missing description
+
+```text
+Missing value [description]
+Add a product description for this item.
+```
+
+Expected result:
+
+- maps to Shopify Body (HTML), description, and feed mapping fields;
+- warns not to invent product specifications;
+- suggests row-level review for empty descriptions.
+
+### Missing image link
+
+```text
+Missing value [image_link]
+Submit a main product image URL.
+```
+
+Expected result:
+
+- maps to Shopify Image Src, Variant Image, and product media fields;
+- warns not to use placeholder, private, or unrelated images;
+- suggests CSV diagnosis when many rows are affected.
+
 ## Partial-fit examples
 
 ### Price mismatch
@@ -90,6 +129,19 @@ Expected result:
 - explains that Shopify status and availability fields can be checked;
 - requires live storefront verification.
 
+### Invalid availability
+
+```text
+Invalid value [availability]
+The submitted availability value is not supported.
+```
+
+Expected result:
+
+- maps to Shopify inventory, status, published state, and feed availability mapping;
+- explains that inventory truth must be verified;
+- warns not to force every product to in_stock.
+
 ### Image issue
 
 ```text
@@ -100,6 +152,71 @@ Expected result:
 
 - maps to image fields;
 - asks the merchant to verify product image URLs and live accessibility.
+
+### Product link issue
+
+```text
+Invalid value [link]
+The product landing page URL is missing or invalid.
+```
+
+Expected result:
+
+- maps to Shopify handle, product URL, publishing, and feed link mapping;
+- explains that live URL access must be checked manually;
+- does not claim the CSV alone proves crawlability.
+
+### Missing color
+
+```text
+Missing value [color]
+Add color information for apparel products.
+```
+
+Expected result:
+
+- maps to Shopify options, titles, tags, and feed color mapping;
+- explains that apparel/category context matters;
+- warns not to guess color values.
+
+### Missing size
+
+```text
+Missing value [size]
+Add size information for apparel products.
+```
+
+Expected result:
+
+- maps to Shopify options, variant titles, tags, and feed size mapping;
+- explains that final size values need merchant confirmation;
+- warns not to bulk-fill one size across variants.
+
+### Missing age group
+
+```text
+Missing value [age_group]
+Add an age group value for this apparel item.
+```
+
+Expected result:
+
+- maps to title, product type, category, tags, and feed age_group mapping;
+- explains that product audience and category context matter;
+- warns not to assume every product is adult by default.
+
+### Missing gender
+
+```text
+Missing value [gender]
+Add a gender value for this apparel item.
+```
+
+Expected result:
+
+- maps to title, product type, category, tags, and feed gender mapping;
+- explains that unisex cases need separate review;
+- warns not to assign gender automatically from one keyword.
 
 ## Limited-fit examples
 
@@ -126,6 +243,19 @@ Expected result:
 - not positioned as automatic account recovery;
 - direct the user to limitations and manual review.
 
+### Landing page unavailable
+
+```text
+Landing page not available
+Google could not access the product page.
+```
+
+Expected result:
+
+- explains that Shopify status, handle, publishing, redirects, and public access may be relevant;
+- requires live browser and Merchant Center checks;
+- does not position this as a guaranteed CSV-only fix.
+
 ## Safety checks
 
 For every warning example, verify that the site does not say:
@@ -133,5 +263,5 @@ For every warning example, verify that the site does not say:
 - approval guaranteed;
 - account recovery guaranteed;
 - traffic, ranking, performance, or sales guaranteed;
-- GTIN, MPN, brand, price, shipping, tax, or product facts can be invented;
+- GTIN, MPN, brand, title, description, price, shipping, tax, or product facts can be invented;
 - MerchantFix is official Google support.
