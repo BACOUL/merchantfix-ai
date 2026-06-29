@@ -43,6 +43,36 @@ export const fixGuides = [
     path: "/fix/shopify-missing-product-identifiers",
     label: "Shopify missing product identifiers",
     description: "Compare GTIN, MPN, brand, and identifier_exists issues in one practical guide."
+  },
+  {
+    path: "/fix/google-merchant-center-missing-title",
+    label: "Missing title guide",
+    description: "Find Shopify rows where Google Merchant Center title data is missing."
+  },
+  {
+    path: "/fix/google-merchant-center-missing-description",
+    label: "Missing description guide",
+    description: "Review empty Shopify descriptions and feed description mapping."
+  },
+  {
+    path: "/fix/google-merchant-center-missing-image-link",
+    label: "Missing image_link guide",
+    description: "Check Shopify image fields and feed image mapping before resubmission."
+  },
+  {
+    path: "/fix/google-merchant-center-invalid-availability",
+    label: "Invalid availability guide",
+    description: "Review Shopify inventory, storefront state, and feed availability values."
+  },
+  {
+    path: "/fix/google-merchant-center-missing-color",
+    label: "Missing color guide",
+    description: "Review apparel color values from Shopify options and feed mapping."
+  },
+  {
+    path: "/fix/google-merchant-center-missing-size",
+    label: "Missing size guide",
+    description: "Review apparel size values from variant options and product data."
   }
 ] as const;
 
