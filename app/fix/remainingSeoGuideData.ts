@@ -32,6 +32,16 @@ const invalidAvailability = guide(
   "Invalid availability guide",
   "Review Shopify inventory, storefront state, and feed availability values."
 );
+const missingAgeGroup = guide(
+  "/fix/google-merchant-center-missing-age-group",
+  "Missing age_group guide",
+  "Review apparel audience values and category context."
+);
+const missingGender = guide(
+  "/fix/google-merchant-center-missing-gender",
+  "Missing gender guide",
+  "Review apparel gender values, unisex cases, and category context."
+);
 
 export const invalidTitleGuide: SeoGuidePageProps = {
   badge: "Title quality issue",
@@ -144,7 +154,7 @@ export const missingAgeGroupGuide: SeoGuidePageProps = {
       items: ["It will not assume every product is adult.", "It will not hide category issues with a guessed age_group.", "It will not guarantee approval or Shopping performance."]
     }
   },
-  relatedGuides: [missingGenderGuidePlaceholder, missingColor, missingSize, productFeedErrors]
+  relatedGuides: [missingGender, missingColor, missingSize, productFeedErrors]
 };
 
 export const missingGenderGuide: SeoGuidePageProps = {
@@ -182,16 +192,5 @@ export const missingGenderGuide: SeoGuidePageProps = {
       items: ["It will not ignore unisex cases.", "It will not use gender as a substitute for category mapping.", "It will not guarantee Google approval."]
     }
   },
-  relatedGuides: [missingAgeGroupGuidePlaceholder, missingColor, missingSize, productFeedErrors]
+  relatedGuides: [missingAgeGroup, missingColor, missingSize, productFeedErrors]
 };
-
-const missingAgeGroupGuidePlaceholder = guide(
-  "/fix/google-merchant-center-missing-age-group",
-  "Missing age_group guide",
-  "Review apparel audience values and category context."
-);
-const missingGenderGuidePlaceholder = guide(
-  "/fix/google-merchant-center-missing-gender",
-  "Missing gender guide",
-  "Review apparel gender values, unisex cases, and category context."
-);
