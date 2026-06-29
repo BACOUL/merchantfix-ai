@@ -6,6 +6,8 @@ export type IssueCategory =
   | "brand"
   | "image"
   | "price"
+  | "availability"
+  | "apparel"
   | "data_quality"
   | "manual_review"
   | "system";
@@ -40,8 +42,17 @@ export type IssueCode =
   | "duplicate_gtin"
   | "sku_same_as_mpn"
   | "possible_custom_product"
+  | "missing_title"
+  | "invalid_title"
+  | "missing_description"
+  | "missing_link"
   | "missing_image"
   | "missing_price"
+  | "invalid_availability"
+  | "missing_color"
+  | "missing_size"
+  | "missing_age_group"
+  | "missing_gender"
   | "unrecognized_columns"
   | "empty_file"
   | "invalid_csv"
@@ -113,6 +124,8 @@ export type NormalizedProduct = {
   originalRow: RawCsvRow;
   title: string | null;
   handle: string | null;
+  description: string | null;
+  link: string | null;
   brand: string | null;
   vendor: string | null;
   gtin: string | null;
@@ -120,6 +133,11 @@ export type NormalizedProduct = {
   sku: string | null;
   price: string | null;
   image: string | null;
+  availability: string | null;
+  color: string | null;
+  size: string | null;
+  ageGroup: string | null;
+  gender: string | null;
   identifierExists: boolean | null;
   googleProductCategory: string | null;
   isPossibleCustomProduct: boolean;
@@ -196,6 +214,16 @@ export type MerchantCenterErrorContext = {
   mentionsMpn: boolean;
   mentionsIdentifierExists: boolean;
   mentionsBrand: boolean;
+  mentionsTitle: boolean;
+  mentionsDescription: boolean;
+  mentionsLink: boolean;
+  mentionsImage: boolean;
+  mentionsPrice: boolean;
+  mentionsAvailability: boolean;
+  mentionsColor: boolean;
+  mentionsSize: boolean;
+  mentionsAgeGroup: boolean;
+  mentionsGender: boolean;
   mentionsCustomProduct: boolean;
   mentionsDisapproved: boolean;
   mentionsLimitedPerformance: boolean;
@@ -231,6 +259,8 @@ export type ShopifyCsvRow = RawCsvRow;
 export type NormalizedColumns = {
   title?: string | null;
   handle?: string | null;
+  description?: string | null;
+  link?: string | null;
   gtin?: string | null;
   mpn?: string | null;
   brand?: string | null;
@@ -239,6 +269,11 @@ export type NormalizedColumns = {
   identifierExists?: boolean | null;
   image?: string | null;
   price?: string | null;
+  availability?: string | null;
+  color?: string | null;
+  size?: string | null;
+  ageGroup?: string | null;
+  gender?: string | null;
 };
 
 export type IdentifierIssue = ProductIssue;
