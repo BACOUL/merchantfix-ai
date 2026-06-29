@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { MerchantCenterErrorDiagnosis } from "@/lib/merchant-center-errors";
+import { getMerchantCenterGuideUrl } from "@/lib/merchant-center-guide-urls";
 
 const severityStyles = {
   critical: "border-red-200 bg-red-50 text-red-800",
@@ -36,6 +37,8 @@ export function ErrorDiagnosisPreview({ diagnosis, submittedWarning }: { diagnos
       </div>
     );
   }
+
+  const guideUrl = getMerchantCenterGuideUrl(issue);
 
   return (
     <div className="rounded-[1.5rem] border-2 border-blue-300 bg-white p-5 shadow-2xl shadow-blue-950/30 ring-4 ring-blue-200/30 md:p-6">
@@ -97,7 +100,7 @@ export function ErrorDiagnosisPreview({ diagnosis, submittedWarning }: { diagnos
           <Link href={issue.ctaHref} className="inline-flex justify-center rounded-full bg-blue-700 px-5 py-3 text-sm font-black text-white transition hover:bg-blue-800">
             {issue.ctaLabel}
           </Link>
-          <Link href={issue.guideUrl} className="inline-flex justify-center rounded-full border border-blue-200 bg-white px-5 py-3 text-sm font-black text-blue-800 transition hover:bg-blue-50">
+          <Link href={guideUrl} className="inline-flex justify-center rounded-full border border-blue-200 bg-white px-5 py-3 text-sm font-black text-blue-800 transition hover:bg-blue-50">
             Read guide
           </Link>
         </div>
