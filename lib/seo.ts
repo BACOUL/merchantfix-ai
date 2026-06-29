@@ -185,17 +185,21 @@ export function canonical(path: string) {
   return absoluteUrl(path);
 }
 
+const publisherData = {
+  "@type": "Organization",
+  name: "TimeProofs",
+  legalName: "Jeason Alexandre Bacoul EI",
+  identifier: "SIREN 999356439",
+  email: SUPPORT_EMAIL
+};
+
 export const structuredData = [
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": "WebSite",
     name: "MerchantFix.ai",
     url: SITE_URL,
-    email: SUPPORT_EMAIL,
-    parentOrganization: {
-      "@type": "Organization",
-      name: "TimeProofs"
-    }
+    publisher: publisherData
   },
   {
     "@context": "https://schema.org",
@@ -204,6 +208,7 @@ export const structuredData = [
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web",
     url: SITE_URL,
+    provider: publisherData,
     offers: {
       "@type": "Offer",
       price: "29",
