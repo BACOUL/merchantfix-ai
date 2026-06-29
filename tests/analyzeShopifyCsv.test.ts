@@ -77,8 +77,8 @@ describe("analyzeShopifyCsv", () => {
 
   it("analyzes a clean CSV without false critical errors", () => {
     const csvText = [
-      "Title,Handle,Vendor,Variant Barcode,MPN,Variant SKU,Variant Price,Image Src,identifier_exists",
-      "Classic Mug,classic-mug,Example Brand,1234567890123,MUG-MPN,MUG-SKU,12.00,https://example.com/mug.jpg,true"
+      "Title,Handle,Body (HTML),Vendor,Variant Barcode,MPN,Variant SKU,Variant Price,Image Src,identifier_exists",
+      "Classic Mug,classic-mug,A clear ceramic mug description.,Example Brand,1234567890123,MUG-MPN,MUG-SKU,12.00,https://example.com/mug.jpg,true"
     ].join("\n");
     const result = analyzeShopifyCsv({ csvText, sessionId: "clean-test" });
 
@@ -114,6 +114,40 @@ describe("analyzeShopifyCsv", () => {
     expect(result.issues.some((issue) => issue.manualReviewRequired)).toBe(true);
   });
 
+  it("detects expanded product-data gaps in CSV rows", () => {
+    const csvText = [
+      "Title,Handle,Body (HTML),Vendor,Variant Barcode,MPN,Variant SKU,Variant Price,Image Src,identifier_exists",
+      ",missing-content,,Example Brand,1234567890123,MPN-1,SKU-1,,https://example.com/image.jpg,true"
+    ].join("\n");
+    const result = analyzeShopifyCsv({ csvText, sessionId: "expanded-gaps-test" });
+
+    expect(result.status).toBe("warning");
+    expect(result.issues.some((issue) => issue.issueCode === "missing_title")).toBe(true);
+    expect(result.issues.some((issue) => issue.issueCode === "missing_description")).toBe(true);
+    expect(result.issues.some((issue) => issue.issueCode === "missing_price")).toBe(true);
+    expect(result.recommendedActions.join(" ")).toContain("product descriptions");
+  });
+
+  it("uses pasted Merchant Center context for availability, link, and apparel checks", () => {
+    const csvText = [
+      "Title,Handle,Body (HTML),Vendor,Variant Barcode,MPN,Variant SKU,Variant Price,Image Src,identifier_exists,Availability,Color,Size,age_group,Gender",
+      "Blue Shirt,blue-shirt,A clear shirt description.,Example Brand,1234567890123,MPN-1,SKU-1,29.00,https://example.com/shirt.jpg,true,coming_soon,,,,"
+    ].join("\n");
+    const result = analyzeShopifyCsv({
+      csvText,
+      merchantCenterErrorText: "Invalid value [availability]. Missing value [color]. Missing value [size]. Missing value [age_group]. Missing value [gender]. Invalid value [link].",
+      sessionId: "contextual-fields-test"
+    });
+
+    expect(result.issues.some((issue) => issue.issueCode === "invalid_availability")).toBe(true);
+    expect(result.issues.some((issue) => issue.issueCode === "missing_color")).toBe(true);
+    expect(result.issues.some((issue) => issue.issueCode === "missing_size")).toBe(true);
+    expect(result.issues.some((issue) => issue.issueCode === "missing_age_group")).toBe(true);
+    expect(result.issues.some((issue) => issue.issueCode === "missing_gender")).toBe(true);
+    expect(result.detectedCategories).toEqual(expect.arrayContaining(["availability", "apparel"]));
+    expect(result.recommendedActions.join(" ")).toContain("availability");
+  });
+
   it("returns detected categories", () => {
     const result = analyzeShopifyCsv({
       csvText: "Title,Variant SKU,Variant Price\nExample Product,SKU-1,10.00",
@@ -125,7 +159,7 @@ describe("analyzeShopifyCsv", () => {
 
   it("returns createdAt and sessionId", () => {
     const result = analyzeShopifyCsv({
-      csvText: "Title,Vendor,Variant Barcode,MPN,Variant Price,Image Src\nProduct,Brand,1234567890123,MPN,10.00,https://example.com/image.jpg"
+      csvText: "Title,Body (HTML),Vendor,Variant Barcode,MPN,Variant Price,Image Src\nProduct,Description,Brand,1234567890123,MPN,10.00,https://example.com/image.jpg"
     });
 
     expect(result.sessionId).toBeTruthy();
