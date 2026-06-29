@@ -50,6 +50,11 @@ export const fixGuides = [
     description: "Find Shopify rows where Google Merchant Center title data is missing."
   },
   {
+    path: "/fix/google-merchant-center-invalid-title",
+    label: "Invalid title guide",
+    description: "Review Shopify title quality, promotional wording, variant detail, and feed mapping."
+  },
+  {
     path: "/fix/google-merchant-center-missing-description",
     label: "Missing description guide",
     description: "Review empty Shopify descriptions and feed description mapping."
@@ -58,6 +63,11 @@ export const fixGuides = [
     path: "/fix/google-merchant-center-missing-image-link",
     label: "Missing image_link guide",
     description: "Check Shopify image fields and feed image mapping before resubmission."
+  },
+  {
+    path: "/fix/google-merchant-center-invalid-link",
+    label: "Invalid link guide",
+    description: "Check Shopify product URLs, handles, publishing status, redirects, and feed mapping."
   },
   {
     path: "/fix/google-merchant-center-invalid-availability",
@@ -73,6 +83,16 @@ export const fixGuides = [
     path: "/fix/google-merchant-center-missing-size",
     label: "Missing size guide",
     description: "Review apparel size values from variant options and product data."
+  },
+  {
+    path: "/fix/google-merchant-center-missing-age-group",
+    label: "Missing age_group guide",
+    description: "Review apparel audience values, category context, and feed mapping."
+  },
+  {
+    path: "/fix/google-merchant-center-missing-gender",
+    label: "Missing gender guide",
+    description: "Review apparel gender values, unisex cases, category context, and feed mapping."
   }
 ] as const;
 
