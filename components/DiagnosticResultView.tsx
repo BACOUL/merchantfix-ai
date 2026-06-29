@@ -19,6 +19,8 @@ const categoryLabel: Record<IssueCategory, string> = {
   brand: "Brand",
   image: "Images",
   price: "Prices",
+  availability: "Availability",
+  apparel: "Apparel attributes",
   data_quality: "Data quality",
   manual_review: "Manual review",
   system: "Upload / file format"
@@ -161,9 +163,9 @@ export function DiagnosticResultView({ analysis, correctedCsvResult, reportModel
         {manualReviewCount > 0 ? (
           <section className="rounded-xl border border-amber-200 bg-amber-50 p-5 text-amber-950 shadow-sm md:p-6">
             <p className="text-xs font-black uppercase tracking-[0.18em]">Manual review required</p>
-            <h3 className="mt-3 text-2xl font-black tracking-tight">Do not guess product identifiers.</h3>
+            <h3 className="mt-3 text-2xl font-black tracking-tight">Do not guess product data.</h3>
             <p className="mt-3 leading-7 font-semibold">
-              MerchantFix.ai cannot safely verify or invent GTIN, MPN, brand, price, or product identifiers. Review flagged rows before resubmitting products.
+              MerchantFix.ai cannot safely verify or invent GTIN, MPN, brand, title, description, price, availability, color, size, age_group, gender, or product identifiers. Review flagged rows before resubmitting products.
             </p>
           </section>
         ) : null}
@@ -175,7 +177,7 @@ export function DiagnosticResultView({ analysis, correctedCsvResult, reportModel
                 <p className="text-xs font-black uppercase tracking-[0.18em] text-emerald-800">Annotated CSV available</p>
                 <h3 className="mt-3 text-2xl font-black tracking-tight text-emerald-950">Download CSV notes and safe deterministic changes.</h3>
                 <p className="mt-3 leading-7 text-emerald-900">
-                  The annotated CSV preserves original product data, adds MerchantFix.ai notes, and only applies deterministic changes when safe. It does not invent GTIN, MPN, brand, or price values.
+                  The annotated CSV preserves original product data, adds MerchantFix.ai notes, and only applies deterministic changes when safe. It does not invent GTIN, MPN, brand, title, description, price, availability, color, size, age_group, or gender values.
                 </p>
                 <div className="mt-4 grid gap-3 text-sm font-bold text-emerald-950 sm:grid-cols-2">
                   <div className="rounded-lg bg-white/70 px-3 py-2">Notes/changes: {correctedCsvResult?.changes.length ?? 0}</div>
