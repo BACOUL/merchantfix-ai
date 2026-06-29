@@ -6,9 +6,11 @@ import { ErrorDiagnosisPreview } from "./ErrorDiagnosisPreview";
 
 const examples = [
   "Missing value [gtin]",
-  "Invalid value [gtin]",
-  "Missing value [brand]",
-  "identifier_exists conflict",
+  "Missing value [title]",
+  "Missing value [description]",
+  "Missing value [image_link]",
+  "Invalid value [availability]",
+  "Missing value [color]",
   "Mismatched value [price]",
   "Misrepresentation"
 ];
