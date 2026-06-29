@@ -68,12 +68,36 @@ export function generateRecommendedActions(input: {
     actions.add("Add missing brand or vendor information when required. Do not invent a brand.");
   }
 
+  if (issueCodes.has("missing_title") || issueCodes.has("invalid_title")) {
+    actions.add("Review affected product titles. Keep titles accurate, readable, and free from promotional stuffing.");
+  }
+
+  if (issueCodes.has("missing_description")) {
+    actions.add("Add missing product descriptions using real product facts. Do not invent specifications.");
+  }
+
+  if (issueCodes.has("missing_link")) {
+    actions.add("Check Shopify handles, publishing status, feed link mapping, and live product URLs for affected rows.");
+  }
+
   if (issueCodes.has("missing_image")) {
     actions.add("Add missing product image data in Shopify before resubmitting affected products.");
   }
 
   if (issueCodes.has("missing_price")) {
     actions.add("Add missing product price data in Shopify before resubmitting affected products.");
+  }
+
+  if (issueCodes.has("invalid_availability")) {
+    actions.add("Review Shopify inventory, storefront availability, and feed availability mapping before changing availability values.");
+  }
+
+  if (issueCodes.has("missing_color") || issueCodes.has("missing_size")) {
+    actions.add("Review product options, variant titles, tags, and category mapping for missing apparel attributes.");
+  }
+
+  if (issueCodes.has("missing_age_group") || issueCodes.has("missing_gender")) {
+    actions.add("Review product audience and Google product category before adding age_group or gender values.");
   }
 
   if (issueCodes.has("invalid_gtin_format") || issueCodes.has("invalid_gtin_length") || issueCodes.has("duplicate_gtin")) {
