@@ -4,7 +4,7 @@ import { canonical, SUPPORT_EMAIL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Legal Notice | MerchantFix.ai",
-  description: "Legal information for MerchantFix.ai, a digital product operated by TimeProofs.",
+  description: "Legal information for MerchantFix.ai, a digital product published by Jeason Alexandre Bacoul EI under the commercial name TimeProofs.",
   alternates: {
     canonical: canonical("/legal-notice")
   }
@@ -18,7 +18,7 @@ export default function LegalNoticePage() {
           <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Legal notice</p>
           <h1 className="mt-4 text-4xl font-black tracking-tight text-slate-950 md:text-6xl">Legal Notice</h1>
           <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
-            Legal identification for MerchantFix.ai, a digital product operated by TimeProofs.
+            Legal identification for MerchantFix.ai, a digital product published by Jeason Alexandre Bacoul EI under the commercial name TimeProofs.
           </p>
         </div>
       </section>
@@ -31,15 +31,17 @@ export default function LegalNoticePage() {
               <p className="mt-3 leading-7">
                 Website and service name: <strong>MerchantFix.ai</strong>.
               </p>
-              <p className="mt-2 leading-7">MerchantFix.ai is a digital product operated by TimeProofs.</p>
+              <p className="mt-2 leading-7">
+                MerchantFix.ai is a digital product published by Jeason Alexandre Bacoul EI, operating under the commercial name TimeProofs.
+              </p>
             </section>
 
             <section>
               <h2 className="text-2xl font-black text-slate-950">Legal Operator</h2>
               <div className="mt-3 grid gap-2 leading-7">
-                <p>Operator: TimeProofs</p>
+                <p>Legal operator: Jeason Alexandre Bacoul EI</p>
+                <p>Commercial name: TimeProofs</p>
                 <p>Legal form: Entreprise individuelle</p>
-                <p>Entrepreneur: Jeason Alexandre Bacoul</p>
                 <p>SIREN: 999356439</p>
                 <p>Registered address: 3 rue de l&apos;&Eacute;glise de Louppy, 55000 Les Hauts-de-Ch&eacute;e, France</p>
                 <p>VAT: VAT exemption under the French small business VAT exemption regime. No VAT charged.</p>
@@ -85,7 +87,7 @@ export default function LegalNoticePage() {
               </p>
             </section>
 
-            <p className="border-t border-slate-200 pt-5 text-sm font-semibold text-slate-500">Last updated: June 25, 2026</p>
+            <p className="border-t border-slate-200 pt-5 text-sm font-semibold text-slate-500">Last updated: June 29, 2026</p>
           </div>
         </article>
       </div>
