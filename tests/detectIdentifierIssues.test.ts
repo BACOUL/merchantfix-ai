@@ -1,6 +1,31 @@
 import { describe, expect, it } from "vitest";
 import { detectIdentifierIssues } from "../lib/detectIdentifierIssues";
-import type { NormalizedProduct } from "../lib/types";
+import type { MerchantCenterErrorContext, NormalizedProduct } from "../lib/types";
+
+function merchantContext(overrides: Partial<MerchantCenterErrorContext> = {}): MerchantCenterErrorContext {
+  return {
+    rawErrorText: "",
+    detectedErrorKeywords: [],
+    mentionsGtin: false,
+    mentionsMpn: false,
+    mentionsIdentifierExists: false,
+    mentionsBrand: false,
+    mentionsTitle: false,
+    mentionsDescription: false,
+    mentionsLink: false,
+    mentionsImage: false,
+    mentionsPrice: false,
+    mentionsAvailability: false,
+    mentionsColor: false,
+    mentionsSize: false,
+    mentionsAgeGroup: false,
+    mentionsGender: false,
+    mentionsCustomProduct: false,
+    mentionsDisapproved: false,
+    mentionsLimitedPerformance: false,
+    ...overrides
+  };
+}
 
 function product(overrides: Partial<NormalizedProduct>): NormalizedProduct {
   return {
@@ -8,6 +33,8 @@ function product(overrides: Partial<NormalizedProduct>): NormalizedProduct {
     originalRow: {},
     title: "Example Product",
     handle: "example-product",
+    description: "A clear product description based on the real item.",
+    link: "https://example.com/products/example-product",
     brand: "Example Brand",
     vendor: null,
     gtin: "1234567890123",
@@ -15,6 +42,11 @@ function product(overrides: Partial<NormalizedProduct>): NormalizedProduct {
     sku: "SKU-1",
     price: "10.00",
     image: "https://example.com/image.jpg",
+    availability: "in_stock",
+    color: "Blue",
+    size: "M",
+    ageGroup: "adult",
+    gender: "unisex",
     identifierExists: true,
     googleProductCategory: null,
     isPossibleCustomProduct: false,
@@ -102,6 +134,54 @@ describe("detectIdentifierIssues", () => {
     ]);
 
     expect(issues.some((issue) => issue.issueCode === "possible_custom_product" && issue.manualReviewRequired)).toBe(true);
+  });
+
+  it("detects missing title and description as manual review rows", () => {
+    const issues = detectIdentifierIssues([product({ title: null, description: null })]);
+
+    expect(issues.some((issue) => issue.issueCode === "missing_title" && issue.manualReviewRequired)).toBe(true);
+    expect(issues.some((issue) => issue.issueCode === "missing_description" && issue.manualReviewRequired)).toBe(true);
+  });
+
+  it("detects risky title only when Merchant Center title context is present", () => {
+    const riskyProduct = product({ title: "FREE SHIPPING BEST PRICE" });
+
+    expect(detectIdentifierIssues([riskyProduct]).some((issue) => issue.issueCode === "invalid_title")).toBe(false);
+    expect(
+      detectIdentifierIssues([riskyProduct], merchantContext({ mentionsTitle: true })).some(
+        (issue) => issue.issueCode === "invalid_title"
+      )
+    ).toBe(true);
+  });
+
+  it("detects context-sensitive availability, link, and apparel attribute issues", () => {
+    const issues = detectIdentifierIssues(
+      [product({ availability: "coming_soon", link: null, color: null, size: null, ageGroup: null, gender: null })],
+      merchantContext({
+        mentionsAvailability: true,
+        mentionsLink: true,
+        mentionsColor: true,
+        mentionsSize: true,
+        mentionsAgeGroup: true,
+        mentionsGender: true
+      })
+    );
+
+    expect(issues.some((issue) => issue.issueCode === "invalid_availability")).toBe(true);
+    expect(issues.some((issue) => issue.issueCode === "missing_link")).toBe(true);
+    expect(issues.some((issue) => issue.issueCode === "missing_color")).toBe(true);
+    expect(issues.some((issue) => issue.issueCode === "missing_size")).toBe(true);
+    expect(issues.some((issue) => issue.issueCode === "missing_age_group")).toBe(true);
+    expect(issues.some((issue) => issue.issueCode === "missing_gender")).toBe(true);
+  });
+
+  it("does not flag apparel attributes without matching Merchant Center context", () => {
+    const issues = detectIdentifierIssues([product({ color: null, size: null, ageGroup: null, gender: null })]);
+
+    expect(issues.some((issue) => issue.issueCode === "missing_color")).toBe(false);
+    expect(issues.some((issue) => issue.issueCode === "missing_size")).toBe(false);
+    expect(issues.some((issue) => issue.issueCode === "missing_age_group")).toBe(false);
+    expect(issues.some((issue) => issue.issueCode === "missing_gender")).toBe(false);
   });
 
   it("orders critical issues before warnings and info", () => {
