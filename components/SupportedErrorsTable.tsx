@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getMerchantCenterGuideUrl } from "@/lib/merchant-center-guide-urls";
 import { supportedMerchantCenterErrors } from "@/lib/merchant-center-errors";
 
 const supportLabels = {
@@ -33,36 +34,40 @@ export function SupportedErrorsTable() {
           </tr>
         </thead>
         <tbody>
-          {supportedMerchantCenterErrors.map((issue) => (
-            <tr key={issue.id} className="bg-slate-50 font-semibold leading-6 text-slate-700 shadow-sm">
-              <td className="rounded-l-xl px-3 py-4 text-slate-950">
-                <p className="font-black">{issue.exactWarning}</p>
-                <p className="mt-1 text-xs font-semibold text-slate-500">{issue.label}</p>
-              </td>
-              <td className="px-3 py-4">
-                <span className={`inline-flex rounded-full border px-3 py-1 text-xs font-black ${supportStyles[issue.supportedLevel]}`}>
-                  {supportLabels[issue.supportedLevel]}
-                </span>
-                <p className="mt-2 max-w-[180px] text-xs font-semibold leading-5 text-slate-500">{supportMeaning[issue.supportedLevel]}</p>
-              </td>
-              <td className="px-3 py-4">
-                <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-black text-slate-700">
-                  {issue.needsCsv ? "CSV recommended" : "CSV optional"}
-                </span>
-              </td>
-              <td className="px-3 py-4">{issue.shortDiagnosis}</td>
-              <td className="rounded-r-xl px-3 py-4">
-                <div className="flex flex-col gap-2">
-                  <Link href={issue.ctaHref} className="font-black text-blue-700 hover:text-blue-900">
-                    {issue.ctaLabel}
-                  </Link>
-                  <Link href={issue.guideUrl} className="text-xs font-black text-slate-500 hover:text-slate-900">
-                    Read guide
-                  </Link>
-                </div>
-              </td>
-            </tr>
-          ))}
+          {supportedMerchantCenterErrors.map((issue) => {
+            const guideUrl = getMerchantCenterGuideUrl(issue);
+
+            return (
+              <tr key={issue.id} className="bg-slate-50 font-semibold leading-6 text-slate-700 shadow-sm">
+                <td className="rounded-l-xl px-3 py-4 text-slate-950">
+                  <p className="font-black">{issue.exactWarning}</p>
+                  <p className="mt-1 text-xs font-semibold text-slate-500">{issue.label}</p>
+                </td>
+                <td className="px-3 py-4">
+                  <span className={`inline-flex rounded-full border px-3 py-1 text-xs font-black ${supportStyles[issue.supportedLevel]}`}>
+                    {supportLabels[issue.supportedLevel]}
+                  </span>
+                  <p className="mt-2 max-w-[180px] text-xs font-semibold leading-5 text-slate-500">{supportMeaning[issue.supportedLevel]}</p>
+                </td>
+                <td className="px-3 py-4">
+                  <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-black text-slate-700">
+                    {issue.needsCsv ? "CSV recommended" : "CSV optional"}
+                  </span>
+                </td>
+                <td className="px-3 py-4">{issue.shortDiagnosis}</td>
+                <td className="rounded-r-xl px-3 py-4">
+                  <div className="flex flex-col gap-2">
+                    <Link href={issue.ctaHref} className="font-black text-blue-700 hover:text-blue-900">
+                      {issue.ctaLabel}
+                    </Link>
+                    <Link href={guideUrl} className="text-xs font-black text-slate-500 hover:text-slate-900">
+                      Read guide
+                    </Link>
+                  </div>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
