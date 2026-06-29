@@ -61,7 +61,7 @@ A single unresolved `FAIL` in P0 sections blocks controlled sales.
 | `/fix-pack` | 29 EUR Fix Pack offer clear, checkout CTA visible | NOT TESTED | No subscription or Pro Review shown as active. |
 | `/pricing` | Price matches active 29 EUR launch offer | NOT TESTED | No mismatch with checkout. |
 | `/sample-report` | Sample report looks credible and fictional-data disclosure visible | NOT TESTED | Check table overflow on mobile. |
-| `/supported-errors` | Supported, partial, and limited errors are clear | NOT TESTED | No account recovery promise. |
+| `/supported-errors` | Supported, partial, and limited errors are clear | NOT TESTED | Should show 26 mapped families. |
 | `/how-it-works` | Flow is understandable before purchase | NOT TESTED | Should support sales clarity. |
 | `/scan` | Public scan page loads and does not claim full Merchant Center diagnosis | NOT TESTED | Surface scan only. |
 
@@ -76,7 +76,7 @@ A single unresolved `FAIL` in P0 sections blocks controlled sales.
 | `/terms` | Terms visible and safe | NOT TESTED | No unsafe guarantee. |
 | `/refund-policy` | Digital diagnostic refund limits clear | NOT TESTED | No approval-based refund promise. |
 | `/data-handling` | Explains CSV upload, no invented facts, no current accounts | NOT TESTED | Important before CSV upload. |
-| `/contact` | Support email visible and consistent | NOT TESTED | Must use `contact@merchantfix.ai`. |
+| `/contact` | Support email visible and consistent | NOT TESTED | Must use `contact@merchantfix-ai.com`. |
 | Footer links | All legal/support links work | NOT TESTED | Test every footer link. |
 
 ---
@@ -92,9 +92,19 @@ Use examples from `docs/qa/warning-examples.md`.
 | Missing value `[brand]` | Warns not to invent brand | NOT TESTED | Maps to vendor/brand context. |
 | Missing value `[mpn]` | Warns not to copy SKU unless true manufacturer part number | NOT TESTED | Strong-fit example. |
 | `identifier_exists` conflict | Explains consistency issue and custom-product review | NOT TESTED | Strong-fit example. |
+| Missing value `[title]` | Maps to Shopify title fields and warns against keyword stuffing | NOT TESTED | Strong-fit example. |
+| Invalid value `[title]` | Explains title quality/manual review limits | NOT TESTED | Partial support. |
+| Missing value `[description]` | Maps to description fields and warns not to invent product facts | NOT TESTED | Strong-fit example. |
+| Missing or invalid value `[link]` | Maps to handle/published URL and requires live access check | NOT TESTED | Partial support. |
+| Missing value `[image_link]` | Maps to image fields and warns against placeholders/private URLs | NOT TESTED | Strong-fit example. |
 | Price mismatch | Partial support clearly explained | NOT TESTED | No live crawl guarantee. |
 | Availability mismatch | Requires live storefront verification | NOT TESTED | Partial support. |
+| Invalid value `[availability]` | Explains accepted availability values and inventory review | NOT TESTED | Partial support. |
 | Image issue | Maps to image fields and asks for URL verification | NOT TESTED | Partial support. |
+| Missing value `[color]` | Maps to options/tags/category and warns not to guess | NOT TESTED | Apparel partial support. |
+| Missing value `[size]` | Maps to options/variant title and requires product review | NOT TESTED | Apparel partial support. |
+| Missing value `[age_group]` | Explains audience/category review | NOT TESTED | Apparel partial support. |
+| Missing value `[gender]` | Explains gender/unisex/category review | NOT TESTED | Apparel partial support. |
 | Misrepresentation | Limited support, no account recovery promise | NOT TESTED | Must be cautious. |
 | Account suspension | Limited support, no official Google support promise | NOT TESTED | Should not be sold as Fix Pack by default. |
 
@@ -165,7 +175,7 @@ Use local-only CSV files described in `docs/qa/csv-samples/README.md`.
 | Safe output available | Download button appears | NOT TESTED | Only when available. |
 | Original data preserved | Original rows and columns remain | NOT TESTED | No silent destructive edits. |
 | MerchantFix columns | Notes/action/status/manual-review/evidence columns added | NOT TESTED | Verify output file. |
-| No invented facts | No GTIN, MPN, brand, price, image, shipping, tax invented | NOT TESTED | Core safety requirement. |
+| No invented facts | No GTIN, MPN, brand, title, description, price, image, shipping, tax invented | NOT TESTED | Core safety requirement. |
 
 ---
 
@@ -194,6 +204,7 @@ Search public pages for unsafe or overly broad claims.
 | Account recovery guarantee | Not present | NOT TESTED | Hard blocker. |
 | Ranking/traffic/sales guarantee | Not present | NOT TESTED | Hard blocker. |
 | Fake GTIN/MPN/brand generation | Not present | NOT TESTED | Hard blocker. |
+| Invented product content | Not present | NOT TESTED | Title/description/product facts must not be invented. |
 | Official Google support implication | Not present | NOT TESTED | Hard blocker. |
 | Tax/legal advice guarantee | Not present | NOT TESTED | Hard blocker. |
 | Full feed app replacement claim | Not present | NOT TESTED | Should be framed carefully. |
