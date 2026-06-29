@@ -1,4 +1,4 @@
-import type { IssueCode, IssueSeverity, NormalizedProduct, ProductIssue } from "./types";
+import type { IssueCode, IssueSeverity, MerchantCenterErrorContext, NormalizedProduct, ProductIssue } from "./types";
 import { isEmptyValue, isValidGtinFormat, isValidGtinLength } from "./validationRules";
 
 const severityRank: Record<IssueSeverity, number> = {
@@ -6,6 +6,9 @@ const severityRank: Record<IssueSeverity, number> = {
   warning: 1,
   info: 2
 };
+
+const VALID_AVAILABILITY_VALUES = new Set(["in_stock", "out_of_stock", "preorder", "backorder"]);
+const PROMOTIONAL_TITLE_PATTERNS = [/free shipping/i, /% off/i, /\bsale\b/i, /\bbest price\b/i];
 
 function trimOrNull(value: string | null | undefined): string | null {
   if (value === null || value === undefined) {
@@ -98,7 +101,14 @@ function detectDuplicateGtins(products: NormalizedProduct[]): ProductIssue[] {
   });
 }
 
-export function detectIdentifierIssues(products: NormalizedProduct[]): ProductIssue[] {
+function titleLooksRisky(title: string): boolean {
+  return PROMOTIONAL_TITLE_PATTERNS.some((pattern) => pattern.test(title)) || title === title.toUpperCase();
+}
+
+export function detectIdentifierIssues(
+  products: NormalizedProduct[],
+  merchantCenterErrorContext?: MerchantCenterErrorContext
+): ProductIssue[] {
   if (products.length === 0) {
     return [];
   }
@@ -110,8 +120,16 @@ export function detectIdentifierIssues(products: NormalizedProduct[]): ProductIs
     const brand = trimOrNull(product.brand);
     const vendor = trimOrNull(product.vendor);
     const sku = trimOrNull(product.sku);
+    const title = trimOrNull(product.title);
+    const description = trimOrNull(product.description);
+    const link = trimOrNull(product.link);
     const image = trimOrNull(product.image);
     const price = trimOrNull(product.price);
+    const availability = trimOrNull(product.availability)?.toLowerCase() ?? null;
+    const color = trimOrNull(product.color);
+    const size = trimOrNull(product.size);
+    const ageGroup = trimOrNull(product.ageGroup);
+    const gender = trimOrNull(product.gender);
 
     if (product.identifierExists === true && !gtin && !mpn) {
       issues.push(
@@ -274,6 +292,74 @@ export function detectIdentifierIssues(products: NormalizedProduct[]): ProductIs
       );
     }
 
+    if (!title) {
+      issues.push(
+        createIssue(product, {
+          issueCode: "missing_title",
+          severity: "warning",
+          category: "data_quality",
+          fixType: "manual_review",
+          field: "title",
+          currentValue: null,
+          explanation: "Product title is missing for this row.",
+          suggestedFix: "Add a clear product title that describes the real item. Do not use keyword stuffing or promotional phrases.",
+          autoFixable: false,
+          manualReviewRequired: true
+        })
+      );
+    }
+
+    if (title && merchantCenterErrorContext?.mentionsTitle && titleLooksRisky(title)) {
+      issues.push(
+        createIssue(product, {
+          issueCode: "invalid_title",
+          severity: "warning",
+          category: "data_quality",
+          fixType: "manual_review",
+          field: "title",
+          currentValue: title,
+          explanation: "The title may contain risky formatting or promotional wording for Merchant Center.",
+          suggestedFix: "Review the title manually and keep it accurate, readable, and aligned with the product landing page.",
+          autoFixable: false,
+          manualReviewRequired: true
+        })
+      );
+    }
+
+    if (!description) {
+      issues.push(
+        createIssue(product, {
+          issueCode: "missing_description",
+          severity: "warning",
+          category: "data_quality",
+          fixType: "manual_review",
+          field: "description",
+          currentValue: null,
+          explanation: "Product description is missing for this row.",
+          suggestedFix: "Add a product-specific description based on the real item. Do not invent specifications or paste unrelated boilerplate.",
+          autoFixable: false,
+          manualReviewRequired: true
+        })
+      );
+    }
+
+    if (merchantCenterErrorContext?.mentionsLink && !link) {
+      issues.push(
+        createIssue(product, {
+          issueCode: "missing_link",
+          severity: "warning",
+          category: "data_quality",
+          fixType: "manual_review",
+          field: "link",
+          currentValue: null,
+          explanation: "Merchant Center warning mentions a product link or landing page, but no product link column was detected in this CSV row.",
+          suggestedFix: "Check Shopify handle, published state, online store channel, feed link mapping, and live URL access before resubmitting.",
+          autoFixable: false,
+          manualReviewRequired: true
+        })
+      );
+    }
+
     if (!image) {
       issues.push(
         createIssue(product, {
@@ -308,6 +394,91 @@ export function detectIdentifierIssues(products: NormalizedProduct[]): ProductIs
       );
     }
 
+    if (merchantCenterErrorContext?.mentionsAvailability && (!availability || !VALID_AVAILABILITY_VALUES.has(availability))) {
+      issues.push(
+        createIssue(product, {
+          issueCode: "invalid_availability",
+          severity: "warning",
+          category: "availability",
+          fixType: "manual_review",
+          field: "availability",
+          currentValue: availability,
+          explanation: "Merchant Center warning mentions availability, but the submitted availability value is missing or not one of the standard supported values.",
+          suggestedFix: "Review Shopify inventory, product status, storefront availability, and feed availability mapping before changing this value.",
+          autoFixable: false,
+          manualReviewRequired: true
+        })
+      );
+    }
+
+    if (merchantCenterErrorContext?.mentionsColor && !color) {
+      issues.push(
+        createIssue(product, {
+          issueCode: "missing_color",
+          severity: "warning",
+          category: "apparel",
+          fixType: "manual_review",
+          field: "color",
+          currentValue: null,
+          explanation: "Merchant Center warning mentions color, but no color value was detected for this row.",
+          suggestedFix: "Review product options, title, tags, category, and feed color mapping. Do not guess color values from images alone.",
+          autoFixable: false,
+          manualReviewRequired: true
+        })
+      );
+    }
+
+    if (merchantCenterErrorContext?.mentionsSize && !size) {
+      issues.push(
+        createIssue(product, {
+          issueCode: "missing_size",
+          severity: "warning",
+          category: "apparel",
+          fixType: "manual_review",
+          field: "size",
+          currentValue: null,
+          explanation: "Merchant Center warning mentions size, but no size value was detected for this row.",
+          suggestedFix: "Review product options, variant titles, tags, and feed size mapping. Do not bulk-fill one size across variants.",
+          autoFixable: false,
+          manualReviewRequired: true
+        })
+      );
+    }
+
+    if (merchantCenterErrorContext?.mentionsAgeGroup && !ageGroup) {
+      issues.push(
+        createIssue(product, {
+          issueCode: "missing_age_group",
+          severity: "warning",
+          category: "apparel",
+          fixType: "manual_review",
+          field: "age_group",
+          currentValue: null,
+          explanation: "Merchant Center warning mentions age_group, but no age group value was detected for this row.",
+          suggestedFix: "Review product audience and Google product category before choosing the correct age_group value.",
+          autoFixable: false,
+          manualReviewRequired: true
+        })
+      );
+    }
+
+    if (merchantCenterErrorContext?.mentionsGender && !gender) {
+      issues.push(
+        createIssue(product, {
+          issueCode: "missing_gender",
+          severity: "warning",
+          category: "apparel",
+          fixType: "manual_review",
+          field: "gender",
+          currentValue: null,
+          explanation: "Merchant Center warning mentions gender, but no gender value was detected for this row.",
+          suggestedFix: "Review product audience, unisex cases, category, tags, and feed gender mapping before editing.",
+          autoFixable: false,
+          manualReviewRequired: true
+        })
+      );
+    }
+
     return issues;
   });
 
@@ -326,8 +497,17 @@ export function getIssueAction(issueCode: IssueCode): string {
     duplicate_gtin: "review_duplicate_gtin",
     sku_same_as_mpn: "review_sku_mpn",
     possible_custom_product: "manual_review",
+    missing_title: "review_title",
+    invalid_title: "review_title",
+    missing_description: "review_description",
+    missing_link: "review_link",
     missing_image: "review_image",
     missing_price: "review_price",
+    invalid_availability: "review_availability",
+    missing_color: "review_color",
+    missing_size: "review_size",
+    missing_age_group: "review_age_group",
+    missing_gender: "review_gender",
     unrecognized_columns: "manual_review",
     empty_file: "manual_review",
     invalid_csv: "manual_review",
