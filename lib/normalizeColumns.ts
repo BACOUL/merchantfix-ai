@@ -10,6 +10,8 @@ import { normalizeIdentifierExistsValue } from "./validationRules";
 const FIELD_ALIASES: Record<string, string[]> = {
   title: ["title", "product title", "product_title", "name"],
   handle: ["handle", "product handle", "product_handle"],
+  description: ["body (html)", "body html", "body_html", "description", "product description", "product_description", "google description"],
+  link: ["link", "product link", "product_link", "product url", "product_url", "url", "google link", "google_link"],
   brand: ["brand", "google_product_brand", "google product brand"],
   vendor: ["vendor", "shopify vendor", "shopify_vendor"],
   gtin: [
@@ -35,6 +37,11 @@ const FIELD_ALIASES: Record<string, string[]> = {
     "google image link",
     "google_image_link"
   ],
+  availability: ["availability", "google availability", "google_availability", "product availability", "product_availability"],
+  color: ["color", "colour", "google color", "google_color", "product color", "product_color"],
+  size: ["size", "google size", "google_size", "product size", "product_size"],
+  ageGroup: ["age_group", "age group", "google age group", "google_age_group"],
+  gender: ["gender", "google gender", "google_gender"],
   identifierExists: [
     "identifier_exists",
     "identifier exists",
@@ -52,7 +59,7 @@ const FIELD_ALIASES: Record<string, string[]> = {
   customProduct: ["google shopping / custom product"]
 };
 
-const IMPORTANT_FIELDS = ["title", "gtin", "mpn", "brand", "identifierExists", "price", "image"];
+const IMPORTANT_FIELDS = ["title", "description", "gtin", "mpn", "brand", "identifierExists", "price", "image"];
 
 function normalizeColumnName(name: string): string {
   return name.trim().replace(/\s+/g, " ").toLowerCase();
@@ -182,6 +189,8 @@ export function normalizeShopifyRows(rawRows: RawCsvRow[]): {
         originalRow: { ...row },
         title: getMappedValue(row, mappedColumns, "title"),
         handle: getMappedValue(row, mappedColumns, "handle"),
+        description: getMappedValue(row, mappedColumns, "description"),
+        link: getMappedValue(row, mappedColumns, "link"),
         brand: getMappedValue(row, mappedColumns, "brand"),
         vendor: getMappedValue(row, mappedColumns, "vendor"),
         gtin: getMappedValue(row, mappedColumns, "gtin"),
@@ -189,6 +198,11 @@ export function normalizeShopifyRows(rawRows: RawCsvRow[]): {
         sku: getMappedValue(row, mappedColumns, "sku"),
         price: getMappedValue(row, mappedColumns, "price"),
         image: getMappedValue(row, mappedColumns, "image"),
+        availability: getMappedValue(row, mappedColumns, "availability"),
+        color: getMappedValue(row, mappedColumns, "color"),
+        size: getMappedValue(row, mappedColumns, "size"),
+        ageGroup: getMappedValue(row, mappedColumns, "ageGroup"),
+        gender: getMappedValue(row, mappedColumns, "gender"),
         identifierExists: identifierExistsColumn ? normalizeIdentifierExistsValue(row[identifierExistsColumn]) : null,
         googleProductCategory: getMappedValue(row, mappedColumns, "googleProductCategory"),
         isPossibleCustomProduct: customProductSignals.length > 0,
@@ -205,6 +219,8 @@ export function normalizeColumns(row: RawCsvRow): NormalizedColumns {
   return {
     title: product?.title,
     handle: product?.handle,
+    description: product?.description,
+    link: product?.link,
     gtin: product?.gtin,
     mpn: product?.mpn,
     brand: product?.brand,
@@ -212,6 +228,11 @@ export function normalizeColumns(row: RawCsvRow): NormalizedColumns {
     sku: product?.sku,
     identifierExists: product?.identifierExists,
     image: product?.image,
-    price: product?.price
+    price: product?.price,
+    availability: product?.availability,
+    color: product?.color,
+    size: product?.size,
+    ageGroup: product?.ageGroup,
+    gender: product?.gender
   };
 }
