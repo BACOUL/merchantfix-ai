@@ -162,6 +162,111 @@ export const supportedMerchantCenterErrors: SupportedMerchantCenterError[] = [
     ctaHref: "/fix-pack"
   },
   {
+    id: "missing-title",
+    label: "Missing title",
+    exactWarning: "Missing value [title]",
+    severity: "warning",
+    aliases: ["missing value [title]", "missing title", "title missing", "product title missing", "missing value title"],
+    guideUrl: "/fix/shopify-product-feed-errors",
+    needsCsv: true,
+    supportedLevel: "supported",
+    shortDiagnosis: "The product title is missing from the feed. MerchantFix can flag affected Shopify rows and show which title-related fields need review before resubmission.",
+    likelyShopifyFields: ["Title", "Handle", "Option values", "Variant title", "Feed app title mapping"],
+    safeActions: [
+      "Add a clear product title that describes the actual item.",
+      "Check variant titles so color, size, or model differences remain understandable.",
+      "Use CSV diagnosis when many products or variants have empty title fields."
+    ],
+    avoid: ["Do not fill titles with keyword stuffing.", "Do not use promotional phrases as the product title.", "Do not bulk-copy one title across unrelated products."],
+    nextStep: "Use Fix Pack when missing titles affect many rows or variants.",
+    ctaLabel: "Find missing title rows",
+    ctaHref: "/fix-pack"
+  },
+  {
+    id: "invalid-title",
+    label: "Invalid title",
+    exactWarning: "Invalid value [title]",
+    severity: "warning",
+    aliases: ["invalid value [title]", "invalid title", "title invalid", "title too long", "promotional text in title", "title issue"],
+    guideUrl: "/fix/shopify-product-feed-errors",
+    needsCsv: true,
+    supportedLevel: "partial",
+    shortDiagnosis: "The submitted title may violate formatting or quality expectations. MerchantFix can flag suspicious title patterns, but final wording requires merchant review.",
+    likelyShopifyFields: ["Title", "Variant title", "Option values", "Product type", "Feed app title mapping"],
+    safeActions: [
+      "Review affected titles for accuracy, readability, and variant detail.",
+      "Remove promotional wording, all-caps patterns, or irrelevant text.",
+      "Keep final wording aligned with the product landing page."
+    ],
+    avoid: ["Do not create misleading titles to chase clicks.", "Do not remove variant details that buyers need.", "Do not treat title quality as a purely automatic fix."],
+    nextStep: "Use Fix Pack for row-level title risk flags, then review final wording manually.",
+    ctaLabel: "Review title rows",
+    ctaHref: "/fix-pack"
+  },
+  {
+    id: "missing-description",
+    label: "Missing description",
+    exactWarning: "Missing value [description]",
+    severity: "warning",
+    aliases: ["missing value [description]", "missing description", "description missing", "product description missing", "missing value description"],
+    guideUrl: "/fix/shopify-product-feed-errors",
+    needsCsv: true,
+    supportedLevel: "supported",
+    shortDiagnosis: "The product description is missing. MerchantFix can flag rows with empty descriptions and show where Shopify content needs to be completed.",
+    likelyShopifyFields: ["Body (HTML)", "Description", "Title", "Product type", "Feed app description mapping"],
+    safeActions: [
+      "Add a product-specific description that matches the real item.",
+      "Keep descriptions focused on product facts, not store promotions.",
+      "Review variants or duplicate products that share weak descriptions."
+    ],
+    avoid: ["Do not paste unrelated boilerplate into every product.", "Do not invent product specifications.", "Do not use a description that conflicts with the landing page."],
+    nextStep: "Use Fix Pack when many products need row-level description review.",
+    ctaLabel: "Find missing descriptions",
+    ctaHref: "/fix-pack"
+  },
+  {
+    id: "link-issue",
+    label: "Product link issue",
+    exactWarning: "Missing or invalid value [link]",
+    severity: "warning",
+    aliases: ["missing value [link]", "invalid value [link]", "missing link", "invalid link", "product link issue", "landing page url missing", "link not working"],
+    guideUrl: "/fix/shopify-product-feed-errors",
+    needsCsv: false,
+    supportedLevel: "partial",
+    shortDiagnosis: "The product landing page URL may be missing, malformed, or inconsistent. MerchantFix can point to Shopify handles, product URLs, and feed mapping, but live URL access still needs verification.",
+    likelyShopifyFields: ["Handle", "Status", "Published", "Online Store channel", "Product URL", "Feed app link mapping"],
+    safeActions: [
+      "Open the product URL in a private browser window.",
+      "Check whether the product is published to the Online Store channel.",
+      "Review feed app link mapping and canonical product URLs."
+    ],
+    avoid: ["Do not resubmit products before the public URL works.", "Do not use admin-only or preview URLs.", "Do not assume a CSV row proves the landing page is crawlable."],
+    nextStep: "Use the scan for public URL signals and Fix Pack when many rows need handle/link review.",
+    ctaLabel: "Run free scan",
+    ctaHref: "/scan"
+  },
+  {
+    id: "missing-image-link",
+    label: "Missing image link",
+    exactWarning: "Missing value [image_link]",
+    severity: "warning",
+    aliases: ["missing value [image_link]", "missing image_link", "image_link missing", "missing image link", "image link missing", "missing value image link"],
+    guideUrl: "/fix/google-merchant-center-image-issue-shopify",
+    needsCsv: true,
+    supportedLevel: "supported",
+    shortDiagnosis: "The feed is missing the main product image URL. MerchantFix can flag rows without image fields and show where Shopify media needs review.",
+    likelyShopifyFields: ["Image Src", "Variant Image", "Product media", "Image Position", "Feed app image mapping"],
+    safeActions: [
+      "Add or confirm a real product image in Shopify.",
+      "Check variant image mapping for products with multiple options.",
+      "Use CSV diagnosis when many products have empty image fields."
+    ],
+    avoid: ["Do not use placeholder images.", "Do not use private or temporary image URLs.", "Do not attach unrelated images to pass a field check."],
+    nextStep: "Use Fix Pack when many rows need image-field visibility before manual image review.",
+    ctaLabel: "Find missing image rows",
+    ctaHref: "/fix-pack"
+  },
+  {
     id: "duplicate-item-id",
     label: "Duplicate item ID",
     exactWarning: "Duplicate item ID",
@@ -222,6 +327,27 @@ export const supportedMerchantCenterErrors: SupportedMerchantCenterError[] = [
     avoid: ["Do not mark products in stock without inventory confirmation.", "Do not ignore feed app sync timing.", "Do not bulk-change inventory policy without operational review."],
     nextStep: "Use Fix Pack for CSV-level visibility, then verify live inventory/feed sync.",
     ctaLabel: "Review availability fields",
+    ctaHref: "/fix-pack"
+  },
+  {
+    id: "invalid-availability",
+    label: "Invalid availability",
+    exactWarning: "Invalid value [availability]",
+    severity: "warning",
+    aliases: ["invalid value [availability]", "invalid availability", "availability invalid", "unsupported availability", "availability value not supported"],
+    guideUrl: "/fix/mismatched-availability-shopify",
+    needsCsv: true,
+    supportedLevel: "partial",
+    shortDiagnosis: "The submitted availability value may not match accepted Merchant Center values. MerchantFix can flag risky availability fields, but inventory truth still needs Shopify and storefront review.",
+    likelyShopifyFields: ["Status", "Published", "Variant Inventory Qty", "Variant Inventory Policy", "Availability", "Feed app availability mapping"],
+    safeActions: [
+      "Check whether products should be in_stock, out_of_stock, preorder, or backorder.",
+      "Compare Shopify inventory and storefront state before changing values.",
+      "Review feed app rules that transform Shopify inventory into availability."
+    ],
+    avoid: ["Do not force every product to in_stock.", "Do not ignore preorder or backorder cases.", "Do not treat availability as a text-only cleanup when inventory is involved."],
+    nextStep: "Use Fix Pack for row-level availability mapping, then verify live storefront state.",
+    ctaLabel: "Check availability rows",
     ctaHref: "/fix-pack"
   },
   {
@@ -330,6 +456,90 @@ export const supportedMerchantCenterErrors: SupportedMerchantCenterError[] = [
     ctaHref: "/fix-pack"
   },
   {
+    id: "missing-color",
+    label: "Missing color",
+    exactWarning: "Missing value [color]",
+    severity: "warning",
+    aliases: ["missing value [color]", "missing color", "color missing", "missing value colour", "colour missing"],
+    guideUrl: "/fix/shopify-product-feed-errors",
+    needsCsv: true,
+    supportedLevel: "partial",
+    shortDiagnosis: "Color can be required for apparel and variant products. MerchantFix can flag missing color signals in options, titles, tags, and mapped fields, but the final value must match the actual item.",
+    likelyShopifyFields: ["Option1 Name", "Option1 Value", "Option2 Value", "Title", "Tags", "Feed app color mapping"],
+    safeActions: [
+      "Check whether the product category requires color.",
+      "Review Shopify option values and product titles for real color information.",
+      "Use consistent color names that match the product."
+    ],
+    avoid: ["Do not invent color values from images alone.", "Do not use vague values that do not describe a color.", "Do not overwrite variant options without checking the product."],
+    nextStep: "Use Fix Pack when apparel or variant rows need color mapping review.",
+    ctaLabel: "Check color rows",
+    ctaHref: "/fix-pack"
+  },
+  {
+    id: "missing-size",
+    label: "Missing size",
+    exactWarning: "Missing value [size]",
+    severity: "warning",
+    aliases: ["missing value [size]", "missing size", "size missing", "missing size value"],
+    guideUrl: "/fix/shopify-product-feed-errors",
+    needsCsv: true,
+    supportedLevel: "partial",
+    shortDiagnosis: "Size can be required for apparel and variant products. MerchantFix can flag rows where size is absent from options or mapped fields, but the final size value requires merchant confirmation.",
+    likelyShopifyFields: ["Option1 Name", "Option1 Value", "Option2 Value", "Variant title", "Tags", "Feed app size mapping"],
+    safeActions: [
+      "Check whether the product category requires size.",
+      "Review option values and variant titles for real size information.",
+      "Use consistent size formats across related variants."
+    ],
+    avoid: ["Do not guess sizes from images.", "Do not use internal warehouse codes as customer-facing size values.", "Do not bulk-fill one size across multiple variants."],
+    nextStep: "Use Fix Pack when size issues affect many apparel or variant rows.",
+    ctaLabel: "Check size rows",
+    ctaHref: "/fix-pack"
+  },
+  {
+    id: "missing-age-group",
+    label: "Missing age group",
+    exactWarning: "Missing value [age_group]",
+    severity: "warning",
+    aliases: ["missing value [age_group]", "missing age_group", "missing age group", "age group missing", "age_group missing"],
+    guideUrl: "/fix/shopify-product-feed-errors",
+    needsCsv: true,
+    supportedLevel: "partial",
+    shortDiagnosis: "Age group can be required for apparel and some regulated categories. MerchantFix can flag missing age-group context, but the correct value must come from the product audience and category.",
+    likelyShopifyFields: ["Title", "Product type", "Google product category", "Tags", "Feed app age_group mapping"],
+    safeActions: [
+      "Check whether the product category requires age_group.",
+      "Use product audience and category context to choose the correct value.",
+      "Review child, infant, adult, or unisex assumptions carefully."
+    ],
+    avoid: ["Do not assume every product is adult by default.", "Do not use age_group to hide category problems.", "Do not apply one audience value across unrelated products."],
+    nextStep: "Use Fix Pack to isolate rows that need age-group mapping and manual review.",
+    ctaLabel: "Check age group rows",
+    ctaHref: "/fix-pack"
+  },
+  {
+    id: "missing-gender",
+    label: "Missing gender",
+    exactWarning: "Missing value [gender]",
+    severity: "warning",
+    aliases: ["missing value [gender]", "missing gender", "gender missing", "missing gender value"],
+    guideUrl: "/fix/shopify-product-feed-errors",
+    needsCsv: true,
+    supportedLevel: "partial",
+    shortDiagnosis: "Gender can be required for apparel. MerchantFix can flag rows where gender mapping is absent or unclear, but the final value needs category and product review.",
+    likelyShopifyFields: ["Title", "Product type", "Google product category", "Tags", "Feed app gender mapping"],
+    safeActions: [
+      "Check whether the product category requires gender.",
+      "Use the actual product audience and Google category context.",
+      "Review unisex cases separately rather than guessing."
+    ],
+    avoid: ["Do not assign gender automatically from a single keyword.", "Do not ignore unisex products.", "Do not use gender as a substitute for correct product category mapping."],
+    nextStep: "Use Fix Pack when apparel rows need gender mapping visibility before manual review.",
+    ctaLabel: "Check gender rows",
+    ctaHref: "/fix-pack"
+  },
+  {
     id: "landing-page-unavailable",
     label: "Landing page unavailable",
     exactWarning: "Landing page not available",
@@ -382,7 +592,7 @@ export function diagnoseMerchantCenterError(input: string): MerchantCenterErrorD
       matched: false,
       issue: null,
       fallbackTitle: "Paste a Google Merchant Center warning",
-      fallbackDescription: "MerchantFix will detect supported error patterns such as GTIN, brand, MPN, identifier_exists, duplicate IDs, price, availability, image, shipping, tax, category, landing page, or limited misrepresentation support."
+      fallbackDescription: "MerchantFix will detect supported error patterns such as GTIN, brand, MPN, identifier_exists, duplicate IDs, title, description, link, price, availability, image, shipping, tax, category, apparel attributes, landing page, or limited misrepresentation support."
     };
   }
 
