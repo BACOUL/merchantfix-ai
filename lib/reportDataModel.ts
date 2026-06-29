@@ -3,7 +3,6 @@ import {
   type AnalysisResult,
   type IssueCategory,
   type IssueCode,
-  type IssueFixType,
   type IssueSeverity,
   type ProductIssue
 } from "./types";
@@ -106,8 +105,17 @@ const ISSUE_LABELS: Partial<Record<IssueCode, string>> = {
   duplicate_gtin: "Duplicate GTIN",
   sku_same_as_mpn: "SKU used as MPN",
   possible_custom_product: "Possible custom product",
+  missing_title: "Missing title",
+  invalid_title: "Title needs review",
+  missing_description: "Missing description",
+  missing_link: "Product link needs review",
   missing_image: "Missing image",
   missing_price: "Missing price",
+  invalid_availability: "Availability needs review",
+  missing_color: "Missing color",
+  missing_size: "Missing size",
+  missing_age_group: "Missing age group",
+  missing_gender: "Missing gender",
   unrecognized_columns: "Unrecognized CSV columns",
   empty_file: "Empty CSV file",
   invalid_csv: "Invalid CSV file",
@@ -125,8 +133,17 @@ const EVIDENCE_BY_ISSUE: Partial<Record<IssueCode, string[]>> = {
   missing_identifier_exists: ["Product identifier policy review", "GTIN/MPN/brand availability evidence"],
   identifier_exists_conflict: ["GTIN/MPN/brand availability evidence", "Shopify identifier_exists value review"],
   possible_custom_product: ["Confirmation that the product is custom, handmade, personalized, or made to order"],
+  missing_title: ["Shopify product title", "Live product page", "Product identity"],
+  invalid_title: ["Shopify product title", "Live product page", "Merchant wording review"],
+  missing_description: ["Shopify product description", "Product facts", "Live product page"],
+  missing_link: ["Shopify handle", "Published product page", "Feed app link mapping", "Private browser URL check"],
   missing_image: ["Public product image URL", "Shopify media library", "Live storefront image"],
   missing_price: ["Shopify variant price", "Live storefront price", "Merchant Center submitted price"],
+  invalid_availability: ["Shopify inventory", "Product status", "Live storefront availability", "Feed availability mapping"],
+  missing_color: ["Product option value", "Product category", "Product page or packaging"],
+  missing_size: ["Variant option value", "Variant title", "Product page or packaging"],
+  missing_age_group: ["Product audience", "Google product category", "Merchant confirmation"],
+  missing_gender: ["Product audience", "Google product category", "Merchant confirmation"],
   unrecognized_columns: ["Fresh Shopify product CSV export with standard columns"],
   empty_file: ["Fresh Shopify product CSV export with product rows"],
   invalid_csv: ["Fresh Shopify product CSV export"],
@@ -140,7 +157,7 @@ const CREDIBILITY_RULES: ReportCredibilityRule[] = [
   },
   {
     title: "No invented product facts",
-    description: "MerchantFix does not invent GTIN, MPN, brand, price, shipping, tax, category, or other product facts."
+    description: "MerchantFix does not invent GTIN, MPN, brand, title, description, color, size, age_group, gender, availability, price, shipping, tax, category, or other product facts."
   },
   {
     title: "Manual evidence separated",
