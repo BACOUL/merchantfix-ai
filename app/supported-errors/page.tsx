@@ -6,20 +6,20 @@ import { canonical } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Supported Google Merchant Center errors for Shopify | MerchantFix.ai",
   description:
-    "See which Google Merchant Center errors MerchantFix supports for Shopify merchants, including GTIN, duplicate GTIN, brand, MPN, identifier_exists, duplicate item ID, price, availability, image, shipping, tax, category, landing page, and limited misrepresentation support.",
+    "See which Google Merchant Center errors MerchantFix supports for Shopify merchants, including GTIN, duplicate GTIN, brand, MPN, identifier_exists, title, description, link, image_link, duplicate item ID, price, availability, shipping, tax, category, apparel attributes, landing page, and limited misrepresentation support.",
   alternates: { canonical: canonical("/supported-errors") }
 };
 
 const coverageCards = [
-  { label: "Strong CSV support", value: "6", detail: "Identifiers and core product-data issues" },
-  { label: "Partial support", value: "7", detail: "Useful but needs live or settings review" },
+  { label: "Strong CSV support", value: "9", detail: "Identifiers and core product-data gaps" },
+  { label: "Partial support", value: "15", detail: "Useful but needs live, category, or settings review" },
   { label: "Limited support", value: "2", detail: "Account, crawl, or broader trust cases" }
 ];
 
 const decisionCards = [
   {
     title: "Use MerchantFix when the issue is product-data related",
-    text: "GTIN, brand, MPN, identifier_exists, duplicate barcode, price, availability, image, category, and CSV row problems are the best fit."
+    text: "GTIN, brand, MPN, identifier_exists, title, description, image_link, price, availability, category, apparel attributes, and CSV row problems are the best fit."
   },
   {
     title: "Use Fix Pack when many rows are affected",
@@ -37,33 +37,44 @@ const strongFit = [
   "Duplicate value [gtin]",
   "Missing value [brand]",
   "Missing value [mpn]",
-  "identifier_exists conflict"
+  "identifier_exists conflict",
+  "Missing value [title]",
+  "Missing value [description]",
+  "Missing value [image_link]"
 ];
 
 const partialFit = [
   "Duplicate item ID",
   "Mismatched value [price]",
   "Mismatched value [availability]",
+  "Invalid value [availability]",
   "Image issue",
   "Image not retrieved",
   "Missing value [shipping]",
-  "Invalid value [google_product_category]"
+  "Missing or invalid value [link]",
+  "Missing or invalid value [tax]",
+  "Invalid value [google_product_category]",
+  "Invalid value [title]",
+  "Missing value [color]",
+  "Missing value [size]",
+  "Missing value [age_group]",
+  "Missing value [gender]"
 ];
 
-const limitedFit = ["Missing or invalid value [tax]", "Landing page not available", "Misrepresentation"];
+const limitedFit = ["Landing page not available", "Misrepresentation"];
 
 const fixPackSignals = [
   "More than 10 products are affected",
   "The same warning appears across many variants",
   "You need to know which Shopify rows to review first",
-  "The issue involves identifiers, brand, MPN, barcode, price, availability, or category",
+  "The issue involves identifiers, brand, MPN, barcode, title, description, price, availability, category, or apparel attributes",
   "You want an annotated CSV rather than generic advice"
 ];
 
 const notPromised = [
   "Google approval or account reinstatement",
   "Legal, tax, shipping, or policy compliance advice",
-  "Invented GTIN, MPN, brand, category, shipping, or product facts",
+  "Invented GTIN, MPN, brand, category, shipping, title, description, or product facts",
   "A full replacement for Merchant Center, Shopify, or feed app settings"
 ];
 
@@ -82,7 +93,7 @@ export default function SupportedErrorsPage() {
           <div className="min-w-0">
             <div className="flex flex-wrap gap-2">
               <TextBadge tone="blue">Supported errors</TextBadge>
-              <TextBadge tone="green">15 mapped families</TextBadge>
+              <TextBadge tone="green">26 mapped families</TextBadge>
               <TextBadge tone="amber">Honest coverage</TextBadge>
             </div>
             <h1 className="mt-6 break-words text-4xl font-black tracking-tight sm:text-5xl md:text-7xl">
@@ -99,7 +110,7 @@ export default function SupportedErrorsPage() {
           <div className="rounded-[2rem] border border-white/15 bg-white/10 p-5 shadow-2xl backdrop-blur md:p-6">
             <p className="text-xs font-black uppercase tracking-[0.22em] text-slate-300">Current coverage</p>
             <p className="mt-4 text-2xl font-black leading-9 text-white">
-              15 mapped warning families, with clear boundaries so merchants do not confuse product-data diagnosis with account-level guarantees.
+              26 mapped warning families, with clear boundaries so merchants do not confuse product-data diagnosis with account-level guarantees.
             </p>
             <div className="mt-5 grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
               {coverageCards.map((card) => (
@@ -164,9 +175,9 @@ export default function SupportedErrorsPage() {
 
         <section className="mt-8 rounded-[2rem] border border-slate-200 bg-white p-5 shadow-xl shadow-slate-200/60 md:p-8">
           <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">Coverage table</p>
-          <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">15 Merchant Center warning families currently mapped by MerchantFix.</h2>
+          <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">26 Merchant Center warning families currently mapped by MerchantFix.</h2>
           <p className="mt-4 max-w-3xl leading-7 text-slate-600">
-            The table is intentionally honest: identifier and core product-data issues are strongest; live site, tax, shipping, and policy issues are partial or limited.
+            The table is intentionally honest: identifier and core product-data issues are strongest; live site, tax, shipping, category, apparel, and policy issues are partial or limited.
           </p>
           <div className="mt-6">
             <SupportedErrorsTable />
