@@ -22,7 +22,7 @@ const faqs = [
   {
     question: "Is the free scan a full Google Merchant Center diagnosis?",
     answer:
-      "No. The free scan is a public surface check. Row-level GTIN, MPN, brand, identifier_exists, price, and image diagnosis requires a Shopify CSV and the Fix Pack."
+      "No. The free scan is a public surface check. Row-level diagnosis for identifiers, titles, descriptions, links, images, price, availability, color, size, age_group, and gender requires a Shopify CSV and the Fix Pack."
   },
   {
     question: "Do I need Shopify admin access for the free scan?",
@@ -31,7 +31,7 @@ const faqs = [
   {
     question: "When should I move from the scan to the Fix Pack?",
     answer:
-      "Move to Fix Pack when Merchant Center warnings mention product identifiers, GTIN, MPN, brand, identifier_exists, price, availability, images, or many affected rows."
+      "Move to Fix Pack when Merchant Center warnings mention identifiers, title, description, link, image, price, availability, color, size, age_group, gender, or many affected rows."
   }
 ];
 
@@ -63,7 +63,7 @@ export default function ScanPage() {
             <p className="text-xs font-black uppercase tracking-[0.22em] text-slate-500">Workflow</p>
             <ul className="mt-4 grid gap-3 text-sm font-semibold text-slate-700">
               <li className="rounded-lg bg-white p-3">Start with a public Shopify URL.</li>
-              <li className="rounded-lg bg-white p-3">Move to Fix Pack when you need row-level identifier checks.</li>
+              <li className="rounded-lg bg-white p-3">Move to Fix Pack when you need row-level CSV checks for identifiers, product content, media, pricing, availability, or variant attributes.</li>
               <li className="rounded-lg bg-white p-3">Review safe fixes and manual review flags after CSV diagnosis.</li>
             </ul>
           </div>
@@ -88,8 +88,8 @@ export default function ScanPage() {
             <TextBadge tone="blue">Option 2</TextBadge>
             <h2 className="mt-4 break-words text-2xl font-black text-slate-950">Use Fix Pack CSV diagnostic</h2>
             <p className="mt-3 leading-7 text-slate-600">
-              Best for deeper product data diagnosis when Merchant Center warnings mention GTIN, MPN, brand, price,
-              availability, images, or identifier_exists issues.
+              Best for deeper product data diagnosis when Merchant Center warnings mention identifiers, title, description,
+              link, images, price, availability, color, size, age_group, or gender issues.
             </p>
             <div className="mt-5">
               <SecondaryLink href="/fix-pack">View Fix Pack</SecondaryLink>
@@ -105,8 +105,8 @@ export default function ScanPage() {
           <div className="min-w-0">
             <h2 className="break-words text-2xl font-black text-slate-950">Need row-level product diagnosis?</h2>
             <p className="mt-2 leading-7 text-slate-700">
-              Some Shopify stores do not expose public product data, and identifier issues usually require CSV context.
-              The Fix Pack gives MerchantFix.ai the row-level data needed for GTIN, MPN, brand, and identifier_exists diagnosis.
+              Some Shopify stores do not expose public product data, and many Merchant Center warnings require CSV context.
+              The Fix Pack gives MerchantFix.ai the row-level data needed for identifiers, product content, media, price, availability, and variant-attribute diagnosis.
             </p>
           </div>
           <SecondaryLink href="/fix-pack">View Fix Pack</SecondaryLink>
