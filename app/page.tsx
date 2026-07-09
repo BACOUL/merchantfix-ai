@@ -28,14 +28,14 @@ const proofPoints = [
 
 const warningExamples = [
   "Missing value [gtin]",
-  "Invalid value [gtin]",
-  "Missing value [brand]",
-  "Missing value [mpn]",
-  "identifier_exists conflict",
-  "SKU used as MPN",
-  "Price mismatch",
-  "Availability mismatch",
-  "Image issue"
+  "Invalid value [title]",
+  "Missing value [description]",
+  "Missing value [image_link]",
+  "Missing or invalid value [link]",
+  "Invalid value [availability]",
+  "Missing value [color]",
+  "Missing value [size]",
+  "Missing value [age_group]"
 ];
 
 const simpleSteps = [
@@ -45,7 +45,7 @@ const simpleSteps = [
   },
   {
     title: "Upload the Shopify CSV",
-    text: "Use the product export from Shopify when row-level diagnosis is needed."
+    text: "Use the product export from Shopify to check identifiers, product content, media, price, availability, and variant attributes when row-level diagnosis is needed."
   },
   {
     title: "Review the rows",
@@ -87,7 +87,7 @@ const homeFaqs = [
   {
     question: "When should I buy the Fix Pack?",
     answer:
-      "Buy the Fix Pack when the warning affects several products or requires row-level Shopify CSV diagnosis, especially GTIN, MPN, brand, identifier_exists, price, availability, or image issues."
+      "Buy the Fix Pack when the warning affects several products or requires row-level Shopify CSV diagnosis, especially identifier, title, description, link, image, price, availability, color, size, age_group, or gender issues."
   },
   {
     question: "Does MerchantFix connect to Shopify admin or Google Merchant Center?",
