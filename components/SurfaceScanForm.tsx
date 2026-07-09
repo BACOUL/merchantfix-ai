@@ -16,13 +16,22 @@ const emptySummary = [
   { label: "Info", value: "-" }
 ];
 
+function isValidPublicUrl(value: string) {
+  try {
+    const parsedUrl = new URL(value);
+    return ["http:", "https:"].includes(parsedUrl.protocol) && parsedUrl.hostname.includes(".");
+  } catch {
+    return false;
+  }
+}
+
 function getOutcome(result: SurfaceScanResult | null, errorMessage: string | null) {
   if (errorMessage || result?.status === "failed" || result?.status === "unsupported") {
     return {
       tone: "border-amber-200 bg-amber-50 text-amber-950",
-      title: "Public data unavailable or incomplete.",
+      title: "Public Shopify product data could not be read.",
       description:
-        "Some Shopify stores do not expose public product data. Use the Fix Pack when you need row-level CSV diagnosis from your Shopify export.",
+        "This URL may not be a Shopify store, or the store may block public product data. Use the Fix Pack when you need row-level CSV diagnosis from your Shopify export.",
       primaryHref: "/fix-pack",
       primaryLabel: "Use Fix Pack CSV diagnosis",
       secondaryHref: "/how-to-export-shopify-csv",
@@ -30,29 +39,29 @@ function getOutcome(result: SurfaceScanResult | null, errorMessage: string | nul
     };
   }
 
-  if (result?.csvUploadRecommended || (result?.riskCount ?? 0) > 0 || (result?.warningCount ?? 0) > 0) {
-    return {
-      tone: "border-blue-200 bg-blue-50 text-blue-950",
-      title: "Visible risks found. CSV diagnosis is the next useful step.",
-      description:
-        "The free scan found surface signals. For GTIN, MPN, brand, identifier_exists, price, availability, or affected-row diagnosis, use the Fix Pack with a Shopify CSV export.",
-      primaryHref: "/fix-pack",
-      primaryLabel: "View Fix Pack",
-      secondaryHref: "/sample-report",
-      secondaryLabel: "See sample report"
-    };
-  }
-
-  if (result) {
+  if (result?.status === "success" && (result.riskCount ?? 0) === 0 && (result.warningCount ?? 0) === 0) {
     return {
       tone: "border-emerald-200 bg-emerald-50 text-emerald-950",
       title: "No major public surface risks detected.",
       description:
-        "This is still not a full Merchant Center diagnosis. If Google shows identifier, price, availability, or image warnings, paste the exact warning or use a CSV-level Fix Pack.",
+        "This is still not a full Merchant Center diagnosis. If Google shows identifier, title, description, link, image, price, availability, color, size, age_group, or gender warnings, paste the exact warning or use a CSV-level Fix Pack.",
       primaryHref: "/#paste-error",
       primaryLabel: "Paste Merchant Center error",
       secondaryHref: "/supported-errors",
       secondaryLabel: "View supported errors"
+    };
+  }
+
+  if ((result?.riskCount ?? 0) > 0 || (result?.warningCount ?? 0) > 0 || result?.csvUploadRecommended) {
+    return {
+      tone: "border-blue-200 bg-blue-50 text-blue-950",
+      title: "Visible risks found. CSV diagnosis is the next useful step.",
+      description:
+        "The free scan found surface signals. For identifiers, title, description, link, image, price, availability, color, size, age_group, gender, or affected-row diagnosis, use the Fix Pack with a Shopify CSV export.",
+      primaryHref: "/fix-pack",
+      primaryLabel: "View Fix Pack",
+      secondaryHref: "/sample-report",
+      secondaryLabel: "See sample report"
     };
   }
 
@@ -79,8 +88,17 @@ export function SurfaceScanForm() {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const cleanStoreUrl = storeUrl.trim();
+
     setIsSubmitting(true);
     setErrorMessage(null);
+    setResult(null);
+
+    if (!cleanStoreUrl || !isValidPublicUrl(cleanStoreUrl)) {
+      setErrorMessage("Enter a full public Shopify store URL, for example https://example-store.myshopify.com.");
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       const response = await fetch("/api/surface-scan", {
@@ -88,7 +106,7 @@ export function SurfaceScanForm() {
         headers: {
           "content-type": "application/json"
         },
-        body: JSON.stringify({ storeUrl })
+        body: JSON.stringify({ storeUrl: cleanStoreUrl })
       });
       const payload = (await response.json()) as SurfaceScanResponse;
 
@@ -118,7 +136,7 @@ export function SurfaceScanForm() {
             Public data only
           </span>
         </div>
-        <form className="mt-8 grid min-w-0 gap-3 md:grid-cols-[1fr_auto]" onSubmit={handleSubmit}>
+        <form className="mt-8 grid min-w-0 gap-3 md:grid-cols-[1fr_auto]" onSubmit={handleSubmit} noValidate>
           <label className="sr-only" htmlFor="store-url">
             Shopify store URL
           </label>
