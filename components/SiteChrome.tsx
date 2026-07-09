@@ -35,7 +35,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
             className="shrink-0 rounded-full bg-slate-950 px-4 py-2 text-sm font-black text-white shadow-lg shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-slate-800 sm:px-5"
           >
             <span className="hidden sm:inline">Paste error</span>
-            <span className="sm:hidden">Error</span>
+            <span className="sm:hidden">Paste</span>
           </Link>
         </nav>
       </header>
