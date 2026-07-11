@@ -3,11 +3,29 @@ import { SiteChrome } from "@/components/SiteChrome";
 import { SITE_URL, structuredData } from "@/lib/seo";
 import "./globals.css";
 
+const siteDescription =
+  "Scan public Shopify product data and diagnose Google Merchant Center warnings across identifiers, titles, descriptions, links, images, prices, availability, and variant attributes.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "MerchantFix.ai | Shopify product data diagnostics",
-  description:
-    "Run a public Shopify surface scan and diagnose GTIN, MPN, brand, and identifier_exists issues from a Shopify CSV."
+  applicationName: "MerchantFix.ai",
+  title: {
+    default: "MerchantFix.ai | Shopify product data diagnostics",
+    template: "%s | MerchantFix.ai"
+  },
+  description: siteDescription,
+  openGraph: {
+    type: "website",
+    siteName: "MerchantFix.ai",
+    url: SITE_URL,
+    title: "MerchantFix.ai | Shopify product data diagnostics",
+    description: siteDescription
+  },
+  twitter: {
+    card: "summary",
+    title: "MerchantFix.ai | Shopify product data diagnostics",
+    description: siteDescription
+  }
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
